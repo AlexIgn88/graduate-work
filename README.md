@@ -1,3 +1,3 @@
 # graduate-work
-My graduate work
-Тут будет моя выпускная работа
+My graduate work:
+тут будет моя выпускная работа на React и Next.JS 
