@@ -2,9 +2,7 @@ import Head from "next/head";
 import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
 
-// import MainContainer from '../components/MainContainer.js';
-
-const MainContainer = ({ keywords, title, children }) => {
+export default function MainContainer({ keywords, title, children }) {
     return (
         <>
             <Head>
@@ -20,5 +18,3 @@ const MainContainer = ({ keywords, title, children }) => {
         </>
     );
 };
-
-export default MainContainer;
