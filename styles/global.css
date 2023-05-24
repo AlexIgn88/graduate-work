@@ -1,0 +1,10 @@
+body {
+    background-color: rgb(150, 233, 150);
+}
+
+.navbar {
+    list-style-type: none;
+    display: flex;
+    background: orange;
+    padding: 15px;
+}

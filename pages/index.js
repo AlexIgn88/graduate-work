@@ -1,14 +1,13 @@
-// import Head from 'next/head';
+import MainContainer from '../components/MainContainer.js';
 
-export default function App() {
+export default function Index() {
     return (
-        <>
-            {/* <Head>
-                <title>The table of JSONPlaceholder`s users</title>
-            </Head> */}
+        <MainContainer 
+        title={'Туристическое агентство'}
+        >
             <div>
                 <h1>Главная</h1>
             </div>
-        </>
+        </MainContainer>
     );
 }
