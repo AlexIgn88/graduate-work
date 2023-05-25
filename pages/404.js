@@ -1,13 +1,12 @@
-import MainContainer from '../components/MainContainer.js';
+import Head from "next/head";
 
 export default function ErrorPage() {
-    return (
-        <MainContainer
-        title={'Страница не найдена'}
-        >
-            <div>
-                <h1>Страница не найдена</h1>
-            </div>
-        </MainContainer>
-    );
+    return <>
+        <Head>
+            <title>Страница не найдена</title>
+        </Head>
+        <div>
+            <h1>Страница не найдена</h1>
+        </div>
+    </>
 }

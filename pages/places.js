@@ -1,13 +1,12 @@
-import MainContainer from '../components/MainContainer.js';
+import Head from "next/head";
 
 export default function PlacesPage() {
-    return (
-        <MainContainer
-        title={'Места'}
-        >
-            <div>
-                <h1>Места</h1>
-            </div>
-        </MainContainer>
-    );
+    return <>
+        <Head>
+            <title>Места</title>
+        </Head>
+        <div>
+            <h1>Места</h1>
+        </div>
+    </>
 }

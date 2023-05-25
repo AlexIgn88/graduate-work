@@ -1,13 +1,12 @@
-import MainContainer from '../components/MainContainer.js';
+import Head from "next/head";
 
 export default function HomePage() {
-    return (
-        <MainContainer 
-        title={'Туристическое агентство'}
-        >
-            <div>
-                <h1>Главная</h1>
-            </div>
-        </MainContainer>
-    );
+    return <>
+        <Head>
+            <title>Туристическое агентство</title>
+        </Head>
+        <div>
+            <h1>Главная</h1>
+        </div>
+    </>
 }

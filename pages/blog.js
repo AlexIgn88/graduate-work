@@ -1,13 +1,12 @@
-import MainContainer from '../components/MainContainer.js';
+import Head from "next/head";
 
 export default function BlogPage() {
-    return (
-        <MainContainer
-        title={'Блог'}
-        >
-            <div>
-                <h1>Блог</h1>
-            </div>
-        </MainContainer>
-    );
+    return <>
+        <Head>
+            <title>Блог</title>
+        </Head>
+        <div>
+            <h1>Блог</h1>
+        </div>
+    </>
 }

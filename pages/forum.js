@@ -1,13 +1,12 @@
-import MainContainer from '../components/MainContainer.js';
+import Head from "next/head";
 
 export default function ForumPage() {
-    return (
-        <MainContainer
-        title={'Форум'}
-        >
-            <div>
-                <h1>Форум</h1>
-            </div>
-        </MainContainer>
-    );
+    return <>
+        <Head>
+            <title>Форум</title>
+        </Head>
+        <div>
+            <h1>Форум</h1>
+        </div>
+    </>
 }

@@ -1,13 +1,13 @@
-import MainContainer from '../components/MainContainer.js';
+import Head from "next/head";
 
 export default function AboutPage() {
-    return (
-        <MainContainer
-        title={'О нас'}
-        >
-            <div>
-                <h1>О нас</h1>
-            </div>
-        </MainContainer>
-    );
+    return <>
+        <Head>
+            <title>О нас</title>
+        </Head>
+        <div>
+            <h1>О нас</h1>
+        </div>
+    </>
+
 }

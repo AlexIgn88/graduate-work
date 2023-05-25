@@ -1,7 +1,9 @@
-import Nav from '../components/Nav.js';
+import Navbar from '../components/Navbar.js';
 
 export default function Header(){
     return <header>
-        <Nav/>
+        <Navbar />
+        {/* тут будет форма залогина */}       
+        {/* тут будет форма регистрации */}
     </header>
 }

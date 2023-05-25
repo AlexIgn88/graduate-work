@@ -1,13 +1,12 @@
-import MainContainer from '../components/MainContainer.js';
+import Head from "next/head";
 
 export default function StorePage() {
-    return (
-        <MainContainer
-        title={'Интернет-магазин'}
-        >
-            <div>
-                <h1>Интернет-магазин</h1>
-            </div>
-        </MainContainer>
-    );
+    return <>
+        <Head>
+            <title>Интернет-магазин</title>
+        </Head>
+        <div>
+            <h1>Интернет-магазин</h1>
+        </div>
+    </>
 }
