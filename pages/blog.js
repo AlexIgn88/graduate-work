@@ -1,6 +1,6 @@
 import MainContainer from '../components/MainContainer.js';
 
-export default function Blog() {
+export default function BlogPage() {
     return (
         <MainContainer
         title={'Блог'}

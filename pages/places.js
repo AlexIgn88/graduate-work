@@ -1,6 +1,6 @@
 import MainContainer from '../components/MainContainer.js';
 
-export default function Places() {
+export default function PlacesPage() {
     return (
         <MainContainer
         title={'Места'}

@@ -1,6 +1,6 @@
 import MainContainer from '../components/MainContainer.js';
 
-export default function Error() {
+export default function ErrorPage() {
     return (
         <MainContainer
         title={'Страница не найдена'}

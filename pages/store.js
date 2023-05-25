@@ -1,6 +1,6 @@
 import MainContainer from '../components/MainContainer.js';
 
-export default function Store() {
+export default function StorePage() {
     return (
         <MainContainer
         title={'Интернет-магазин'}

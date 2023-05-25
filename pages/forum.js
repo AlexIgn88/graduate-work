@@ -1,6 +1,6 @@
 import MainContainer from '../components/MainContainer.js';
 
-export default function Forum() {
+export default function ForumPage() {
     return (
         <MainContainer
         title={'Форум'}

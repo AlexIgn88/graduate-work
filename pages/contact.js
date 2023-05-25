@@ -1,6 +1,6 @@
 import MainContainer from '../components/MainContainer.js';
 
-export default function Contact() {
+export default function ContactPage() {
     return (
         <MainContainer
         title={'Контакты'}

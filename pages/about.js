@@ -1,6 +1,6 @@
 import MainContainer from '../components/MainContainer.js';
 
-export default function About() {
+export default function AboutPage() {
     return (
         <MainContainer
         title={'О нас'}

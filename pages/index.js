@@ -1,6 +1,6 @@
 import MainContainer from '../components/MainContainer.js';
 
-export default function Index() {
+export default function HomePage() {
     return (
         <MainContainer 
         title={'Туристическое агентство'}
