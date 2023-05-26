@@ -4,8 +4,8 @@ import Link from "next/link";
 export default function PlacesPage() {
     let places = [
         { id: '1', name: 'Крым', path: 'crimea', img: '/img/places/Crimea.jpg' },
-        { id: '2', name: 'Карелия', path: 'kamchatka', img: '/img/places/Karelia.jpg' },
-        { id: '3', name: 'Камчатка', path: 'karelia', img: '/img/places/Kamchatka.jpg' },
+        { id: '2', name: 'Карелия', path: 'karelia', img: '/img/places/Karelia.jpg' },
+        { id: '3', name: 'Камчатка', path: 'kamchatka', img: '/img/places/Kamchatka.jpg' },
         { id: '4', name: 'Красоты земли Воронежской', path: 'voronezh-land', img: '/img/places/Voronezh-land.jpg' },
         { id: '5', name: 'Тестовая карточка', path: 'test', img: null }
     ];
