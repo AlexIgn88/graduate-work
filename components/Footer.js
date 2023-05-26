@@ -1,6 +1,6 @@
 export default function Footer() {
     return <footer>
         <hr />
-        footer
+        Copyright ©{new Date().getFullYear()} All rights reserved
     </footer>
 }

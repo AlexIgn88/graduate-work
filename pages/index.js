@@ -5,7 +5,7 @@ export default function HomePage() {
         <Head>
             <title>Туристическое агентство "Исторические маршруты и заповедные места"</title>
         </Head>
-        <div>
+        <div className="main">
             <h1>Главная</h1>
         </div>
     </>
