@@ -1,15 +1,17 @@
-import Link from "next/link";
+import pages from '../components/pages'
+import Login from '../components/login'
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 
 export default function Navbar() {
+    const router = useRouter();
+    const { data: session } = useSession();
     return <nav>
         <ul className="navbar">
-            <Link href="/" className="link">Главная</Link>
-            <Link href="/about" className="link">О нас</Link>
-            <Link href="/places" className="link">Места</Link>
-            <Link href="/blog" className="link">Блог</Link>
-            <Link href="/forum" className="link">Форум</Link>
-            <Link href="/store" className="link">Интернет-магазин</Link>
-            <Link href="/contact" className="link">Контакты</Link>
+            {pages.filter(page => page?.test ? page.test(session) : true).map(({ name, src }) => <li key={name} className={router.pathname === src ? 'active' : ''}>
+                <Link href={src} className="link">{name}</Link></li>)}
+            <li><Login /></li>
         </ul>
-    </nav>
+    </nav>;
 }
