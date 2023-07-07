@@ -1,5 +1,5 @@
-import pages from '../components/pages'
-import Login from '../components/login'
+import pages from '../components/pages';
+import Login from '../components/login';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
