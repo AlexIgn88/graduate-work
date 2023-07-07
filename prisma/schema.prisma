@@ -31,7 +31,8 @@ model Account {
   session_state            String?
   refresh_token_expires_in Int?
   client_id String? // 
-
+  email             String?
+  user_id           Int?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 

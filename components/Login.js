@@ -1,19 +1,14 @@
-import { useContext } from 'react';
-import DataContext from '../components/dataContext.js';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 export default function Login() {
-  const { user } = useContext(DataContext);
-  return <form method="post" className='login-form'>Для входа введите свой логин и пароль
-    {user
-      ? <>
-        <h2>Hello, {user.realname}</h2>
-      </>
-      : <>
-        <label>Имя<input name="username" /></label>
-        <label>Пароль<input name="psw" type="password" /></label>
-      </>
-    }
-    <input type="hidden" name="action" value={user ? 'logout' : 'login'} />
-    <input type="submit" value={user ? 'Разлогиниться' : 'Залогиниться'} className="" />
-  </form>;
-} 
+    const { data: session } = useSession();
+    if (session)
+        return <>
+            {session?.user?.image && <img src={session?.user?.image || ''} width={32} height={32} alt="ava" />}
+            {session?.user?.name}
+            <button onClick={() => signOut()}>Выйти</button>
+        </>;
+    return <>
+        <button onClick={() => signIn()}>Войти</button>
+    </>;
+}
