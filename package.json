@@ -8,7 +8,8 @@
     "build": "prisma generate && prisma db push && next build",
     "start": "next start",
     "lint": "next lint",
-    "autofix": "pnpm eslint --fix \"./**/*.{js,jsx,ts,tsx*}\""
+    "autofix": "pnpm eslint --fix \"./**/*.{js,jsx,ts,tsx*}\"",
+    "postinstall": "prisma generate"
   },
   "keywords": [],
   "author": "",
