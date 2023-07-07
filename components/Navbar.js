@@ -9,7 +9,7 @@ export default function Navbar() {
     const { data: session } = useSession();
     return <nav>
         <ul className="navbar">
-            {pages.filter(page => page?.test ? page.test(session) : true).map(({ name, src }) => <li key={name} className={router.pathname === src ? 'active' : ''}>
+            {pages.filter(page => page?.restricted ? page.restricted(session) : true).map(({ name, src }) => <li key={name} className={router.pathname === src ? 'active' : ''}>
                 <Link href={src} className="link">{name}</Link></li>)}
             {/* <li><Login /></li> */}
         </ul>
