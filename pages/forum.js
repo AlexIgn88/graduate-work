@@ -14,14 +14,27 @@ export default function ForumPage() {
         </Head>
         <div className="forum-page">
             <h1>Форум</h1>
-            <ul>
-                {topics.map((topic) => (
-                    <li key={topic.id}>
-                        <h2>{topic.title}</h2>
-                        <p>Автор: {topic.author}</p>
-                    </li>
-                ))}
-            </ul>
+            <div className="topics">
+                <h1>Темы</h1>
+                <div className="topics-div">
+                    {topics.map((topic) => (
+                        <div key={topic.id}>
+                            <h3>{topic.title}</h3>
+                            <p>Автор: {topic.author}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+            <div className="additional-information">
+                <h2>Дополнительная информация</h2>
+                <div className="additional-information-div">
+                    <div>Посетители: 2</div>
+                    <div>
+                        Статистика форума: создано 3 темы, в которые добавлено 0 ответов зарегистрировано 2 участника.
+                        Приветствуем нового участника Имярек
+                    </div>
+                </div>
+            </div>
         </div>
     </>
 }

@@ -141,11 +141,26 @@ header nav {
 .error-page {
     margin-top: 50px;
     margin-left: 30px;
+    margin-right: 20px;
+    margin-bottom: 30px;
 }
 
 /* .places-page {
     background-color: rgb(255, 183, 87);
 } */
+
+.forum-page {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.topics,
+.additional-information {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 30px;
+}
 
 .cards {
     list-style-type: none;
