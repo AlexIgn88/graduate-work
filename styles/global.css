@@ -7,12 +7,14 @@ main {
 
 /*временно - для того, чтобы футер на страничке /myaccount был в самом низу*/
 .myaccount {
-    height: 200%; 
+    height: 200%;
 }
 
 body {
-    background-color: rgb(150, 233, 150);
+    /* background-color: rgb(150, 233, 150); */
+    background-color: rgb(255, 183, 87);
     margin: 0px;
+    font-family: sans-serif;
 }
 
 header {
@@ -31,9 +33,11 @@ header nav {
 }
 
 .navbar {
-    list-style-type: none;
     display: flex;
+    align-items: center;
+    flex-wrap: wrap;
     padding: 15px;
+    list-style-type: none;
 }
 
 .navbar .active {
@@ -83,14 +87,28 @@ header nav {
 }
 
 main {
-    margin-top: 100px;
+    margin-top: 70px;
 }
 
 
-.main {
+.home-page {
     background-image: url("/img/HomePage/background.jpg");
     background-size: cover;
-    height: 80vh;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    justify-content: flex-start;
+}
+
+.home-page-title {
+    color: white;
+    /* font-size: xxx-large; */
+    font-size: 70px;
+    font-weight: bold;
+    font-family: monospace;
+    margin-left: 150px;
+    margin-bottom: 150px;
 }
 
 .cards {
@@ -125,4 +143,28 @@ footer p {
     font-size: 14px;
     /* color: #888; */
     color: #010101;
+}
+
+@media (max-width: 850px) {
+    header {
+        display: block;
+    }
+
+    .home-page-title {
+        margin-left: 80px;
+        font-size: 60px;
+    }
+}
+
+@media (max-width: 500px) {
+    .navbar {
+        display: block;
+    }
+
+    .home-page-title {
+        margin-left: 80px;
+        font-size: 40px;
+        margin-left: 15px;
+        margin-bottom: -50px;
+    }
 }

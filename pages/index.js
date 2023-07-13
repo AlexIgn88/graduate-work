@@ -3,10 +3,16 @@ import Head from "next/head";
 export default function HomePage() {
     return <>
         <Head>
-            <title>Исторические маршруты и заповедные места</title>
+            <title>Туристическое агентство "Исторические маршруты и заповедные места"</title>
         </Head>
-        <div className="main">
-            <h1>Туристическое агентство "Исторические маршруты и заповедные места"</h1>
+        <div className="home-page">
+            <div>
+                {/* <span className="home-page-title">ИСТОРИЧЕСКИЕ МАРШРУТЫ <br /> <br /> ЗАПОВЕДНЫЕ МЕСТА</span> */}
+                <div className="home-page-title">
+                    <div>ИСТОРИЧЕСКИЕ МАРШРУТЫ</div>
+                    <div>ЗАПОВЕДНЫЕ МЕСТА</div>
+                </div>
+            </div>
         </div>
     </>
 }

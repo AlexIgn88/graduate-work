@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 
 export default function Layout({ children }) {
 
-// временно - для того, чтобы футер на страничке /myaccount был в самом низу
+    // временно - для того, чтобы футер на страничке /myaccount был в самом низу
     const router = useRouter();
 
     console.log('router.pathname=', router.pathname);
