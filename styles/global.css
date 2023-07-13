@@ -85,7 +85,8 @@ header nav {
 }
 
 .login-button {
-    background-color: #4CAF50;
+    /* background-color: #4CAF50; */
+    background-color: rgb(40, 28, 21);
     color: white;
     padding: 10px 20px;
     border: none;
@@ -95,11 +96,15 @@ header nav {
 }
 
 .login-button:hover {
-    background-color: #45a049;
+    /* background-color: #45a049; */
+    background-color: rgb(26, 18, 14);
 }
 
 .login-button:active {
-    background-color: #307b34;
+    /* background-color: #307b34; */
+    /* background-color: rgb(7, 5, 4); */
+    background-color: black;
+    border: solid black;
 }
 
 .home-page {
