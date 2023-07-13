@@ -9,7 +9,7 @@ const pages: page[] = [
   { name: 'Интернет-магазин', src: '/store' },
   { name: 'Контакты', src: '/contact' },
   { name: 'Мой аккаунт', src: '/myaccount', restricted(session) { return !!session; } },
-  { name: 'Админ', src: '/admin', restricted(session) { return 'admin' === session?.user?.role; } }
+  { name: 'Админ-панель', src: '/adminpanel', restricted(session) { return 'admin' === session?.user?.role; } }
 ];
 
 export default pages;

@@ -1,17 +1,19 @@
 :root,
 body,
-#__next,
-main {
+#__next {
     height: 100%;
 }
 
-/*временно - для того, чтобы футер на страничке /myaccount был в самом низу*/
-.myaccount {
-    height: 200%;
+#__next {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex-grow: 1;
 }
 
 body {
-    /* background-color: rgb(150, 233, 150); */
     background-color: rgb(255, 183, 87);
     margin: 0px;
     font-family: sans-serif;

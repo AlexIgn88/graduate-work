@@ -9,7 +9,7 @@ const
     { fetcher: (...keys) => fetch(keys.join('')).then(r => r.json()), }),
   $users = createFetcherStore(['/api/admin/users']);
 
-export default function Admin() {
+export default function AdminPanel() {
   const
     { data: rows, loading, error } = useStore($users);
 
