@@ -5,7 +5,7 @@ export default function ErrorPage() {
         <Head>
             <title>Страница не найдена</title>
         </Head>
-        <div>
+        <div className="error-page">
             <h1>Страница не найдена</h1>
         </div>
     </>

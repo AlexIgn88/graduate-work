@@ -5,7 +5,7 @@ export default function StorePage() {
         <Head>
             <title>Интернет-магазин</title>
         </Head>
-        <div>
+        <div className="store-page">
             <h1>Интернет-магазин</h1>
         </div>
     </>

@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useSession, signIn } from 'next-auth/react';
 import { nanoquery } from '@nanostores/query';
 import { useStore } from '@nanostores/react';
@@ -23,14 +24,18 @@ export default function MyAccount() {
   // let keys = Object.keys(a || {});
   // console.log(keys);
 
-  return <div className='user-accout'>
-    <button onClick={() => signIn()}>Добавить аккаунт</button>
-    <h3>frontend:</h3>
-    <pre>{JSON.stringify(sessionHookResult, null, '\t')}</pre>
-    <h3>backend:</h3>
-    <pre>{JSON.stringify(storeHookResult, null, '\t')}</pre>
+  return <>
+    <Head>
+      <title>Мой аккаунт</title>
+    </Head>
+    <div className='account-page'>
+      <button onClick={() => signIn()}>Добавить аккаунт</button>
+      <h3>frontend:</h3>
+      <pre>{JSON.stringify(sessionHookResult, null, '\t')}</pre>
+      <h3>backend:</h3>
+      <pre>{JSON.stringify(storeHookResult, null, '\t')}</pre>
 
-    {/* {    <h3>frontend:</h3>
+      {/* {    <h3>frontend:</h3>
     <div className='user-frontend'>
       <div>Пользователь: {sessionHookResult.data?.user?.name}</div>
       <div>email: {sessionHookResult.data?.user?.email || 'Не указан'}</div>
@@ -40,7 +45,7 @@ export default function MyAccount() {
       <div>role: {sessionHookResult.data?.user?.role}</div>
     </div>} */}
 
-    {/* <h3>backend:</h3>
+      {/* <h3>backend:</h3>
     <div>{JSON.stringify(storeHookResult, null, '\t')}</div>
     <div>{JSON.stringify(storeHookResult.data?.accouts, null, '\t')}</div>
 
@@ -64,7 +69,8 @@ export default function MyAccount() {
 
 
 
-  </div>;
+    </div>;
+  </>
 }
 
 /* eslint-enable */

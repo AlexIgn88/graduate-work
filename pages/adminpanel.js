@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { nanoquery } from '@nanostores/query';
 import { useStore } from '@nanostores/react';
 
@@ -17,15 +18,20 @@ export default function AdminPanel() {
   console.log('storeHookResult=', storeHookResult);
 
   return <>
-    <h1>admin</h1>
-    {/* {Array.isArray(rows) && <EditableTable {...{ columns, rows }} />} */}
-    
-    <div className='user-accout'>
-      {/* <button onClick={() => signIn()}>Добавить аккаунт</button> */}
-      {/* <h3>frontend:</h3>
-      <pre>{JSON.stringify(sessionHookResult, null, '\t')}</pre> */}
-      <h3>backend:</h3>
-      <pre>{JSON.stringify(storeHookResult, null, '\t')}</pre>
-    </div>;
+    <Head>
+      <title>Админ-панель</title>
+    </Head>
+    <div className="admin-page">
+      <h1>admin</h1>
+      {/* {Array.isArray(rows) && <EditableTable {...{ columns, rows }} />} */}
+
+      <div className='user-accout'>
+        {/* <button onClick={() => signIn()}>Добавить аккаунт</button> */}
+        {/* <h3>frontend:</h3>
+        <pre>{JSON.stringify(sessionHookResult, null, '\t')}</pre> */}
+        <h3>backend:</h3>
+        <pre>{JSON.stringify(storeHookResult, null, '\t')}</pre>
+      </div>
+    </div>
   </>;
 }

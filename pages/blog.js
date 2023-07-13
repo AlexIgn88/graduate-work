@@ -11,7 +11,7 @@ export default function BlogPage() {
         <Head>
             <title>Блог</title>
         </Head>
-        <div>
+        <div className="blog-page">
             <h1>Блог</h1>
             <ol className="cards">
                 {articles.map(article => (

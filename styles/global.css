@@ -10,7 +10,8 @@ body,
 }
 
 body {
-    background-color: rgb(255, 183, 87);
+    /* background-color: rgb(255, 183, 87); */
+
     /* background-image: url("/img/HomePage/background.jpg");
     background-size: cover;
 
@@ -129,6 +130,19 @@ header nav {
     margin-bottom: 150px;
 }
 
+.about-page,
+.places-page,
+.blog-page,
+.forum-page,
+.store-page,
+.contacts-page,
+.account-page,
+.admin-page,
+.error-page {
+    margin-top: 50px;
+    margin-left: 30px;
+}
+
 /* .places-page {
     background-color: rgb(255, 183, 87);
 } */
@@ -173,9 +187,22 @@ footer p {
     margin-top: 70px;
 }
 
-@media (max-width: 850px) {
+/* @media (max-width: 850px) */
+@media (max-width: 1240px) {
     header {
         display: block;
+    }
+
+    .about-page,
+    .places-page,
+    .blog-page,
+    .forum-page,
+    .store-page,
+    .contacts-page,
+    .account-page,
+    .admin-page,
+    .error-page {
+        margin-top: 100px;
     }
 
     .home-page-title {
