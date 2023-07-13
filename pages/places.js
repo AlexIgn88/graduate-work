@@ -16,7 +16,7 @@ export default function PlacesPage() {
         <Head>
             <title>Места</title>
         </Head>
-        <div>
+        <div className="places-page">
             <h1>Места</h1>
             <ol className="cards">
                 {places.map(place => (
