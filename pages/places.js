@@ -6,17 +6,14 @@ export default function PlacesPage() {
         { id: '1', name: 'Крым', path: 'crimea', img: '/img/places/Crimea.jpg' },
         { id: '2', name: 'Карелия', path: 'karelia', img: '/img/places/Karelia.jpg' },
         { id: '3', name: 'Камчатка', path: 'kamchatka', img: '/img/places/Kamchatka.jpg' },
-        { id: '4', name: 'Красоты земли Воронежской', path: 'voronezh-land', img: '/img/places/Voronezh-land.jpg' },
-        // { id: '5', name: 'Тестовая карточка', path: 'test', img: null }
+        { id: '4', name: 'Красоты земли Воронежской', path: 'voronezh-land', img: '/img/places/Voronezh-land.jpg' }
     ];
-
-    // console.log(places.length);
 
     return <>
         <Head>
             <title>Места</title>
         </Head>
-        <div className="places-page">
+        <div className="page places-page">
             <h1>Места</h1>
             <ol className="cards">
                 {places.map(place => (

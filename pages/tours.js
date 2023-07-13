@@ -1,11 +1,11 @@
 import Head from "next/head";
 
-export default function StorePage() {
+export default function ToursPage() {
     return <>
         <Head>
             <title>Заказать тур</title>
         </Head>
-        <div className="tours-page">
+        <div className="page tours-page">
             <h1>Заказать тур</h1>
         </div>
     </>

@@ -5,7 +5,7 @@ export default function ContactsPage() {
         <Head>
             <title>Контакты</title>
         </Head>
-        <div className="contacts-page">
+        <div className="page contacts-page">
             <h1>Контакты</h1>
             <p>Свяжитесь с нами, чтобы узнать больше о наших турах и услугах.</p>
             <div className="contact-info">

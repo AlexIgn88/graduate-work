@@ -12,7 +12,7 @@ export default function ForumPage() {
         <Head>
             <title>Форум</title>
         </Head>
-        <div className="forum-page">
+        <div className="page forum-page">
             <h1>Форум</h1>
             <div className="topics">
                 <h1>Темы</h1>

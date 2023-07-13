@@ -5,7 +5,7 @@ export default function AboutPage() {
         <Head>
             <title>О нас</title>
         </Head>
-        <div className="about-page">
+        <div className="page about-page">
             <h1>О нас</h1>
             <h2>Туристическое агентство "Исторические маршруты и заповедные места"</h2>
             <p>Добро пожаловать на сайт "Исторические маршруты и заповедные места"! Мы - туристическое агентство,

@@ -21,7 +21,7 @@ export default function AdminPanel() {
     <Head>
       <title>Админ-панель</title>
     </Head>
-    <div className="admin-page">
+    <div className="page admin-page">
       <h1>admin</h1>
       {/* {Array.isArray(rows) && <EditableTable {...{ columns, rows }} />} */}
 

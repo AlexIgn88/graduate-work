@@ -28,7 +28,7 @@ export default function MyAccount() {
     <Head>
       <title>Мой аккаунт</title>
     </Head>
-    <div className='account-page'>
+    <div className='page account-page'>
       <button onClick={() => signIn()}>Добавить аккаунт</button>
       <h3>frontend:</h3>
       <pre>{JSON.stringify(sessionHookResult, null, '\t')}</pre>
