@@ -1,4 +1,6 @@
-const pages = [
+import { page } from '../datatypes/types'
+
+const pages: page[] = [
   { name: 'Главная', src: '/' },
   { name: 'О нас', src: '/about' },
   { name: 'Места', src: '/places' },
@@ -6,8 +8,8 @@ const pages = [
   { name: 'Форум', src: '/forum' },
   { name: 'Интернет-магазин', src: '/store' },
   { name: 'Контакты', src: '/contact' },
-  { name: 'Мой аккаунт', src: '/myaccount', restricted(session: any) { return !!session; } },
-  { name: 'Админ', src: '/admin', restricted(session:any) { return 'admin'===session?.user?.role; } }
+  { name: 'Мой аккаунт', src: '/myaccount', restricted(session) { return !!session; } },
+  { name: 'Админ', src: '/admin', restricted(session) { return 'admin' === session?.user?.role; } }
 ];
 
 export default pages;
