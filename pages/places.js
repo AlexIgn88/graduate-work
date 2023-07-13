@@ -7,7 +7,7 @@ export default function PlacesPage() {
         { id: '2', name: 'Карелия', path: 'karelia', img: '/img/places/Karelia.jpg' },
         { id: '3', name: 'Камчатка', path: 'kamchatka', img: '/img/places/Kamchatka.jpg' },
         { id: '4', name: 'Красоты земли Воронежской', path: 'voronezh-land', img: '/img/places/Voronezh-land.jpg' },
-        { id: '5', name: 'Тестовая карточка', path: 'test', img: null }
+        // { id: '5', name: 'Тестовая карточка', path: 'test', img: null }
     ];
 
     // console.log(places.length);

@@ -1,6 +1,9 @@
 export default function Footer() {
-    return <footer>
-        <hr />
-        Copyright ©{new Date().getFullYear()} All rights reserved
-    </footer>
-}
+    return (
+        <footer>
+            <p>
+                © {new Date().getFullYear()} Туристическое агентство "Исторические маршруты и заповедные места". Все права защищены.
+            </p>
+        </footer>
+    );
+};

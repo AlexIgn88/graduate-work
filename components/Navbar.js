@@ -1,5 +1,4 @@
 import pages from '../components/pages';
-// import Login from '../components/Login';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
@@ -9,9 +8,16 @@ export default function Navbar() {
     const { data: session } = useSession();
     return <nav>
         <ul className="navbar">
-            {pages.filter(page => page?.restricted ? page.restricted(session) : true).map(({ name, src }) => <li key={name} className={router.pathname === src ? 'active' : ''}>
-                <Link href={src} className="link">{name}</Link></li>)}
-            {/* <li><Login /></li> */}
+            {pages.filter(page => page?.restricted
+                ? page.restricted(session)
+                : true)
+                .map(({ name, src }) =>
+                    <li key={name} className={router.pathname === src
+                        ? 'active'
+                        : ''}>
+                        <Link href={src} className="link">{name}</Link>
+                    </li>
+                )}
         </ul>
     </nav>;
 }

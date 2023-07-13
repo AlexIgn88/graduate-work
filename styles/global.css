@@ -1,22 +1,18 @@
+:root,
+body,
+#__next,
+main {
+    height: 100%;
+}
+
+/*временно - для того, чтобы футер на страничке /myaccount был в самом низу*/
+.myaccount {
+    height: 200%; 
+}
+
 body {
     background-color: rgb(150, 233, 150);
-}
-
-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-nav {
-    flex-grow: 1;
-}
-
-.navbar {
-    list-style-type: none;
-    display: flex;
-    /* background: orange; */
-    padding: 15px;
+    margin: 0px;
 }
 
 header {
@@ -25,19 +21,53 @@ header {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    position: fixed;
+    top: 0px;
+    width: 100%;
 }
 
-.account-info {
-    position: absolute;
-    right: 120px;
+header nav {
+    flex-grow: 1;
+}
+
+.navbar {
+    list-style-type: none;
+    display: flex;
+    padding: 15px;
+}
+
+.navbar .active {
+    background-color: red;
+}
+
+.link {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    margin: 10px;
+}
+
+.login-account-info,
+.login-username {
+    margin: 15px;
+}
+
+.login-account-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.login-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
 }
 
 .login-button {
-    position: absolute;
-    right: 30px;
-    padding: 10px 20px;
     background-color: #4CAF50;
     color: white;
+    padding: 10px 20px;
     border: none;
     border-radius: 5px;
     font-size: 16px;
@@ -48,12 +78,14 @@ header {
     background-color: #45a049;
 }
 
-.link {
-    text-decoration: none;
-    color: white;
-    font-size: 20px;
-    margin: 10px;
+.login-button:active {
+    background-color: #307b34;
 }
+
+main {
+    margin-top: 100px;
+}
+
 
 .main {
     background-image: url("/img/HomePage/background.jpg");
@@ -80,4 +112,17 @@ header {
 .card-img {
     height: 300px;
     width: 500px;
+}
+
+footer {
+    /* background-color: #f2f2f2; */
+    background-color: rgb(21, 244, 21);
+    padding: 20px;
+    text-align: center;
+}
+
+footer p {
+    font-size: 14px;
+    /* color: #888; */
+    color: #010101;
 }
