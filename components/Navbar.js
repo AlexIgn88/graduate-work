@@ -2,6 +2,7 @@ import pages from '../components/pages';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
+import Login from '../components/Login';
 
 export default function Navbar() {
     const router = useRouter();
@@ -18,6 +19,7 @@ export default function Navbar() {
                         <Link href={src} className="link">{name}</Link>
                     </li>
                 )}
+                <li><Login /></li>
         </ul>
     </nav>;
 }
