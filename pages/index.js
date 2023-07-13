@@ -7,7 +7,6 @@ export default function HomePage() {
         </Head>
         <div className="home-page">
             <div>
-                {/* <span className="home-page-title">ИСТОРИЧЕСКИЕ МАРШРУТЫ <br /> <br /> ЗАПОВЕДНЫЕ МЕСТА</span> */}
                 <div className="home-page-title">
                     <div>ИСТОРИЧЕСКИЕ МАРШРУТЫ</div>
                     <div>ЗАПОВЕДНЫЕ МЕСТА</div>
