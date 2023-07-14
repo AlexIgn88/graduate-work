@@ -42,7 +42,8 @@ export default function ForumPage() {
             <title>Форум</title>
         </Head>
         <div className="page forum-page">
-            <div>Добро пожаловать на наш форум, {session?.user?.name}!</div>
+            {/* {session?.user && <div>Добро пожаловать на наш форум, {session?.user?.name}!</div>} */}
+            <div>Добро пожаловать на наш форум, {session?.user ? session?.user?.name : 'Гость'}!</div>
             <h1>Форум</h1>
             <div className="topics">
                 <h2>Темы для обсуждения</h2>
