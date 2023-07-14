@@ -42,7 +42,8 @@ export default function TopicPage() {
             <title>Тема</title>
         </Head>
         <div className="page topic-page">
-            <h1>Тема '{topicTitle}' c номером '{topicId}'</h1>
+            <h1>Тема: {topicTitle} </h1>
+            <h1>Номер темы: {topicId} </h1>
             {error && <>Error={error}</>}
             {Array.isArray(posts) && posts.map((post) => (
                 <div className="post" key={post.id}>

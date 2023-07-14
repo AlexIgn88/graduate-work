@@ -12,6 +12,8 @@ body,
 body {
     margin: 0px;
     font-family: sans-serif;
+    /* background-color: rgb(215, 150, 112); */
+    background-color: rgb(248, 225, 131);
 }
 
 main {
@@ -46,6 +48,7 @@ header nav {
 
 .navbar .active {
     background-color: rgb(40, 28, 21);
+    border-radius: 5px;
 }
 
 .link {
@@ -233,6 +236,104 @@ footer p {
         margin-left: 15px;
         margin-bottom: -50px;
     }
+}
+
+table.admin-panel {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.admin-panel thead th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.admin-panel tr:hover {
+    background-color: #f5f5f5;
+}
+
+.admin-panel th,
+.admin-panel td {
+    padding: 5px;
+    padding-left: 15px;
+    border: 1px solid black;
+    border-bottom: 1px solid #ddd;
+}
+
+.add-user-row td {
+    border-bottom: 1px solid black;
+}
+
+td.td-role {
+    padding-left: 5px;
+}
+
+.add-user-row td,
+td.td-role {
+    text-align: center;
+}
+
+.admin-panel button {
+    height: 25px;
+    width: 60px;
+    margin-right: 5px;
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.admin-panel button:hover {
+    background-color: #258028;
+}
+
+.admin-panel button:active {
+    background-color: #114312;
+}
+
+.admin-panel input,
+.admin-panel select {
+    border: 1px solid black;
+    border-radius: 3px;
+    text-align: center;
+}
+
+table.admin-panel .edit-button {
+    background-color: #2196F3;
+}
+
+table.admin-panel .delete-button {
+    background-color: #F44336;
+}
+
+table.admin-panel .edit-button:hover {
+    background-color: #1565a6;
+}
+
+table.admin-panel .delete-button:hover {
+    background-color: #9d261d;
+}
+
+table.admin-panel .edit-button:active {
+    background-color: #0f4571;
+}
+
+table.admin-panel .delete-button:active {
+    background-color: #6b1913;
+}
+
+.sort::after {
+    content: '▲';
+}
+
+.sort.desc::after {
+    content: '▼';
 }
 
 /* .spinner {
