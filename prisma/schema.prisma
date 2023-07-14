@@ -70,23 +70,24 @@ model VerificationToken {
 
 model Topic {
   id        Int      @id @default(autoincrement())
-  title     String
-  content   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  title     String?
+  content   String?
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
   userId    String
-  // userName  user.name
+  userName  String?
   user      User     @relation(fields: [userId], references: [id])
   posts     Post[]
 }
 
 model Post {
   id        Int      @id @default(autoincrement())
-  content   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  content   String?
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
   userId    String
-  // userName  String
+  userName  String?
+  // topicName String?
   user      User     @relation(fields: [userId], references: [id])
   topic     Topic    @relation(fields: [topicId], references: [id])
   topicId   Int
