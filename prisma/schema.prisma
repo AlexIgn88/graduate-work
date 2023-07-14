@@ -32,7 +32,7 @@ model Account {
   refresh_token_expires_in Int?
   client_id                String? // 
   email                    String? // чтобы заработал vk-провайдер
-  user_id                  Int?    // чтобы заработал vk-провайдер
+  user_id                  Int? // чтобы заработал vk-провайдер
   user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
@@ -56,7 +56,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   topics        Topic[]
-  messages      Message[]
+  posts         Post[]
   orders        Order[]
 }
 
@@ -69,27 +69,30 @@ model VerificationToken {
 }
 
 model Topic {
-  id        Int       @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   title     String
   content   String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   userId    String
-  user      User      @relation(fields: [userId], references: [id])
-  messages  Message[]
+  // userName  user.name
+  user      User     @relation(fields: [userId], references: [id])
+  posts     Post[]
 }
 
-model Message {
+model Post {
   id        Int      @id @default(autoincrement())
   content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   userId    String
+  // userName  String
   user      User     @relation(fields: [userId], references: [id])
   topic     Topic    @relation(fields: [topicId], references: [id])
   topicId   Int
 }
 
+//позже продумать лучше таблицы ИМа
 model Product {
   id        Int      @id @default(autoincrement())
   name      String
