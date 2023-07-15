@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Layout from '../components/Layout.js';
 import "../styles/global.css";
+import { Toaster } from 'react-hot-toast';
 
 // import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
@@ -18,6 +19,7 @@ export default function MyApp({ Component,
     <SessionProvider session={session}>
       <Layout>
         <Component {...pageProps} />
+        <Toaster position="top-right" />
       </Layout>
     </SessionProvider>
   </>
