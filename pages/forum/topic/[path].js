@@ -39,7 +39,7 @@ export default function TopicPage() {
 
     return (<>
         <Head>
-            <title>Тема</title>
+            <title>{topicTitle}</title>
         </Head>
         <div className="page topic-page">
             <h1>Тема: {topicTitle} </h1>
