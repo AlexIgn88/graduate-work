@@ -75,7 +75,7 @@ export default function getStores<objType extends rowObj>(apiPath: string, {
       (oldData, newVal) => [...oldData, newVal],
       Object.assign({}, options, { toastPromiseOptions: { loading: 'Inserting...' } })),
     delStore = getMutator<objType>('DELETE', ({ id }) => id,
-      (oldData, newVal) => oldData.filter(d => +newVal.id !== +d.id),
+      (oldData, newVal) => oldData.filter(d => newVal.id !== d.id),
       Object.assign({}, options, { toastPromiseOptions: { loading: 'Deleting...' } })),
     updateStore = getMutator<objType>('PUT', ({ id }) => id,
       (oldData, newVal) => oldData.map(d => +newVal.id === +d.id ? newVal : d),

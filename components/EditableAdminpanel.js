@@ -14,13 +14,13 @@ export default function EditableAdminpanel({ data, columns, onDelete, onAdd, onE
         [editUserId, setEditUserId] = useState(null),
 
         [addSelectsVal, setAddSelectsVal] = useState(''),
-        [editSelectsVal, setEditSelectsVal] = useState(''),
+        [editSelectsVal, setEditSelectsVal] = useState('');
 
-        newUser = {};
+    let newUser = {};
 
     // let viewData = data;
 
-    console.log('editUserId', editUserId);
+    // console.log('editUserId', editUserId);
 
     let viewData;
     Array.isArray(data) ? viewData = data : viewData = [];
@@ -120,13 +120,6 @@ export default function EditableAdminpanel({ data, columns, onDelete, onAdd, onE
                                                 onInput={evt => setEditInputsVal(editInputsVal.with(columN, evt.currentTarget.value))}
                                             />
                                             : getVal(user)
-
-
-
-
-
-
-
                                 }
                             </td>
                         ))}
@@ -154,6 +147,11 @@ export default function EditableAdminpanel({ data, columns, onDelete, onAdd, onE
                                     setEditSelectsVal(user.role);
                                 }}>edit</button>
                                 <button className="delete-button" onClick={() => {
+
+                                    newUser = user;
+
+                                    console.log(newUser);
+                                    // onDelete?.({ id: user.id });
                                     onDelete?.({ id: user.id });
                                 }}>delete</button>
                             </>
@@ -182,15 +180,15 @@ export default function EditableAdminpanel({ data, columns, onDelete, onAdd, onE
                                     {/* <option value="banned">banned</option> */}
                                 </select>
                                 // : setVal
-                                : 
-                                    // ? 
-                                    <input
-                                        name={name}
-                                        placeholder={name}
-                                        value={addInputsVal[columN]}
-                                        onInput={evt => setAddInputsVal(addInputsVal.with(columN, evt.currentTarget.value))}
-                                    />
-                                    // : ''
+                                :
+                                // ? 
+                                <input
+                                    name={name}
+                                    placeholder={name}
+                                    value={addInputsVal[columN]}
+                                    onInput={evt => setAddInputsVal(addInputsVal.with(columN, evt.currentTarget.value))}
+                                />
+                                // : ''
                             }</td>))}
                     <td><button onClick={() => {
                         // columns.forEach((col, columN) => (col?.setVal) && Object.assign(newUser, col.setVal(addInputsVal[columN])))

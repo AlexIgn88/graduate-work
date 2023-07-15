@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions);
   const { adminapi } = req.query,
     [table, id] = adminapi;
-  // console.debug('req.query=',req.query);
+  console.debug('req.query=', req.query);
   console.debug('>> ', req.method, ' запрос на', req.url, 'adminapi =', { table, id });
   if (req.body) console.log('req.body=', JSON.stringify(req.body));
 
@@ -32,13 +32,15 @@ export default async function handler(req, res) {
           case 'DELETE':
             return res.status(200).json(await prisma[table].delete({
               where: {
-                id: +id
+                // id: +id
+                id: id
               }
             }));
           case 'PUT':
             return res.status(200).json(await prisma[table].update({
               where: {
-                id: +id
+                // id: +id
+                id: id
               },
               data: Object.fromEntries([...new URLSearchParams(req.body).entries()].filter(([n]) => 'id' !== n))
             }));
