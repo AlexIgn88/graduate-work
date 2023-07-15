@@ -179,16 +179,16 @@ export default function EditableAdminpanel({ data, columns, onDelete, onAdd, onE
                                     <option value="moderator">moderator</option>
                                     {/* <option value="banned">banned</option> */}
                                 </select>
-                                // : setVal
-                                :
-                                // ? 
+                                : setVal
+                                // :
+                                ? 
                                 <input
                                     name={name}
                                     placeholder={name}
                                     value={addInputsVal[columN]}
                                     onInput={evt => setAddInputsVal(addInputsVal.with(columN, evt.currentTarget.value))}
                                 />
-                                // : ''
+                                : ''
                             }</td>))}
                     <td><button onClick={() => {
                         // columns.forEach((col, columN) => (col?.setVal) && Object.assign(newUser, col.setVal(addInputsVal[columN])))
