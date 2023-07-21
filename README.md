@@ -12,7 +12,8 @@
 
 **серверная часть API:** _этап создания, прогресс 50%._ 
 Работа с API форума на тестовом прототипе. Будут корректировки
-[Репозиторий тестового прототипа](https://github.com/AlexIgn88/rest-component-training)
+
+[Репозиторий тестового прототипа форума](https://github.com/AlexIgn88/rest-component-training)
 
 [Деплой на верселе тестового форума](https://rest-component-training.vercel.app/testforum)
 
