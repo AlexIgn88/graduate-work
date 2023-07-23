@@ -161,7 +161,7 @@ export default function ForumComponent({ data, mutate }) {
                         <div>Описание: {topic.content}</div>
                         <div>{topic.createdAt}</div>
                         <div>{topic.updatedAt}</div>
-                        <div>ID автора для отладки: {topic.userId}</div>
+                        {/* <div>ID автора для отладки: {topic.userId}</div> */}
 
                         <button onClick={async () => {
                             async function delTopic(id) {

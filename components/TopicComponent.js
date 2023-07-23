@@ -156,7 +156,7 @@ export default function TopicComponent({ data, mutate, topicId }) {
 
                     <div>{post.createdAt}</div>
                     <div>{post.updatedAt}</div>
-                    <div>ID автора для отладки: {post.userId}</div>
+                    {/* <div>ID автора для отладки: {post.userId}</div> */}
 
                     <button onClick={async () => {
                         async function delPost(id) {
