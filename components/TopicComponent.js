@@ -123,7 +123,7 @@ export default function TopicComponent({ data, mutate, topicId }) {
                                         // console.log('index=', data.posts.findIndex(elem => elem.id === post.id));
 
                                         return {
-                                            ...data //пока заглушка, не понял, как сделать тут с optimistic UI
+                                            ...data //пока заглушка, потом будет с optimistic UI
                                             // ...data, posts: data.posts.splice(0, data.posts.findIndex(elem => elem.id === post.id), obj)
                                         }
 
@@ -188,18 +188,16 @@ export default function TopicComponent({ data, mutate, topicId }) {
                     }
                     }
                     >Удалить</button>
-                    {/* <div>Автор: {post.userName}</div> */}
+
                     <div>
                         Автор:&#8201;
-                        {/* {data?.users?.find(user => post?.userId === user?.id)?.firstName}&#8201; */}
-                        {/* {data?.users?.find(user => post?.userId === user?.id)?.lastName} */}
-                        {data?.users?.find(user => post?.userId === user?.id)?.name || currentUserName}
+                        {/* {data?.users?.find(user => post?.userId === user?.id)?.name || currentUserName} */}
+                        {data?.users?.find(user => post?.userId === user?.id)?.name}
                     </div>
 
-                    {/* поле "Статус автора" временное для отладки */}
                     <div>
                         Статус автора:&#8201;
-                        {data?.users?.find(user => post?.userId === user?.id)?.role || currentUserRole || 'user'}
+                        {data?.users?.find(user => post?.userId === user?.id)?.role || 'user'}
                     </div>
                 </div>
             ))}
