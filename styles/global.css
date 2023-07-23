@@ -178,6 +178,7 @@ header nav {
 .post {
     margin: 20px;
     border: 1px solid black;
+    padding: 20px;
 }
 
 .post div {
@@ -336,7 +337,7 @@ table.admin-panel .delete-button:active {
     content: '▼';
 }
 
-/* .spinner {
+.spinner {
     margin-top: 30px;
     justify-content: center;
     height: 200px;
@@ -345,4 +346,4 @@ table.admin-panel .delete-button:active {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-} */
+}

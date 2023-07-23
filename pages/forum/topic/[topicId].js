@@ -1,0 +1,20 @@
+import { useRouter } from 'next/router'
+import { SWRConfig } from 'swr';
+import GetData from '../../../components/GetData';
+import TopicComponent from '../../../components/TopicComponent';
+
+export default function TopicPage() {
+    const
+        { query } = useRouter(),
+        { topicId } = query;
+
+    const API_URL = `/api/forum/post/?topicId=${topicId}`;
+
+    return <>
+        {topicId && <SWRConfig >
+            <GetData url={API_URL}>
+                <TopicComponent topicId={topicId} />
+            </GetData>
+        </SWRConfig>}
+    </>
+}
