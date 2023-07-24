@@ -1,6 +1,6 @@
 import { SWRConfig } from 'swr';
 import GetData from '../../components/GetData';
-import ForumComponent from '../../components/ForumComponent';
+import AllTopicsComponent from '../../components/AllTopicsComponent';
 import Head from "next/head";
 import { useSession } from 'next-auth/react';
 
@@ -18,7 +18,7 @@ export default function ForumPage() {
             <h1>Форум</h1>
             <SWRConfig >
                 <GetData url={API_URL}>
-                    <ForumComponent />
+                    <AllTopicsComponent />
                 </GetData>
             </SWRConfig>
 

@@ -110,7 +110,7 @@ export default function AdminPanelPage() {
           {/* <pre>{JSON.stringify(data, null, '\t')}</pre> */}
 
         </div>}
-        {loading && <div className='spinner'>СПИНЕР ОТКЛЮЧЕН В CSS</div>}
+        {loading && <div className='spinner'></div>}
       </div>
     </div>
   </>

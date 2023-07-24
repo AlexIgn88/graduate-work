@@ -91,7 +91,8 @@ header nav {
 
 .login-button:active {
     background-color: black;
-    border: solid black;
+    padding: 8px 18px;
+    margin: 2px 2px;
 }
 
 /* .tours-page,

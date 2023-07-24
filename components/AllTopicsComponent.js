@@ -2,12 +2,21 @@ import { useState } from 'react';
 import Link from "next/link";
 import { useSession } from 'next-auth/react';
 
-export default function ForumComponent({ data, mutate }) {
+import { fictionalDataForForum } from '../includes/fictionalData'
+
+// export default function ForumComponent({ data, fictionalData, mutate }) {
+export default function AllTopicsComponent({ data, mutate }) {
+
+    //временная затычка до установки статических пропсов
+    //может мне попробовать скелетон?
+    //Skeleton is used to display the loading state of some component.
+    //https://chakra-ui.com/docs/components/skeleton
+    if (!data) data = fictionalDataForForum;
 
     const
         [newTopicInputVal, setNewTopicInputVal] = useState(''),
         [editTopicId, setEditTopicId] = useState(null),
-        [currentTopicInputVal, setCurrentTopicInputVal] = useState(''),
+        [topicForEditInputVal, setTopicForEditInputVal] = useState(''),
 
         newTopic = {},
 
@@ -26,6 +35,8 @@ export default function ForumComponent({ data, mutate }) {
         currentUserId = sessionHookResult?.data?.user?.id,
         currentUserName = sessionHookResult?.data?.user?.name,
         currentUserRole = sessionHookResult?.data?.user?.role;
+
+    const adminOrModerator = currentUserRole === 'admin' || currentUserRole === 'moderator';
 
     // console.log('data=', data);
 
@@ -77,10 +88,11 @@ export default function ForumComponent({ data, mutate }) {
             }>Добавить тему</button>
         </div>}
 
+        {/* {false && data.topics.map((topic) => ( */}
         {data.topics.map((topic) => (
 
             <div className="topic" key={topic.id}>
-                <h3>ID темы для отладки: {topic.id}</h3>
+                {/* <h3>ID темы для отладки: {topic.id}</h3> */}
 
                 {editTopicId !== topic.id
                     ?
@@ -92,72 +104,66 @@ export default function ForumComponent({ data, mutate }) {
                         type='text'
                         name={'current-topic'}
                         placeholder={'Новое название'}
-                        value={currentTopicInputVal}
-                        onInput={evt => setCurrentTopicInputVal(evt.target.value)}
+                        value={topicForEditInputVal}
+                        onInput={evt => setTopicForEditInputVal(evt.target.value)}
                     />
                 }
 
-                {editTopicId === topic.id
-                    ? <>
-                        <button onClick={() => {
-
-                            // newTopic.id = topic.id;
-                            setEditTopicId(null);
-                            // Object.assign(newTopic, topic, { id: topic.id, title: currentTopicInputVal });
-                            Object.assign(newTopic, { title: currentTopicInputVal });
-                            setCurrentTopicInputVal('');
-
-                            async function edit(obj) {
-                                try {
-                                    const response = await fetch(`/api/forum/topic/${topic.id}`, {
-                                        method: 'PUT',
-                                        body: JSON.stringify(obj)
-                                    });
-                                    console.log('adduser response', response);
-                                    if (!response.ok) throw new Error('не ок');
-                                    const json = await response.json();
-                                    console.log('json', json);
-
-                                    // console.log('index=', data.topics.findIndex(elem => elem.id === topic.id));
-
-                                    return {
-                                        ...data //пока заглушка, потом будет с optimistic UI
-                                        // ...data, topics: data.topics.splice(0, data.topics.findIndex(elem => elem.id === topic.id), obj)
+                {adminOrModerator && <div>
+                    {editTopicId === topic.id
+                        ? <>
+                            <button onClick={() => {
+                                setEditTopicId(null);
+                                // Object.assign(newTopic, topic, { id: topic.id, title: currentTopicInputVal });
+                                Object.assign(newTopic, { title: topicForEditInputVal });
+                                setTopicForEditInputVal('');
+                                async function edit(obj) {
+                                    try {
+                                        const response = await fetch(`/api/forum/topic/${topic.id}`, {
+                                            method: 'PUT',
+                                            body: JSON.stringify(obj)
+                                        });
+                                        console.log('adduser response', response);
+                                        if (!response.ok) throw new Error('не ок');
+                                        const json = await response.json();
+                                        console.log('json', json);
+                                        return {
+                                            ...data,
+                                            topics: data.topics.map(item =>
+                                                item.id === topic.id ? newTopic : item
+                                            )
+                                        }
+                                    } catch (error) {
+                                        null;
                                     }
-
+                                }
+                                try {
+                                    mutate(edit(newTopic));
                                 } catch (error) {
                                     null;
+                                } finally {
+                                    null;
                                 }
-                            }
-                            try {
-                                mutate(edit(newTopic));
-
-                            } catch (error) {
-                                null;
-                            } finally {
-                                null;
-                            }
-
-                        }}>Сохранить название темы</button>
-
-                        <button onClick={() => {
-                            setEditTopicId(null);
-                        }}>Отмена</button>
-                    </>
-                    : <>
-                        <button onClick={() => {
-                            setEditTopicId(topic.id);
-                            setCurrentTopicInputVal(topic.title);
-                        }}>Редактировать название темы</button>
-                    </>
-                }
+                            }}>Сохранить название темы</button>
+                            <button onClick={() => {
+                                setEditTopicId(null);
+                            }}>Отмена</button>
+                        </>
+                        : <>
+                            <button onClick={() => {
+                                setEditTopicId(topic.id);
+                                setTopicForEditInputVal(topic.title);
+                            }}>Редактировать название темы</button>
+                        </>
+                    }
+                </div>}
 
                 <div>Описание: {topic.content}</div>
                 <div>{topic.createdAt}</div>
                 <div>{topic.updatedAt}</div>
                 {/* <div>ID автора для отладки: {topic.userId}</div> */}
 
-                <button onClick={async () => {
+                {adminOrModerator && <button onClick={async () => {
                     async function delTopic(id) {
                         try {
                             const response = await fetch(`/api/forum/topic/${id}`, {
@@ -188,7 +194,7 @@ export default function ForumComponent({ data, mutate }) {
                     }
                 }
                 }
-                >Удалить тему</button>
+                >Удалить тему</button>}
 
                 <div>
                     Автор:&#8201;

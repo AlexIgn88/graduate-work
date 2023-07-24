@@ -2,12 +2,21 @@ import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import Head from "next/head";
 
+import { fictionalDataForTopic } from '../includes/fictionalData'
+
+// export default function TopicComponent({ data, fictionalData, mutate, topicId }) {
 export default function TopicComponent({ data, mutate, topicId }) {
+
+    //временная затычка до установки статических пропсов
+    //может мне попробовать скелетон?
+    //Skeleton is used to display the loading state of some component.
+    //https://chakra-ui.com/docs/components/skeleton
+    if (!data) data = fictionalDataForTopic;
 
     const
         [newPostInputVal, setNewPostInputVal] = useState(''),
         [editPostId, setEditPostId] = useState(null),
-        [currentPostInputVal, setCurrentPostInputVal] = useState(''),
+        [postForEditInputVal, setPostForEditInputVal] = useState(''),
 
         newPost = {},
 
@@ -26,6 +35,9 @@ export default function TopicComponent({ data, mutate, topicId }) {
         currentUserId = sessionHookResult?.data?.user?.id,
         currentUserName = sessionHookResult?.data?.user?.name,
         currentUserRole = sessionHookResult?.data?.user?.role;
+
+    const adminOrModerator = currentUserRole === 'admin' || currentUserRole === 'moderator';
+    // const yourPost = currentUserId === 
 
     // console.log('data=', data);
 
@@ -96,69 +108,66 @@ export default function TopicComponent({ data, mutate, topicId }) {
                             type='text'
                             name={'current-post'}
                             placeholder={'напишите тут'}
-                            value={currentPostInputVal}
-                            onInput={evt => setCurrentPostInputVal(evt.target.value)}
+                            value={postForEditInputVal}
+                            onInput={evt => setPostForEditInputVal(evt.target.value)}
                         />
                     }
 
-                    {editPostId === post.id
-                        ? <>
-                            <button onClick={() => {
+                    {/* {session && <div> */}
+                    {(currentUserId === post.userId || adminOrModerator) && <div>
+                        {editPostId === post.id
+                            ? <>
+                                <button onClick={() => {
+                                    setEditPostId(null);
+                                    Object.assign(newPost, { content: postForEditInputVal });
+                                    setPostForEditInputVal('');
+                                    async function edit(obj) {
+                                        try {
+                                            const response = await fetch(`/api/forum/post/${post.id}`, {
+                                                method: 'PUT',
+                                                body: JSON.stringify(obj)
+                                            });
+                                            console.log('adduser response', response);
+                                            if (!response.ok) throw new Error('не ок');
+                                            const json = await response.json();
+                                            console.log('json', json);
 
-                                setEditPostId(null);
-                                Object.assign(newPost, { content: currentPostInputVal });
-                                setCurrentPostInputVal('');
-
-                                async function edit(obj) {
-                                    try {
-                                        const response = await fetch(`/api/forum/post/${post.id}`, {
-                                            method: 'PUT',
-                                            body: JSON.stringify(obj)
-                                        });
-                                        console.log('adduser response', response);
-                                        if (!response.ok) throw new Error('не ок');
-                                        const json = await response.json();
-                                        console.log('json', json);
-
-                                        // console.log('index=', data.posts.findIndex(elem => elem.id === post.id));
-
-                                        return {
-                                            ...data //пока заглушка, потом будет с optimistic UI
-                                            // ...data, posts: data.posts.splice(0, data.posts.findIndex(elem => elem.id === post.id), obj)
+                                            return {
+                                                ...data,
+                                                posts: data.posts.map(item =>
+                                                    item.id === post.id ? newPost : item
+                                                )
+                                            }
+                                        } catch (error) {
+                                            null;
                                         }
-
+                                    }
+                                    try {
+                                        mutate(edit(newPost));
                                     } catch (error) {
                                         null;
+                                    } finally {
+                                        null;
                                     }
-                                }
-                                try {
-                                    mutate(edit(newPost));
-
-                                } catch (error) {
-                                    null;
-                                } finally {
-                                    null;
-                                }
-
-                            }}>Сохранить</button>
-
-                            <button onClick={() => {
-                                setEditPostId(null);
-                            }}>Отмена</button>
-                        </>
-                        : <>
-                            <button onClick={() => {
-                                setEditPostId(post.id);
-                                setCurrentPostInputVal(post.content);
-                            }}>Редактировать</button>
-                        </>
-                    }
+                                }}>Сохранить</button>
+                                <button onClick={() => {
+                                    setEditPostId(null);
+                                }}>Отмена</button>
+                            </>
+                            : <>
+                                <button onClick={() => {
+                                    setEditPostId(post.id);
+                                    setPostForEditInputVal(post.content);
+                                }}>Редактировать</button>
+                            </>
+                        }
+                    </div>}
 
                     <div>{post.createdAt}</div>
                     <div>{post.updatedAt}</div>
                     {/* <div>ID автора для отладки: {post.userId}</div> */}
 
-                    <button onClick={async () => {
+                    {adminOrModerator && <button onClick={async () => {
                         async function delPost(id) {
                             try {
                                 const response = await fetch(`/api/forum/post/${id}`, {
@@ -187,7 +196,7 @@ export default function TopicComponent({ data, mutate, topicId }) {
                         }
                     }
                     }
-                    >Удалить</button>
+                    >Удалить</button>}
 
                     <div>
                         Автор:&#8201;

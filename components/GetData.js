@@ -21,12 +21,15 @@ export default function GetData({ url, children }) {
 
         childComponentWithProps = cloneElement(children, { data, mutate });
 
+    //в childComponentWithProps встроены временные затычки до установки статических пропсов
+    //может мне попробовать скелетон потом?
+    //Skeleton is used to display the loading state of some component.
+    //https://chakra-ui.com/docs/components/skeleton
     return <>
-        {/* {isLoading && <>loading....</>} */}
-        {isLoading && <div className='spinner'>loading....</div>}
+        {/* {isLoading && <div className='spinner'>loading....</div>} */}
         {error && <div>Error {error.toString()}</div>}
-        {data && childComponentWithProps}
-
+        {/* {data && childComponentWithProps} */}
+        {childComponentWithProps}
         {/* data= {data && <pre>{JSON.stringify(data, null, '\t')}</pre>} */}
     </>;
 }
