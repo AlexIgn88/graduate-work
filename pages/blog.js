@@ -12,8 +12,8 @@ export default function BlogPage() {
             <title>Блог</title>
         </Head>
         <div className="page blog-page">
-            <h1>Блог</h1>
-            <ol className="cards">
+            {/* <h1>Блог</h1> */}
+            <ul className="cards">
                 {articles.map(article => (
                     <li key={article.id}>
                         <Link href={`/blog/${article.path}`} className="one-card">
@@ -22,7 +22,7 @@ export default function BlogPage() {
                         </Link>
                     </li>
                 ))}
-            </ol>
+            </ul>
         </div>
     </>
 }

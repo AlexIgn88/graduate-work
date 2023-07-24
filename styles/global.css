@@ -12,7 +12,6 @@ body,
 body {
     margin: 0px;
     font-family: sans-serif;
-    /* background-color: rgb(215, 150, 112); */
     background-color: rgb(248, 225, 131);
 }
 
@@ -95,16 +94,6 @@ header nav {
     margin: 2px 2px;
 }
 
-/* .tours-page,
-.about-page,
-.places-page,
-.blog-page,
-.forum-page,
-.store-page,
-.contacts-page,
-.account-page,
-.admin-page,
-.error-page, */
 .page {
     margin-top: 100px;
     margin-left: 30px;
@@ -128,10 +117,6 @@ header nav {
     font-family: monospace;
     margin-left: 150px;
     margin-bottom: 150px;
-}
-
-.tours-page ul {
-    list-style-type: none;
 }
 
 /* .places-page {
@@ -184,60 +169,6 @@ header nav {
 
 .post div {
     margin: 10px;
-}
-
-footer {
-    background: rgb(40, 28, 21);
-    padding: 20px;
-    text-align: center;
-}
-
-footer p {
-    font-size: 14px;
-    color: white;
-}
-
-.user-accout {
-    margin-top: 70px;
-}
-
-/* @media (max-width: 850px) */
-@media (max-width: 1240px) {
-    /* header {
-        display: block;
-    } */
-
-    /* .tours-page,
-    .about-page,
-    .places-page,
-    .blog-page,
-    .forum-page,
-    .store-page,
-    .contacts-page,
-    .account-page,
-    .admin-page,
-    .error-page, */
-    .page {
-        margin-top: 130px;
-    }
-
-    .home-page-title {
-        margin-left: 80px;
-        font-size: 60px;
-    }
-}
-
-@media (max-width: 500px) {
-    .navbar {
-        display: block;
-    }
-
-    .home-page-title {
-        margin-left: 80px;
-        font-size: 40px;
-        margin-left: 15px;
-        margin-bottom: -50px;
-    }
 }
 
 table.admin-panel {
@@ -338,6 +269,21 @@ table.admin-panel .delete-button:active {
     content: '▼';
 }
 
+.user-accout {
+    margin-top: 70px;
+}
+
+footer {
+    background: rgb(40, 28, 21);
+    padding: 20px;
+    text-align: center;
+}
+
+footer p {
+    font-size: 14px;
+    color: white;
+}
+
 .spinner {
     margin-top: 30px;
     justify-content: center;
@@ -347,4 +293,30 @@ table.admin-panel .delete-button:active {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+}
+
+/* @media (max-width: 850px) */
+@media (max-width: 1240px) {
+
+    .page {
+        margin-top: 130px;
+    }
+
+    .home-page-title {
+        margin-left: 80px;
+        font-size: 60px;
+    }
+}
+
+@media (max-width: 500px) {
+    .navbar {
+        display: block;
+    }
+
+    .home-page-title {
+        margin-left: 80px;
+        font-size: 40px;
+        margin-left: 15px;
+        margin-bottom: -50px;
+    }
 }

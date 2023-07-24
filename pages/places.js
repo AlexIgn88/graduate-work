@@ -14,8 +14,8 @@ export default function PlacesPage() {
             <title>Места</title>
         </Head>
         <div className="page places-page">
-            <h1>Места</h1>
-            <ol className="cards">
+            {/* <h1>Места</h1> */}
+            <ul className="cards">
                 {places.map(place => (
                     <li key={place.id} >
                         <Link href={`/places/${place.path}`} className="one-card">
@@ -24,7 +24,7 @@ export default function PlacesPage() {
                         </Link>
                     </li>
                 ))}
-            </ol>
+            </ul>
         </div>
     </>
 }
