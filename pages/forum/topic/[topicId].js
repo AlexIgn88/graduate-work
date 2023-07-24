@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { SWRConfig } from 'swr';
 import GetData from '../../../components/GetData';
-import TopicComponent from '../../../components/TopicComponent';
+import OneTopicComponent from '../../../components/OneTopicComponent';
 
 export default function TopicPage() {
     const
@@ -13,7 +13,7 @@ export default function TopicPage() {
     return <>
         {topicId && <SWRConfig >
             <GetData url={API_URL}>
-                <TopicComponent topicId={topicId} />
+                <OneTopicComponent topicId={topicId} />
             </GetData>
         </SWRConfig>}
     </>

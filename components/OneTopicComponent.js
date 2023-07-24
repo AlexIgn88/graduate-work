@@ -5,7 +5,7 @@ import Head from "next/head";
 import { fictionalDataForTopic } from '../includes/fictionalData'
 
 // export default function TopicComponent({ data, fictionalData, mutate, topicId }) {
-export default function TopicComponent({ data, mutate, topicId }) {
+export default function OneTopicComponent({ data, mutate, topicId }) {
 
     //временная затычка до установки статических пропсов
     //может мне попробовать скелетон?
@@ -36,7 +36,9 @@ export default function TopicComponent({ data, mutate, topicId }) {
         currentUserName = sessionHookResult?.data?.user?.name,
         currentUserRole = sessionHookResult?.data?.user?.role;
 
-    const adminOrModerator = currentUserRole === 'admin' || currentUserRole === 'moderator';
+    const
+        adminOrModerator = currentUserRole === 'admin' || currentUserRole === 'moderator',
+        notBanned = currentUserRole !== 'banned';
     // const yourPost = currentUserId === 
 
     // console.log('data=', data);
@@ -50,7 +52,7 @@ export default function TopicComponent({ data, mutate, topicId }) {
         <div className="post-div">
             <h1>{data.topic.title}</h1>
 
-            {session && <div>
+            {session && notBanned && <div>
                 <input
                     type='search'
                     name='new-post'
@@ -114,7 +116,7 @@ export default function TopicComponent({ data, mutate, topicId }) {
                     }
 
                     {/* {session && <div> */}
-                    {(currentUserId === post.userId || adminOrModerator) && <div>
+                    {(currentUserId === post.userId || adminOrModerator) && notBanned && <div>
                         {editPostId === post.id
                             ? <>
                                 <button onClick={() => {

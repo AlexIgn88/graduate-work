@@ -36,14 +36,16 @@ export default function AllTopicsComponent({ data, mutate }) {
         currentUserName = sessionHookResult?.data?.user?.name,
         currentUserRole = sessionHookResult?.data?.user?.role;
 
-    const adminOrModerator = currentUserRole === 'admin' || currentUserRole === 'moderator';
+    const
+        adminOrModerator = currentUserRole === 'admin' || currentUserRole === 'moderator',
+        notBanned = currentUserRole !== 'banned';
 
     // console.log('data=', data);
 
     return <div className="topics">
         <h2>Темы для обсуждения</h2>
 
-        {session && <div>
+        {session && notBanned && <div>
             <input
                 type='search'
                 name='new-topic'
