@@ -7,7 +7,6 @@ import { fictionalDataForTopic } from '../includes/fictionalData'
 // export default function TopicComponent({ data, fictionalData, mutate, topicId }) {
 export default function OneTopicComponent({ data, mutate, topicId }) {
 
-    //временная затычка до установки статических пропсов
     //может мне попробовать скелетон?
     //Skeleton is used to display the loading state of some component.
     //https://chakra-ui.com/docs/components/skeleton
@@ -45,6 +44,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
 
     console.log('topicId=', topicId);
 
+    //if (!data) <OneTopicSkeleton />
     return <div className="page topic-page">
         <Head>
             <title>{data.topic.title}</title>

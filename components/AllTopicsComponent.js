@@ -2,16 +2,16 @@ import { useState } from 'react';
 import Link from "next/link";
 import { useSession } from 'next-auth/react';
 
-import { fictionalDataForForum } from '../includes/fictionalData'
+// import { fictionalDataForForum } from '../includes/fictionalData'
 
 // export default function ForumComponent({ data, fictionalData, mutate }) {
 export default function AllTopicsComponent({ data, mutate }) {
 
-    //временная затычка до установки статических пропсов
-    //может мне попробовать скелетон?
+    //временная затычка отключена, установлены статические пропсы.
+    //может мне попробовать скелетон потом вместо статических пропсов?
     //Skeleton is used to display the loading state of some component.
     //https://chakra-ui.com/docs/components/skeleton
-    if (!data) data = fictionalDataForForum;
+    // if (!data) data = fictionalDataForForum;
 
     const
         [newTopicInputVal, setNewTopicInputVal] = useState(''),
@@ -42,6 +42,7 @@ export default function AllTopicsComponent({ data, mutate }) {
 
     // console.log('data=', data);
 
+    //if (!data) <AllTopicsSkeleton />
     return <div className="topics">
         <h2>Темы для обсуждения</h2>
 

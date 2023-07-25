@@ -3,8 +3,19 @@ import GetData from '../../components/GetData';
 import AllTopicsComponent from '../../components/AllTopicsComponent';
 import Head from "next/head";
 import { useSession } from 'next-auth/react';
+import { fictionalDataForForum } from '../../includes/fictionalData'
 
-export default function ForumPage() {
+export async function getStaticProps() {
+    return {
+        props: {
+            fallback: {
+                '/api/forum/topic/': fictionalDataForForum
+            }
+        }
+    };
+}
+
+export default function ForumPage({ fallback }) {
 
     const API_URL = '/api/forum/topic/',
         { data: session } = useSession();
@@ -16,12 +27,12 @@ export default function ForumPage() {
         <div className="page forum-page">
             <div>Добро пожаловать на наш форум, {session?.user ? session?.user?.name : 'Гость'}!</div>
             <h1>Форум</h1>
-            <SWRConfig >
+
+            <SWRConfig value={{ fallback }}>
                 <GetData url={API_URL}>
                     <AllTopicsComponent />
                 </GetData>
             </SWRConfig>
-
 
             <div className="additional-information">
                 <h2>Дополнительная информация</h2>
@@ -36,7 +47,6 @@ export default function ForumPage() {
                     </div>
                 </div>
             </div>
-
 
         </div>
     </>;

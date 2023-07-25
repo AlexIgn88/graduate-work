@@ -21,8 +21,7 @@ export default function GetData({ url, children }) {
 
         childComponentWithProps = cloneElement(children, { data, mutate });
 
-    //в childComponentWithProps встроены временные затычки до установки статических пропсов
-    //может мне попробовать скелетон потом?
+    //может мне попробовать скелетон потом вместо статических пропсов?
     //Skeleton is used to display the loading state of some component.
     //https://chakra-ui.com/docs/components/skeleton
     return <>
