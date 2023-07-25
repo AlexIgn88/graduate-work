@@ -1,6 +1,6 @@
-export default function Footer() {
+export default function Footer({ color }) {
     return (
-        <footer>
+        <footer className={color ? color : ''}>
             <p>
                 © {new Date().getFullYear()} Туристическое агентство "Исторические маршруты и заповедные места". Все права защищены.
             </p>
