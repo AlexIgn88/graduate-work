@@ -40,8 +40,9 @@ export default function MyApp({ Component,
           styles={{
             body: {
               height: '100%',
-              backgroundColor: '#f8e183',
-              fontFamily: 'sans-serif'
+              // backgroundColor: '#f8e183',
+              fontFamily: 'sans-serif',
+              // fontSize:'25px'
             }
           }}
         />

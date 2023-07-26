@@ -1,6 +1,8 @@
 import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
 import { useRouter } from 'next/router';
+import { Box } from '@chakra-ui/react';
+import { textFontSize } from '../includes/displayParameters';
 
 export default function Layout({ children }) {
 
@@ -13,7 +15,11 @@ export default function Layout({ children }) {
     return <>
         <Header color={color} />
         <main className={color ? color : ''}>
-            {children}
+            <Box
+                fontSize={textFontSize}
+            >
+                {children}
+            </Box>
         </main>
         <Footer color={color} />
     </>

@@ -10,4 +10,13 @@ export type place = {
     path: string,
     img?: string,
     text?: string
-}
+};
+
+export type valieForBreakpoints = {
+    base: string,
+    '2xl'?: string,
+    xl?: string,
+    lg?: string,
+    md?: string,
+    sm?: string
+};
