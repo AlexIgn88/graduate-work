@@ -1,5 +1,5 @@
 :root,
-body,
+/* body, */
 #__next {
     height: 100%;
 }
@@ -9,14 +9,12 @@ body,
     flex-direction: column;
 }
 
-body {
+/* .body {
     margin: 0px;
-    font-family: sans-serif;
-    background-color: rgb(248, 225, 131);
 
-    /* background-color: rgb(6, 13, 32); */
-    /* color: white; */
-}
+    font-family: sans-serif;
+    background-color: #f8e183;
+} */
 
 .dark {
     background-color: rgb(6, 13, 32);

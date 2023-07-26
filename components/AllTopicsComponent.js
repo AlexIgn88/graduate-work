@@ -2,6 +2,8 @@ import { useState } from 'react';
 import Link from "next/link";
 import { useSession } from 'next-auth/react';
 
+import { Box, Flex, Spacer } from "@chakra-ui/react";
+
 // import { fictionalDataForForum } from '../includes/fictionalData'
 
 // export default function ForumComponent({ data, fictionalData, mutate }) {
@@ -100,7 +102,21 @@ export default function AllTopicsComponent({ data, mutate }) {
                 {editTopicId !== topic.id
                     ?
                     <div className="topic-title">
-                        <Link href={`/forum/topic/${topic.id}`} className=""><h3>{topic.title}</h3></Link>
+
+                        <Box bg='white' color='green'>
+                            <Link href={`/forum/topic/${topic.id}`} className=""><h3>{topic.title}</h3></Link>
+                        </Box>
+
+                        {/* <Box>
+                            <Link
+                                href={`/forum/topic/${topic.id}`}
+                                className=""
+                            // fontSize="3xl"
+                            // fontWeight="bold"
+                            // fontFamily='sans-serif'
+                            >{topic.title}
+                            </Link>
+                        </Box> */}
                     </div>
                     :
                     <input

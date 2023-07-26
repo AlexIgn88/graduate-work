@@ -1,4 +1,4 @@
-import pages from '../components/pages';
+import pages from '../includes/pages';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';

@@ -4,6 +4,20 @@ import "../styles/global.css";
 import { Toaster } from 'react-hot-toast';
 // import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
+import { ChakraProvider, CSSReset } from '@chakra-ui/react'
+import { Global } from '@emotion/react';
+
+// import { extendTheme } from '@chakra-ui/react'
+
+// const colors = {
+//   brand: {
+//     900: '#1a365d',
+//     800: '#153e75',
+//     700: '#2a69ac',
+//   },
+// }
+
+// export const theme = extendTheme({ colors })
 
 export default function MyApp({ Component,
   pageProps: { session, ...pageProps }
@@ -17,10 +31,27 @@ export default function MyApp({ Component,
       <link rel="icon" href="/img/favicon.png" />
     </Head>
     <SessionProvider session={session}>
-      <Layout>
-        <Component {...pageProps} />
-        <Toaster position="top-right" />
-      </Layout>
+
+      <ChakraProvider>
+        {/* <ChakraProvider theme={theme}> */}
+
+        {/* <CSSReset /> */}
+        <Global
+          styles={{
+            body: {
+              height: '100%',
+              backgroundColor: '#f8e183',
+              fontFamily: 'sans-serif'
+            }
+          }}
+        />
+
+        <Layout>
+          <Component {...pageProps} />
+          <Toaster position="top-right" />
+        </Layout>
+      </ChakraProvider>
+
     </SessionProvider>
   </>
 }
