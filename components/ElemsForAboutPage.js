@@ -2,7 +2,7 @@ import { Flex, Box, Image, Text } from '@chakra-ui/react';
 import { h1HeadersFontSize } from '../displayparameters/fontDisplayParameters';
 import { useState } from "react";
 
-const picSize = '82px';
+const picSize = '82px'; 
 
 export function FactForAboutPage({ picture, number, text }) {
     return <Flex
