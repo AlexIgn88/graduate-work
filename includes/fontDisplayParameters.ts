@@ -10,7 +10,7 @@ import { valueArrType } from '../datatypes/types';
 //     '2xl': '96em', // 1536px
 //   }
 
-const minTextFontSizeValue = 16;
+const minTextFontSizeValue = 14;
 
 const textFontSizeValueArr: valueArrType = [
     minTextFontSizeValue,
@@ -31,13 +31,35 @@ export const textFontSize: valieForBreakpoints = {
     sm: `${textFontSizeValueArr[5]}px`
 };
 
-const headersFontSizeValue = textFontSizeValueArr.map(FontSize => (FontSize + 10));
+const h1HeadersFontSizeValue = textFontSizeValueArr.map(FontSize => (FontSize + 10));
 
-export const headersFontSize: valieForBreakpoints = {
-    base: `${headersFontSizeValue[0]}px`,
-    '2xl': `${headersFontSizeValue[1]}px`,
-    xl: `${headersFontSizeValue[2]}px`,
-    lg: `${headersFontSizeValue[3]}px`,
-    md: `${headersFontSizeValue[4]}px`,
-    sm: `${headersFontSizeValue[5]}px`
+export const h1HeadersFontSize: valieForBreakpoints = {
+    base: `${h1HeadersFontSizeValue[0]}px`,
+    '2xl': `${h1HeadersFontSizeValue[1]}px`,
+    xl: `${h1HeadersFontSizeValue[2]}px`,
+    lg: `${h1HeadersFontSizeValue[3]}px`,
+    md: `${h1HeadersFontSizeValue[4]}px`,
+    sm: `${h1HeadersFontSizeValue[5]}px`
+};
+
+const h2HeadersFontSizeValue = textFontSizeValueArr.map(FontSize => (FontSize + 4));
+
+export const h2HeadersFontSize: valieForBreakpoints = {
+    base: `${h2HeadersFontSizeValue[0]}px`,
+    '2xl': `${h2HeadersFontSizeValue[1]}px`,
+    xl: `${h2HeadersFontSizeValue[2]}px`,
+    lg: `${h2HeadersFontSizeValue[3]}px`,
+    md: `${h2HeadersFontSizeValue[4]}px`,
+    sm: `${h2HeadersFontSizeValue[5]}px`
+};
+
+const h3HeadersFontSizeValue = textFontSizeValueArr.map(FontSize => (FontSize + 2));
+
+export const h3HeadersFontSize: valieForBreakpoints = {
+    base: `${h3HeadersFontSizeValue[0]}px`,
+    '2xl': `${h3HeadersFontSizeValue[1]}px`,
+    xl: `${h3HeadersFontSizeValue[2]}px`,
+    lg: `${h3HeadersFontSizeValue[3]}px`,
+    md: `${h3HeadersFontSizeValue[4]}px`,
+    sm: `${h3HeadersFontSizeValue[5]}px`
 };

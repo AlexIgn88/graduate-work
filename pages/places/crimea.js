@@ -1,4 +1,9 @@
 import Head from "next/head";
+import { Heading, Text, Box, Flex } from '@chakra-ui/react';
+import { h1HeadersFontSize, textFontSize } from '../../includes/fontDisplayParameters';
+import { marginParameters } from '../../includes/marginDisplayParameters';
+import { flexDirection } from '../../includes/flexDisplayParameters';
+import { HeadingForPage } from '../../components/ElemsForPages';
 
 export default function CrimeaPage() {
     return <>
@@ -7,21 +12,8 @@ export default function CrimeaPage() {
         </Head>
         <div className="page crimea-page">
 
-            {/*Подумать: может все-таки сделать авто-генерируемые странички с компонентами чакры,
-            а туда пропсами отправлять 
-            Заголовок, 
-            адрес картинки в Паблик,
-            Строку с текстом,
-            Строку к нумерованному списку,
-            Доп-компонент с телефоном
-
-            т.е. один раз написал на чакре страничку, а контент подаешь пропсами
-
-            +Строку к нумерованному списку можно еще раз использрвать на страничке Туры, если верну ее в проект
-            */}
-
             {/*Заголовок*/}
-            <h1>Крым</h1>
+            <HeadingForPage element={'h1'} content={'Крым'} />
 
             {/*Картинка*/}
             {/*<Image src={property.imageUrl} alt={property.imageAlt} />*/}

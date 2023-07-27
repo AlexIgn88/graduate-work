@@ -1,8 +1,9 @@
 import Head from "next/head";
 import { Heading, Text, Box, Flex } from '@chakra-ui/react';
-import { headersFontSize, textFontSize } from '../includes/fontDisplayParameters';
+import { textFontSize, h1HeadersFontSize, h2HeadersFontSize } from '../includes/fontDisplayParameters';
 import { marginParameters } from '../includes/marginDisplayParameters';
 import { flexDirection } from '../includes/flexDisplayParameters';
+import { HeadingForPage } from '../components/ElemsForPages';
 import { FactForAboutPage, ServiceForAboutPage } from '../components/ElemsForAboutPage';
 
 export default function AboutPage() {
@@ -23,15 +24,7 @@ export default function AboutPage() {
             <Box
                 m={marginParameters}
             >
-                <Heading
-                    as='h1'
-                    fontSize={headersFontSize}
-                    textAlign={"center"}
-                    mb={10}
-                    fontWeight={"normal"}
-                >
-                    О компании
-                </Heading>
+                <HeadingForPage element={'h1'} content={'О компании'} />
                 <Text
                     textAlign={'justify'}
                     fontFamily={'cursive'}
@@ -56,13 +49,7 @@ export default function AboutPage() {
                 pt={'80px'}
                 pb={'80px'}
             >
-                <Heading
-                    fontSize={headersFontSize}
-                    textAlign={'center'}
-                    fontWeight={"normal"}
-                >
-                    Интересные факты о нашем агентстве
-                </Heading>
+                <HeadingForPage element={'h1'} content={'Интересные факты о нашем агентстве'} />
                 <Flex
                     mt={20}
                     flexDirection={flexDirection}
@@ -80,13 +67,7 @@ export default function AboutPage() {
             <Box
                 m={marginParameters}
             >
-                <Heading
-                    fontSize={headersFontSize}
-                    textAlign={'center'}
-                    fontWeight={'normal'}
-                >
-                    Популярные услуги, которые мы предлагаем
-                </Heading>
+                <HeadingForPage element={'h1'} content={'Популярные услуги, которые мы предлагаем'} />
                 <Flex
                     mt={10}
                     flexDirection={flexDirection}

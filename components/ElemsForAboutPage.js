@@ -1,5 +1,5 @@
 import { Flex, Box, Image, Text } from '@chakra-ui/react';
-import { headersFontSize } from '../includes/fontDisplayParameters';
+import { h1HeadersFontSize } from '../includes/fontDisplayParameters';
 import { useState } from "react";
 
 const picSize = '82px';
@@ -11,7 +11,7 @@ export function FactForAboutPage({ picture, number, text }) {
         alignItems={'center'}
     >
         <Image src={picture} alt={'picture'} w={picSize} h={picSize} />
-        <Box fontSize={headersFontSize}>{number}</Box>
+        <Box fontSize={h1HeadersFontSize}>{number}</Box>
         <Text>{text}</Text>
     </Flex>
 }

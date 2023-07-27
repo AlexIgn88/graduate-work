@@ -1,4 +1,9 @@
 import Head from "next/head";
+import { Heading, Text, Box, Flex } from '@chakra-ui/react';
+import { h1HeadersFontSize, textFontSize } from '../../includes/fontDisplayParameters';
+import { marginParameters } from '../../includes/marginDisplayParameters';
+import { flexDirection } from '../../includes/flexDisplayParameters';
+import { HeadingForPage } from '../../components/ElemsForPages';
 
 export default function KamchatkaPage() {
     return <>
@@ -8,7 +13,8 @@ export default function KamchatkaPage() {
         <div className="page kamchatka-page">
 
             {/*Заголовок*/}
-            <h1>Камчатка</h1>
+            {/* <h1>Камчатка</h1> */}
+            <HeadingForPage element={'h1'} content={'Камчатка'} />
 
             {/*Картинка*/}
             {/*<Image src={property.imageUrl} alt={property.imageAlt} />*/}

@@ -1,4 +1,9 @@
 import Head from "next/head";
+import { Heading, Text, Box, Flex } from '@chakra-ui/react';
+import { h1HeadersFontSize, textFontSize } from '../../includes/fontDisplayParameters';
+import { marginParameters } from '../../includes/marginDisplayParameters';
+import { flexDirection } from '../../includes/flexDisplayParameters';
+import { HeadingForPage } from '../../components/ElemsForPages';
 
 export default function VoronezhLandPage() {
     return <>
@@ -8,7 +13,8 @@ export default function VoronezhLandPage() {
         <div className="page voronezh-land-page">
 
             {/*Заголовок*/}
-            <h1>Красоты земли Воронежской</h1>
+            {/* <h1>Красоты земли Воронежской</h1> */}
+            <HeadingForPage element={'h1'} content={'Красоты земли Воронежской'} />
 
             {/*Картинка*/}
             {/*<Image src={property.imageUrl} alt={property.imageAlt} />*/}

@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { Fragment } from 'react';
 import { places, loremIpsum } from '../includes/placesData';
-import { headersFontSize, textFontSize } from '../includes/fontDisplayParameters';
+import { h1HeadersFontSize, textFontSize } from '../includes/fontDisplayParameters';
 
 export default function PlacesPage() {
     //переделаю позже всё на Chakra UI. Адаптивности пока нет)))
@@ -26,9 +26,9 @@ export default function PlacesPage() {
                                 </div>
                                 <div className="card-img" >
                                     {/*временно инлайновый стиль: */}
-                                    <h1 style={{ fontSize: headersFontSize.base }}>{place.name}</h1>
+                                    <h1 style={{ fontSize: h1HeadersFontSize.sm }}>{place.name}</h1>
                                     {/*временно инлайновый стиль: */}
-                                    <div style={{ fontSize: textFontSize.base }}>
+                                    <div style={{ fontSize: textFontSize.sm }}>
                                         {place.text ? place.text : loremIpsum}
                                     </div>
                                     <div>
@@ -40,9 +40,9 @@ export default function PlacesPage() {
                         //     <Fragment key={place.id}>
                         //         <div className="card-img" >
                         //             {/*временно инлайновый стиль: */}
-                        //             <h1 style={{ fontSize: headersFontSize.base }}>{place.name}</h1>
+                        //             <h1 style={{ fontSize: headersFontSize.sm }}>{place.name}</h1>
                         //             {/*временно инлайновый стиль: */}
-                        //             <div style={{ fontSize: textFontSize.base }}>
+                        //             <div style={{ fontSize: textFontSize.sm }}>
                         //                 {place.text ? place.text : loremIpsum}
                         //             </div>
                         //             <div>
