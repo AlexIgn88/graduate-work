@@ -1,8 +1,8 @@
 import Head from "next/head";
 import { Heading, Text, Box, Flex } from '@chakra-ui/react';
-import { h1HeadersFontSize, textFontSize } from '../../displayParameters/fontDisplayParameters';
-import { marginParameters } from '../../displayParameters/marginDisplayParameters';
-import { flexDirection } from '../../displayParameters/flexDisplayParameters';
+import { h1HeadersFontSize, textFontSize } from '../../displayparameters/fontDisplayParameters';
+import { marginParameters } from '../../displayparameters/marginDisplayParameters';
+import { flexDirection } from '../../displayparameters/flexDisplayParameters';
 import { HeadingForPage } from '../../components/ElemsForPages';
 
 export default function VoronezhLandPage() {

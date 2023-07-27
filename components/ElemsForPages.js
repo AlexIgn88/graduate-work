@@ -1,5 +1,5 @@
 import { Heading, Text, Box, Flex, Image, List, ListItem, ListIcon, chakra } from '@chakra-ui/react';
-import { textFontSize, h1HeadersFontSize, h2HeadersFontSize, h3HeadersFontSize } from '../displayParameters/fontDisplayParameters';
+import { textFontSize, h1HeadersFontSize, h2HeadersFontSize, h3HeadersFontSize } from '../displayparameters/fontDisplayParameters';
 import { Phone, Email } from '../includes/cell-wrappers'
 
 export function HeadingForPage({ element, content }) {
