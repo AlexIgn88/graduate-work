@@ -3,7 +3,7 @@ import GetData from '../../components/GetData';
 import AllTopicsComponent from '../../components/AllTopicsComponent';
 import Head from "next/head";
 import { useSession } from 'next-auth/react';
-import { fictionalDataForForum } from '../../includes/fictionalData'
+import { fictionalDataForForum } from '../../data/fictionalData'
 
 export async function getStaticProps() {
     return {

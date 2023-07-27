@@ -10,7 +10,7 @@ import Head from "next/head";
 import { useStore } from '@nanostores/react';
 import getStores from '../store/generateStores';
 
-import userColumns from '../includes/usersColumns'
+import userColumns from '../data/usersColumnsForAdminPanel'
 import EditableAdminpanel from '../components/EditableAdminpanel';
 
 

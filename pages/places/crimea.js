@@ -9,39 +9,12 @@ import { flexDirection } from '../../displayparameters/flexDisplayParameters';
 import { HeadingForPage } from '../../components/ElemsForPages';
 import { FaBusAlt } from 'react-icons/fa';
 
+import { ModalWindowRecordingForATour } from "../../components/modalwindows/ModalWindowRecordingForATour";
 import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react';
 import { ContactInfo } from '../../components/ElemsForPages';
 
 
 export default function CrimeaPage() {
-
-    function ModalWindowRecordingForATour() {
-        const { isOpen, onOpen, onClose } = useDisclosure()
-        return (
-            <>
-                <Button variant='solid' colorScheme='blue' onClick={onOpen}>Записаться</Button>
-
-                <Modal isOpen={isOpen} onClose={onClose}>
-                    <ModalOverlay />
-                    <ModalContent>
-                        <ModalHeader>Для заказа тура или экскурсии свяжитесь, пожалуйста с нашим менеджером</ModalHeader>
-                        <ModalCloseButton />
-                        <ModalBody>
-                            {/* <Lorem count={2} /> */}
-                            <ContactInfo />
-                        </ModalBody>
-
-                        <ModalFooter>
-                            <Button colorScheme='blue' mr={3} onClick={onClose}>
-                                Close
-                            </Button>
-                            {/* <Button variant='ghost'>Secondary Action</Button> */}
-                        </ModalFooter>
-                    </ModalContent>
-                </Modal>
-            </>
-        )
-    }
 
     const tourDataCrimea = [
         {

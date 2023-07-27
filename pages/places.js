@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { Fragment } from 'react';
-import { places, loremIpsum } from '../includes/placesData';
+import { places, loremIpsum } from '../data/placesData';
 import { h1HeadersFontSize, textFontSize } from '../displayparameters/fontDisplayParameters';
 
 export default function PlacesPage() {

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import Head from "next/head";
 
-import { fictionalDataForTopic } from '../includes/fictionalData'
+import { fictionalDataForTopic } from '../data/fictionalData'
 
 // export default function TopicComponent({ data, fictionalData, mutate, topicId }) {
 export default function OneTopicComponent({ data, mutate, topicId }) {
