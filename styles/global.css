@@ -16,10 +16,15 @@
     background-color: #f8e183;
 } */
 
-.dark {
+.places {
     background-color: rgb(6, 13, 32);
     color: white;
 }
+
+/* .about {
+    background-color: #a6b0cf;
+    color: white;
+} */
 
 main {
     flex-grow: 1;
@@ -124,11 +129,6 @@ header nav {
     margin-left: 150px;
     margin-bottom: 150px;
 }
-
-/* .places-page {
-    background-color: rgb(6, 13, 32);
-    color: white;
-} */
 
 .cards {
     list-style-type: none;

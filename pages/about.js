@@ -1,142 +1,107 @@
 import Head from "next/head";
 import { Heading, Text, Box, Flex } from '@chakra-ui/react';
-import { headersFontSize } from '../includes/displayParameters';
-
+import { headersFontSize, textFontSize } from '../includes/fontDisplayParameters';
+import { flexDirection } from '../includes/flexDisplayParameters'
+import { FactForAboutPage, ServiceForAboutPage } from '../components/ElemsForAboutPage'
 
 export default function AboutPage() {
+
+    const property = {
+        margin: { base: '10px', '2xl': '50px', xl: '40px', lg: '40px', md: '30px', sm: '20px' },
+        gap: { base: '10px', sm: '70px' }
+    }
+
     return <>
         <Head>
             <title>О нас</title>
         </Head>
-        <div className="page about-page">
+        <Box
+            className="about-page"
+            mb={'30px'}
+        >
 
             <Box
-                m={{ base: '5px', '2xl': '100px', xl: '80px', lg: '70px', md: '50px', sm: '30px' }}
+                m={property.margin}
             >
-
-                <Box>
-                    <Heading
-                        as='h1'
-                        fontSize={headersFontSize}
-                        textAlign={"center"}
-                        mb={10}
-                        fontWeight={"normal"}
-                    >
-                        О компании
-                    </Heading>
-                    <Text
-                        textAlign={'justify'}
-                        fontFamily={'cursive'}
-                    >
-                        Мы - туристическое агентство "Исторические маршруты и заповедные места",
-                        которое предлагает увлекательные путешествия по историческим местам и заповедникам.
-                        Наша команда профессионалов с многолетним опытом работы в сфере туризма готова помочь вам организовать незабываемое путешествие.
-                        Мы предлагаем широкий выбор экскурсий, туров и приключений, которые позволят вам окунуться в историю и культуру разных регионов.
-                        Наши маршруты охватывают самые интересные и уникальные исторические места, такие как древние города, замки, крепости, музеи, монастыри и многое другое.
-                        Мы также предлагаем туры по заповедным местам, где вы сможете насладиться красотой природы, познакомиться с уникальными животными и растениями.
-                        Мы гарантируем высокое качество обслуживания и индивидуальный подход к каждому клиенту. Наша команда готова помочь вам с выбором маршрута,
-                        бронированием билетов и организацией проживания. Мы работаем только с проверенными партнерами и предоставляем только надежные услуги.
-                        Если вы хотите отправиться в увлекательное путешествие по историческим местам или заповедным местам, свяжитесь с нами прямо сейчас.
-                        Мы поможем вам выбрать идеальный маршрут и организуем незабываемое приключение!
-                    </Text>
-                </Box>
-
-                <Box
-                    mt={10}
-                // flexDirection="column"
-                // alignItems="center"
-
-                // alignContent="space-around"
+                <Heading
+                    as='h1'
+                    fontSize={headersFontSize}
+                    textAlign={"center"}
+                    mb={10}
+                    fontWeight={"normal"}
                 >
-                    <Heading
-                        fontSize={headersFontSize}
-                        textAlign={"center"}
-                        fontWeight={"normal"}
-                    >
-                        Факты о нашем агентстве
-                    </Heading>
-                    <Flex
-                        mt={10}
-                        flexDirection={{ base: 'column', lg: 'row' }}
-                        // alignItems={{ base: 'center', lg: 'normal' }}
-                        alignItems={'center'}
-                        justifyContent="space-evenly"
-                        gap={{ base: '30px', lg: '70px' }}
-                    >
-                        <Flex flexDirection="column" gap={{ base: '30px', lg: '50px' }}>
-                            <div>КАРТИНКА</div>
-                            <div>ЦИФРА</div>
-                            <div>ТЕКСТ</div>
-                        </Flex>
-                        <Flex flexDirection="column" gap={{ base: '30px', lg: '50px' }}>
-                            <div>КАРТИНКА</div>
-                            <div>ЦИФРА</div>
-                            <div>ТЕКСТ</div>
-                        </Flex>
-                        <Flex flexDirection="column" gap={{ base: '30px', lg: '50px' }}>
-                            <div>КАРТИНКА</div>
-                            <div>ЦИФРА</div>
-                            <div>ТЕКСТ</div>
-                        </Flex>
-                        <Flex flexDirection="column" gap={{ base: '30px', lg: '50px' }}>
-                            <div>КАРТИНКА</div>
-                            <div>ЦИФРА</div>
-                            <div>ТЕКСТ</div>
-                        </Flex>
-                    </Flex>
-                </Box>
-
-                <Box
-                    mt={10}
-                // flexDirection="column"
-                // alignItems="center"
+                    О компании
+                </Heading>
+                <Text
+                    textAlign={'justify'}
+                    fontFamily={'cursive'}
                 >
-                    <Heading
-                        fontSize={headersFontSize}
-                        textAlign={"center"}
-                        fontWeight={"normal"}
-                    >
-                        Популярные услуги, которые мы предлагаем
-                    </Heading>
-                    <Flex
-                        mt={10}
-                        // flexDirection="row"
-                        flexDirection={{ base: 'column', lg: 'row' }}
-                        // alignItems={{ base: 'center', lg: 'normal' }}
-                        alignItems={'center'}
-
-                        justifyContent="center"
-                        gap={{ base: '30px', lg: '70px' }}
-                    >
-                        <Flex flexDirection="column">
-                            <Flex
-                                flexDirection="row"
-                                gap={{ base: '30px', lg: '50px' }}
-                            >
-                                <div>КАРТИНКА</div>
-                                <div>ТЕКСТ</div>
-                            </Flex>
-                        </Flex>
-                        <Flex
-                            flexDirection="row"
-                            gap={{ base: '30px', lg: '50px' }}
-                        >
-                            <div>КАРТИНКА</div>
-                            <div>ТЕКСТ</div>
-                        </Flex>
-                        <Flex
-                            flexDirection="row"
-                            gap={{ base: '30px', lg: '50px' }}
-                        >
-                            <div>КАРТИНКА</div>
-                            <div>ТЕКСТ</div>
-                        </Flex>
-                    </Flex>
-                </Box>
-
+                    Мы - туристическое агентство "Исторические маршруты и заповедные места",
+                    которое предлагает увлекательные путешествия по историческим местам и заповедникам.
+                    Наша команда профессионалов с многолетним опытом работы в сфере туризма готова помочь вам организовать незабываемое путешествие.
+                    Мы предлагаем широкий выбор экскурсий, туров и приключений, которые позволят вам окунуться в историю и культуру разных регионов.
+                    Наши маршруты охватывают самые интересные и уникальные исторические места, такие как древние города, замки, крепости, музеи, монастыри и многое другое.
+                    Мы также предлагаем туры по заповедным местам, где вы сможете насладиться красотой природы, познакомиться с уникальными животными и растениями.
+                    Мы гарантируем высокое качество обслуживания и индивидуальный подход к каждому клиенту. Наша команда готова помочь вам с выбором маршрута,
+                    бронированием билетов и организацией проживания. Мы работаем только с проверенными партнерами и предоставляем только надежные услуги.
+                    Если вы хотите отправиться в увлекательное путешествие по историческим местам или заповедным местам, свяжитесь с нами прямо сейчас.
+                    Мы поможем вам выбрать идеальный маршрут и организуем незабываемое приключение!
+                </Text>
             </Box>
 
+            <Box
+                mt={10}
+                backgroundImage={'/img/AboutPage/facts.jpg'}
+                color={'white'}
+                pt={'80px'}
+                pb={'80px'}
+            >
+                <Heading
+                    fontSize={headersFontSize}
+                    textAlign={'center'}
+                    fontWeight={"normal"}
+                >
+                    Интересные факты о нашем агентстве
+                </Heading>
+                <Flex
+                    mt={20}
+                    flexDirection={flexDirection}
+                    alignItems={'center'}
+                    justifyContent="space-evenly"
+                    gap={property.gap}
+                >
+                    <FactForAboutPage picture={'/img/AboutPage/mountains-climbed.svg'} number={17} text={'Покоренные горы'} />
+                    <FactForAboutPage picture={'/img/AboutPage/islands-visited.svg'} number={213} text={'Посещенные острова'} />
+                    <FactForAboutPage picture={'/img/AboutPage/photos-taken.svg'} number={11923} text={'Сделанные Фотографии'} />
+                    <FactForAboutPage picture={'/img/AboutPage/cruises-organized.svg'} number={150} text={'Организовано туров'} />
+                </Flex>
+            </Box>
 
-        </div >
+            <Box
+                m={property.margin}
+            >
+                <Heading
+                    fontSize={headersFontSize}
+                    textAlign={'center'}
+                    fontWeight={'normal'}
+                >
+                    Популярные услуги, которые мы предлагаем
+                </Heading>
+                <Flex
+                    mt={10}
+                    flexDirection={flexDirection}
+                    // alignItems={'center'}
+                    alignItems={'flex-start'}
+                    justifyContent={'center'}
+                    gap={'10px'}
+
+                >
+                    <ServiceForAboutPage picture={{ pic: '/img/AboutPage/car.svg', hoverPic: '/img/AboutPage/green-car.svg' }} text={'Поездки на выходные'} />
+                    <ServiceForAboutPage picture={{ pic: '/img/AboutPage/suitcase.svg', hoverPic: '/img/AboutPage/yellow-suitcase.svg' }} text={'Веселые поездки на отдых'} />
+                    <ServiceForAboutPage picture={{ pic: '/img/AboutPage/plane.svg', hoverPic: '/img/AboutPage/blue-plane.svg' }} text={'Билеты на самолет'} />
+                </Flex>
+            </Box>
+
+        </Box>
     </>
 }

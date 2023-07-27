@@ -18,7 +18,7 @@ export default function PlacesPage() {
                             <Fragment key={place.id}>
                                 <div>
                                     <Link href={`/places/${place.path}`} className="one-card">
-                                        <img className="card-img" src={place.img ? place.img : "/img/favicon.png"} alt={place.name}></img>
+                                        <img className="card-img" src={place.img ? place.img : '/img/favicon.png'} alt={place.name}></img>
                                     </Link>
                                 </div>
                                 <div className="card-img" >

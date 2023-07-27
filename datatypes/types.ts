@@ -20,3 +20,12 @@ export type valieForBreakpoints = {
     md?: string,
     sm?: string
 };
+
+export type textFontSizeArrayType = [
+    number,
+    number,
+    number,
+    number,
+    number,
+    number
+];
