@@ -1,8 +1,8 @@
 import Head from "next/head";
 import { Text, Box, Flex } from '@chakra-ui/react';
 // import { textFontSize, h1HeadersFontSize, h2HeadersFontSize } from '../displayParameters/fontDisplayParameters';
-import { marginParameters } from '../displayparameters/marginDisplayParameters';
-import { flexDirection } from '../displayparameters/flexDisplayParameters';
+import { marginParameters } from '../displayParameters/marginParameters';
+import { flexDirection } from '../displayParameters/flexParameters';
 import { HeadingForPage } from '../components/ElemsForPages';
 import { FactForAboutPage, ServiceForAboutPage } from '../components/ElemsForAboutPage';
 

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Box } from '@chakra-ui/react';
 import { tourDataCrimea, tourDataKarelia, tourDataKamchatka, tourDataVoronezh } from '../data/tourData';
-import { marginParameters } from '../displayparameters/marginDisplayParameters';
+import { marginParameters } from '../displayParameters/marginParameters';
 import TourCardsMini from '../components/TourCardsMini';
 
 export default function ToursPage() {
