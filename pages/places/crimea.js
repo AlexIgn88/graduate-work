@@ -1,7 +1,6 @@
 import Head from "next/head";
 import {
-    Heading, Text, Box, Flex, Grid, Image, UnorderedList, List, ListItem, ListIcon, chakra, Stack, Button,
-    Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useDisclosure
+    Heading, Text, Box, Flex, Grid, Image, UnorderedList, List, ListItem, ListIcon, chakra, Stack
 } from '@chakra-ui/react';
 import { h1HeadersFontSize, textFontSize } from '../../displayparameters/fontDisplayParameters';
 import { marginParameters } from '../../displayparameters/marginDisplayParameters';
@@ -13,85 +12,10 @@ import { ModalWindowRecordingForATour } from "../../components/modalwindows/Moda
 import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react';
 import { ContactInfo } from '../../components/ElemsForPages';
 
+import { tourDataCrimea } from '../../data/tourData'
+
 
 export default function CrimeaPage() {
-
-    const tourDataCrimea = [
-        {
-            tourName: 'Тур по Ялте',
-            tourInformation: [
-                { places: `Места для посещения: Набережная Ялты, Ливадийский дворец, Массандровский парк и винодельня.` },
-                {
-                    description: `Описание: Откройте для себя красоту города Ялта, насладитесь прогулкой по знаменитой набережной,
-                посетите исторические места и насладитесь прекрасными видами крымских пейзажей.`
-                },
-                { prise: `Цена: 500 рублей` },
-                { time: `Длительность: 1 день` }
-            ]
-        },
-        {
-            tourName: 'Экскурсия по Севастополю',
-            tourInformation: [
-                { places: `Места для посещения: Храм Святой Троицы, Панорама Обороны Севастополя, Черноморская площадь.` },
-                {
-                    description: `Описание: Погрузитесь в историю Севастополя, узнайте о его героическом прошлом,
-                    посетите памятные места и насладитесь потрясающими видами на Черное море.`
-                },
-                { prise: `Цена: 300 рублей` },
-                { time: `Длительность: 1 день` }
-            ]
-        },
-        {
-            tourName: 'Тур в Бахчисарай',
-            tourInformation: [
-                { places: `Места для посещения: Дворец Хана, Фонтаны Дворца, Джума-Джами Мечеть.` },
-                {
-                    description: `Описание: Погрузитесь в атмосферу крымского востока, посетите исторические места в Бахчисарае,
-                    насладитесь яркими крымскотатарскими культурами и архитектурой.`
-                },
-                { prise: `Цена: 300 рублей` },
-                { time: `Длительность: 1 день` }
-
-            ]
-        },
-        {
-            tourName: 'Поход на Гору Ай-Петри',
-            tourInformation: [
-                { places: `Место для посещения: Гора Ай-Петри.` },
-                {
-                    description: `Описание: Завоевывайте вершину Горы Ай-Петри, наслаждайтесь великолепными панорамными видами,
-                    исследуйте уникальную флору и фауну Крыма.`
-                },
-                { prise: `Цена: 300 рублей` },
-                { time: `Длительность: 1 день` }
-
-            ]
-        },
-        {
-            tourName: 'Экскурсия в Судак',
-            tourInformation: [
-                { places: `Места для посещения: Судакская крепость, Генуэзская башня, Гора Фиолент.` },
-                {
-                    description: `Описание: Отправьтесь в исторический город Судак, исследуйте его древние крепости и знаменитые достопримечательности,
-                    насладитесь прогулками по крымским пляжам.`
-                },
-                { prise: `Цена: 300 рублей` },
-                { time: `Длительность: 1 день` }
-            ]
-        },
-        {
-            tourName: 'Тур в Балаклаву',
-            tourInformation: [
-                { places: `Места для посещения: Балаклавская бухта, Балаклавский аквариум, Генуэзская крепость.` },
-                {
-                    description: `Описание: Посетите живописный крымский городок Балаклаву, насладитесь морскими видами,
-                    посмотрите на местные достопримечательности и научитесь о их истории.`
-                },
-                { prise: `Цена: 300 рублей` },
-                { time: `Длительность: 1 день` }
-            ]
-        },
-    ];
 
     const images = [
         '/img/favicon.png',
