@@ -1,6 +1,6 @@
 import Head from "next/head";
-import { Heading, Text, Box, Flex } from '@chakra-ui/react';
-import { textFontSize, h1HeadersFontSize, h2HeadersFontSize } from '../displayParameters/fontDisplayParameters';
+import { Text, Box, Flex } from '@chakra-ui/react';
+// import { textFontSize, h1HeadersFontSize, h2HeadersFontSize } from '../displayParameters/fontDisplayParameters';
 import { marginParameters } from '../displayParameters/marginDisplayParameters';
 import { flexDirection } from '../displayParameters/flexDisplayParameters';
 import { HeadingForPage } from '../components/ElemsForPages';
@@ -17,7 +17,7 @@ export default function AboutPage() {
             <title>О нас</title>
         </Head>
         <Box
-            className="about-page"
+            className='about-page'
             mb={'30px'}
         >
 
