@@ -1,5 +1,5 @@
-import { Heading, Text, Box, Flex, Image, List, ListItem, ListIcon, chakra } from '@chakra-ui/react';
-import { textFontSize, h1HeadersFontSize, h2HeadersFontSize, h3HeadersFontSize } from '../displayparameters/fontDisplayParameters';
+import { Heading, Text, Box, Image, chakra, Grid } from '@chakra-ui/react';
+import { h1HeadersFontSize, h2HeadersFontSize, h3HeadersFontSize } from '../displayparameters/fontDisplayParameters';
 import { Phone, Email } from '../includes/cell-wrappers'
 
 export function HeadingForPage({ element, content }) {
@@ -41,4 +41,23 @@ export function ContactInfo() {
         <Text><chakra.span fontWeight={'bold'}>Телефон:</chakra.span> <chakra.span as='u'><Phone value={'+7 (495) 123-45-67'} /></chakra.span></Text>
         <Text><chakra.span fontWeight={'bold'}>Email:</chakra.span> <chakra.span as='u'><Email value={'info@historicalroutes.com'} /></chakra.span>  </Text>
     </Box>
+}
+
+export function Galary({ imagesArr }) {
+    return <>
+        <Box
+            p={4}
+            mb={10}
+        >
+            <Grid templateColumns="repeat(3, 1fr)" gap={5}>
+                {imagesArr.map((image, index) => (
+                    <Image
+                        key={index}
+                        src={image}
+                        alt={`Картинка ${index + 1}`}
+                    />
+                ))}
+            </Grid>
+        </Box>
+    </>
 }
