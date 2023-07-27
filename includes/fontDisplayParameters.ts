@@ -1,5 +1,5 @@
-import { valieForBreakpoints } from '../datatypes/types'
-import { textFontSizeArrayType } from '../datatypes/types'
+import { valieForBreakpoints } from '../datatypes/types';
+import { valueArrType } from '../datatypes/types';
 
 // // These are the default Chakra UI breakpoints
 // const breakpoints = {
@@ -12,7 +12,7 @@ import { textFontSizeArrayType } from '../datatypes/types'
 
 const minTextFontSizeValue = 16;
 
-const textFontSizeValue: textFontSizeArrayType = [
+const textFontSizeValueArr: valueArrType = [
     minTextFontSizeValue,
     minTextFontSizeValue + 8,
     minTextFontSizeValue + 7,
@@ -23,15 +23,15 @@ const textFontSizeValue: textFontSizeArrayType = [
 
 // export const textFontSize: valieForBreakpoints = { base: '16px', '2xl': '24px', xl: '23px', lg: '22px', md: '21px', sm: '18px' };
 export const textFontSize: valieForBreakpoints = {
-    base: `${textFontSizeValue[0]}px`,
-    '2xl': `${textFontSizeValue[1]}px`,
-    xl: `${textFontSizeValue[2]}px`,
-    lg: `${textFontSizeValue[3]}px`,
-    md: `${textFontSizeValue[4]}px`,
-    sm: `${textFontSizeValue[5]}px`
+    base: `${textFontSizeValueArr[0]}px`,
+    '2xl': `${textFontSizeValueArr[1]}px`,
+    xl: `${textFontSizeValueArr[2]}px`,
+    lg: `${textFontSizeValueArr[3]}px`,
+    md: `${textFontSizeValueArr[4]}px`,
+    sm: `${textFontSizeValueArr[5]}px`
 };
 
-const headersFontSizeValue = textFontSizeValue.map(FontSize => (FontSize + 10));
+const headersFontSizeValue = textFontSizeValueArr.map(FontSize => (FontSize + 10));
 
 export const headersFontSize: valieForBreakpoints = {
     base: `${headersFontSizeValue[0]}px`,

@@ -1,13 +1,13 @@
 import Head from "next/head";
 import { Heading, Text, Box, Flex } from '@chakra-ui/react';
 import { headersFontSize, textFontSize } from '../includes/fontDisplayParameters';
-import { flexDirection } from '../includes/flexDisplayParameters'
-import { FactForAboutPage, ServiceForAboutPage } from '../components/ElemsForAboutPage'
+import { marginParameters } from '../includes/marginDisplayParameters';
+import { flexDirection } from '../includes/flexDisplayParameters';
+import { FactForAboutPage, ServiceForAboutPage } from '../components/ElemsForAboutPage';
 
 export default function AboutPage() {
 
     const property = {
-        margin: { base: '10px', '2xl': '50px', xl: '40px', lg: '40px', md: '30px', sm: '20px' },
         gap: { base: '10px', sm: '70px' }
     }
 
@@ -21,7 +21,7 @@ export default function AboutPage() {
         >
 
             <Box
-                m={property.margin}
+                m={marginParameters}
             >
                 <Heading
                     as='h1'
@@ -78,7 +78,7 @@ export default function AboutPage() {
             </Box>
 
             <Box
-                m={property.margin}
+                m={marginParameters}
             >
                 <Heading
                     fontSize={headersFontSize}

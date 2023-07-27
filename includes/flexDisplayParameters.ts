@@ -1,3 +1,5 @@
+import { valieForBreakpoints } from '../datatypes/types';
+
 // // These are the default Chakra UI breakpoints
 // const breakpoints = {
 //     sm: '30em', // 480px
@@ -7,4 +9,4 @@
 //     '2xl': '96em', // 1536px
 //   }
 
-export const flexDirection = { base: 'column', lg: 'row' };
+export const flexDirection: valieForBreakpoints = { base: 'column', lg: 'row' };

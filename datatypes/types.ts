@@ -21,7 +21,7 @@ export type valieForBreakpoints = {
     sm?: string
 };
 
-export type textFontSizeArrayType = [
+export type valueArrType = [
     number,
     number,
     number,
