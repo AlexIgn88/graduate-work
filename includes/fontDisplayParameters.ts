@@ -1,5 +1,6 @@
-import { valieForBreakpoints } from '../datatypes/types';
+import { breakpointsArrType } from '../datatypes/types';
 import { valueArrType } from '../datatypes/types';
+import { valieForBreakpoints } from '../datatypes/types';
 
 // // These are the default Chakra UI breakpoints
 // const breakpoints = {
@@ -10,8 +11,22 @@ import { valueArrType } from '../datatypes/types';
 //     '2xl': '96em', // 1536px
 //   }
 
-const minTextFontSizeValue = 14;
+//Создаем объект со ключами-брейк-пойнтами и значениями-размерами шрифтов чтобы передать в компоненты Chakra UI
+function arraysToObject(keys: breakpointsArrType, values: valueArrType): valieForBreakpoints {
+    const obj: any = {};
 
+    for (let i = 0; i < keys.length; i++) {
+        obj[keys[i]] = `${values[i]}px`;
+    }
+
+    return obj;
+}
+
+//Исходные данные: массив брейк-пойнтов и значение размера стандартного для mobile first (минимального) шрифта
+const breakpointsArr: breakpointsArrType = ['base', '2xl', 'xl', 'lg', 'md', 'sm'];
+const minTextFontSizeValue: number = 14;
+
+//чтобы изменить соотношение уменьшения шрифтов в зависимости от размера экрана, можно поменять тут цифры
 const textFontSizeValueArr: valueArrType = [
     minTextFontSizeValue,
     minTextFontSizeValue + 8,
@@ -20,46 +35,15 @@ const textFontSizeValueArr: valueArrType = [
     minTextFontSizeValue + 5,
     minTextFontSizeValue + 2
 ];
-
 // export const textFontSize: valieForBreakpoints = { base: '16px', '2xl': '24px', xl: '23px', lg: '22px', md: '21px', sm: '18px' };
-export const textFontSize: valieForBreakpoints = {
-    base: `${textFontSizeValueArr[0]}px`,
-    '2xl': `${textFontSizeValueArr[1]}px`,
-    xl: `${textFontSizeValueArr[2]}px`,
-    lg: `${textFontSizeValueArr[3]}px`,
-    md: `${textFontSizeValueArr[4]}px`,
-    sm: `${textFontSizeValueArr[5]}px`
-};
+export const textFontSize: valieForBreakpoints = arraysToObject(breakpointsArr, textFontSizeValueArr);
 
-const h1HeadersFontSizeValue = textFontSizeValueArr.map(FontSize => (FontSize + 10));
+//временно any до выяснения. Нужен тип valueArrType
+const h1HeadersFontSizeValueArr: any = textFontSizeValueArr.map(FontSize => (FontSize + 10));
+export const h1HeadersFontSize: valieForBreakpoints = arraysToObject(breakpointsArr, h1HeadersFontSizeValueArr);
 
-export const h1HeadersFontSize: valieForBreakpoints = {
-    base: `${h1HeadersFontSizeValue[0]}px`,
-    '2xl': `${h1HeadersFontSizeValue[1]}px`,
-    xl: `${h1HeadersFontSizeValue[2]}px`,
-    lg: `${h1HeadersFontSizeValue[3]}px`,
-    md: `${h1HeadersFontSizeValue[4]}px`,
-    sm: `${h1HeadersFontSizeValue[5]}px`
-};
+const h2HeadersFontSizeValueArr: any = textFontSizeValueArr.map(FontSize => (FontSize + 4));
+export const h2HeadersFontSize: valieForBreakpoints = arraysToObject(breakpointsArr, h2HeadersFontSizeValueArr);
 
-const h2HeadersFontSizeValue = textFontSizeValueArr.map(FontSize => (FontSize + 4));
-
-export const h2HeadersFontSize: valieForBreakpoints = {
-    base: `${h2HeadersFontSizeValue[0]}px`,
-    '2xl': `${h2HeadersFontSizeValue[1]}px`,
-    xl: `${h2HeadersFontSizeValue[2]}px`,
-    lg: `${h2HeadersFontSizeValue[3]}px`,
-    md: `${h2HeadersFontSizeValue[4]}px`,
-    sm: `${h2HeadersFontSizeValue[5]}px`
-};
-
-const h3HeadersFontSizeValue = textFontSizeValueArr.map(FontSize => (FontSize + 2));
-
-export const h3HeadersFontSize: valieForBreakpoints = {
-    base: `${h3HeadersFontSizeValue[0]}px`,
-    '2xl': `${h3HeadersFontSizeValue[1]}px`,
-    xl: `${h3HeadersFontSizeValue[2]}px`,
-    lg: `${h3HeadersFontSizeValue[3]}px`,
-    md: `${h3HeadersFontSizeValue[4]}px`,
-    sm: `${h3HeadersFontSizeValue[5]}px`
-};
+const h3HeadersFontSizeValueArr: any = textFontSizeValueArr.map(FontSize => (FontSize + 2));
+export const h3HeadersFontSize: valieForBreakpoints = arraysToObject(breakpointsArr, h3HeadersFontSizeValueArr);

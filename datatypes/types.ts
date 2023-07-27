@@ -12,14 +12,14 @@ export type place = {
     text?: string
 };
 
-export type valieForBreakpoints = {
-    base: string,
-    '2xl'?: string,
-    xl?: string,
-    lg?: string,
-    md?: string,
-    sm?: string
-};
+export type breakpointsArrType = [
+    string,
+    string,
+    string,
+    string,
+    string,
+    string
+];
 
 export type valueArrType = [
     number,
@@ -29,3 +29,12 @@ export type valueArrType = [
     number,
     number
 ];
+
+export type valieForBreakpoints = {
+    base: string,
+    '2xl'?: string,
+    xl?: string,
+    lg?: string,
+    md?: string,
+    sm?: string
+};

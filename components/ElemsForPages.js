@@ -5,6 +5,8 @@ export function HeadingForPage({ element, content }) {
 
     let size;
 
+    //если в компоненте чакры Heading не прописать значение as={ }, то создается h2
+    //поэтому по умолчанию выставил шрифт для h2 default: size = h2HeadersFontSize;
     switch (element) {
         case 'h1':
             size = h1HeadersFontSize;
