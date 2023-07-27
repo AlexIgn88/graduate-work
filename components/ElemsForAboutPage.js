@@ -1,5 +1,5 @@
 import { Flex, Box, Image, Text } from '@chakra-ui/react';
-import { h1HeadersFontSize } from '../displayparameters/fontDisplayParameters';
+import { h1HeadersFontSize } from '../displayParameters/fontDisplayParameters';
 import { useState } from "react";
 
 const picSize = '82px'; 

@@ -47,10 +47,10 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
     //if (!data) <OneTopicSkeleton />
     return <div className="page topic-page">
         <Head>
-            <title>{data.topic.title}</title>
+            <title>{data?.topic?.title}</title>
         </Head>
         <div className="post-div">
-            <h1>{data.topic.title}</h1>
+            <h1>{data?.topic?.title}</h1>
 
             {session && notBanned && <div>
                 <input

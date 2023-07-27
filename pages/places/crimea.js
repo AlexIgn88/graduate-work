@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { Text, Box, Flex, Image } from '@chakra-ui/react';
-import { marginParameters } from '../../displayparameters/marginDisplayParameters';
+import { marginParameters } from '../../displayParameters/marginDisplayParameters';
 
 // import { useRouter } from 'next/router'
 import { HeadingForPage, Galary, ContactInfo } from '../../components/ElemsForPages';
