@@ -2,7 +2,7 @@ import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
 import { useRouter } from 'next/router';
 import { Box } from '@chakra-ui/react';
-import { textFontSize } from '../includes/fontDisplayParameters';
+import { textFontSize } from '../displayParameters/fontDisplayParameters';
 
 export default function Layout({ children }) {
 

@@ -1,6 +1,7 @@
 import { breakpointsArrType } from '../datatypes/types';
 import { valueArrType } from '../datatypes/types';
 import { valieForBreakpoints } from '../datatypes/types';
+import arraysToObject from '../includes/arraysToObject';
 
 // // These are the default Chakra UI breakpoints
 // const breakpoints = {
@@ -10,17 +11,6 @@ import { valieForBreakpoints } from '../datatypes/types';
 //     xl: '80em', // 1280px
 //     '2xl': '96em', // 1536px
 //   }
-
-//Создаем объект со ключами-брейк-пойнтами и значениями-размерами шрифтов чтобы передать в компоненты Chakra UI
-function arraysToObject(keys: breakpointsArrType, values: valueArrType): valieForBreakpoints {
-    const obj: any = {};
-
-    for (let i = 0; i < keys.length; i++) {
-        obj[keys[i]] = `${values[i]}px`;
-    }
-
-    return obj;
-}
 
 //Исходные данные: массив брейк-пойнтов и значение размера стандартного для mobile first (минимального) шрифта
 const breakpointsArr: breakpointsArrType = ['base', '2xl', 'xl', 'lg', 'md', 'sm'];
@@ -36,14 +26,14 @@ const textFontSizeValueArr: valueArrType = [
     minTextFontSizeValue + 2
 ];
 // export const textFontSize: valieForBreakpoints = { base: '16px', '2xl': '24px', xl: '23px', lg: '22px', md: '21px', sm: '18px' };
+//Создаем объект со ключами-брейк-пойнтами и значениями-размерами шрифтов чтобы передать в компоненты Chakra UI
 export const textFontSize: valieForBreakpoints = arraysToObject(breakpointsArr, textFontSizeValueArr);
 
-//временно any до выяснения. Нужен тип valueArrType
-const h1HeadersFontSizeValueArr: any = textFontSizeValueArr.map(FontSize => (FontSize + 10));
+const h1HeadersFontSizeValueArr: valueArrType = textFontSizeValueArr.map(FontSize => (FontSize + 10));
 export const h1HeadersFontSize: valieForBreakpoints = arraysToObject(breakpointsArr, h1HeadersFontSizeValueArr);
 
-const h2HeadersFontSizeValueArr: any = textFontSizeValueArr.map(FontSize => (FontSize + 4));
+const h2HeadersFontSizeValueArr: valueArrType = textFontSizeValueArr.map(FontSize => (FontSize + 4));
 export const h2HeadersFontSize: valieForBreakpoints = arraysToObject(breakpointsArr, h2HeadersFontSizeValueArr);
 
-const h3HeadersFontSizeValueArr: any = textFontSizeValueArr.map(FontSize => (FontSize + 2));
+const h3HeadersFontSizeValueArr: valueArrType = textFontSizeValueArr.map(FontSize => (FontSize + 2));
 export const h3HeadersFontSize: valieForBreakpoints = arraysToObject(breakpointsArr, h3HeadersFontSizeValueArr);

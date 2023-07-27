@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { Fragment } from 'react';
 import { places, loremIpsum } from '../includes/placesData';
-import { h1HeadersFontSize, textFontSize } from '../includes/fontDisplayParameters';
+import { h1HeadersFontSize, textFontSize } from '../displayParameters/fontDisplayParameters';
 
 export default function PlacesPage() {
     //переделаю позже всё на Chakra UI. Адаптивности пока нет)))

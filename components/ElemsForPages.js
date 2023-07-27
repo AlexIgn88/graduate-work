@@ -1,5 +1,5 @@
 import { Heading, Text, Box, Flex } from '@chakra-ui/react';
-import { textFontSize, h1HeadersFontSize, h2HeadersFontSize, h3HeadersFontSize } from '../includes/fontDisplayParameters';
+import { textFontSize, h1HeadersFontSize, h2HeadersFontSize, h3HeadersFontSize } from '../displayParameters/fontDisplayParameters';
 
 export function HeadingForPage({ element, content }) {
 

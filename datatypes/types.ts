@@ -12,23 +12,9 @@ export type place = {
     text?: string
 };
 
-export type breakpointsArrType = [
-    string,
-    string,
-    string,
-    string,
-    string,
-    string
-];
+export type breakpointsArrType = string[];
 
-export type valueArrType = [
-    number,
-    number,
-    number,
-    number,
-    number,
-    number
-];
+export type valueArrType = number[];
 
 export type valieForBreakpoints = {
     base: string,
