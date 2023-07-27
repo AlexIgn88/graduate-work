@@ -16,29 +16,19 @@
     background-color: #f8e183;
 } */
 
-.places {
-    background-color: rgb(6, 13, 32);
-    color: white;
-}
-
-/* .about {
-    background-color: #a6b0cf;
-    color: white;
-} */
-
 main {
     flex-grow: 1;
     margin-top: 70px;
 }
 
-header {
+.header {
     background: rgb(141, 99, 75);
     position: fixed;
     top: 0px;
     width: 100%;
 }
 
-header nav {
+.header nav {
     flex-grow: 1;
 }
 
@@ -318,16 +308,26 @@ table.admin-panel .delete-button:active {
     margin-top: 70px;
 }
 
-footer {
+.footer {
     background: rgb(40, 28, 21);
     padding: 20px;
     text-align: center;
 }
 
-footer p {
+.footer p {
     font-size: 14px;
     color: white;
 }
+
+.places {
+    background-color: rgb(6, 13, 32);
+    color: white;
+}
+
+/* .about {
+    background-color: #a6b0cf;
+    color: white;
+} */
 
 .spinner {
     margin-top: 30px;

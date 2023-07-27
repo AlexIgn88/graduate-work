@@ -1,5 +1,8 @@
 import Head from "next/head";
-import { Heading, Text, Box, Flex, Grid, Image, UnorderedList, List, ListItem, ListIcon, chakra, Stack, Button } from '@chakra-ui/react';
+import {
+    Heading, Text, Box, Flex, Grid, Image, UnorderedList, List, ListItem, ListIcon, chakra, Stack, Button,
+    Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useDisclosure
+} from '@chakra-ui/react';
 import { h1HeadersFontSize, textFontSize } from '../../displayParameters/fontDisplayParameters';
 import { marginParameters } from '../../displayParameters/marginDisplayParameters';
 import { flexDirection } from '../../displayParameters/flexDisplayParameters';
@@ -9,7 +12,36 @@ import { FaBusAlt } from 'react-icons/fa';
 import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react';
 import { ContactInfo } from '../../components/ElemsForPages';
 
+
 export default function CrimeaPage() {
+
+    function ModalWindowRecordingForATour() {
+        const { isOpen, onOpen, onClose } = useDisclosure()
+        return (
+            <>
+                <Button variant='solid' colorScheme='blue' onClick={onOpen}>Записаться</Button>
+
+                <Modal isOpen={isOpen} onClose={onClose}>
+                    <ModalOverlay />
+                    <ModalContent>
+                        <ModalHeader>Для заказа тура или экскурсии свяжитесь, пожалуйста с нашим менеджером</ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>
+                            {/* <Lorem count={2} /> */}
+                            <ContactInfo />
+                        </ModalBody>
+
+                        <ModalFooter>
+                            <Button colorScheme='blue' mr={3} onClick={onClose}>
+                                Close
+                            </Button>
+                            {/* <Button variant='ghost'>Secondary Action</Button> */}
+                        </ModalFooter>
+                    </ModalContent>
+                </Modal>
+            </>
+        )
+    }
 
     const tourDataCrimea = [
         {
@@ -169,28 +201,41 @@ export default function CrimeaPage() {
                             overflow='hidden'
                             variant='outline'
                         >
-                            <Image
+                            {/* <Image
                                 objectFit='cover'
                                 maxW={{ base: '100%', sm: '200px' }}
-                                src='https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60'
+                                // src='https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60'
                                 // scr='/img/favicon.png'
-                                alt='Caffe Latte'
+                                alt='tour'
+                            /> */}
+                            <Image
+                                src={'/img/favicon.png'}
+                                alt={'tour'}
+                                // w={'82px'}
+                                // h={'82px'}
+                                objectFit='cover'
+                                maxW={{ base: '100%', sm: '200px' }}
                             />
+
                             <Stack>
                                 <CardBody>
                                     <Heading size='md'>{tour.tourName}</Heading>
                                     <Box py='2'>
-                                        <UnorderedList >
+                                        <List >
                                             {tour.tourInformation.map((item, i) => (
-                                                <ListItem key={i}>{Object.values(item)[0]}</ListItem>
+                                                <ListItem key={i}>
+                                                    <ListIcon as={FaBusAlt} color='yellow.500' />
+                                                    {Object.values(item)[0]}
+                                                </ListItem>
                                             ))}
-                                        </UnorderedList>
+                                        </List>
                                     </Box>
                                 </CardBody>
                                 <CardFooter>
-                                    <Button variant='solid' colorScheme='blue'>
+                                    {/* <Button variant='solid' colorScheme='blue'>
                                         Записаться
-                                    </Button>
+                                    </Button> */}
+                                    <ModalWindowRecordingForATour />
                                 </CardFooter>
                             </Stack>
                         </Card>
@@ -199,9 +244,10 @@ export default function CrimeaPage() {
             </List>
 
 
+
             {/*дополнительный component - он стандартен для всех таких страничек*/}
             <Box mb={10}>
-                <Text>Для заказа тура или экскурсии свяжитесь с нашим менеджером</Text>
+                <Text>Для заказа тура или экскурсии свяжитесь, пожалуйста с нашим менеджером</Text>
                 <ContactInfo />
             </Box>
         </Box>
