@@ -70,8 +70,8 @@ export default function AboutPage() {
                     justifyContent="space-evenly"
                     gap={property.gap}
                 >
-                    <FactForAboutPage picture={'/img/AboutPage/mountains-climbed.svg'} number={17} text={'Покоренные горы'} />
-                    <FactForAboutPage picture={'/img/AboutPage/islands-visited.svg'} number={213} text={'Посещенные острова'} />
+                    <FactForAboutPage picture={'/img/AboutPage/mountains-climbed.svg'} number={17} text={'Покоренные вершины'} />
+                    <FactForAboutPage picture={'/img/AboutPage/islands-visited.svg'} number={213} text={'Исследованные острова'} />
                     <FactForAboutPage picture={'/img/AboutPage/photos-taken.svg'} number={11923} text={'Сделанные Фотографии'} />
                     <FactForAboutPage picture={'/img/AboutPage/cruises-organized.svg'} number={150} text={'Организовано туров'} />
                 </Flex>
