@@ -1,44 +1,12 @@
+import "../styles/global.css";
+import { Global } from '@emotion/react';
+import { globalStyles } from '../displayParameters/globalStyles';
 import Head from 'next/head';
 import Layout from '../components/Layout.js';
-import "../styles/global.css";
-import { Toaster } from 'react-hot-toast';
 // import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
-import { ChakraProvider, CSSReset } from '@chakra-ui/react'
-import { Global } from '@emotion/react';
-
-// import { extendTheme } from '@chakra-ui/react'
-
-// const colors = {
-//   brand: {
-//     900: '#1a365d',
-//     800: '#153e75',
-//     700: '#2a69ac',
-//   },
-// }
-
-// export const theme = extendTheme({ colors })
-
-// const theme = {
-//   styles: {
-//     global: {
-//       'html, body': {
-//         height: '100%',
-//         // backgroundColor: '#f8e183',
-//         fontFamily: 'sans-serif',
-//       },
-//       '#__next': {
-//         height: '100%',
-//         display: 'flex',
-//         flexDirection: 'column',
-//       },
-//       'main': {
-//         flexGrow: '1',
-//         marginTop: '70px',
-//       },
-//     },
-//   },
-// }
+import { ChakraProvider, CSSReset } from '@chakra-ui/react';
+import { Toaster } from 'react-hot-toast';
 
 export default function MyApp({ Component,
   pageProps: { session, ...pageProps }
@@ -52,36 +20,14 @@ export default function MyApp({ Component,
       <link rel="icon" href="/img/favicon.png" />
     </Head>
     <SessionProvider session={session}>
-
+      {/* <ChakraProvider theme={theme}> */}
       <ChakraProvider>
-        {/* <ChakraProvider theme={theme}> */}
-
-        {/* <CSSReset /> */}
-        <Global
-          styles={{
-            'html, body': {
-              height: '100%',
-              // backgroundColor: '#f8e183',
-              fontFamily: 'sans-serif',
-            },
-            '#__next': {
-              height: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-            },
-            'main': {
-              flexGrow: '1',
-              marginTop: '70px',
-            },
-          }}
-        />
-
+        <Global styles={globalStyles} />
         <Layout>
           <Component {...pageProps} />
           <Toaster position="top-right" />
         </Layout>
       </ChakraProvider>
-
     </SessionProvider>
   </>
 }

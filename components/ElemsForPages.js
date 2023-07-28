@@ -1,6 +1,5 @@
-import { Heading, Text, Box, Image, chakra, Grid } from '@chakra-ui/react';
-import { h1HeadersFontSize, h2HeadersFontSize, h3HeadersFontSize } from '../displayParameters/fontParameters';
-import { Phone, Email } from '../includes/cell-wrappers'
+import { Heading } from '@chakra-ui/react';
+import { h1HeadersFontSize, h2HeadersFontSize, h3HeadersFontSize, textFontSize } from '../displayParameters/fontParameters';
 
 export function HeadingForPage({ element, content }) {
 
@@ -18,6 +17,15 @@ export function HeadingForPage({ element, content }) {
         case 'h3':
             size = h3HeadersFontSize;
             break;
+        case 'h4':
+            size = textFontSize; //размер обычного шрифта абзаца
+            break;
+        case 'h5':
+            size = textFontSize; //размер обычного шрифта абзаца
+            break;
+        case 'h6':
+            size = textFontSize; //размер обычного шрифта абзаца
+            break;
         default:
             size = h2HeadersFontSize;
             break;
@@ -33,31 +41,4 @@ export function HeadingForPage({ element, content }) {
     >
         {content}
     </Heading>
-}
-
-export function ContactInfo() {
-    return <Box className="contact-info">
-        <Text><chakra.span fontWeight={'bold'}>Адрес:</chakra.span> г. Москва, ул. Исторических маршрутов, д.1, офис 123</Text>
-        <Text><chakra.span fontWeight={'bold'}>Телефон:</chakra.span> <chakra.span as='u'><Phone value={'+7 (495) 123-45-67'} /></chakra.span></Text>
-        <Text><chakra.span fontWeight={'bold'}>Email:</chakra.span> <chakra.span as='u'><Email value={'info@historicalroutes.com'} /></chakra.span>  </Text>
-    </Box>
-}
-
-export function Galary({ imagesArr }) {
-    return <>
-        <Box
-            p={4}
-            mb={10}
-        >
-            <Grid templateColumns="repeat(3, 1fr)" gap={5}>
-                {imagesArr.map((image, index) => (
-                    <Image
-                        key={index}
-                        src={image}
-                        alt={`Картинка ${index + 1}`}
-                    />
-                ))}
-            </Grid>
-        </Box>
-    </>
 }

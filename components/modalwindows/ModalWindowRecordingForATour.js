@@ -1,5 +1,5 @@
 import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useDisclosure } from '@chakra-ui/react';
-import { ContactInfo } from '../../components/ElemsForPages';
+import ContactInfo from '../../components/ContactInfo';
 
 export function ModalWindowRecordingForATour() {
     const { isOpen, onOpen, onClose } = useDisclosure()

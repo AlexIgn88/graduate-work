@@ -40,9 +40,9 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
         notBanned = currentUserRole !== 'banned';
     // const yourPost = currentUserId === 
 
-    // console.log('data=', data);
+    console.log('data=', data);
 
-    console.log('topicId=', topicId);
+    // console.log('topicId=', topicId);
 
     //if (!data) <OneTopicSkeleton />
     return <div className="page topic-page">

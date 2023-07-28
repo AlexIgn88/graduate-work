@@ -1,9 +1,9 @@
 import Head from "next/head";
 import { Text, Box, Flex, Image } from '@chakra-ui/react';
 import { marginParameters } from '../../displayParameters/marginParameters';
-
-
-import { HeadingForPage, Galary, ContactInfo } from '../../components/ElemsForPages';
+import { HeadingForPage } from '../../components/ElemsForPages';
+import Galary from '../../components/Galary';
+import ContactInfo from '../../components/ContactInfo';
 import TourCards from '../../components/TourCards';
 import { crimeaMainImage, crimeaImages, tourDataCrimea, crimeaText } from '../../data/tourData';
 

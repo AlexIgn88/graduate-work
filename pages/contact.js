@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { ContactInfo } from '../components/ElemsForPages'
+import ContactInfo from '../components/ContactInfo';
 
 export default function ContactsPage() {
     return <>
