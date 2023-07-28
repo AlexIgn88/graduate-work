@@ -19,6 +19,27 @@ import { Global } from '@emotion/react';
 
 // export const theme = extendTheme({ colors })
 
+// const theme = {
+//   styles: {
+//     global: {
+//       'html, body': {
+//         height: '100%',
+//         // backgroundColor: '#f8e183',
+//         fontFamily: 'sans-serif',
+//       },
+//       '#__next': {
+//         height: '100%',
+//         display: 'flex',
+//         flexDirection: 'column',
+//       },
+//       'main': {
+//         flexGrow: '1',
+//         marginTop: '70px',
+//       },
+//     },
+//   },
+// }
+
 export default function MyApp({ Component,
   pageProps: { session, ...pageProps }
 }) {
@@ -38,12 +59,20 @@ export default function MyApp({ Component,
         {/* <CSSReset /> */}
         <Global
           styles={{
-            body: {
+            'html, body': {
               height: '100%',
               // backgroundColor: '#f8e183',
               fontFamily: 'sans-serif',
-              // fontSize:'25px'
-            }
+            },
+            '#__next': {
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+            },
+            'main': {
+              flexGrow: '1',
+              marginTop: '70px',
+            },
           }}
         />
 
