@@ -1,76 +1,82 @@
-import Head from "next/head";
-import { useSession, signIn } from 'next-auth/react';
-import { nanoquery } from '@nanostores/query';
 import { useStore } from '@nanostores/react';
+import getStores from '../store/generateStores';
+
+import { useSession, signIn } from 'next-auth/react';
+
+import Head from "next/head";
+import userColumns from '../data/usersColumnsForRersonalCabinet';
+import accauntsColumns from '../data/usersColumnsForMyAccounts';
+import EditableMyAccount from '../components/EditableMyAccount';
+import { Box, Flex, Spacer, Heading, Button, ButtonGroup, Input } from "@chakra-ui/react";
+import { h1HeadersFontSize, h2HeadersFontSize, h3HeadersFontSize, textFontSize } from '../displayParameters/fontParameters';
 
 const
-  [createFetcherStore] = nanoquery(
-    { fetcher: (...keys) => fetch(keys.join('')).then(r => r.json()), }),
-  $characters = createFetcherStore(['/api/restricted/myaccount']);
-
-/* eslint-disable */
+  userStores = getStores('/api/restricted/myaccount');
 
 export default function MyAccount() {
-  const sessionHookResult = useSession();
-  const storeHookResult = useStore($characters);
 
-  console.log('sessionHookResult=', sessionHookResult);
-  console.log('storeHookResult=', storeHookResult);
+  const
+    { data: session } = useSession();
 
-  // let a = storeHookResult.data?.accouts[0];
-  // console.log('a= ', a);
-  // console.log('typeof a=', typeof a);
-  // console.log('a[userId]= ', a?.userId);
-  // let keys = Object.keys(a || {});
-  // console.log(keys);
+  const
+    { fetcherStore, addStore, delStore, updateStore } = userStores,
+    { data, loading, error } = useStore(fetcherStore),
+    { mutate: onAdd } = useStore(addStore),
+    { mutate: onDelete } = useStore(delStore),
+    { mutate: onEdit } = useStore(updateStore);
+
+  // const sessionHookResult = useSession();
+
+  let user;
+  let accouts;
+
+  if (data) user = [data?.user];
+  if (data) accouts = data?.accouts;
 
   return <>
     <Head>
       <title>Мой аккаунт</title>
     </Head>
-    <div className='page account-page'>
-      <button onClick={() => signIn()}>Добавить аккаунт</button>
-      <h3>frontend:</h3>
-      <pre>{JSON.stringify(sessionHookResult, null, '\t')}</pre>
-      <h3>backend:</h3>
-      <pre>{JSON.stringify(storeHookResult, null, '\t')}</pre>
+    <Box className='page account-page'>
 
-      {/* {    <h3>frontend:</h3>
-    <div className='user-frontend'>
-      <div>Пользователь: {sessionHookResult.data?.user?.name}</div>
-      <div>email: {sessionHookResult.data?.user?.email || 'Не указан'}</div>
-      <div>image: <img src={sessionHookResult.data?.user?.image} width="100" alt="ava"></img>
-      </div>
-      <div>id: {sessionHookResult.data?.user?.id}</div>
-      <div>role: {sessionHookResult.data?.user?.role}</div>
-    </div>} */}
+      {!session && <Box>Пожалуйста, залогинитесь на сайте для просмотра этой страницы </Box>}
+      {session && <Box>
+        <Button colorScheme='yellow' onClick={() => signIn()}>Добавить аккаунт</Button>
 
-      {/* <h3>backend:</h3>
-    <div>{JSON.stringify(storeHookResult, null, '\t')}</div>
-    <div>{JSON.stringify(storeHookResult.data?.accouts, null, '\t')}</div>
-
-    <div className='user-backend'>
-      <div>Пользователь: {storeHookResult.data?.user?.name}</div>
-      <div>email: {storeHookResult.data?.user?.email || 'Не указан'}</div>
-      <div>emailVerified: {storeHookResult.data?.user?.emailVerified || 'Не указано'}</div>
-      <div>image: <img src={storeHookResult.data?.user?.image} width="100" alt="ava"></img>
-      </div>
-      <div>id: {storeHookResult.data?.user?.id}</div>
-      <div>role: {storeHookResult.data?.user?.role}</div>
-
-      {storeHookResult.data?.accouts.map(accout => (
-        <div>
-          {keys.map((key, i) => (
-            <div key={i}>{key}: {accout[key]}</div>
-          ))}
-        </div>)
-      )}
-    </div> */}
+        {error && <>Error={error}</>}
+        {loading && (!data) && <div className='spinner'></div>}
 
 
 
-    </div>;
+        {Array.isArray(user) && <div className="all-users">
+          <EditableMyAccount
+            columns={userColumns}
+            data={user}
+            onAdd={onAdd}
+            onDelete={onDelete}
+            onEdit={onEdit}
+          />
+        </div>}
+        {Array.isArray(accouts) && <div className="all-users">
+          <EditableMyAccount
+            columns={accauntsColumns}
+            data={accouts}
+            onAdd={onAdd}
+            onDelete={onDelete}
+            onEdit={onEdit}
+          />
+        </div>}
+        {/* <Heading fontSize={h2HeadersFontSize}>frontend:</Heading>
+        <pre>{JSON.stringify(sessionHookResult, null, '\t')}</pre> */}
+        {/* <Heading fontSize={h1HeadersFontSize}>backend:</Heading>
+        <Heading fontSize={h2HeadersFontSize}>data:</Heading> */}
+        {/* <pre>{JSON.stringify(data, null, '\t')}</pre> */}
+        {/* <pre>{JSON.stringify(user, null, '\t')}</pre> */}
+        {/* <Heading fontSize={h2HeadersFontSize}>accouts:</Heading>
+        <pre>{JSON.stringify(accouts, null, '\t')}</pre> */}
+      </Box>}
+
+
+    </Box>
   </>
 }
-
-/* eslint-enable */

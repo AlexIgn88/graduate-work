@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { SWRConfig } from 'swr';
 import GetData from '../../../components/GetData';
-import OneTopicComponent from '../../../components/OneTopicComponent';
+import OneTopicComponent from '../../../components/forum/OneTopicComponent';
 
 export default function TopicPage() {
     const

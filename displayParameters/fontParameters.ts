@@ -25,7 +25,7 @@ const textFontSizeValueArr: valueArrType = [
     minTextFontSizeValue + 5,
     minTextFontSizeValue + 2
 ];
-// export const textFontSize: valieForBreakpoints = { base: '16px', '2xl': '24px', xl: '23px', lg: '22px', md: '21px', sm: '18px' };
+//пример:    export const textFontSize: valieForBreakpoints = { base: '16px', '2xl': '24px', xl: '23px', lg: '22px', md: '21px', sm: '18px' };
 //Создаем объект со ключами-брейк-пойнтами и значениями-размерами шрифтов чтобы передать в компоненты Chakra UI
 export const textFontSize: valieForBreakpoints = arraysToObject(breakpointsArr, textFontSizeValueArr);
 

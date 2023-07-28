@@ -1,6 +1,6 @@
 import { SWRConfig } from 'swr';
 import GetData from '../../components/GetData';
-import AllTopicsComponent from '../../components/AllTopicsComponent';
+import AllTopicsComponent from '../../components/forum/AllTopicsComponent';
 import Head from "next/head";
 import { useSession } from 'next-auth/react';
 import { fictionalDataForForum } from '../../data/fictionalData'

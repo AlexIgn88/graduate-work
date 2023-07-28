@@ -1,40 +1,41 @@
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
+
 import Head from "next/head";
+import { fictionalDataForTopic } from '../../data/fictionalData';
 
-import { fictionalDataForTopic } from '../data/fictionalData'
+import { Button, ButtonGroup, Input } from '@chakra-ui/react';
 
-// export default function TopicComponent({ data, fictionalData, mutate, topicId }) {
 export default function OneTopicComponent({ data, mutate, topicId }) {
 
-    //может мне попробовать скелетон?
+    //может попробовать скелетон?
     //Skeleton is used to display the loading state of some component.
     //https://chakra-ui.com/docs/components/skeleton
     if (!data) data = fictionalDataForTopic;
 
+    //Константы для создания и редактирования тем
     const
         [newPostInputVal, setNewPostInputVal] = useState(''),
         [editPostId, setEditPostId] = useState(null),
         [postForEditInputVal, setPostForEditInputVal] = useState(''),
+        newPost = {};
 
-        newPost = {},
-
-        sessionHookResult = useSession(),
-        { data: session } = useSession();
-
-    // const {
-    //     name: currentUserName,
-    //     email: currentUserEmail,
-    //     image: currentUserImage,
-    //     id: currentUserId,
-    //     role: currentUserRole
-    // } = sessionHookResult?.data?.user;
-
+    //Константы для получения сессии и данных о вошедшем пользователе
     const
+        sessionHookResult = useSession(),
+        { data: session } = useSession(),
+        // const {
+        //     name: currentUserName,
+        //     email: currentUserEmail,
+        //     image: currentUserImage,
+        //     id: currentUserId,
+        //     role: currentUserRole
+        // } = sessionHookResult?.data?.user;
         currentUserId = sessionHookResult?.data?.user?.id,
         currentUserName = sessionHookResult?.data?.user?.name,
         currentUserRole = sessionHookResult?.data?.user?.role;
 
+    //Константы для определения прав доступа
     const
         adminOrModerator = currentUserRole === 'admin' || currentUserRole === 'moderator',
         notBanned = currentUserRole !== 'banned';
@@ -53,14 +54,14 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
             <h1>{data?.topic?.title}</h1>
 
             {session && notBanned && <div>
-                <input
+                <Input
                     type='search'
                     name='new-post'
                     placeholder={'пост'}
                     value={newPostInputVal}
                     onInput={evt => setNewPostInputVal(evt.target.value)}
                 />
-                <button type='submit' onClick={async () => {
+                <Button colorScheme='yellow' type='submit' onClick={async () => {
                     async function addPost(formData) {
                         try {
                             const response = await fetch('/api/forum/post/', {
@@ -94,7 +95,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                         null;
                     }
                 }
-                }>Добавить пост</button>
+                }>Добавить пост</Button>
             </div>}
 
             {data?.posts?.map((post) => (
@@ -106,7 +107,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                         ?
                         <div className="post-content">Содержание поста: {post.content}</div>
                         :
-                        <input
+                        <Input
                             type='text'
                             name={'current-post'}
                             placeholder={'напишите тут'}
@@ -119,7 +120,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                     {(currentUserId === post.userId || adminOrModerator) && notBanned && <div>
                         {editPostId === post.id
                             ? <>
-                                <button onClick={() => {
+                                <Button colorScheme='yellow' onClick={() => {
                                     setEditPostId(null);
                                     Object.assign(newPost, { content: postForEditInputVal });
                                     setPostForEditInputVal('');
@@ -151,16 +152,16 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                                     } finally {
                                         null;
                                     }
-                                }}>Сохранить</button>
-                                <button onClick={() => {
+                                }}>Сохранить</Button>
+                                <Button colorScheme='yellow' onClick={() => {
                                     setEditPostId(null);
-                                }}>Отмена</button>
+                                }}>Отмена</Button>
                             </>
                             : <>
-                                <button onClick={() => {
+                                <Button colorScheme='yellow' onClick={() => {
                                     setEditPostId(post.id);
                                     setPostForEditInputVal(post.content);
-                                }}>Редактировать</button>
+                                }}>Редактировать</Button>
                             </>
                         }
                     </div>}
@@ -169,7 +170,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                     <div>{post.updatedAt}</div>
                     {/* <div>ID автора для отладки: {post.userId}</div> */}
 
-                    {adminOrModerator && <button onClick={async () => {
+                    {adminOrModerator && <Button colorScheme='yellow' onClick={async () => {
                         async function delPost(id) {
                             try {
                                 const response = await fetch(`/api/forum/post/${id}`, {
@@ -198,7 +199,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                         }
                     }
                     }
-                    >Удалить</button>}
+                    >Удалить</Button>}
 
                     <div>
                         Автор:&#8201;
