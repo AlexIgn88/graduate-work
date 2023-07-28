@@ -39,7 +39,7 @@ export default function TourCardsMini({ tourData }) {
                         </Stack>
                     </CardBody>
                     <Divider />
-                    <CardFooter>
+                    <CardFooter justifyContent={'center'}>
                         <ButtonGroup spacing='2'>
                             {/* <Button variant='solid' colorScheme='blue'>
                                     Buy now

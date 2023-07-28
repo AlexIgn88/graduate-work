@@ -22,7 +22,6 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
 
     //Константы для получения сессии и данных о вошедшем пользователе
     const
-        sessionHookResult = useSession(),
         { data: session } = useSession(),
         // const {
         //     name: currentUserName,
@@ -31,9 +30,9 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
         //     id: currentUserId,
         //     role: currentUserRole
         // } = sessionHookResult?.data?.user;
-        currentUserId = sessionHookResult?.data?.user?.id,
-        currentUserName = sessionHookResult?.data?.user?.name,
-        currentUserRole = sessionHookResult?.data?.user?.role;
+        currentUserId = session?.user?.id,
+        currentUserName = session?.user?.name,
+        currentUserRole = session?.user?.role;
 
     //Константы для определения прав доступа
     const
