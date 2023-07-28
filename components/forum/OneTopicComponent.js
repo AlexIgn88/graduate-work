@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import { useSession } from 'next-auth/react';
-
 import Head from "next/head";
 import { fictionalDataForTopic } from '../../data/fictionalData';
 
-import { Button, ButtonGroup, Input } from '@chakra-ui/react';
+import { useState } from 'react';
+import { useSession } from 'next-auth/react';
+
+import {
+    Box, Flex, Heading, Button, Input,
+    Stack, Image, Text,
+    Card, CardBody, CardFooter,
+    Skeleton, SkeletonCircle, SkeletonText
+} from "@chakra-ui/react";
 
 export default function OneTopicComponent({ data, mutate, topicId }) {
-
-    //может попробовать скелетон?
-    //Skeleton is used to display the loading state of some component.
-    //https://chakra-ui.com/docs/components/skeleton
-    if (!data) data = fictionalDataForTopic;
 
     //Константы для создания и редактирования тем
     const
@@ -45,11 +45,22 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
     // console.log('topicId=', topicId);
 
     //if (!data) <OneTopicSkeleton />
-    return <div className="page topic-page">
+    return <Box className="page topic-page">
         <Head>
-            <title>{data?.topic?.title}</title>
+            <title>{data?.topic?.title || 'Тема'}</title>
         </Head>
-        <div className="post-div">
+
+
+        {(!data) && <>
+            <Stack>
+                <Skeleton height='200px' />
+                <Skeleton height='200px' />
+                <Skeleton height='200px' />
+            </Stack>
+        </>}
+
+
+        {data && <div className="post-div">
             <h1>{data?.topic?.title}</h1>
 
             {session && notBanned && <div>
@@ -60,7 +71,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                     value={newPostInputVal}
                     onInput={evt => setNewPostInputVal(evt.target.value)}
                 />
-                <Button colorScheme='yellow' type='submit' onClick={async () => {
+                <Button colorScheme='orange' type='submit' onClick={async () => {
                     async function addPost(formData) {
                         try {
                             const response = await fetch('/api/forum/post/', {
@@ -119,7 +130,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                     {(currentUserId === post.userId || adminOrModerator) && notBanned && <div>
                         {editPostId === post.id
                             ? <>
-                                <Button colorScheme='yellow' onClick={() => {
+                                <Button colorScheme='orange' onClick={() => {
                                     setEditPostId(null);
                                     Object.assign(newPost, { content: postForEditInputVal });
                                     setPostForEditInputVal('');
@@ -152,12 +163,12 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                                         null;
                                     }
                                 }}>Сохранить</Button>
-                                <Button colorScheme='yellow' onClick={() => {
+                                <Button colorScheme='orange' onClick={() => {
                                     setEditPostId(null);
                                 }}>Отмена</Button>
                             </>
                             : <>
-                                <Button colorScheme='yellow' onClick={() => {
+                                <Button colorScheme='orange' onClick={() => {
                                     setEditPostId(post.id);
                                     setPostForEditInputVal(post.content);
                                 }}>Редактировать</Button>
@@ -169,7 +180,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                     <div>{post.updatedAt}</div>
                     {/* <div>ID автора для отладки: {post.userId}</div> */}
 
-                    {adminOrModerator && <Button colorScheme='yellow' onClick={async () => {
+                    {adminOrModerator && <Button colorScheme='orange' onClick={async () => {
                         async function delPost(id) {
                             try {
                                 const response = await fetch(`/api/forum/post/${id}`, {
@@ -212,6 +223,15 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                     </div>
                 </div>
             ))}
-        </div >
-    </div>
+        </div >}
+
+
+
+
+
+
+
+
+
+    </Box>
 }

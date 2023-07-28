@@ -1,4 +1,5 @@
 import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useDisclosure } from '@chakra-ui/react';
+import { textFontSize } from '../../displayParameters/fontParameters';
 import ContactInfo from '../../components/ContactInfo';
 
 export function ModalWindowRecordingForATour() {
@@ -9,8 +10,8 @@ export function ModalWindowRecordingForATour() {
 
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
-                <ModalContent>
-                    <ModalHeader>Для заказа тура или экскурсии свяжитесь, пожалуйста с нашим менеджером</ModalHeader>
+                <ModalContent fontSize={textFontSize}>
+                    <ModalHeader fontSize={textFontSize}>Для заказа тура или экскурсии свяжитесь, пожалуйста с нашим менеджером</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
                         {/* <Lorem count={2} /> */}

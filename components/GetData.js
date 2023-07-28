@@ -9,8 +9,8 @@ export default function GetData({ url, children }) {
             promise = fetch(url)
                 .then(res => res.json());
         toast.promise(promise, {
-            loading: 'Fetching...',
-            success: 'ok!',
+            loading: 'Обновляем',
+            success: 'Готово',
             error: (err) => `This just happened: ${err.toString()}`,
         });
         return promise;
@@ -21,7 +21,6 @@ export default function GetData({ url, children }) {
 
         childComponentWithProps = cloneElement(children, { data, mutate });
 
-    //может мне попробовать скелетон потом вместо статических пропсов?
     //Skeleton is used to display the loading state of some component.
     //https://chakra-ui.com/docs/components/skeleton
     return <>

@@ -8,6 +8,10 @@ import { SessionProvider } from 'next-auth/react';
 import { ChakraProvider, CSSReset } from '@chakra-ui/react';
 import { Toaster } from 'react-hot-toast';
 
+// import { extendTheme } from '@chakra-ui/react'
+
+
+
 export default function MyApp({ Component,
   pageProps: { session, ...pageProps }
 }) {
@@ -21,7 +25,7 @@ export default function MyApp({ Component,
     </Head>
     <SessionProvider session={session}>
       {/* <ChakraProvider theme={theme}> */}
-      <ChakraProvider>
+        <ChakraProvider>
         <Global styles={globalStyles} />
         <Layout>
           <Component {...pageProps} />

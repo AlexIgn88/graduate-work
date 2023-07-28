@@ -9,6 +9,7 @@ import accauntsColumns from '../data/usersColumnsForMyAccounts';
 import EditableMyAccount from '../components/EditableMyAccount';
 import { Box, Flex, Spacer, Heading, Button, ButtonGroup, Input } from "@chakra-ui/react";
 import { h1HeadersFontSize, h2HeadersFontSize, h3HeadersFontSize, textFontSize } from '../displayParameters/fontParameters';
+import { HeadingForPage } from '../components/ElemsForPages';
 
 const
   userStores = getStores('/api/restricted/myaccount');
@@ -39,33 +40,29 @@ export default function MyAccount() {
     </Head>
     <Box className='page account-page'>
 
-      {!session && <Box>Пожалуйста, залогинитесь на сайте для просмотра этой страницы </Box>}
+      {!session && <HeadingForPage element={'h1'} content={'Пожалуйста, залогинитесь на сайте для просмотра этой страницы '} />}
       {session && <Box>
         <Button colorScheme='yellow' onClick={() => signIn()}>Добавить аккаунт</Button>
 
         {error && <>Error={error}</>}
-        {loading && (!data) && <div className='spinner'></div>}
+        {loading && (!data) && <Box className='spinner'></Box>}
 
+        {Array.isArray(user) && <EditableMyAccount
+          columns={userColumns}
+          data={user}
+          onAdd={onAdd}
+          onDelete={onDelete}
+          onEdit={onEdit}
+        />}
 
+        {Array.isArray(accouts) && <EditableMyAccount
+          columns={accauntsColumns}
+          data={accouts}
+          onAdd={onAdd}
+          onDelete={onDelete}
+          onEdit={onEdit}
+        />}
 
-        {Array.isArray(user) && <div className="all-users">
-          <EditableMyAccount
-            columns={userColumns}
-            data={user}
-            onAdd={onAdd}
-            onDelete={onDelete}
-            onEdit={onEdit}
-          />
-        </div>}
-        {Array.isArray(accouts) && <div className="all-users">
-          <EditableMyAccount
-            columns={accauntsColumns}
-            data={accouts}
-            onAdd={onAdd}
-            onDelete={onDelete}
-            onEdit={onEdit}
-          />
-        </div>}
         {/* <Heading fontSize={h2HeadersFontSize}>frontend:</Heading>
         <pre>{JSON.stringify(sessionHookResult, null, '\t')}</pre> */}
         {/* <Heading fontSize={h1HeadersFontSize}>backend:</Heading>
@@ -74,6 +71,7 @@ export default function MyAccount() {
         {/* <pre>{JSON.stringify(user, null, '\t')}</pre> */}
         {/* <Heading fontSize={h2HeadersFontSize}>accouts:</Heading>
         <pre>{JSON.stringify(accouts, null, '\t')}</pre> */}
+
       </Box>}
 
 
