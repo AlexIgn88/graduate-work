@@ -31,7 +31,8 @@ export default function ForumPage({ fallback }) {
         </Head>
         <Box m={marginParameters} className="forum-page">
             <Box>Добро пожаловать на наш форум, {session?.user ? session?.user?.name : 'Гость'}!</Box>
-
+            {!session && <Box>Для общения на нашем форуме войдите, пожалуйста, в свой акаунт на сайте</Box>}
+            
             <SWRConfig>
                 {/* <SWRConfig value={{ fallback }}> */}
                 <GetData url={API_URL}>
