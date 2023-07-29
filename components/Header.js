@@ -1,9 +1,9 @@
 import Navbar from '../components/Navbar.js';
-// import Login from '../components/Login.js';
+import Login from '../components/Login.js';
 
 export default function Header({ color }) {
-    return <header className={color ? color + ' header' : 'header'} style={{ zIndex: '3' }} >
+    return <header className={color ? color + ' header' : 'header'} style={{ zIndex: '3', display: 'flex', alignItems: 'center' }} >
         <Navbar />
-        {/* <Login /> */}
+        <Login />
     </header>
 }
