@@ -99,14 +99,16 @@ export default function Navbar() {
                                         <chakra.span className="link">{name}</chakra.span>
                                     </MenuButton>
 
-                                    <MenuList>
-                                        <MenuItem as={Link} href={src}  >
+                                    <MenuList
+                                        backgroundColor={'#8d634b'}
+                                    >
+                                        <MenuItem backgroundColor={'#8d634b'} color={'white'} as={Link} href={src}  >
                                             Все места
                                         </MenuItem>
 
                                         {places.map((place, i) => (
 
-                                            <MenuItem key={i} as={Link} href={place.path + '/'}  >
+                                            <MenuItem backgroundColor={'#8d634b'} color={'white'} key={i} as={Link} href={src + '/' + place.path}  >
                                                 {place.name}
                                             </MenuItem>
                                         ))}
