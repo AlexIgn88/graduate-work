@@ -79,24 +79,6 @@
     margin-right: 20px;
 }
 
-.home-page {
-    background-image: url("/img/HomePage/background.jpg");
-    background-size: cover;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-.home-page-title {
-    color: white;
-    font-size: 70px;
-    font-weight: bold;
-    font-family: monospace;
-    margin-left: 150px;
-    margin-bottom: 150px;
-}
-
 .cards {
     list-style-type: none;
     display: flex;
@@ -289,6 +271,7 @@ table.admin-panel .delete-button:active {
     background: rgb(40, 28, 21);
     padding: 20px;
     text-align: center;
+    z-index: 3;
 }
 
 .footer p {
@@ -317,28 +300,10 @@ table.admin-panel .delete-button:active {
     background-size: cover;
 }
 
-/* @media (max-width: 850px) */
-/* @media (max-width: 1240px) {
 
-    .page {
-        margin-top: 130px;
-    }
-
-    .home-page-title {
-        margin-left: 80px;
-        font-size: 60px;
-    }
-} */
 
 @media (max-width: 500px) {
     .navbar {
-        display: block;
+        flex-direction: column;
     }
-
-    /* .home-page-title {
-        margin-left: 80px;
-        font-size: 40px;
-        margin-left: 15px;
-        margin-bottom: -50px;
-    } */
 }
