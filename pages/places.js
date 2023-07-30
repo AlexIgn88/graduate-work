@@ -15,27 +15,30 @@ export default function PlacesPage() {
         <div className="page places-page" style={{ marginLeft: '200px', marginRight: '200px' }}>
             <div className="cards">
                 {places.flatMap((place, index) => {
+
                     const isEven = index % 2 === 0;
+                    const href = `/places${place.path}`;
+
                     return [
                         // isEven ? (
-                            <Fragment key={place.id}>
+                        <Fragment key={place.id}>
+                            <div>
+                                <Link href={href} className="one-card">
+                                    <img className="card-img" src={place.img ? place.img : '/img/favicon.png'} alt={place.name}></img>
+                                </Link>
+                            </div>
+                            <div className="card-img" >
+                                {/*временно инлайновый стиль: */}
+                                <h1 style={{ fontSize: h1HeadersFontSize.sm }}>{place.name}</h1>
+                                {/*временно инлайновый стиль: */}
+                                <div style={{ fontSize: textFontSize.sm }}>
+                                    {place.text ? place.text : loremIpsum}
+                                </div>
                                 <div>
-                                    <Link href={`/places/${place.path}`} className="one-card">
-                                        <img className="card-img" src={place.img ? place.img : '/img/favicon.png'} alt={place.name}></img>
-                                    </Link>
+                                    <Link href={href} className='link learn-more-button'>Узнать больше</Link>
                                 </div>
-                                <div className="card-img" >
-                                    {/*временно инлайновый стиль: */}
-                                    <h1 style={{ fontSize: h1HeadersFontSize.sm }}>{place.name}</h1>
-                                    {/*временно инлайновый стиль: */}
-                                    <div style={{ fontSize: textFontSize.sm }}>
-                                        {place.text ? place.text : loremIpsum}
-                                    </div>
-                                    <div>
-                                        <Link href={`/places/${place.path}`} className='link learn-more-button'>Узнать больше</Link>
-                                    </div>
-                                </div>
-                            </Fragment>
+                            </div>
+                        </Fragment>
                         // ) : (
                         //     <Fragment key={place.id}>
                         //         <div className="card-img" >

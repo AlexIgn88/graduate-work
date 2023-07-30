@@ -15,7 +15,7 @@ export default function Navbar() {
     const router = useRouter();
     const { data: session } = useSession();
 
-    // console.log('router.pathname', router.pathname);
+    console.log('router.pathname', router.pathname);
 
     const isWide = useBreakpointValue({ base: false, xl: true });
 
@@ -23,6 +23,7 @@ export default function Navbar() {
     //вынести UnorderedList в отдельный компонент
     //Сделать рендер по нажатию на кнопку Меню
     //выровнять все и почистить
+    //в вертикальном варианте при нажатии на Места открвываться должно подменю с местами
 
     return <nav>
 
@@ -72,7 +73,10 @@ export default function Navbar() {
                             key={page.name}
                         >
 
-                            <Link href={page.src ? page.src : '/' + page.path} className="link">{page.name}</Link>
+                            {/* <Link href={page.src ? page.src : page.src} className="link">{page.name}</Link> */}
+                            {/* <Link href={router.pathname.split('/')[1] === '/places' ? '/places' + page.src : page.src} className="link">{page.name}</Link> */}
+                            <Link href={page.src ? page.src : '/places' + page.path} className="link">{page.name}</Link>
+
 
 
                         </MenuItem>
@@ -108,7 +112,7 @@ export default function Navbar() {
 
                                         {places.map((place, i) => (
 
-                                            <MenuItem backgroundColor={'#8d634b'} color={'white'} key={i} as={Link} href={src + '/' + place.path}  >
+                                            <MenuItem backgroundColor={'#8d634b'} color={'white'} key={i} as={Link} href={src + place.path}  >
                                                 {place.name}
                                             </MenuItem>
                                         ))}

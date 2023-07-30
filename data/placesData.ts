@@ -4,7 +4,7 @@ export const places: place[] = [
     {
         id: '1',
         name: 'Крым',
-        path: 'crimea',
+        path: '/crimea',
         img: '/img/places/Crimea.jpg',
         text: `Предлагаем незабываемые поездки в Крым - 
     жемчужину России. Насладитесь удивительной красотой горных пейзажей, 
@@ -19,7 +19,7 @@ export const places: place[] = [
     {
         id: '2',
         name: 'Карелия',
-        path: 'karelia',
+        path: '/karelia',
         img: '/img/places/Karelia.jpg',
         text: `Исследуйте прекрасные озера, 
         кристально чистые реки и загадочные острова. Мы предоставим вам возможность 
@@ -33,7 +33,7 @@ export const places: place[] = [
     {
         id: '3',
         name: 'Камчатка',
-        path: 'kamchatka',
+        path: '/kamchatka',
         img: '/img/places/Kamchatka.jpg',
         text: `Откройте для себя мир дикой природы, вулканов и морских приключений. 
         Наши туры созданы для тех, кто хочет увидеть красоту этого удивительного края. 
@@ -47,7 +47,7 @@ export const places: place[] = [
     {
         id: '4',
         name: 'Красоты земли Воронежской',
-        path: 'voronezh-land',
+        path: '/voronezh-land',
         img: '/img/places/Voronezh-land.jpg',
         text: `Завлекающие пещеры, меловые горы и водоемы, заповедные уголки и 
         таинственные памятники древности подарят массу незабываемых 
