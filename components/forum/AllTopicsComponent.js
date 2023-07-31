@@ -5,10 +5,11 @@ import {
     Box, Flex, Heading, Button, Input,
     Stack, Image, Text,
     Card, CardBody, CardFooter,
-    Skeleton, SkeletonCircle, SkeletonText
+    Skeleton, SkeletonCircle, SkeletonText,
+    Menu, MenuButton, MenuList, MenuItem, MenuItemOption, MenuGroup, MenuOptionGroup, MenuDivider,
 } from "@chakra-ui/react";
 import { h1HeadersFontSize, h2HeadersFontSize, h3HeadersFontSize, textFontSize } from '../../displayParameters/fontParameters';
-// import { marginParameters } from '../../displayParameters/marginParameters';
+import { marginParameters } from '../../displayParameters/marginParameters';
 import { flexDirection } from '../../displayParameters/flexParameters';
 import ModalWindowBlur from '../../components/modalwindows/ModalWindowBlur';
 import AddNewTopic from '../../components/forum/AddNewTopic';
@@ -123,10 +124,10 @@ export default function AllTopicsComponent({ data, mutate }) {
                 justifyContent={'space-between'}
                 flexDirection={flexDirection}
                 alignItems={'center'}
+                mb={10}
             >
                 <Heading
                     fontWeight={"normal"}
-                    mb={10}
                     as={'h1'}
                     fontSize={h2HeadersFontSize}
                 >
@@ -156,7 +157,7 @@ export default function AllTopicsComponent({ data, mutate }) {
                 </Stack>
             </>}
 
-            {data && data.topics.map((topic) => (
+            {data && data?.topics.map((topic) => (
 
                 <Card
                     key={topic.title}
@@ -203,9 +204,9 @@ export default function AllTopicsComponent({ data, mutate }) {
                             </Box>
 
                             <Box py='2'>
-                                <Box>{topic.content}</Box>
-                                <Box>{topic.createdAt}</Box>
-                                <Box>{topic.updatedAt}</Box>
+                                <Box>{topic?.content}</Box>
+                                {/* <Box>{topic.createdAt}</Box> */}
+                                {/* <Box>{topic.updatedAt}</Box> */}
                                 <Box>
                                     Автор:&#8201;
                                     {data?.users?.find(user => topic?.userId === user?.id)?.name}
@@ -217,34 +218,36 @@ export default function AllTopicsComponent({ data, mutate }) {
                             </Box>
                         </CardBody>
 
-                        <CardFooter
-                            flexDirection={'column'}
-                            align-items={'baseline'}
-                            gap={'15px'}
-                        >
-                            {adminOrModerator && <>
-                                {editTopicId === topic.id
-                                    ? <>
-                                        <Button colorScheme='orange' onClick={() => editTopic(topic)}>Сохранить
-                                        </Button>
-                                        <Button colorScheme='orange' onClick={() => {
-                                            setEditTopicId(null);
-                                        }}>Отмена
-                                        </Button>
-                                    </>
-                                    : <>
-                                        <Button colorScheme='orange' onClick={() => {
+                        <CardFooter>
+
+                            {(editTopicId !== topic.id) && adminOrModerator
+                                ? <Menu>
+                                    <MenuButton
+                                        as={Button}
+                                        colorScheme='gray'
+                                    // rightIcon={<ChevronDownIcon />}
+                                    >Действия
+                                    </MenuButton>
+                                    <MenuList>
+                                        <MenuItem as={Button} colorScheme='gray' onClick={() => {
                                             setEditTopicId(topic.id);
                                             setTopicForEditInputVal(topic.title);
-                                        }}>Редактировать
-                                        </Button>
-                                    </>
-                                }
-                            </>}
-                            {adminOrModerator && <>
-                                <Button colorScheme='orange' onClick={() => delTopic(topic)}>Удалить
-                                </Button>
-                            </>}
+                                        }}>Редактировать</MenuItem>
+
+                                        <MenuItem as={Button} colorScheme='gray' onClick={() =>
+                                            delTopic(topic)
+                                        }> Удалить </MenuItem>
+                                    </MenuList>
+                                </Menu>
+                                : <>
+                                    <Button colorScheme='gray' onClick={() => editTopic(topic)}>Сохранить
+                                    </Button>
+                                    <Button colorScheme='gray' onClick={() => {
+                                        setEditTopicId(null);
+                                    }}>Отмена
+                                    </Button>
+                                </>
+                            }
                         </CardFooter>
                     </Stack>
                 </Card>))}

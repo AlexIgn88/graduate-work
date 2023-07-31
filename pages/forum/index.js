@@ -10,6 +10,7 @@ import { h1HeadersFontSize, h2HeadersFontSize, h3HeadersFontSize, textFontSize }
 import { marginParameters } from '../../displayParameters/marginParameters';
 import { flexDirection } from '../../displayParameters/flexParameters';
 
+
 // export async function getStaticProps() {
 //     return {
 //         props: {

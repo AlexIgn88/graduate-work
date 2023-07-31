@@ -1,8 +1,8 @@
-import { Button, Input, Flex, Textarea } from '@chakra-ui/react';
+import { Button, Flex, Textarea } from '@chakra-ui/react';
 import { textFontSize } from '../../displayParameters/fontParameters';
 import { flexDirection } from '../../displayParameters/flexParameters';
 import { useCallback, memo } from 'react';
-import handleOnKeyEnterDown from '../../includes/handleOnKeyEnterDown';
+import AutoResizableTextarea from '../../components/AutoResizableTextarea';
 
 export default function AddNewPost({ newPostInputVal, setNewPostInputVal, data, mutate, currentUserId, topicId, onClose }) {
 
@@ -43,11 +43,6 @@ export default function AddNewPost({ newPostInputVal, setNewPostInputVal, data, 
         }
     }
 
-    // let handleTextareaChange = (evt) => {
-    //     let textareaValue = evt.target.value
-    //     setNewPostInputVal(textareaValue)
-    // }
-
     const handleTextareaChange = useCallback((evt) => {
         let textareaValue = evt.target.value
         setNewPostInputVal(textareaValue)
@@ -60,22 +55,18 @@ export default function AddNewPost({ newPostInputVal, setNewPostInputVal, data, 
             alignItems={'baseline'}
         >
 
-            {/* <Textarea
-                name='new-post'
+            <AutoResizableTextarea
+                margin={'10px'}
                 fontSize={textFontSize}
-                m={'10px'}
-                onKeyDown={(evt) => handleOnKeyDown(evt)}
-
-                value={newPostInputVal}
-                onChange={handleTextareaChange}
+                name={'new-post'}
                 placeholder={'Ваше сообщение'}
-                size='sm'
-            /> */}
+                onInput={handleTextareaChange}
+                onKeyDown={(evt) =>
+                    (evt.keyCode === 13)
+                        ? addPost()
+                        : null
+                }
 
-            <TextareaComponent
-                value={newPostInputVal}
-                onChange={handleTextareaChange}
-                onKeyDown={(evt) => handleOnKeyEnterDown(evt, addPost)}
             />
 
             <Flex
@@ -95,20 +86,3 @@ export default function AddNewPost({ newPostInputVal, setNewPostInputVal, data, 
         </Flex>
     </>
 }
-
-const TextareaComponent = memo((props) => {
-
-    const { value, onChange, onKeyDown } = props;
-
-    return <Textarea
-        name='new-post'
-        placeholder={'Ваше сообщение'}
-        onChange={onChange}
-        onKeyDown={onKeyDown}
-        value={value}
-        fontSize={textFontSize}
-        m={'10px'}
-        size='sm'
-    />;
-
-});

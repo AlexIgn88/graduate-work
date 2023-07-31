@@ -1,18 +1,20 @@
 import Head from "next/head";
-import { fictionalDataForTopic } from '../../data/fictionalData';
+// import { fictionalDataForTopic } from '../../data/fictionalData';
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import {
-    Box, Flex, Heading, Button, Input,
+    Box, Flex, Heading, Button, Input, Textarea,
     Stack, Image, Text,
-    Card, CardHeader, CardBody, CardFooter,
-    Skeleton, SkeletonCircle, SkeletonText
+    Card, CardHeader, CardBody, CardFooter, Avatar,
+    Skeleton, SkeletonCircle, SkeletonText,
+    Menu, MenuButton, MenuList, MenuItem, MenuItemOption, MenuGroup, MenuOptionGroup, MenuDivider,
 } from "@chakra-ui/react";
 import { h1HeadersFontSize, h2HeadersFontSize, h3HeadersFontSize, textFontSize } from '../../displayParameters/fontParameters';
 import { marginParameters } from '../../displayParameters/marginParameters';
 import { flexDirection } from '../../displayParameters/flexParameters';
 import ModalWindowBlur from '../../components/modalwindows/ModalWindowBlur';
 import AddNewPost from '../../components/forum/AddNewPost';
+import AutoResizableTextarea from '../../components/AutoResizableTextarea';
 
 
 export default function OneTopicComponent({ data, mutate, topicId }) {
@@ -42,7 +44,8 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
     const
         adminOrModerator = currentUserRole === 'admin' || currentUserRole === 'moderator',
         notBanned = currentUserRole !== 'banned';
-    // const yourPost = currentUserId === 
+
+    let currentUser;
 
     // console.log('data=', data);
 
@@ -119,6 +122,8 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
 
 
     return <>
+
+
         <Box m={marginParameters} className="topic-page">
             <Head>
                 <title>{data?.topic?.title || 'Тема'}</title>
@@ -144,7 +149,6 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                     >
                         <Heading
                             fontWeight={"normal"}
-                            mb={10}
                             as={'h1'}
                             fontSize={h2HeadersFontSize}
                         >
@@ -167,85 +171,136 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
 
 
 
+                    {data?.posts?.map((post) => {
 
-                    {data?.posts?.map((post) => (
+                        const currentUser = data?.users?.find((user) => post?.userId === user?.id);
+                        const postAuthor = currentUserId === post.userId;
+                        return (
 
-                        <Flex
-                            className="post"
-                            key={post.id + post.userId + post.topicId}
-                            marginTop={'20px'}
-                            border={'1px solid black'}
-                            padding={'20px'}
-                            flexDirection={'column'}
-                            alignItems={'flex-start'}
-                            gap={'10px'}
-                        >
-                            <h3>ID поста для отладки: {post.id}</h3>
 
-                            {editPostId !== post.id
-                                ?
-                                <div className="post-content">Содержание поста: {post.content}</div>
-                                :
-                                <Input
-                                    type='text'
-                                    name={'current-post'}
-                                    placeholder={'напишите тут'}
-                                    value={postForEditInputVal}
-                                    onInput={evt => setPostForEditInputVal(evt.target.value)}
-                                    onKeyDown={(evt) =>
-                                        (evt.keyCode === 13)
-                                            ? editPost(post)
-                                            : null
+                            <Card
+                                key={post.id + post.userId + post.topicId}
+                                className="post"
+                                // maxW='md'
+                                marginTop={'20px'}
+                                // border={'1px solid black'}
+                                padding={'20px'}
+                            >
+
+                                <CardHeader>
+                                    <Flex spacing='4'>
+                                        <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
+                                            <Avatar name={currentUser?.name} src={currentUser?.image} />
+                                            <Box>
+                                                <Heading size='sm'>{currentUser?.nickname || currentUser?.name}</Heading>
+                                                <Text>{currentUser?.role || 'user'}</Text>
+
+                                                {/* <Text fontSize={textFontSize.base}>{post.createdAt}</Text>
+                                                <Text fontSize={textFontSize.base}>{post.updatedAt}</Text> */}
+
+                                            </Box>
+                                        </Flex>
+                                        {/* <IconButton
+                                variant='ghost'
+                                colorScheme='gray'
+                                aria-label='See menu'
+                                icon={<BsThreeDotsVertical />}
+                            /> */}
+                                    </Flex>
+                                </CardHeader>
+
+
+                                <CardBody>
+                                    {editPostId !== post.id
+                                        ? <Text
+                                            className="post-content"
+                                            textAlign='justify'
+
+                                        >{post.content}</Text>
+                                        : <AutoResizableTextarea
+                                            fontSize={textFontSize}
+                                            name={'current-post'}
+                                            placeholder={'Ваше сообщение'}
+                                            value={postForEditInputVal}
+                                            onInput={evt => setPostForEditInputVal(evt.target.value)}
+                                            onKeyDown={(evt) =>
+                                                (evt.keyCode === 13)
+                                                    ? editPost(post)
+                                                    : null
+                                            }
+                                        />
                                     }
-                                />
-                            }
+                                </CardBody>
+
+                                {/* <Text fontSize={textFontSize.base}>ID автора для отладки: {post.userId}</Text>
+                                <Text fontSize={textFontSize.base}>ID поста для отладки: {post.id}</Text> */}
+
+                                <CardFooter
+                                    justify='space-between'
+                                    flexWrap='wrap'
+                                    sx={{
+                                        '& > button': {
+                                            minW: '136px',
+                                        },
+                                    }}
+                                >
+                                    {/* <Button flex='1' variant='ghost' leftIcon={<BiLike />}>
+                            Like
+                        </Button> */}
+                                    {/* <Button flex='1' variant='ghost' leftIcon={<BiChat />}>
+                            Comment
+                        </Button> */}
+                                    {/* <Button flex='1' variant='ghost' leftIcon={<BiShare />}>
+                            Share
+                        </Button> */}
+
+                                    {editPostId !== post.id
+                                        ? <Menu>
+                                            <MenuButton
+                                                as={Button}
+                                                colorScheme='gray'
+                                            // rightIcon={<ChevronDownIcon />}
+                                            >Действия
+                                            </MenuButton>
+                                            <MenuList
+                                            >
+                                                {(postAuthor || adminOrModerator) && notBanned &&
+                                                    <MenuItem as={Button} colorScheme='gray' onClick={() => {
+                                                        setEditPostId(post.id);
+                                                        setPostForEditInputVal(post.content);
+                                                    }}>Редактировать</MenuItem>
+                                                }
+
+                                                {adminOrModerator &&
+                                                    <MenuItem as={Button} colorScheme='gray' onClick={() => delPost(post)}> Удалить </MenuItem>
+                                                }
+
+                                            </MenuList>
+                                        </Menu>
+                                        : <>
+                                            <Button colorScheme='gray' onClick={() => editPost(post)}>Сохранить
+                                            </Button>
+                                            <Button colorScheme='gray' onClick={() => {
+                                                setEditPostId(null);
+                                            }}>Отмена
+                                            </Button>
+                                        </>
+                                    }
+
+                                </CardFooter>
+                            </Card>
+                        );
+                    })}
 
 
-                            {(currentUserId === post.userId || adminOrModerator) && notBanned && <div>
-                                {editPostId === post.id
-                                    ? <>
-                                        <Button colorScheme='orange' onClick={() => editPost(post)}>Сохранить
-                                        </Button>
 
-                                        <Button colorScheme='orange' onClick={() => {
-                                            setEditPostId(null);
-                                        }}>Отмена
-                                        </Button>
-                                    </>
-                                    : <>
-                                        <Button colorScheme='orange' onClick={() => {
-                                            setEditPostId(post.id);
-                                            setPostForEditInputVal(post.content);
-                                        }}>Редактировать
-                                        </Button>
-                                    </>
-                                }
-                            </div>}
 
-                            <div>{post.createdAt}</div>
-                            <div>{post.updatedAt}</div>
-                            {/* <div>ID автора для отладки: {post.userId}</div> */}
 
-                            {adminOrModerator && <>
-                                <Button colorScheme='orange' onClick={() => delPost(post)}>Удалить
-                                </Button>
-                            </>
-                            }
-
-                            <div>
-                                Автор:&#8201;
-                                {/* {data?.users?.find(user => post?.userId === user?.id)?.name || currentUserName} */}
-                                {data?.users?.find(user => post?.userId === user?.id)?.name}
-                            </div>
-
-                            <div>
-                                Статус автора:&#8201;
-                                {data?.users?.find(user => post?.userId === user?.id)?.role || 'user'}
-                            </div>
-                        </Flex>
-                    ))}
                 </Box >
             </>}
+
+
+
 
 
 

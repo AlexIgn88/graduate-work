@@ -1,6 +1,5 @@
 import Head from "next/head";
-import {  Box, Flex  } from '@chakra-ui/react';
-
+import { Box } from '@chakra-ui/react';
 import Image from 'next/image';
 import background from '../public/img/HomePage/background.jpg';
 
@@ -11,9 +10,6 @@ export default function HomePage() {
         </Head>
         <Box
             className='home-page'
-            // display={'flex'}
-            // alignItems={'center'}
-            // justifyContent={'flex-start'}
             position="relative"
             height="100vh"
         >
