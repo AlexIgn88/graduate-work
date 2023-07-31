@@ -3,7 +3,7 @@ import {
 } from '@chakra-ui/react';
 import { useState, cloneElement } from 'react';
 
-export default function ModalWindowBlur({ children }) {
+export default function ModalWindowBlur({ buttonText, children }) {
     const Overlay = () => (
         <ModalOverlay
             bg='blackAlpha.300'
@@ -25,7 +25,7 @@ export default function ModalWindowBlur({ children }) {
                     onOpen()
                 }}
             >
-                Создать новую тему
+                {buttonText}
             </Button>
 
             <Modal isCentered isOpen={isOpen} onClose={onClose}>

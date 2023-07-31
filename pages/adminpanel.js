@@ -6,7 +6,7 @@ import { useSession, signIn } from 'next-auth/react';
 import Head from "next/head";
 import userColumns from '../data/usersColumnsForAdminPanel';
 import EditableAdminpanel from '../components/EditableAdminpanel';
-import { Box, Flex, Spacer, Heading, Button, ButtonGroup, Input } from "@chakra-ui/react";
+import { Box, Flex, Spacer, Heading, Button, ButtonGroup, Input, Stack, Skeleton } from "@chakra-ui/react";
 import { h1HeadersFontSize, h2HeadersFontSize, h3HeadersFontSize, textFontSize } from '../displayParameters/fontParameters';
 import { HeadingForPage } from '../components/ElemsForPages';
 
@@ -19,7 +19,7 @@ import { HeadingForPage } from '../components/ElemsForPages';
 // import Head from "next/head";
 // import { Box, Flex, Spacer, Heading, Button, ButtonGroup, Input } from "@chakra-ui/react";
 // import { h1HeadersFontSize, h2HeadersFontSize, h3HeadersFontSize, textFontSize } from '../displayParameters/fontParameters';
-// import { marginParameters } from '../displayParameters/marginParameters';
+import { marginParameters } from '../displayParameters/marginParameters';
 // import { flexDirection } from '../displayParameters/flexParameters';
 // import { HeadingForPage } from '../components/ElemsForPages';
 
@@ -46,9 +46,20 @@ export default function AdminPanelPage() {
     <Head>
       <title>Админ-панель</title>
     </Head>
-    <Box className="page admin-page">
+    <Box
+      className="admin-page"
+      m={marginParameters}
+    >
 
-      {!session && <HeadingForPage element={'h1'} content={'Для просмотра этой страницы необходимо быть админом'} />}
+      {/* {!session && <HeadingForPage element={'h1'} content={'Для просмотра этой страницы необходимо быть админом'} />} */}
+
+      {!session && <Stack>
+        <Skeleton height='200px' />
+        <Skeleton height='200px' />
+        <Skeleton height='200px' />
+      </Stack>}
+
+
       {session && <Box>
         <HeadingForPage element={'h1'} content={'Админка'} />
         {error && <>Error={error}</>}

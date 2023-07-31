@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
-
 import Link from "next/link";
 import {
     Box, Flex, Heading, Button, Input,
@@ -11,9 +10,8 @@ import {
 import { h1HeadersFontSize, h2HeadersFontSize, h3HeadersFontSize, textFontSize } from '../../displayParameters/fontParameters';
 // import { marginParameters } from '../../displayParameters/marginParameters';
 import { flexDirection } from '../../displayParameters/flexParameters';
-
-import AddNewTopic from '../../components/forum/AddNewTopic';
 import ModalWindowBlur from '../../components/modalwindows/ModalWindowBlur';
+import AddNewTopic from '../../components/forum/AddNewTopic';
 
 
 export default function AllTopicsComponent({ data, mutate }) {
@@ -21,7 +19,6 @@ export default function AllTopicsComponent({ data, mutate }) {
     //Константы для создания и редактирования тем
     const
         [newTopicInputVal, setNewTopicInputVal] = useState(''),
-
         [editTopicId, setEditTopicId] = useState(null),
         [topicForEditInputVal, setTopicForEditInputVal] = useState(''),
         newTopic = {};
@@ -116,7 +113,12 @@ export default function AllTopicsComponent({ data, mutate }) {
 
     return <>
 
-        <Box className="topics">
+        <Box
+            className="topics"
+            border={'1px solid black'}
+            borderRadius={'10px'}
+            padding={'30px'}
+        >
             <Flex
                 justifyContent={'space-between'}
                 flexDirection={flexDirection}
@@ -131,15 +133,19 @@ export default function AllTopicsComponent({ data, mutate }) {
                     Темы для обсуждения
                 </Heading>
 
-                {session && notBanned && data && <ModalWindowBlur>
-                    <AddNewTopic
-                        newTopicInputVal={newTopicInputVal}
-                        setNewTopicInputVal={setNewTopicInputVal}
-                        data={data}
-                        mutate={mutate}
-                        currentUserId={currentUserId}
-                    />
-                </ModalWindowBlur>}
+                {session && notBanned && data && <>
+                    <ModalWindowBlur buttonText={'Создать новую тему'}>
+
+                        <AddNewTopic
+                            newTopicInputVal={newTopicInputVal}
+                            setNewTopicInputVal={setNewTopicInputVal}
+                            data={data}
+                            mutate={mutate}
+                            currentUserId={currentUserId}
+                        />
+                        
+                    </ModalWindowBlur>
+                </>}
             </Flex>
 
             {(!data) && <>
@@ -172,7 +178,10 @@ export default function AllTopicsComponent({ data, mutate }) {
                                 {/* <h3>ID темы для отладки: {topic.id}</h3> */}
                                 {editTopicId !== topic.id
                                     ?
-                                    <Box className="topic-title">
+                                    <Box
+                                        className="topic-title"
+                                    // width={'20vw'}
+                                    >
                                         <Box bg='white' color='green'>
                                             <Link href={`/forum/topic/${topic.id}`} className="">{topic.title}</Link>
                                         </Box>

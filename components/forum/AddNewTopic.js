@@ -70,7 +70,7 @@ export default function AddNewTopic({ newTopicInputVal, setNewTopicInputVal, dat
                 <Button
                     colorScheme='orange'
                     type='submit'
-                    onClick={() => addTopic()}>Добавить тему</Button>
+                    onClick={() => addTopic()}>Добавить</Button>
                 <Button colorScheme='orange' onClick={onClose}>Отмена</Button>
             </Flex>
         </Flex>

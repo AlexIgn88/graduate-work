@@ -29,10 +29,15 @@ export default function ForumPage({ fallback }) {
         <Head>
             <title>Форум</title>
         </Head>
-        <Box m={marginParameters} className="forum-page">
+        <Flex
+            m={marginParameters}
+            className="forum-page"
+            flexDirection={'column'}
+            gap={'20px'}
+        >
             <Box>Добро пожаловать на наш форум, {session?.user ? session?.user?.name : 'Гость'}!</Box>
             {!session && <Box>Для общения на нашем форуме войдите, пожалуйста, в свой акаунт на сайте</Box>}
-            
+
             <SWRConfig>
                 {/* <SWRConfig value={{ fallback }}> */}
                 <GetData url={API_URL}>
@@ -40,7 +45,12 @@ export default function ForumPage({ fallback }) {
                 </GetData>
             </SWRConfig>
 
-            <Box className="additional-information">
+            <Box
+                className="additional-information"
+                border={'1px solid black'}
+                borderRadius={'10px'}
+                padding={'30px'}
+            >
                 <Heading
                     fontWeight={"normal"}
                     mb={10}
@@ -61,6 +71,6 @@ export default function ForumPage({ fallback }) {
                 </Box>
             </Box>
 
-        </Box>
+        </Flex>
     </>;
 }

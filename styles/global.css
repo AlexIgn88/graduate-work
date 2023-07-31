@@ -140,32 +140,32 @@
 }
 
 
-.forum-page {
+/* .forum-page {
     display: flex;
     flex-direction: column;
     gap: 20px;
-}
+} */
 
-.topics,
+/* .topics,
 .additional-information {
     border: 1px solid black;
     border-radius: 10px;
     padding: 30px;
-}
+} */
 
-.topic-title {
+/* .topic-title {
     width: 20vw;
-}
+} */
 
-.post {
+/* .post {
     margin: 20px;
     border: 1px solid black;
     padding: 20px;
-}
+} */
 
-.post div {
+/* .post div {
     margin: 10px;
-}
+} */
 
 table.admin-panel {
     width: 100%;
@@ -304,8 +304,8 @@ table.admin-panel .delete-button:active {
 
 
 
-@media (max-width: 500px) {
+/* @media (max-width: 500px) {
     .navbar {
         flex-direction: column;
     }
-}
+} */

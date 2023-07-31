@@ -52,7 +52,15 @@ export default function MyAccount() {
       m={marginParameters}
     >
 
-      {!session && <HeadingForPage element={'h1'} content={'Пожалуйста, залогинитесь на сайте для просмотра этой страницы '} />}
+      {/* {!session && <HeadingForPage element={'h1'} content={'Пожалуйста, залогинитесь на сайте для просмотра этой страницы '} />} */}
+
+      {!session && <Stack m={marginParameters}>
+        <Skeleton height='140px' />
+        <Skeleton height='300px' />
+        <Skeleton height='300px' />
+      </Stack>}
+
+
       {session && <Box>
 
 
