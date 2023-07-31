@@ -22,7 +22,10 @@ export default function Login() {
                     />
                 </Link>}
 
-            <chakra.span className='login-username' display={isWide ? "block" : "none"}>
+            <chakra.span
+                className='login-username'
+                display={isWide ? "block" : "none"}
+            >
                 <Link href='/myaccount' className='' title='Мой аккаунт'>{session?.user?.name}</Link>
             </chakra.span>
 
@@ -30,7 +33,7 @@ export default function Login() {
             <Button
                 backgroundColor={'#281c15'}
                 color={'white'}
-                p={'10px 20px'} 
+                p={'10px 20px'}
                 border='none'
                 _hover={{
                     backgroundColor: '#1a120e'
@@ -49,7 +52,7 @@ export default function Login() {
             <Button
                 backgroundColor={'#281c15'}
                 color={'white'}
-                p={'10px 20px'} 
+                p={'10px 20px'}
                 border='none'
                 _hover={{
                     backgroundColor: '#1a120e'
