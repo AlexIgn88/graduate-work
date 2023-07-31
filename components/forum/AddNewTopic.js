@@ -1,6 +1,7 @@
 import { Button, Input, Flex } from '@chakra-ui/react';
 import { textFontSize } from '../../displayParameters/fontParameters';
 import { flexDirection } from '../../displayParameters/flexParameters';
+import handleOnKeyEnterDown from '../../includes/handleOnKeyEnterDown';
 
 export default function AddNewTopic({ newTopicInputVal, setNewTopicInputVal, data, mutate, currentUserId, onClose }) {
 
@@ -40,13 +41,6 @@ export default function AddNewTopic({ newTopicInputVal, setNewTopicInputVal, dat
         }
     }
 
-    const handleOnKeyDown = (evt) => {
-        if (evt.keyCode === 13) {
-            evt.preventDefault();
-            addTopic();
-        }
-    };
-
     return <>
         <Flex
             flexDirection={'column'}
@@ -58,9 +52,9 @@ export default function AddNewTopic({ newTopicInputVal, setNewTopicInputVal, dat
                 placeholder={'Название темы'}
                 value={newTopicInputVal}
                 onInput={evt => setNewTopicInputVal(evt.target.value)}
+                onKeyDown={(evt) => handleOnKeyEnterDown(evt, addTopic)}
                 fontSize={textFontSize}
                 m={'10px'}
-                onKeyDown={(evt) => handleOnKeyDown(evt)}
             />
             <Flex
                 flexDirection={flexDirection}
@@ -71,7 +65,10 @@ export default function AddNewTopic({ newTopicInputVal, setNewTopicInputVal, dat
                     colorScheme='orange'
                     type='submit'
                     onClick={() => addTopic()}>Добавить</Button>
-                <Button colorScheme='orange' onClick={onClose}>Отмена</Button>
+                <Button colorScheme='orange' onClick={() => {
+                    setNewTopicInputVal('');
+                    onClose();
+                }}>Отмена</Button>
             </Flex>
         </Flex>
     </>

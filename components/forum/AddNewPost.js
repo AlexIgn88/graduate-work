@@ -2,6 +2,7 @@ import { Button, Input, Flex, Textarea } from '@chakra-ui/react';
 import { textFontSize } from '../../displayParameters/fontParameters';
 import { flexDirection } from '../../displayParameters/flexParameters';
 import { useCallback, memo } from 'react';
+import handleOnKeyEnterDown from '../../includes/handleOnKeyEnterDown';
 
 export default function AddNewPost({ newPostInputVal, setNewPostInputVal, data, mutate, currentUserId, topicId, onClose }) {
 
@@ -42,13 +43,6 @@ export default function AddNewPost({ newPostInputVal, setNewPostInputVal, data, 
         }
     }
 
-    const handleOnKeyDown = (evt) => {
-        if (evt.keyCode === 13) {
-            evt.preventDefault();
-            addPost();
-        }
-    };
-
     // let handleTextareaChange = (evt) => {
     //     let textareaValue = evt.target.value
     //     setNewPostInputVal(textareaValue)
@@ -78,7 +72,11 @@ export default function AddNewPost({ newPostInputVal, setNewPostInputVal, data, 
                 size='sm'
             /> */}
 
-            <TextareaComponent value={newPostInputVal} onChange={handleTextareaChange} onKeyDown={(evt) => handleOnKeyDown(evt)} />
+            <TextareaComponent
+                value={newPostInputVal}
+                onChange={handleTextareaChange}
+                onKeyDown={(evt) => handleOnKeyEnterDown(evt, addPost)}
+            />
 
             <Flex
                 flexDirection={flexDirection}
@@ -89,7 +87,10 @@ export default function AddNewPost({ newPostInputVal, setNewPostInputVal, data, 
                     colorScheme='orange'
                     type='submit'
                     onClick={() => addPost()}>Добавить</Button>
-                <Button colorScheme='orange' onClick={onClose}>Отмена</Button>
+                <Button colorScheme='orange' onClick={() => {
+                    setNewPostInputVal('');
+                    onClose();
+                }}>Отмена</Button>
             </Flex>
         </Flex>
     </>
@@ -101,14 +102,12 @@ const TextareaComponent = memo((props) => {
 
     return <Textarea
         name='new-post'
+        placeholder={'Ваше сообщение'}
+        onChange={onChange}
+        onKeyDown={onKeyDown}
+        value={value}
         fontSize={textFontSize}
         m={'10px'}
-        onKeyDown={onKeyDown}
-
-        value={value}
-        onChange={onChange}
-
-        placeholder={'Ваше сообщение'}
         size='sm'
     />;
 

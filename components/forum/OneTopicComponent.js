@@ -5,13 +5,12 @@ import { useSession } from 'next-auth/react';
 import {
     Box, Flex, Heading, Button, Input,
     Stack, Image, Text,
-    Card, CardBody, CardFooter,
+    Card, CardHeader, CardBody, CardFooter,
     Skeleton, SkeletonCircle, SkeletonText
 } from "@chakra-ui/react";
 import { h1HeadersFontSize, h2HeadersFontSize, h3HeadersFontSize, textFontSize } from '../../displayParameters/fontParameters';
 import { marginParameters } from '../../displayParameters/marginParameters';
 import { flexDirection } from '../../displayParameters/flexParameters';
-
 import ModalWindowBlur from '../../components/modalwindows/ModalWindowBlur';
 import AddNewPost from '../../components/forum/AddNewPost';
 
@@ -45,9 +44,79 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
         notBanned = currentUserRole !== 'banned';
     // const yourPost = currentUserId === 
 
-    console.log('data=', data);
+    // console.log('data=', data);
 
-    console.log('topicId=', topicId);
+    // console.log('topicId=', topicId);
+
+    async function changeDataEdit(obj, post) {
+        try {
+            const response = await fetch(`/api/forum/post/${post.id}`, {
+                method: 'PUT',
+                body: JSON.stringify(obj)
+            });
+            // console.log('adduser response', response);
+            if (!response.ok) throw new Error('не ок');
+            const json = await response.json();
+            // console.log('json', json);
+
+            return {
+                ...data,
+                posts: data.posts.map(item =>
+                    item.id === post.id ? newPost : item
+                )
+            }
+        } catch (error) {
+            console.log(`FILE: ${__filename}\nERROR:`, error);
+        }
+    }
+
+
+    async function changeDataDel(id) {
+        try {
+            const response = await fetch(`/api/forum/post/${id}`, {
+                method: 'DELETE',
+            });
+            // console.log('adduser response', response);
+            if (!response.ok) throw new Error('ошибка');
+            const json = await response.json();
+            // console.log('json', json);
+
+            return {
+                ...data, posts: data.posts.filter(post => id !== +post.id)
+            }
+
+        } catch (error) {
+            console.log(`FILE: ${__filename}\nERROR:`, error);
+        }
+
+    }
+
+    async function editPost(post) {
+        setEditPostId(null);
+        Object.assign(newPost, { content: postForEditInputVal });
+        setPostForEditInputVal('');
+
+        try {
+            mutate(changeDataEdit(newPost, post));
+        } catch (error) {
+            console.log(`FILE: ${__filename}\nERROR:`, error);
+        } finally {
+            null;
+        }
+    }
+
+
+    async function delPost(post) {
+
+        try {
+            mutate(changeDataDel(post.id));
+        } catch (error) {
+            console.log(`FILE: ${__filename}\nERROR:`, error);
+        } finally {
+            null;
+        }
+    }
+
 
     return <>
         <Box m={marginParameters} className="topic-page">
@@ -99,16 +168,11 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
 
 
 
-
-
-
-
-
                     {data?.posts?.map((post) => (
 
                         <Flex
                             className="post"
-                            key={post.id}
+                            key={post.id + post.userId + post.topicId}
                             marginTop={'20px'}
                             border={'1px solid black'}
                             padding={'20px'}
@@ -128,55 +192,32 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                                     placeholder={'напишите тут'}
                                     value={postForEditInputVal}
                                     onInput={evt => setPostForEditInputVal(evt.target.value)}
+                                    onKeyDown={(evt) =>
+                                        (evt.keyCode === 13)
+                                            ? editPost(post)
+                                            : null
+                                    }
                                 />
                             }
 
-                            {/* {session && <div> */}
+
                             {(currentUserId === post.userId || adminOrModerator) && notBanned && <div>
                                 {editPostId === post.id
                                     ? <>
-                                        <Button colorScheme='orange' onClick={() => {
-                                            setEditPostId(null);
-                                            Object.assign(newPost, { content: postForEditInputVal });
-                                            setPostForEditInputVal('');
-                                            async function edit(obj) {
-                                                try {
-                                                    const response = await fetch(`/api/forum/post/${post.id}`, {
-                                                        method: 'PUT',
-                                                        body: JSON.stringify(obj)
-                                                    });
-                                                    console.log('adduser response', response);
-                                                    if (!response.ok) throw new Error('не ок');
-                                                    const json = await response.json();
-                                                    console.log('json', json);
+                                        <Button colorScheme='orange' onClick={() => editPost(post)}>Сохранить
+                                        </Button>
 
-                                                    return {
-                                                        ...data,
-                                                        posts: data.posts.map(item =>
-                                                            item.id === post.id ? newPost : item
-                                                        )
-                                                    }
-                                                } catch (error) {
-                                                    console.log(`FILE: ${__filename}\nERROR:`, error);
-                                                }
-                                            }
-                                            try {
-                                                mutate(edit(newPost));
-                                            } catch (error) {
-                                                console.log(`FILE: ${__filename}\nERROR:`, error);
-                                            } finally {
-                                                null;
-                                            }
-                                        }}>Сохранить</Button>
                                         <Button colorScheme='orange' onClick={() => {
                                             setEditPostId(null);
-                                        }}>Отмена</Button>
+                                        }}>Отмена
+                                        </Button>
                                     </>
                                     : <>
                                         <Button colorScheme='orange' onClick={() => {
                                             setEditPostId(post.id);
                                             setPostForEditInputVal(post.content);
-                                        }}>Редактировать</Button>
+                                        }}>Редактировать
+                                        </Button>
                                     </>
                                 }
                             </div>}
@@ -185,36 +226,11 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                             <div>{post.updatedAt}</div>
                             {/* <div>ID автора для отладки: {post.userId}</div> */}
 
-                            {adminOrModerator && <Button colorScheme='orange' onClick={async () => {
-                                async function delPost(id) {
-                                    try {
-                                        const response = await fetch(`/api/forum/post/${id}`, {
-                                            method: 'DELETE',
-                                        });
-                                        console.log('adduser response', response);
-                                        if (!response.ok) throw new Error('не ок');
-                                        const json = await response.json();
-                                        console.log('json', json);
-
-                                        return {
-                                            ...data, posts: data.posts.filter(post => id !== +post.id)
-                                        }
-
-                                    } catch (error) {
-                                        null;
-                                    }
-                                }
-                                try {
-                                    mutate(delPost(post.id));
-
-                                } catch (error) {
-                                    console.log(`FILE: ${__filename}\nERROR:`, error);
-                                } finally {
-                                    null;
-                                }
+                            {adminOrModerator && <>
+                                <Button colorScheme='orange' onClick={() => delPost(post)}>Удалить
+                                </Button>
+                            </>
                             }
-                            }
-                            >Удалить</Button>}
 
                             <div>
                                 Автор:&#8201;
@@ -239,6 +255,6 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
 
 
 
-        </Box>
+        </Box >
     </>
 }

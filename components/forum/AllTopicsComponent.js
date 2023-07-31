@@ -65,7 +65,7 @@ export default function AllTopicsComponent({ data, mutate }) {
         }
     }
 
-    async function changeDatDel(id) {
+    async function changeDataDel(id) {
         try {
             const response = await fetch(`/api/forum/topic/${id}`, {
                 method: 'DELETE',
@@ -103,7 +103,7 @@ export default function AllTopicsComponent({ data, mutate }) {
     async function delTopic(topic) {
 
         try {
-            mutate(changeDatDel(topic.id));
+            mutate(changeDataDel(topic.id));
         } catch (error) {
             console.log(`FILE: ${__filename}\nERROR:`, error);
         } finally {
@@ -143,7 +143,7 @@ export default function AllTopicsComponent({ data, mutate }) {
                             mutate={mutate}
                             currentUserId={currentUserId}
                         />
-                        
+
                     </ModalWindowBlur>
                 </>}
             </Flex>
@@ -159,7 +159,7 @@ export default function AllTopicsComponent({ data, mutate }) {
             {data && data.topics.map((topic) => (
 
                 <Card
-                    key={topic.id}
+                    key={topic.title}
                     direction={{ base: 'column', sm: 'row' }}
                     overflow='hidden'
                     variant='outline'
@@ -193,6 +193,11 @@ export default function AllTopicsComponent({ data, mutate }) {
                                         placeholder={'Новое название'}
                                         value={topicForEditInputVal}
                                         onInput={evt => setTopicForEditInputVal(evt.target.value)}
+                                        onKeyDown={(evt) =>
+                                            (evt.keyCode === 13)
+                                                ? editTopic(topic)
+                                                : null
+                                        }
                                     />
                                 }
                             </Box>
@@ -220,16 +225,19 @@ export default function AllTopicsComponent({ data, mutate }) {
                             {adminOrModerator && <>
                                 {editTopicId === topic.id
                                     ? <>
-                                        <Button colorScheme='orange' onClick={() => editTopic(topic)}>Сохранить</Button>
+                                        <Button colorScheme='orange' onClick={() => editTopic(topic)}>Сохранить
+                                        </Button>
                                         <Button colorScheme='orange' onClick={() => {
                                             setEditTopicId(null);
-                                        }}>Отмена</Button>
+                                        }}>Отмена
+                                        </Button>
                                     </>
                                     : <>
                                         <Button colorScheme='orange' onClick={() => {
                                             setEditTopicId(topic.id);
                                             setTopicForEditInputVal(topic.title);
-                                        }}>Редактировать</Button>
+                                        }}>Редактировать
+                                        </Button>
                                     </>
                                 }
                             </>}
