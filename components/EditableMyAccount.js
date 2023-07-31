@@ -26,6 +26,9 @@ export default function EditableMyAccount({ data, columns, onDelete, onAdd, onEd
     Array.isArray(data) ? viewData = data : viewData = [];
     // console.log('viewData=', viewData);
 
+    console.log('editInputsVal', editInputsVal);
+    console.log('newUser', newUser);
+
     if (sortCol) {
         const
             { getVal } = columns[Math.abs(sortCol) - 1];
@@ -94,23 +97,28 @@ export default function EditableMyAccount({ data, columns, onDelete, onAdd, onEd
                     <tr key={userN}>
                         {columns?.map(({ name, getVal, setVal }, columN) => (
                             <td key={columN} className={name === 'Role' ? 'td-role' : ''}>
+
                                 {editUserId !== user.id
+
                                     ? getVal(user)
                                     : name === 'Role'
-                                        ? <select
-                                            name={name}
-                                            value={editSelectsVal}
-                                            onChange={evt => {
-                                                setEditSelectsVal(evt.target.value);
-                                                setEditInputsVal(editInputsVal.with(columN, evt.target.value));
-                                            }}
-                                        >
-                                            <option value=""></option>
-                                            {/* <option value="user">user</option> */}
-                                            <option value="admin">admin</option>
-                                            <option value="moderator">moderator</option>
-                                            <option value="banned">banned</option>
-                                        </select>
+
+                                        ? getVal(user)
+
+                                        // ? <select
+                                        //     name={name}
+                                        //     value={editSelectsVal}
+                                        //     onChange={evt => {
+                                        //         setEditSelectsVal(evt.target.value);
+                                        //         setEditInputsVal(editInputsVal.with(columN, evt.target.value));
+                                        //     }}
+                                        // >
+                                        //     <option value=""></option>
+                                        //     {/* <option value="user">user</option> */}
+                                        //     <option value="admin">admin</option>
+                                        //     <option value="moderator">moderator</option>
+                                        //     <option value="banned">banned</option>
+                                        // </select>
                                         // : name === 'Name' || name === 'Email'
                                         : setVal
                                             ? <input
@@ -121,6 +129,7 @@ export default function EditableMyAccount({ data, columns, onDelete, onAdd, onEd
                                             />
                                             : getVal(user)
                                 }
+
                             </td>
                         ))}
                         {/* <td className='actions-buttons'>{editUserId === user.id

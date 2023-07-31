@@ -1,55 +1,46 @@
 import { useSession, signIn, signOut } from 'next-auth/react';
-import Link from 'next/link';
-
-import { Img, UnorderedList, ListItem, Box, Flex, Text, Menu, MenuButton, MenuList, MenuItem, chakra, Button, useBreakpointValue } from '@chakra-ui/react';
+import { Box, Flex, Button, useBreakpointValue } from '@chakra-ui/react';
+import AccountIcon from '../components/AccountIcon';
 
 export default function Login() {
     const { data: session } = useSession();
 
-    const isWide = useBreakpointValue({ base: false, sm: true });
+    const isWide = useBreakpointValue({ base: false, md: true });
 
     if (session)
-        return <div className='login-account-info'>
-            {session?.user?.image &&
+        return <>
+            <Box className='login-account-info'>
 
-                <Link href='/myaccount' className='' title='Мой аккаунт'>
-                    <Img
-                        src={session?.user?.image || ''}
-                        alt="avatar"
-                        className='login-avatar'
-                        mr={{ base: '30px', '2xl': '0px', xl: '0px', lg: '0px', md: '0px', sm: '0px' }}
-                    // ml={{ base: '0px', '2xl': '0px', xl: '0px', lg: '0px', md: '0px', sm: '0px' }}
-                    />
-                </Link>}
+                <Flex
+                    display={isWide ? "flex" : "none"}
+                >
+                    <AccountIcon />
+                </Flex>
 
-            <chakra.span
-                className='login-username'
-                display={isWide ? "block" : "none"}
-            >
-                <Link href='/myaccount' className='' title='Мой аккаунт'>{session?.user?.name}</Link>
-            </chakra.span>
+                <Button
+                    title='Выйти из аккаунта'
+                    backgroundColor={'#281c15'}
+                    color={'white'}
+                    p={'10px 20px'}
+                    border='none'
+                    _hover={{
+                        backgroundColor: '#1a120e'
+                    }}
+                    _active={{
+                        backgroundColor: 'black',
+                        padding: '8px 18px',
+                    }}
 
+                    className='login-button'
+                    onClick={() => signOut()}>Выйти</Button>
 
-            <Button
-                backgroundColor={'#281c15'}
-                color={'white'}
-                p={'10px 20px'}
-                border='none'
-                _hover={{
-                    backgroundColor: '#1a120e'
-                }}
-                _active={{
-                    backgroundColor: 'black',
-                    padding: '8px 18px',
-                }}
-
-                className='login-button'
-                onClick={() => signOut()}>Выйти</Button>
-        </div>;
+            </Box>
+        </>;
 
     return <>
-        <div className='login-account-info'>
+        <Box className='login-account-info'>
             <Button
+                title='Войти в аккаунт'
                 backgroundColor={'#281c15'}
                 color={'white'}
                 p={'10px 20px'}
@@ -64,6 +55,6 @@ export default function Login() {
 
                 className='login-button'
                 onClick={() => signIn()}>Войти</Button>
-        </div>
+        </Box>
     </>;
 }

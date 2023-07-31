@@ -4,6 +4,7 @@ const userColumns = [
 
     { name: 'Name', getVal: ({ name }) => name, setVal: val => ({ name: val }) },
     { name: 'Email', getVal: ({ email }) => email, setVal: val => ({ email: val }) },
+    { name: 'Nickname', getVal: ({ nickname }) => nickname, setVal: val => ({ nickname: val }) },
 
 
     // { name: 'emailVerified', getVal: ({ emailVerified }) => emailVerified },

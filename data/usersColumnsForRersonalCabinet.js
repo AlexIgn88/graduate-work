@@ -2,8 +2,10 @@ const userColumns = [
     // { name: 'Id', getVal: ({ id }) => id },
     // { name: 'Id', getVal: ({ id }) => id, setVal: val => ({ id: val }) },
 
-    { name: 'Name', getVal: ({ name }) => name, setVal: val => ({ name: val }) },
-    { name: 'Email', getVal: ({ email }) => email, setVal: val => ({ email: val }) },
+    { name: 'Name', getVal: ({ name }) => name },
+    { name: 'Email', getVal: ({ email }) => email },
+
+    { name: 'Nickname', getVal: ({ nickname }) => nickname, setVal: val => ({ nickname: val }) },
 
 
     // { name: 'emailVerified', getVal: ({ emailVerified }) => emailVerified },
