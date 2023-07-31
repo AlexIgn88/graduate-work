@@ -254,7 +254,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                             Share
                         </Button> */}
 
-                                    {editPostId !== post.id
+                                    {(editPostId !== post.id) && session
                                         ? <Menu>
                                             <MenuButton
                                                 as={Button}
@@ -277,7 +277,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
 
                                             </MenuList>
                                         </Menu>
-                                        : <>
+                                        : (editPostId === post.id) && <>
                                             <Button colorScheme='gray' onClick={() => editPost(post)}>Сохранить
                                             </Button>
                                             <Button colorScheme='gray' onClick={() => {

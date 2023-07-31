@@ -239,7 +239,7 @@ export default function AllTopicsComponent({ data, mutate }) {
                                         }> Удалить </MenuItem>
                                     </MenuList>
                                 </Menu>
-                                : <>
+                                : (editTopicId === topic.id) && <>
                                     <Button colorScheme='gray' onClick={() => editTopic(topic)}>Сохранить
                                     </Button>
                                     <Button colorScheme='gray' onClick={() => {
