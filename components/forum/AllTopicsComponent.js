@@ -205,8 +205,10 @@ export default function AllTopicsComponent({ data, mutate }) {
 
                             <Box py='2'>
                                 <Box>{topic?.content}</Box>
-                                {/* <Box>{topic.createdAt}</Box> */}
-                                {/* <Box>{topic.updatedAt}</Box> */}
+
+                                <Text fontSize={textFontSize?.base}>{topic?.createdAt}</Text>
+                                <Text fontSize={textFontSize?.base}>{topic?.updatedAt}</Text>
+
                                 <Box>
                                     Автор:&#8201;
                                     {data?.users?.find(user => topic?.userId === user?.id)?.name}

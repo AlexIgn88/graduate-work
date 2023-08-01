@@ -10,8 +10,8 @@ export default function AddNewTopic({ newTopicInputVal, setNewTopicInputVal, dat
             const newTopic = {
                 title: newTopicInputVal,
                 content: '', //временная затычка
-                createdAt: null, //временная затычка
-                updatedAt: null, //временная затычка
+                // createdAt: null, //временная затычка
+                // updatedAt: null, //временная затычка
                 userId: currentUserId
             };
             mutate(changeDataAdd(newTopic));

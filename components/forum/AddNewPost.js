@@ -10,8 +10,8 @@ export default function AddNewPost({ newPostInputVal, setNewPostInputVal, data, 
         try {
             const formData = {
                 content: newPostInputVal,
-                createdAt: null, //временная затычка
-                updatedAt: null, //временная затычка
+                // createdAt: null, //временная затычка
+                // updatedAt: null, //временная затычка
                 userId: currentUserId,
                 topicId: +topicId
             };

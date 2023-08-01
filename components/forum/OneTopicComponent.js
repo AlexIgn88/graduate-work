@@ -195,8 +195,8 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                                                 <Heading size='sm'>{currentUser?.nickname || currentUser?.name}</Heading>
                                                 <Text>{currentUser?.role || 'user'}</Text>
 
-                                                {/* <Text fontSize={textFontSize.base}>{post.createdAt}</Text>
-                                                <Text fontSize={textFontSize.base}>{post.updatedAt}</Text> */}
+                                                <Text fontSize={textFontSize?.base}>{post?.createdAt}</Text>
+                                                <Text fontSize={textFontSize?.base}>{post?.updatedAt}</Text>
 
                                             </Box>
                                         </Flex>

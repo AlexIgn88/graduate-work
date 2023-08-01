@@ -30,7 +30,7 @@ export default function MyApp({ Component,
         <Global styles={globalStyles} />
         <Layout>
           <Component {...pageProps} />
-          <Toaster position="top-right" />
+          <Toaster position="bottom-right" />
         </Layout>
       </ChakraProvider>
     </SessionProvider>
