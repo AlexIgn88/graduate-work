@@ -156,7 +156,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                         </Heading>
 
                         {session && notBanned && data && <>
-                            <ModalWindowBlur buttonText={'Написать сообщение'}>
+                            <ModalWindowBlur buttonText={'Написать сообщение'} buttonColorScheme={'orange'}>
                                 <AddNewPost
                                     newPostInputVal={newPostInputVal}
                                     setNewPostInputVal={setNewPostInputVal}
@@ -264,6 +264,26 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                                             </MenuButton>
                                             <MenuList
                                             >
+
+                                                {notBanned &&
+                                                    <ModalWindowBlur
+                                                        buttonText={'Ответить'}
+                                                        buttonColorScheme={'gray'}
+                                                        width={'100%'}
+
+                                                    >
+                                                        <AddNewPost
+                                                            newPostInputVal={newPostInputVal}
+                                                            setNewPostInputVal={setNewPostInputVal}
+                                                            data={data}
+                                                            mutate={mutate}
+                                                            currentUserId={currentUserId}
+                                                            topicId={topicId}
+                                                        />
+                                                    </ModalWindowBlur>
+                                                }
+
+
                                                 {(postAuthor || adminOrModerator) && notBanned &&
                                                     <MenuItem as={Button} colorScheme='gray' onClick={() => {
                                                         setEditPostId(post.id);

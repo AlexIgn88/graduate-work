@@ -46,7 +46,7 @@ export default function ForumPage({ fallback }) {
                 </GetData>
             </SWRConfig>
 
-            <Box
+            {/* <Box
                 className="additional-information"
                 border={'1px solid black'}
                 borderRadius={'10px'}
@@ -70,7 +70,7 @@ export default function ForumPage({ fallback }) {
                         </Box>
                     </Box>
                 </Box>
-            </Box>
+            </Box> */}
 
         </Flex>
     </>;

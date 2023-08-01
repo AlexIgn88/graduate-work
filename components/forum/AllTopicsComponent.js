@@ -135,7 +135,7 @@ export default function AllTopicsComponent({ data, mutate }) {
                 </Heading>
 
                 {session && notBanned && data && <>
-                    <ModalWindowBlur buttonText={'Создать новую тему'}>
+                    <ModalWindowBlur buttonText={'Создать новую тему'} buttonColorScheme={'orange'}>
 
                         <AddNewTopic
                             newTopicInputVal={newTopicInputVal}

@@ -3,7 +3,7 @@ import {
 } from '@chakra-ui/react';
 import { useState, cloneElement } from 'react';
 
-export default function ModalWindowBlur({ buttonText, children }) {
+export default function ModalWindowBlur({ buttonText, buttonColorScheme, width, children }) {
     const Overlay = () => (
         <ModalOverlay
             bg='blackAlpha.300'
@@ -19,7 +19,9 @@ export default function ModalWindowBlur({ buttonText, children }) {
 
     return (
         <>
-            <Button colorScheme='orange'
+            <Button
+                width={width}
+                colorScheme={buttonColorScheme}
                 onClick={() => {
                     setOverlay(<Overlay />)
                     onOpen()
