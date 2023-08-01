@@ -48,7 +48,8 @@ model User {
   // role          String?
   // role          String?   @default(dbgenerated("user"))
   role          String?   @default("user")
-  nickname      String?
+  // nickname      String?
+  nickname      String?   @default("")
   accounts      Account[]
   sessions      Session[]
   topics        Topic[]
@@ -68,8 +69,9 @@ model Topic {
   id        Int       @id @default(autoincrement())
   title     String?
   content   String?
-  // createdAt DateTime? @default(dbgenerated("now() + interval '3 hours'"))
-  createdAt DateTime? @default(dbgenerated("(now() + '03:00:00'::interval)"))
+  // createdAt DateTime? @default(now())
+  createdAt DateTime? @default(dbgenerated("now() + interval '3 hours'"))
+  // createdAt DateTime? @default(dbgenerated("(now() + '03:00:00'::interval)"))
   updatedAt DateTime? @updatedAt
   userId    String
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -79,8 +81,9 @@ model Topic {
 model Post {
   id        Int       @id @default(autoincrement())
   content   String?
-  // createdAt DateTime? @default(dbgenerated("now() + interval '3 hours'"))
-  createdAt DateTime? @default(dbgenerated("(now() + '03:00:00'::interval)"))
+  // createdAt DateTime? @default(now())
+  createdAt DateTime? @default(dbgenerated("now() + interval '3 hours'"))
+  // createdAt DateTime? @default(dbgenerated("(now() + '03:00:00'::interval)"))
   updatedAt DateTime? @updatedAt
   userId    String
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)

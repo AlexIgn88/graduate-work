@@ -53,7 +53,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
 
     async function changeDataEdit(obj, post) {
         try {
-            const response = await fetch(`/api/forum/post/${post.id}`, {
+            const response = await fetch(`/api/forum/post/${post?.id}`, {
                 method: 'PUT',
                 body: JSON.stringify(obj)
             });
@@ -64,8 +64,8 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
 
             return {
                 ...data,
-                posts: data.posts.map(item =>
-                    item.id === post.id ? newPost : item
+                posts: data?.posts.map(item =>
+                    item?.id === post?.id ? newPost : item
                 )
             }
         } catch (error) {
@@ -85,7 +85,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
             // console.log('json', json);
 
             return {
-                ...data, posts: data.posts.filter(post => id !== +post.id)
+                ...data, posts: data?.posts?.filter(post => id !== +post?.id)
             }
 
         } catch (error) {
@@ -112,7 +112,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
     async function delPost(post) {
 
         try {
-            mutate(changeDataDel(post.id));
+            mutate(changeDataDel(post?.id));
         } catch (error) {
             console.log(`FILE: ${__filename}\nERROR:`, error);
         } finally {
@@ -174,12 +174,12 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                     {data?.posts?.map((post) => {
 
                         const currentUser = data?.users?.find((user) => post?.userId === user?.id);
-                        const postAuthor = currentUserId === post.userId;
+                        const postAuthor = currentUserId === post?.userId;
                         return (
 
 
                             <Card
-                                key={post.id + post.userId + post.topicId}
+                                key={post?.id + post?.userId + post?.topicId}
                                 className="post"
                                 // maxW='md'
                                 marginTop={'20px'}
@@ -216,15 +216,15 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                                             className="post-content"
                                             textAlign='justify'
 
-                                        >{post.content}</Text>
+                                        >{post?.content}</Text>
                                         : <AutoResizableTextarea
                                             fontSize={textFontSize}
                                             name={'current-post'}
                                             placeholder={'Ваше сообщение'}
                                             value={postForEditInputVal}
-                                            onInput={evt => setPostForEditInputVal(evt.target.value)}
+                                            onInput={evt => setPostForEditInputVal(evt?.target?.value)}
                                             onKeyDown={(evt) =>
-                                                (evt.keyCode === 13)
+                                                (evt?.keyCode === 13)
                                                     ? editPost(post)
                                                     : null
                                             }
@@ -254,7 +254,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                             Share
                         </Button> */}
 
-                                    {(editPostId !== post.id) && session
+                                    {(editPostId !== post?.id) && session && notBanned
                                         ? <Menu>
                                             <MenuButton
                                                 as={Button}
@@ -286,8 +286,8 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
 
                                                 {(postAuthor || adminOrModerator) && notBanned &&
                                                     <MenuItem as={Button} colorScheme='gray' onClick={() => {
-                                                        setEditPostId(post.id);
-                                                        setPostForEditInputVal(post.content);
+                                                        setEditPostId(post?.id);
+                                                        setPostForEditInputVal(post?.content);
                                                     }}>Редактировать</MenuItem>
                                                 }
 

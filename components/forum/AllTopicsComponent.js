@@ -57,7 +57,7 @@ export default function AllTopicsComponent({ data, mutate }) {
             // console.log('json', json);
             return {
                 ...data,
-                topics: data.topics.map(item =>
+                topics: data?.topics?.map(item =>
                     item.id === topic.id ? newTopic : item
                 )
             }
@@ -78,7 +78,7 @@ export default function AllTopicsComponent({ data, mutate }) {
             // console.log('удалили эту тему: ', data.topics.filter(topic => id === +topic.id));
 
             return {
-                ...data, topics: data.topics.filter(topic => id !== +topic.id)
+                ...data, topics: data?.topics?.filter(topic => id !== +topic?.id)
             }
 
         } catch (error) {
@@ -104,7 +104,7 @@ export default function AllTopicsComponent({ data, mutate }) {
     async function delTopic(topic) {
 
         try {
-            mutate(changeDataDel(topic.id));
+            mutate(changeDataDel(topic?.id));
         } catch (error) {
             console.log(`FILE: ${__filename}\nERROR:`, error);
         } finally {
@@ -157,102 +157,112 @@ export default function AllTopicsComponent({ data, mutate }) {
                 </Stack>
             </>}
 
-            {data && data?.topics.map((topic) => (
+            {data && data?.topics?.map((topic) => {
 
-                <Card
-                    key={topic.title}
-                    direction={{ base: 'column', sm: 'row' }}
-                    overflow='hidden'
-                    variant='outline'
-                >
-                    {/* <Image
+                const currentUser = data?.users?.find((user) => topic?.userId === user?.id);
+                const topicAuthor = currentUserId === topic?.userId;
+
+                return (
+
+                    <Card
+                        key={topic?.title}
+                        direction={{ base: 'column', sm: 'row' }}
+                        overflow='hidden'
+                        variant='outline'
+                    >
+                        {/* <Image
                         objectFit='cover'
                         maxW={{ base: '100%', sm: '200px' }}
                         src='https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60'
                         alt='Caffe Latte'
                     /> */}
 
-                    <Stack>
-                        <CardBody>
-                            <Box size='md'>
+                        <Stack>
+                            <CardBody>
+                                <Box size='md'>
 
-                                {/* <h3>ID темы для отладки: {topic.id}</h3> */}
-                                {editTopicId !== topic.id
-                                    ?
-                                    <Box
-                                        className="topic-title"
-                                    // width={'20vw'}
-                                    >
-                                        <Box bg='white' color='green'>
-                                            <Link href={`/forum/topic/${topic.id}`} className="">{topic.title}</Link>
+                                    {/* <h3>ID темы для отладки: {topic.id}</h3> */}
+                                    {editTopicId !== topic?.id
+                                        ?
+                                        <Box
+                                            className="topic-title"
+                                        // width={'20vw'}
+                                        >
+                                            <Box bg='white' color='green'>
+                                                <Link href={`/forum/topic/${topic?.id}`} className="">{topic?.title}</Link>
+                                            </Box>
                                         </Box>
+                                        :
+                                        <Input
+                                            type='text'
+                                            name={'current-topic'}
+                                            placeholder={'Новое название'}
+                                            value={topicForEditInputVal}
+                                            onInput={evt => setTopicForEditInputVal(evt?.target?.value)}
+                                            onKeyDown={(evt) =>
+                                                (evt?.keyCode === 13)
+                                                    ? editTopic(topic)
+                                                    : null
+                                            }
+                                        />
+                                    }
+                                </Box>
+
+                                <Box py='2'>
+                                    <Box>{topic?.content}</Box>
+
+                                    <Text fontSize={textFontSize?.base}>{topic?.createdAt}</Text>
+                                    <Text fontSize={textFontSize?.base}>{topic?.updatedAt}</Text>
+
+                                    <Box>
+                                        Автор:&#8201;
+                                        {/* {currentUser?.name} */}
+                                        {currentUser?.nickname || currentUser?.name}
                                     </Box>
-                                    :
-                                    <Input
-                                        type='text'
-                                        name={'current-topic'}
-                                        placeholder={'Новое название'}
-                                        value={topicForEditInputVal}
-                                        onInput={evt => setTopicForEditInputVal(evt.target.value)}
-                                        onKeyDown={(evt) =>
-                                            (evt.keyCode === 13)
-                                                ? editTopic(topic)
-                                                : null
-                                        }
-                                    />
+                                    <Box>
+                                        Статус автора:&#8201;
+                                        {currentUser?.role || 'user'}
+                                    </Box>
+                                </Box>
+                            </CardBody>
+
+                            <CardFooter>
+
+                                {(editTopicId !== topic?.id) && adminOrModerator
+                                    ? <Menu>
+                                        <MenuButton
+                                            as={Button}
+                                            colorScheme='gray'
+                                        // rightIcon={<ChevronDownIcon />}
+                                        >Действия
+                                        </MenuButton>
+                                        <MenuList>
+                                            <MenuItem as={Button} colorScheme='gray' onClick={() => {
+                                                setEditTopicId(topic?.id);
+                                                setTopicForEditInputVal(topic?.title);
+                                            }}>Редактировать</MenuItem>
+
+                                            <MenuItem as={Button} colorScheme='gray' onClick={() =>
+                                                delTopic(topic)
+                                            }> Удалить </MenuItem>
+                                        </MenuList>
+                                    </Menu>
+                                    : (editTopicId === topic.id) && <>
+                                        <Button colorScheme='gray' onClick={() => editTopic(topic)}>Сохранить
+                                        </Button>
+                                        <Button colorScheme='gray' onClick={() => {
+                                            setEditTopicId(null);
+                                        }}>Отмена
+                                        </Button>
+                                    </>
                                 }
-                            </Box>
+                            </CardFooter>
+                        </Stack>
+                    </Card>)
+            }
 
-                            <Box py='2'>
-                                <Box>{topic?.content}</Box>
 
-                                <Text fontSize={textFontSize?.base}>{topic?.createdAt}</Text>
-                                <Text fontSize={textFontSize?.base}>{topic?.updatedAt}</Text>
-
-                                <Box>
-                                    Автор:&#8201;
-                                    {data?.users?.find(user => topic?.userId === user?.id)?.name}
-                                </Box>
-                                <Box>
-                                    Статус автора:&#8201;
-                                    {data?.users?.find(user => topic?.userId === user?.id)?.role || 'user'}
-                                </Box>
-                            </Box>
-                        </CardBody>
-
-                        <CardFooter>
-
-                            {(editTopicId !== topic.id) && adminOrModerator
-                                ? <Menu>
-                                    <MenuButton
-                                        as={Button}
-                                        colorScheme='gray'
-                                    // rightIcon={<ChevronDownIcon />}
-                                    >Действия
-                                    </MenuButton>
-                                    <MenuList>
-                                        <MenuItem as={Button} colorScheme='gray' onClick={() => {
-                                            setEditTopicId(topic.id);
-                                            setTopicForEditInputVal(topic.title);
-                                        }}>Редактировать</MenuItem>
-
-                                        <MenuItem as={Button} colorScheme='gray' onClick={() =>
-                                            delTopic(topic)
-                                        }> Удалить </MenuItem>
-                                    </MenuList>
-                                </Menu>
-                                : (editTopicId === topic.id) && <>
-                                    <Button colorScheme='gray' onClick={() => editTopic(topic)}>Сохранить
-                                    </Button>
-                                    <Button colorScheme='gray' onClick={() => {
-                                        setEditTopicId(null);
-                                    }}>Отмена
-                                    </Button>
-                                </>
-                            }
-                        </CardFooter>
-                    </Stack>
-                </Card>))}
+            )}
 
 
 

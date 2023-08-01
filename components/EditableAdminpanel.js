@@ -106,7 +106,7 @@ export default function EditableAdminpanel({ data, columns, onDelete, onAdd, onE
                                             }}
                                         >
                                             <option value=""></option>
-                                            {/* <option value="user">user</option> */}
+                                            <option value="user">user</option>
                                             <option value="admin">admin</option>
                                             <option value="moderator">moderator</option>
                                             <option value="banned">banned</option>
@@ -146,14 +146,17 @@ export default function EditableAdminpanel({ data, columns, onDelete, onAdd, onE
                                     setEditInputsVal(columns.map(({ getVal }) => getVal(user)));
                                     setEditSelectsVal(user.role);
                                 }}>edit</button>
-                                <button className="delete-button" onClick={() => {
+
+                                {/* Удаление пока не реализовано адекватно */}
+
+                                {/* <button className="delete-button" onClick={() => {
 
                                     newUser = user;
 
                                     console.log(newUser);
                                     // onDelete?.({ id: user.id });
                                     onDelete?.({ id: user.id });
-                                }}>delete</button>
+                                }}>delete</button> */}
                             </>
                         }</td>
                     </tr>)
@@ -174,7 +177,7 @@ export default function EditableAdminpanel({ data, columns, onDelete, onAdd, onE
                                     }}
                                 >
                                     <option value=""></option>
-                                    {/* <option value="user">user</option> */}
+                                    <option value="user">user</option>
                                     <option value="admin">admin</option>
                                     <option value="moderator">moderator</option>
                                     {/* <option value="banned">banned</option> */}

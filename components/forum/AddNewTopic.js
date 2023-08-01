@@ -34,7 +34,7 @@ export default function AddNewTopic({ newTopicInputVal, setNewTopicInputVal, dat
             const json = await response.json();
             // console.log('json', json);
             return {
-                ...data, topics: [...data.topics, json]
+                ...data, topics: [...data?.topics, json]
             }
         } catch (error) {
             console.log(`FILE: ${__filename}\nERROR:`, error)
@@ -51,7 +51,7 @@ export default function AddNewTopic({ newTopicInputVal, setNewTopicInputVal, dat
                 name='new-topic'
                 placeholder={'Название темы'}
                 value={newTopicInputVal}
-                onInput={evt => setNewTopicInputVal(evt.target.value)}
+                onInput={evt => setNewTopicInputVal(evt?.target?.value)}
                 onKeyDown={(evt) => handleOnKeyEnterDown(evt, addTopic)}
                 fontSize={textFontSize}
                 m={'10px'}

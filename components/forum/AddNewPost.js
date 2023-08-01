@@ -36,7 +36,7 @@ export default function AddNewPost({ newPostInputVal, setNewPostInputVal, data, 
             const json = await response.json();
             // console.log('json', json);
             return {
-                ...data, posts: [...data.posts, json]
+                ...data, posts: [...data?.posts, json]
             }
         } catch (error) {
             console.log(`FILE: ${__filename}\nERROR:`, error)
@@ -44,7 +44,7 @@ export default function AddNewPost({ newPostInputVal, setNewPostInputVal, data, 
     }
 
     const handleTextareaChange = useCallback((evt) => {
-        let textareaValue = evt.target.value
+        let textareaValue = evt?.target?.value
         setNewPostInputVal(textareaValue)
     }, []);
 
