@@ -15,6 +15,11 @@ import { flexDirection } from '../../displayParameters/flexParameters';
 import ModalWindowBlur from '../../components/modalwindows/ModalWindowBlur';
 import AddNewPost from '../../components/forum/AddNewPost';
 import AutoResizableTextarea from '../../components/AutoResizableTextarea';
+import { formatDateTime } from '../../includes/formatDate';
+
+const Moment = require('mol_time_all').$mol_time_moment;
+
+// console.log(new Moment());
 
 
 export default function OneTopicComponent({ data, mutate, topicId }) {
@@ -73,7 +78,6 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
         }
     }
 
-
     async function changeDataDel(id) {
         try {
             const response = await fetch(`/api/forum/post/${id}`, {
@@ -108,7 +112,6 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
         }
     }
 
-
     async function delPost(post) {
 
         try {
@@ -122,7 +125,6 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
 
 
     return <>
-
 
         <Box m={marginParameters} className="topic-page">
             <Head>
@@ -140,7 +142,6 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
 
             {data && <>
                 <Box className="topic-div">
-
 
                     <Flex
                         justifyContent={'space-between'}
@@ -169,12 +170,21 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                         </>}
                     </Flex>
 
-
-
                     {data?.posts?.map((post) => {
 
                         const currentUser = data?.users?.find((user) => post?.userId === user?.id);
                         const postAuthor = currentUserId === post?.userId;
+
+                        // console.log(post?.createdAt);
+
+                        const postCreatedSring = new Moment(post?.createdAt).toString('YYYY-MM-DD hh:mm (WeekDay)');
+                        const postUpdatedSring = new Moment(post?.updatedAt).toString('YYYY-MM-DD hh:mm (WeekDay)');
+
+                        console.log(post?.createdAt);
+
+                        const formattedDatePostCreated = formatDateTime(postCreatedSring);
+                        const formattedDatePostUpdated = formatDateTime(postUpdatedSring);
+
                         return (
 
 
@@ -194,9 +204,11 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                                             <Box>
                                                 <Heading size='sm'>{currentUser?.nickname || currentUser?.name}</Heading>
                                                 <Text>{currentUser?.role || 'user'}</Text>
-
-                                                <Text fontSize={textFontSize?.base}>{post?.createdAt}</Text>
-                                                <Text fontSize={textFontSize?.base}>{post?.updatedAt}</Text>
+                                                {/* <Text fontSize={textFontSize?.base}>{post?.createdAt}</Text> */}
+                                                <Text fontSize={textFontSize?.base}>Опубликовано {formattedDatePostCreated}</Text>
+                                                {/* <Text fontSize={textFontSize?.base}>{post?.updatedAt}</Text> */}
+                                                {formattedDatePostCreated !== formattedDatePostUpdated &&
+                                                    <Text fontSize={textFontSize?.base}>Отредактировано {formattedDatePostUpdated}</Text>}
 
                                             </Box>
                                         </Flex>
@@ -311,25 +323,8 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                             </Card>
                         );
                     })}
-
-
-
-
-
                 </Box >
             </>}
-
-
-
-
-
-
-
-
-
-
-
-
         </Box >
     </>
 }

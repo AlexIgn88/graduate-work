@@ -13,7 +13,9 @@ import { marginParameters } from '../../displayParameters/marginParameters';
 import { flexDirection } from '../../displayParameters/flexParameters';
 import ModalWindowBlur from '../../components/modalwindows/ModalWindowBlur';
 import AddNewTopic from '../../components/forum/AddNewTopic';
+import { formatDateTime } from '../../includes/formatDate';
 
+const Moment = require('mol_time_all').$mol_time_moment;
 
 export default function AllTopicsComponent({ data, mutate }) {
 
@@ -44,6 +46,7 @@ export default function AllTopicsComponent({ data, mutate }) {
         notBanned = currentUserRole !== 'banned';
 
     // console.log('data=', data);
+
 
     async function changeDataEdit(obj, topic) {
         try {
@@ -160,7 +163,15 @@ export default function AllTopicsComponent({ data, mutate }) {
             {data && data?.topics?.map((topic) => {
 
                 const currentUser = data?.users?.find((user) => topic?.userId === user?.id);
-                const topicAuthor = currentUserId === topic?.userId;
+                // const topicAuthor = currentUserId === topic?.userId;
+
+                // console.log(topic?.createdAt);
+
+                const topicCreatedSring = new Moment(topic?.createdAt).toString('YYYY-MM-DD hh:mm (WeekDay)');
+                // const topicUpdatedSring = new Moment(topic?.updatedAt).toString('YYYY-MM-DD hh:mm (WeekDay)');
+
+                const formattedDateTopicCreated = formatDateTime(topicCreatedSring);
+                // const formattedDateTopicUpdated = formatDateTime(topicUpdatedSring);
 
                 return (
 
@@ -210,10 +221,12 @@ export default function AllTopicsComponent({ data, mutate }) {
 
                                 <Box py='2'>
                                     <Box>{topic?.content}</Box>
-
-                                    <Text fontSize={textFontSize?.base}>{topic?.createdAt}</Text>
-                                    <Text fontSize={textFontSize?.base}>{topic?.updatedAt}</Text>
-
+                                    {/* <Text fontSize={textFontSize?.base}>{topic?.createdAt}</Text> */}
+                                    <Text fontSize={textFontSize?.base}>
+                                        Тема создана {formattedDateTopicCreated}
+                                    </Text>
+                                    {/* <Text fontSize={textFontSize?.base}>{topic?.updatedAt}</Text> */}
+                                    {/* <Text fontSize={textFontSize?.base}>Тема обновлена {formattedDateTopicUpdated}</Text> */}
                                     <Box>
                                         Автор:&#8201;
                                         {/* {currentUser?.name} */}
@@ -261,12 +274,7 @@ export default function AllTopicsComponent({ data, mutate }) {
                     </Card>)
             }
 
-
             )}
-
-
-
-
         </Box>
     </>
 }

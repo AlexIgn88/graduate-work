@@ -24,6 +24,7 @@
     "@nanostores/react": "^0.7.1",
     "@prisma/client": "^4.16.2",
     "framer-motion": "^10.13.1",
+    "mol_time_all": "^1.1.669",
     "nanostores": "^0.9.3",
     "next": "^13.4.3",
     "next-auth": "^4.22.1",

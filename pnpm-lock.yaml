@@ -28,6 +28,9 @@ dependencies:
   framer-motion:
     specifier: ^10.13.1
     version: 10.13.1(react-dom@18.2.0)(react@18.2.0)
+  mol_time_all:
+    specifier: ^1.1.669
+    version: 1.1.669
   nanostores:
     specifier: ^0.9.3
     version: 0.9.3
@@ -3247,6 +3250,10 @@ packages:
   /minimist@1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
     dev: true
+
+  /mol_time_all@1.1.669:
+    resolution: {integrity: sha512-LaghDV5zG0J7SUTBmzyt2rIs8wDaYKhzPsMepTIk2FZyjCWBmgBGpClbHyDZ1YHrhnGtdPqmf5hBZKbk3KKaDg==}
+    dev: false
 
   /ms@2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
