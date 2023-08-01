@@ -46,7 +46,8 @@ model User {
   emailVerified DateTime?
   image         String?
   // role          String?
-  role          String?   @default(dbgenerated("user"))
+  // role          String?   @default(dbgenerated("user"))
+  role          String?   @default("user")
   nickname      String?
   accounts      Account[]
   sessions      Session[]
