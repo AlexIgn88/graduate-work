@@ -69,8 +69,8 @@ model Topic {
   id        Int       @id @default(autoincrement())
   title     String?
   content   String?
-  // createdAt DateTime? @default(now())
-  createdAt DateTime? @default(dbgenerated("now() + interval '3 hours'"))
+  createdAt DateTime? @default(now())
+  // createdAt DateTime? @default(dbgenerated("now() + interval '3 hours'"))
   // createdAt DateTime? @default(dbgenerated("(now() + '03:00:00'::interval)"))
   updatedAt DateTime? @updatedAt
   userId    String
@@ -81,8 +81,8 @@ model Topic {
 model Post {
   id        Int       @id @default(autoincrement())
   content   String?
-  // createdAt DateTime? @default(now())
-  createdAt DateTime? @default(dbgenerated("now() + interval '3 hours'"))
+  createdAt DateTime? @default(now())
+  // createdAt DateTime? @default(dbgenerated("now() + interval '3 hours'"))
   // createdAt DateTime? @default(dbgenerated("(now() + '03:00:00'::interval)"))
   updatedAt DateTime? @updatedAt
   userId    String
