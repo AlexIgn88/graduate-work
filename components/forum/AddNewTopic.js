@@ -44,7 +44,8 @@ export default function AddNewTopic({ newTopicInputVal, setNewTopicInputVal, dat
     return <>
         <Flex
             flexDirection={'column'}
-            alignItems={'baseline'}
+            alignItems={'center'}
+            gap={'15px'}
         >
             <Input
                 type='search'
@@ -58,14 +59,14 @@ export default function AddNewTopic({ newTopicInputVal, setNewTopicInputVal, dat
             />
             <Flex
                 flexDirection={flexDirection}
-                gap={'15px'}
+                gap={'5vw'}
 
             >
                 <Button
-                    colorScheme='orange'
+                    colorScheme='blue'
                     type='submit'
                     onClick={() => addTopic()}>Добавить</Button>
-                <Button colorScheme='orange' onClick={() => {
+                <Button colorScheme='blue' onClick={() => {
                     setNewTopicInputVal('');
                     onClose();
                 }}>Отмена</Button>

@@ -52,7 +52,8 @@ export default function AddNewPost({ newPostInputVal, setNewPostInputVal, data, 
     return <>
         <Flex
             flexDirection={'column'}
-            alignItems={'baseline'}
+            alignItems={'center'}
+            gap={'15px'}
         >
 
             <AutoResizableTextarea
@@ -71,14 +72,14 @@ export default function AddNewPost({ newPostInputVal, setNewPostInputVal, data, 
 
             <Flex
                 flexDirection={flexDirection}
-                gap={'15px'}
+                gap={'5vw'}
 
             >
                 <Button
-                    colorScheme='orange'
+                    colorScheme='blue'
                     type='submit'
                     onClick={() => addPost()}>Добавить</Button>
-                <Button colorScheme='orange' onClick={() => {
+                <Button colorScheme='blue' onClick={() => {
                     setNewPostInputVal('');
                     onClose();
                 }}>Отмена</Button>

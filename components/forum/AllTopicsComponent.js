@@ -3,14 +3,14 @@ import { useSession } from 'next-auth/react';
 import Link from "next/link";
 import {
     Box, Flex, Heading, Button, Input,
-    Stack, Image, Text,
+    Stack, Text,
     Card, CardBody, CardFooter,
-    Skeleton, SkeletonCircle, SkeletonText,
-    Menu, MenuButton, MenuList, MenuItem, MenuItemOption, MenuGroup, MenuOptionGroup, MenuDivider,
-    ListIcon,
+    Skeleton, 
+    // SkeletonCircle, SkeletonText,
+    Menu, MenuButton, MenuList, MenuItem, 
+    // MenuItemOption, MenuGroup, MenuOptionGroup, MenuDivider
 } from "@chakra-ui/react";
-import { h1HeadersFontSize, h2HeadersFontSize, h3HeadersFontSize, textFontSize } from '../../displayParameters/fontParameters';
-import { marginParameters } from '../../displayParameters/marginParameters';
+import { h2HeadersFontSize, textFontSize } from '../../displayParameters/fontParameters';
 import { flexDirection } from '../../displayParameters/flexParameters';
 import ModalWindowBlur from '../../components/modalwindows/ModalWindowBlur';
 import AddNewTopic from '../../components/forum/AddNewTopic';
@@ -31,15 +31,8 @@ export default function AllTopicsComponent({ data, mutate }) {
     //Константы для получения сессии и данных о вошедшем пользователе
     const
         { data: session } = useSession(),
-        // const {
-        //     name: currentUserName,
-        //     email: currentUserEmail,
-        //     image: currentUserImage,
-        //     id: currentUserId,
-        //     role: currentUserRole
-        // } = sessionHookResult?.data?.user;
         currentUserId = session?.user?.id,
-        currentUserName = session?.user?.name,
+        // currentUserName = session?.user?.name,
         currentUserRole = session?.user?.role;
 
     //Константы для определения прав доступа
@@ -80,7 +73,6 @@ export default function AllTopicsComponent({ data, mutate }) {
             if (!response.ok) throw new Error('ошибка');
             const json = await response.json();
             // console.log('json', json);
-            // console.log('удалили эту тему: ', data.topics.filter(topic => id === +topic.id));
 
             return {
                 ...data, topics: data?.topics?.filter(topic => id !== +topic?.id)
@@ -172,7 +164,6 @@ export default function AllTopicsComponent({ data, mutate }) {
 
                 const topicCreatedSring = new Moment(topic?.createdAt).toString('YYYY-MM-DD hh:mm (WeekDay)');
                 // const topicUpdatedSring = new Moment(topic?.updatedAt).toString('YYYY-MM-DD hh:mm (WeekDay)');
-
                 const formattedDateTopicCreated = formatDateTime(topicCreatedSring);
                 // const formattedDateTopicUpdated = formatDateTime(topicUpdatedSring);
 
@@ -184,28 +175,15 @@ export default function AllTopicsComponent({ data, mutate }) {
                         overflow='hidden'
                         variant='outline'
                         p={'20px'}
-                    // background={'#132228'}
-                    // color={'white'}
-                    // opacity={'80%'}
                     >
-
-                        {/* <Image
-                        objectFit='cover'
-                        maxW={{ base: '100%', sm: '200px' }}
-                        src='https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60'
-                        alt='Caffe Latte'
-                    /> */}
-
                         <Stack>
                             <CardBody>
                                 <Box size='md'>
-
                                     {/* <h3>ID темы для отладки: {topic.id}</h3> */}
                                     {editTopicId !== topic?.id
                                         ?
                                         <Box
                                             className="topic-title"
-                                        // width={'20vw'}
                                         >
                                             <Flex
                                                 color={'blue.600'}
@@ -213,7 +191,7 @@ export default function AllTopicsComponent({ data, mutate }) {
                                                 alignItems={'stretch'}
                                                 gap={'30px'}
                                             >
-                                                <Text as={FcAnswers}  />
+                                                <Text as={FcAnswers} />
                                                 <Link href={`/forum/topic/${topic?.id}`} className="">{topic?.title}</Link>
                                             </Flex>
                                         </Box>
@@ -243,7 +221,6 @@ export default function AllTopicsComponent({ data, mutate }) {
                                     {/* <Text fontSize={textFontSize?.base}>Тема обновлена {formattedDateTopicUpdated}</Text> */}
                                     <Box>
                                         Автор:&#8201;
-                                        {/* {currentUser?.name} */}
                                         {currentUser?.nickname || currentUser?.name}
                                     </Box>
                                     <Box>
@@ -260,7 +237,6 @@ export default function AllTopicsComponent({ data, mutate }) {
                                         <MenuButton
                                             as={Button}
                                             colorScheme='gray'
-                                        // rightIcon={<ChevronDownIcon />}
                                         >Действия
                                         </MenuButton>
                                         <MenuList>
@@ -286,9 +262,7 @@ export default function AllTopicsComponent({ data, mutate }) {
                             </CardFooter>
                         </Stack>
                     </Card>)
-            }
-
-            )}
+            })}
         </Box>
     </>
 }

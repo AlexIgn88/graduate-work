@@ -1,15 +1,16 @@
 import Head from "next/head";
-// import { fictionalDataForTopic } from '../../data/fictionalData';
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import {
-    Box, Flex, Heading, Button, Input, Textarea,
-    Stack, Image, Text,
+    Box, Flex, Heading, Button, Stack, Text,
+    // Input, Textarea, Image,
     Card, CardHeader, CardBody, CardFooter, Avatar,
-    Skeleton, SkeletonCircle, SkeletonText,
-    Menu, MenuButton, MenuList, MenuItem, MenuItemOption, MenuGroup, MenuOptionGroup, MenuDivider,
+    Skeleton,
+    SkeletonCircle, SkeletonText,
+    Menu, MenuButton, MenuList, MenuItem,
+    // MenuItemOption, MenuGroup, MenuOptionGroup, MenuDivider,
 } from "@chakra-ui/react";
-import { h1HeadersFontSize, h2HeadersFontSize, h3HeadersFontSize, textFontSize } from '../../displayParameters/fontParameters';
+import { h2HeadersFontSize, textFontSize } from '../../displayParameters/fontParameters';
 import { marginParameters } from '../../displayParameters/marginParameters';
 import { flexDirection } from '../../displayParameters/flexParameters';
 import ModalWindowBlur from '../../components/modalwindows/ModalWindowBlur';
@@ -34,15 +35,8 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
     //Константы для получения сессии и данных о вошедшем пользователе
     const
         { data: session } = useSession(),
-        // const {
-        //     name: currentUserName,
-        //     email: currentUserEmail,
-        //     image: currentUserImage,
-        //     id: currentUserId,
-        //     role: currentUserRole
-        // } = sessionHookResult?.data?.user;
         currentUserId = session?.user?.id,
-        currentUserName = session?.user?.name,
+        // currentUserName = session?.user?.name,
         currentUserRole = session?.user?.role;
 
     //Константы для определения прав доступа
@@ -132,13 +126,50 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
             </Head>
 
             {(!data) && <>
-                <Stack>
-                    <Skeleton height='200px' />
-                    <Skeleton height='200px' />
-                    <Skeleton height='200px' />
-                </Stack>
-            </>}
+                <Skeleton
+                    height='80px'
+                    mb={10}
+                    p={'20px'}
+                    borderRadius={'5px'}
+                />
+                <Box
+                    height='500px'
+                    borderRadius={'5px'}
+                    padding='6'
+                    boxShadow='lg'
+                    bg='white'
+                    marginTop={'20px'}
+                    p={'20px'}
+                >
+                    <SkeletonCircle size='14' />
+                    <SkeletonText mt='4' noOfLines={6} spacing='4' skeletonHeight='10' />
+                </Box>
+                <Box
+                    height='500px'
+                    borderRadius={'5px'}
+                    padding='6'
+                    boxShadow='lg'
+                    bg='white'
+                    marginTop={'20px'}
+                    p={'20px'}
+                >
+                    <SkeletonCircle size='14' />
+                    <SkeletonText mt='4' noOfLines={6} spacing='4' skeletonHeight='10' />
+                </Box>
+                <Box
+                    height='500px'
+                    borderRadius={'5px'}
+                    padding='6'
+                    boxShadow='lg'
+                    bg='white'
+                    marginTop={'20px'}
+                    p={'20px'}
+                >
+                    <SkeletonCircle size='14' />
+                    <SkeletonText mt='4' noOfLines={6} spacing='4' skeletonHeight='10' />
+                </Box>
 
+            </>}
 
             {data && <>
                 <Box className="topic-div">
@@ -196,10 +227,8 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                             <Card
                                 key={post?.id + post?.userId + post?.topicId}
                                 className="post"
-                                // maxW='md'
                                 marginTop={'20px'}
-                                // border={'1px solid black'}
-                                padding={'20px'}
+                                p={'20px'}
                             >
 
                                 <CardHeader>
@@ -217,15 +246,8 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
 
                                             </Box>
                                         </Flex>
-                                        {/* <IconButton
-                                variant='ghost'
-                                colorScheme='gray'
-                                aria-label='See menu'
-                                icon={<BsThreeDotsVertical />}
-                            /> */}
                                     </Flex>
                                 </CardHeader>
-
 
                                 <CardBody>
                                     {editPostId !== post.id
@@ -248,10 +270,8 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                                         />
                                     }
                                 </CardBody>
-
                                 {/* <Text fontSize={textFontSize.base}>ID автора для отладки: {post.userId}</Text>
                                 <Text fontSize={textFontSize.base}>ID поста для отладки: {post.id}</Text> */}
-
                                 <CardFooter
                                     justify='space-between'
                                     flexWrap='wrap'
@@ -261,27 +281,15 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                                         },
                                     }}
                                 >
-                                    {/* <Button flex='1' variant='ghost' leftIcon={<BiLike />}>
-                            Like
-                        </Button> */}
-                                    {/* <Button flex='1' variant='ghost' leftIcon={<BiChat />}>
-                            Comment
-                        </Button> */}
-                                    {/* <Button flex='1' variant='ghost' leftIcon={<BiShare />}>
-                            Share
-                        </Button> */}
-
                                     {(editPostId !== post?.id) && session && notBanned
                                         ? <Menu>
                                             <MenuButton
                                                 as={Button}
                                                 colorScheme='gray'
-                                            // rightIcon={<ChevronDownIcon />}
                                             >Действия
                                             </MenuButton>
                                             <MenuList
                                             >
-
                                                 {notBanned &&
                                                     <ModalWindowBlur
                                                         buttonText={'Ответить'}
@@ -299,7 +307,6 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                                                         />
                                                     </ModalWindowBlur>
                                                 }
-
 
                                                 {(postAuthor || adminOrModerator) && notBanned &&
                                                     <MenuItem as={Button} colorScheme='gray' onClick={() => {
@@ -326,7 +333,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
 
                                 </CardFooter>
                             </Card>
-                        );
+                        )
                     })}
                 </Box >
             </>}

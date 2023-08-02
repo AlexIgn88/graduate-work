@@ -3,12 +3,8 @@ import GetData from '../../components/GetData';
 import AllTopicsComponent from '../../components/forum/AllTopicsComponent';
 import Head from "next/head";
 import { useSession } from 'next-auth/react';
-import { fictionalDataForForum } from '../../data/fictionalData'
-
-import { Box, Flex, Spacer, Heading, Button, ButtonGroup, Input, chakra } from "@chakra-ui/react";
-import { h1HeadersFontSize, h2HeadersFontSize, h3HeadersFontSize, textFontSize } from '../../displayParameters/fontParameters';
+import { Box, Flex } from "@chakra-ui/react";
 import { marginParameters } from '../../displayParameters/marginParameters';
-import { flexDirection } from '../../displayParameters/flexParameters';
 import { Global } from '@emotion/react';
 import darkGlobalStyles from '../../displayParameters/darkGlobalStyles';
 
