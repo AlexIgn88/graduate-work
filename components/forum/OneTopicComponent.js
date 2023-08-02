@@ -125,7 +125,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                 <title>{data?.topic?.title || 'Тема'}</title>
             </Head>
 
-            {(!data) && <>
+            {(!data || !Array.isArray(data?.posts)) && <>
                 <Skeleton
                     height='80px'
                     mb={10}
@@ -171,7 +171,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
 
             </>}
 
-            {data && <>
+            {Array.isArray(data?.posts) && <>
                 <Box className="topic-div">
 
                     <Flex

@@ -5,9 +5,9 @@ import {
     Box, Flex, Heading, Button, Input,
     Stack, Text,
     Card, CardBody, CardFooter,
-    Skeleton, 
+    Skeleton,
     // SkeletonCircle, SkeletonText,
-    Menu, MenuButton, MenuList, MenuItem, 
+    Menu, MenuButton, MenuList, MenuItem,
     // MenuItemOption, MenuGroup, MenuOptionGroup, MenuDivider
 } from "@chakra-ui/react";
 import { h2HeadersFontSize, textFontSize } from '../../displayParameters/fontParameters';
@@ -147,7 +147,7 @@ export default function AllTopicsComponent({ data, mutate }) {
                 </>}
             </Flex>
 
-            {(!data) && <>
+            {(!data || !Array.isArray(data?.topics)) && <>
                 <Stack>
                     <Skeleton height='200px' />
                     <Skeleton height='200px' />
@@ -155,7 +155,7 @@ export default function AllTopicsComponent({ data, mutate }) {
                 </Stack>
             </>}
 
-            {data && data?.topics?.map((topic) => {
+            {Array.isArray(data?.topics) && data?.topics?.map((topic) => {
 
                 const currentUser = data?.users?.find((user) => topic?.userId === user?.id);
                 // const topicAuthor = currentUserId === topic?.userId;
