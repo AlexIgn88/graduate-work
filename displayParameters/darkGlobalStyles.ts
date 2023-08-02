@@ -5,7 +5,7 @@ const darkGlobalStyles = {
         backgroundSize: 'cover',
         backgroundRepeat: 'repeat-y',
     },
-    '.header, .footer': {
+    '.main-header, .main-footer': {
         // background: '#2b2f32',
         background: '#060d20',
         // opacity: '90%',

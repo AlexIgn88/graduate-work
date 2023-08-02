@@ -28,4 +28,5 @@ const marginValueArr: valueArrType = [
 // export const marginParameters: valieForBreakpoints = { base: '20px', '2xl': '60px', xl: '50px', lg: '50px', md: '40px', sm: '30px' };
 export const marginParameters: valieForBreakpoints = arraysToObject(breakpointsArr, marginValueArr);
 
+//например  ['0em', '30em', '48em', '62em', '80em', '96em'] элементы массива идут по возрастанию
 export const marginParametersInArray = getBreakpointsToArray(Object.values(marginParameters));

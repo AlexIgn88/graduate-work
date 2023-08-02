@@ -8,7 +8,7 @@ export default function Header({ color }) {
     const isWide = useBreakpointValue({ base: false, md: true });
 
     return <>
-        <header className={color ? color + ' header' : 'header'} style={{ zIndex: '3', display: 'flex', alignItems: 'center' }} >
+        <header className={color ? color + ' main-header' : 'main-header'} style={{ zIndex: '3', display: 'flex', alignItems: 'center' }} >
 
             <Flex
                 display={isWide ? "none" : "flex"}

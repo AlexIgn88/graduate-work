@@ -13,29 +13,45 @@ export const globalStyles = {
         flexGrow: '1',
         marginTop: '70px',
     },
-    '.header': {
+    '.main-header': {
         background: 'rgb(141, 99, 75)',
         opacity: '100%',
         position: 'fixed',
         top: '0px',
         width: '100%',
     },
-    '.header nav': {
+    '.main-header nav': {
         flexGrow: '1',
     },
     '.active': {
         'backgroundColor': 'rgb(40, 28, 21)',
         'borderRadius': '50px',
     },
-    '.footer': {
+    '.main-footer': {
         background: 'rgb(40, 28, 21)',
         opacity: '100%',
         padding: '20px',
         textAlign: 'center',
         'z-index': '3',
     },
-    '.footer p': {
+    '.main-footer p': {
         fontSize: '14px',
         color: 'white',
-    }
+    },
+    '.places': {
+        backgroundColor: 'rgb(6, 13, 32)',
+        color: 'white',
+    },
+    '.places .active': {
+        'backgroundColor': 'black',
+    },
+    '.cards div': {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        flexGrow: '1',
+        marginLeft: '10px',
+        marginRight: '10px',
+    },
 };
