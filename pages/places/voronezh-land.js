@@ -16,15 +16,15 @@ export default function VoronezhLandPage() {
             className='crimea-page'
             m={marginParameters}
         >
-            <HeadingForPage element={'h1'} content={'Красоты земли Воронежской'} />
+            <HeadingForPage element={'h1'} content={'Воронежская область'} />
             <Flex
                 justifyContent='center'
                 mb={10}
             >
-                <Image src={voronezhMainImage} alt={'picture'} />
+                <Image src={voronezhMainImage} alt={'picture'} width={'50vw'} borderRadius={'5px'} />
             </Flex>
             <Text textAlign={'justify'} mb={10}>
-                {voronezhText}
+                &#8194;{voronezhText}
             </Text>
             <Galary imagesArr={voronezhImages} />
             <TourCards tourData={tourDataVoronezh} />

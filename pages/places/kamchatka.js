@@ -21,10 +21,10 @@ export default function KamchatkaPage() {
                 justifyContent='center'
                 mb={10}
             >
-                <Image src={kamchatkaMainImage} alt={'picture'} />
+                <Image src={kamchatkaMainImage} alt={'picture'} width={'50vw'} borderRadius={'5px'} />
             </Flex>
             <Text textAlign={'justify'} mb={10}>
-                {kamchatkaText}
+                &#8194;{kamchatkaText}
             </Text>
             <Galary imagesArr={kamchatkaImages} />
             <TourCards tourData={tourDataKamchatka} />

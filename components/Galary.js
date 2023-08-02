@@ -12,6 +12,9 @@ export default function Galary({ imagesArr }) {
                         key={index}
                         src={image}
                         alt={`Картинка ${index + 1}`}
+                        height={'20vw'}
+                        width={'40vw'}
+                        borderRadius={'5px'}
                     />
                 ))}
             </Grid>

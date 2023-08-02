@@ -19,7 +19,7 @@ export default function TourCardsMini({ tourData }) {
                 <Card maxW='sm' h={'100%'}>
                     <CardBody h={'100%'}>
                         <Image
-                            src={'/img/favicon.png'}
+                            src={'/img/tourcard.jpg'}
                             alt={'tour'}
                             borderRadius='lg'
                         />
@@ -28,7 +28,7 @@ export default function TourCardsMini({ tourData }) {
                             <List >
                                 {tour.tourInformation.map((item, i) => (
                                     <ListItem key={i}>
-                                        <ListIcon as={FaBusAlt} color='yellow.500' />
+                                        {/* <ListIcon as={FaBusAlt} color='yellow.500' /> */}
                                         {Object.values(item)[0]}
                                     </ListItem>
                                 ))}
@@ -41,13 +41,7 @@ export default function TourCardsMini({ tourData }) {
                     <Divider />
                     <CardFooter justifyContent={'center'}>
                         <ButtonGroup spacing='2'>
-                            {/* <Button variant='solid' colorScheme='blue'>
-                                    Buy now
-                                </Button> */}
                             <ModalWindowRecordingForATour />
-                            {/* <Button variant='ghost' colorScheme='blue'>
-                                    Add to cart
-                                </Button> */}
                         </ButtonGroup>
                     </CardFooter>
                 </Card>

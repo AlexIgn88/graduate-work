@@ -21,10 +21,10 @@ export default function KareliaPage() {
                 justifyContent='center'
                 mb={10}
             >
-                <Image src={kareliaMainImage} alt={'picture'} />
+                <Image src={kareliaMainImage} alt={'picture'} width={'50vw'} borderRadius={'5px'} />
             </Flex>
             <Text textAlign={'justify'} mb={10}>
-                {kareliaText}
+                &#8194;{kareliaText}
             </Text>
             <Galary imagesArr={kareliaImages} />
             <TourCards tourData={tourDataKarelia} />

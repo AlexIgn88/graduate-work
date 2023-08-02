@@ -22,10 +22,10 @@ export default function CrimeaPage() {
                 justifyContent='center'
                 mb={10}
             >
-                <Image src={crimeaMainImage} alt={'picture'} />
+                <Image src={crimeaMainImage} alt={'picture'} width={'50vw'} borderRadius={'5px'} />
             </Flex>
             <Text textAlign={'justify'} mb={10}>
-                {crimeaText}
+                &#8194;{crimeaText}
             </Text>
             <Galary imagesArr={crimeaImages} />
             <TourCards tourData={tourDataCrimea} />

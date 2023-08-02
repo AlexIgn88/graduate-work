@@ -114,6 +114,7 @@ export default function Navbar() {
                                         <Menu>
                                             <MenuButton as={Text} fontSize="lg" marginRight="1rem" cursor="pointer">
                                                 <chakra.span
+                                                    pl={'15px'}
                                                     className="link"
                                                     color={'white'}
                                                 >
