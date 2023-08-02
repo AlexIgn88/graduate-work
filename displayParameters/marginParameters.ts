@@ -2,6 +2,7 @@ import { breakpointsArrType } from '../datatypes/types';
 import { valueArrType } from '../datatypes/types';
 import { valieForBreakpoints } from '../datatypes/types';
 import arraysToObject from '../includes/arraysToObject';
+import getBreakpointsToArray from '../includes/getBreakpointsToArray';
 
 // // These are the default Chakra UI breakpoints
 // const breakpoints = {
@@ -26,3 +27,5 @@ const marginValueArr: valueArrType = [
 
 // export const marginParameters: valieForBreakpoints = { base: '20px', '2xl': '60px', xl: '50px', lg: '50px', md: '40px', sm: '30px' };
 export const marginParameters: valieForBreakpoints = arraysToObject(breakpointsArr, marginValueArr);
+
+export const marginParametersInArray = getBreakpointsToArray(Object.values(marginParameters));

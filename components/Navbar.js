@@ -31,6 +31,7 @@ export default function Navbar() {
                     color={'white'}
                     p={'10px 20px'}
                     border='none'
+                    borderRadius='50px'
                     _hover={{
                         backgroundColor: '#1a120e'
                     }}

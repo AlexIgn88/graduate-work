@@ -23,6 +23,7 @@ export default function Login() {
                     color={'white'}
                     p={'10px 20px'}
                     border='none'
+                    borderRadius='50px'
                     _hover={{
                         backgroundColor: '#1a120e'
                     }}
@@ -45,6 +46,7 @@ export default function Login() {
                 color={'white'}
                 p={'10px 20px'}
                 border='none'
+                borderRadius='50px'
                 _hover={{
                     backgroundColor: '#1a120e'
                 }}

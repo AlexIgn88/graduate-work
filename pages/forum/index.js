@@ -9,19 +9,11 @@ import { Box, Flex, Spacer, Heading, Button, ButtonGroup, Input, chakra } from "
 import { h1HeadersFontSize, h2HeadersFontSize, h3HeadersFontSize, textFontSize } from '../../displayParameters/fontParameters';
 import { marginParameters } from '../../displayParameters/marginParameters';
 import { flexDirection } from '../../displayParameters/flexParameters';
+import { Global } from '@emotion/react';
+import darkGlobalStyles from '../../displayParameters/darkGlobalStyles';
 
 
-// export async function getStaticProps() {
-//     return {
-//         props: {
-//             fallback: {
-//                 '/api/forum/topic/': fictionalDataForForum
-//             }
-//         }
-//     };
-// }
-
-export default function ForumPage({ fallback }) {
+export default function ForumPage() {
 
     const API_URL = '/api/forum/topic/',
         { data: session } = useSession();
@@ -30,14 +22,31 @@ export default function ForumPage({ fallback }) {
         <Head>
             <title>Форум</title>
         </Head>
+
+        <Global styles={darkGlobalStyles} />
+
         <Flex
             m={marginParameters}
             className="forum-page"
             flexDirection={'column'}
             gap={'20px'}
         >
-            <Box>Добро пожаловать на наш форум, {session?.user ? session?.user?.name : 'Гость'}!</Box>
-            {!session && <Box>Для общения на нашем форуме войдите, пожалуйста, в свой акаунт на сайте</Box>}
+            <Box
+                mb={10}
+                p={'20px'}
+                borderRadius={'5px'}
+                background={'#121f26'}
+                color={'white'}
+            >Добро пожаловать на наш форум, {session?.user ? session?.user?.name : 'Гость'}!
+
+                {!session && <Box mb={10}
+                    pt={'20px'}
+                    borderRadius={'5px'}
+                    background={'#121f26'}
+                    color={'white'}>Для общения на нашем форуме войдите, пожалуйста, в свой акаунт на сайте
+                </Box>}
+                
+            </Box>
 
             <SWRConfig>
                 {/* <SWRConfig value={{ fallback }}> */}

@@ -147,6 +147,11 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                         justifyContent={'space-between'}
                         flexDirection={flexDirection}
                         alignItems={'center'}
+                        mb={10}
+                        p={'20px'}
+                        borderRadius={'5px'}
+                        background={'#121f26'}
+                        color={'white'}
                     >
                         <Heading
                             fontWeight={"normal"}
@@ -157,7 +162,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                         </Heading>
 
                         {session && notBanned && data && <>
-                            <ModalWindowBlur buttonText={'Написать сообщение'} buttonColorScheme={'orange'}>
+                            <ModalWindowBlur buttonText={'Написать сообщение'} buttonColorScheme={'gray'}>
                                 <AddNewPost
                                     newPostInputVal={newPostInputVal}
                                     setNewPostInputVal={setNewPostInputVal}

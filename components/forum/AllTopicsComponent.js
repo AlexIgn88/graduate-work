@@ -7,6 +7,7 @@ import {
     Card, CardBody, CardFooter,
     Skeleton, SkeletonCircle, SkeletonText,
     Menu, MenuButton, MenuList, MenuItem, MenuItemOption, MenuGroup, MenuOptionGroup, MenuDivider,
+    ListIcon,
 } from "@chakra-ui/react";
 import { h1HeadersFontSize, h2HeadersFontSize, h3HeadersFontSize, textFontSize } from '../../displayParameters/fontParameters';
 import { marginParameters } from '../../displayParameters/marginParameters';
@@ -14,6 +15,7 @@ import { flexDirection } from '../../displayParameters/flexParameters';
 import ModalWindowBlur from '../../components/modalwindows/ModalWindowBlur';
 import AddNewTopic from '../../components/forum/AddNewTopic';
 import { formatDateTime } from '../../includes/formatDate';
+import { FcAnswers } from "react-icons/fc";
 
 const Moment = require('mol_time_all').$mol_time_moment;
 
@@ -119,15 +121,16 @@ export default function AllTopicsComponent({ data, mutate }) {
 
         <Box
             className="topics"
-            border={'1px solid black'}
-            borderRadius={'10px'}
-            padding={'30px'}
         >
             <Flex
                 justifyContent={'space-between'}
                 flexDirection={flexDirection}
                 alignItems={'center'}
                 mb={10}
+                p={'20px'}
+                borderRadius={'5px'}
+                background={'#121f26'}
+                color={'white'}
             >
                 <Heading
                     fontWeight={"normal"}
@@ -138,7 +141,7 @@ export default function AllTopicsComponent({ data, mutate }) {
                 </Heading>
 
                 {session && notBanned && data && <>
-                    <ModalWindowBlur buttonText={'Создать новую тему'} buttonColorScheme={'orange'}>
+                    <ModalWindowBlur buttonText={'Создать новую тему'} buttonColorScheme={'gray'}>
 
                         <AddNewTopic
                             newTopicInputVal={newTopicInputVal}
@@ -180,7 +183,12 @@ export default function AllTopicsComponent({ data, mutate }) {
                         direction={{ base: 'column', sm: 'row' }}
                         overflow='hidden'
                         variant='outline'
+                        p={'20px'}
+                    // background={'#132228'}
+                    // color={'white'}
+                    // opacity={'80%'}
                     >
+
                         {/* <Image
                         objectFit='cover'
                         maxW={{ base: '100%', sm: '200px' }}
@@ -199,9 +207,15 @@ export default function AllTopicsComponent({ data, mutate }) {
                                             className="topic-title"
                                         // width={'20vw'}
                                         >
-                                            <Box bg='white' color='green'>
+                                            <Flex
+                                                color={'blue.600'}
+                                                fontSize={h2HeadersFontSize}
+                                                alignItems={'stretch'}
+                                                gap={'30px'}
+                                            >
+                                                <Text as={FcAnswers}  />
                                                 <Link href={`/forum/topic/${topic?.id}`} className="">{topic?.title}</Link>
-                                            </Box>
+                                            </Flex>
                                         </Box>
                                         :
                                         <Input
