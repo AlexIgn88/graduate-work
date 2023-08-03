@@ -24,7 +24,7 @@ export const globalStyles = {
         flexGrow: '1',
     },
     '.active': {
-        'backgroundColor': 'rgb(40, 28, 21)',
+        'backgroundColor': '#feb849',
         'borderRadius': '50px',
     },
     '.main-footer': {
@@ -54,9 +54,6 @@ export const globalStyles = {
         marginLeft: '10px',
         marginRight: '10px',
     },
-    // '.user-accout': {
-    //     marginTop: '70px',
-    // }
     '.share-button': {
         display: 'flex',
         alignItems: 'center',

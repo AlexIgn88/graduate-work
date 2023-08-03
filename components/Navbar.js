@@ -1,15 +1,12 @@
 import pages from '../data/pagesData';
 import Link from 'next/link';
-
 import { useRouter } from 'next/router';
-import { useSession, signIn, signOut } from 'next-auth/react';
-// import Login from '../components/Login';
-
+import { useSession } from 'next-auth/react';
 import { places } from '../data/placesData';
 import {
     UnorderedList, ListItem, Box, Text, Menu, MenuButton, MenuList, MenuItem, chakra, Button, useBreakpointValue
 } from '@chakra-ui/react';
-
+import { FcMenu } from "react-icons/fc";
 
 
 export default function Navbar() {
@@ -19,7 +16,21 @@ export default function Navbar() {
         { data: session } = useSession(),
         isWide = useBreakpointValue({ base: false, xl: true });
 
+    let backgroundColor = '';
+    switch (true) {
+        case '/places' === router.pathname:
+            backgroundColor = 'rgb(6, 13, 32)';
+            break;
+        case 'forum' === router.pathname.split('/')[1]:
+            backgroundColor = 'rgb(6, 13, 32)';
+            break;
+        default:
+            backgroundColor = '#8d634b';
+            break;
+    }
+
     // console.log('router.pathname', router.pathname);
+    // console.log('router.pathname.split('/')[1]=', router.pathname.split('/')[1]);
 
     return <>
         <nav>
@@ -27,7 +38,7 @@ export default function Navbar() {
             <Menu>
                 <MenuButton
                     title='Навигация сайта'
-                    backgroundColor={'#281c15'}
+                    backgroundColor={'#feb849'}
                     color={'white'}
                     p={'10px 20px'}
                     border='none'
@@ -39,17 +50,15 @@ export default function Navbar() {
                     _active={{
                         backgroundColor: 'white',
                         color: '#feb849',
-                        // padding: '8px 18px',
                     }}
-                    m={'15px'}
+                    ml={'15px'}
                     display={isWide ? "none" : "block"}
                     as={Button}
-                // rightIcon={<ChevronDownIcon />}
-                > Меню
+                ><FcMenu />
                 </MenuButton>
 
                 <MenuList
-                    backgroundColor={'#8d634b'}
+                    backgroundColor={backgroundColor}
                     display={'flex'}
                     flexDirection={'column'}
                 >
@@ -61,38 +70,18 @@ export default function Navbar() {
                             <MenuItem
                                 key={page.name}
                                 as={Link}
-                                backgroundColor={'#8d634b'}
+                                backgroundColor={backgroundColor}
                                 color={'white'}
                                 textDecoration={'none'}
                                 _focus={{
-                                    backgroundColor: 'rgb(40, 28, 21)'
+                                    backgroundColor: 'black'
                                 }}
                                 href={page.src ? page.src : '/places' + page.path}
                             >
                                 {page.name}
                             </MenuItem>
                         )}
-                    <MenuItem
-                        backgroundColor={'#8d634b'}
-                        color={'white'}
-                        _focus={{
-                            backgroundColor: 'rgb(40, 28, 21)'
-                        }}
-                    >
-                        {session
-                            ? <chakra.span
-                                onClick={() => signOut()}
-                            >
-                                Выйти
-                            </chakra.span>
-                            : <chakra.span
-                                onClick={() => signIn()}
-                            >
-                                Войти
-                            </chakra.span>
-                        }
 
-                    </MenuItem>
                 </MenuList>
             </Menu>
 
@@ -103,6 +92,7 @@ export default function Navbar() {
                     className="navbar"
                     listStyleType={'none'}
                     alignItems='flex-start'
+                    ml={'0px'}
                 >
                     {pages.filter((page) => page?.restricted
                         ? page.restricted(session)
@@ -170,8 +160,6 @@ export default function Navbar() {
                                 }
                             </ListItem>
                         )}
-
-                    {/* <ListItem><Login /></ListItem> */}
                 </UnorderedList>
             </Box>
         </nav>

@@ -2,7 +2,8 @@ import AccountIcon from '../components/AccountIcon';
 import { Menu, MenuButton, MenuList, MenuItem, Button, } from '@chakra-ui/react';
 import Link from 'next/link';
 import userMenuItems from '../data/userMenuItemsData';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
+import { FcExport } from "react-icons/fc";
 
 
 export default function UserMenu() {
@@ -13,9 +14,7 @@ export default function UserMenu() {
     if (session) return <>
         <Menu>
             <MenuButton
-                // backgroundColor={'#281c15'}
                 backgroundColor={'#feb849'}
-                // backgroundColor={'#feb849'}
                 color={'white'}
                 p={'10px 20px'}
                 border='none'
@@ -27,16 +26,13 @@ export default function UserMenu() {
                 _active={{
                     backgroundColor: 'white',
                     color: '#feb849',
-                    // padding: '8px 18px',
                 }}
                 m={'15px'}
                 as={Button}
-            // rightIcon={<ChevronDownIcon />}
             > <AccountIcon />
             </MenuButton>
 
             <MenuList
-                // backgroundColor={'#8d634b'}
                 display={'flex'}
                 flexDirection={'column'}
 
@@ -50,8 +46,6 @@ export default function UserMenu() {
                         <MenuItem
                             key={item.name}
                             as={Link}
-                            // backgroundColor={'#8d634b'}
-                            // color={'white'}
                             textDecoration={'none'}
                             // _focus={{
                             //     backgroundColor: 'rgb(40, 28, 21)'
@@ -61,6 +55,14 @@ export default function UserMenu() {
                             <item.icon /> &#160; {item.name}
                         </MenuItem>
                     )}
+                <MenuItem
+                    textDecoration={'none'}
+                    onClick={() => signOut()}
+                >
+                    <FcExport />
+                    &#160;
+                    Выйти
+                </MenuItem>
             </MenuList>
         </Menu>
     </>
