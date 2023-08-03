@@ -57,8 +57,9 @@ export const globalStyles = {
     // '.user-accout': {
     //     marginTop: '70px',
     // }
-    '.vk-button': {
+    '.share-button': {
         display: 'flex',
+        alignItems: 'center',
         gap: '10px',
     },
 };

@@ -34,8 +34,10 @@ export default function VoronezhLandPage() {
             <Text textAlign={'justify'} mb={10}>
                 &#8194;{voronezhText}
             </Text>
-            <Flex className="share-buttons" justifyContent={'center'}>
+            <Flex className="share-buttons" justifyContent={'center'} gap={'10px'}>
                 <ShareButton type={'vk'} shareUrl={shareUrl} />
+                <ShareButton type={'telegram'} shareUrl={shareUrl} />
+                <ShareButton type={'whatsapp'} shareUrl={shareUrl} />
             </Flex>
             <Galary imagesArr={voronezhImages} />
             <TourCards tourData={tourDataVoronezh} />

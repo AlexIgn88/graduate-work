@@ -35,8 +35,10 @@ export default function CrimeaPage() {
             <Text textAlign={'justify'} mb={10}>
                 &#8194;{crimeaText}
             </Text>
-            <Flex className="share-buttons" justifyContent={'center'}>
+            <Flex className="share-buttons" justifyContent={'center'} gap={'10px'}>
                 <ShareButton type={'vk'} shareUrl={shareUrl} />
+                <ShareButton type={'telegram'} shareUrl={shareUrl} />
+                <ShareButton type={'whatsapp'} shareUrl={shareUrl} />
             </Flex>
             <Galary imagesArr={crimeaImages} />
             <TourCards tourData={tourDataCrimea} />
