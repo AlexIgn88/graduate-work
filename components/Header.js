@@ -1,7 +1,7 @@
 import Navbar from '../components/Navbar.js';
 import Login from '../components/Login.js';
 import { Flex, useBreakpointValue } from '@chakra-ui/react';
-import AccountIcon from '../components/AccountIcon';
+import UserMenu from '../components/UserMenu';
 
 export default function Header({ color }) {
 
@@ -13,8 +13,10 @@ export default function Header({ color }) {
             <Flex
                 display={isWide ? "none" : "flex"}
                 ml={'20px'}
+                alignItems={'center'}
+                cursor={'pointer'}
             >
-                <AccountIcon />
+                <UserMenu />
             </Flex>
 
             <Navbar />

@@ -10,7 +10,6 @@ const pages: page[] = [
   { name: 'Форум', src: '/forum' },
   // { name: 'Магазин сувениров', src: '/store' },
   { name: 'Контакты', src: '/contact' },
-  { name: 'Админ-панель', src: '/adminpanel', restricted(session) { return 'admin' === session?.user?.role; } }
 ];
 
 export default pages;

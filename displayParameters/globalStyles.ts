@@ -54,4 +54,7 @@ export const globalStyles = {
         marginLeft: '10px',
         marginRight: '10px',
     },
+    // '.user-accout': {
+    //     marginTop: '70px',
+    // }
 };

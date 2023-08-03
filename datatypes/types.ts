@@ -1,7 +1,8 @@
 export type page = {
     name: string,
     src: string,
-    restricted?: (_: any) => Boolean
+    restricted?: (_: any) => Boolean,
+    icon?: any
 };
 
 export type place = {

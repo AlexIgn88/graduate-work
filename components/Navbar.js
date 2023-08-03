@@ -33,11 +33,13 @@ export default function Navbar() {
                     border='none'
                     borderRadius='50px'
                     _hover={{
-                        backgroundColor: '#1a120e'
+                        backgroundColor: 'white',
+                        color: 'black',
                     }}
                     _active={{
-                        backgroundColor: 'black',
-                        padding: '8px 18px',
+                        backgroundColor: 'white',
+                        color: '#feb849',
+                        // padding: '8px 18px',
                     }}
                     m={'15px'}
                     display={isWide ? "none" : "block"}
