@@ -10,7 +10,7 @@ export default function UserMenu() {
     const
         { data: session } = useSession();
 
-    return <>
+    if (session) return <>
         <Menu>
             <MenuButton
                 // backgroundColor={'#281c15'}
