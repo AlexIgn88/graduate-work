@@ -20,7 +20,7 @@ export default function PlacesPage() {
 
         newBreakpointsInArray = [...marginParametersInArray.slice(0, lastItemOfMarginArray), 60], //60 в Chakra - это 240px
 
-        notWide = useBreakpointValue({ base: true, xl: false });
+        notWide = useBreakpointValue({ base: true, '2xl': false, xl: false });
 
     return <>
         <Head>
@@ -152,7 +152,13 @@ function ContentForCardsFragment({ place, href }) {
 function FlexWrap({ children }) {
     return (
         <Fragment>
-            <Flex>
+            <Flex
+            // width={'100%'}
+            // width={{ base: '80vw', '2xl': '40vw', xl: '40vw', lg: '40vw', md: '40vw', sm: '80vw' }}
+            // width={'100%'}
+
+            // alignItems={'center'}
+            >
                 {children}
             </Flex>
         </Fragment>
