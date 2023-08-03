@@ -6,8 +6,16 @@ import Galary from '../../components/Galary';
 import ContactInfo from '../../components/ContactInfo';
 import TourCards from '../../components/TourCards';
 import { kamchatkaMainImage, kamchatkaImages, tourDataKamchatka, kamchatkaText } from '../../data/tourData';
+import ShareButton from '../../components/ShareButton';
+import { sitePath } from '../../data/sitePath';
+import { useRouter } from 'next/router';
 
 export default function KamchatkaPage() {
+
+    const
+        { pathname } = useRouter(),
+        shareUrl = sitePath + pathname;
+
     return <>
         <Head>
             <title>Камчатка</title>
@@ -26,6 +34,9 @@ export default function KamchatkaPage() {
             <Text textAlign={'justify'} mb={10}>
                 &#8194;{kamchatkaText}
             </Text>
+            <Flex className="share-buttons" justifyContent={'center'}>
+                <ShareButton type={'vk'} shareUrl={shareUrl} />
+            </Flex>
             <Galary imagesArr={kamchatkaImages} />
             <TourCards tourData={tourDataKamchatka} />
             <Box mb={10}>

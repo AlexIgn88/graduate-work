@@ -1,13 +1,21 @@
 import Head from "next/head";
-import { Text, Box, Flex, Image } from '@chakra-ui/react';
+import { Text, Box, Flex, Image, Button } from '@chakra-ui/react';
 import { marginParameters } from '../../displayParameters/marginParameters';
 import { HeadingForPage } from '../../components/ElemsForPages';
 import Galary from '../../components/Galary';
 import ContactInfo from '../../components/ContactInfo';
 import TourCards from '../../components/TourCards';
 import { crimeaMainImage, crimeaImages, tourDataCrimea, crimeaText } from '../../data/tourData';
+import ShareButton from '../../components/ShareButton';
+import { sitePath } from '../../data/sitePath';
+import { useRouter } from 'next/router';
+
 
 export default function CrimeaPage() {
+
+    const
+        { pathname } = useRouter(),
+        shareUrl = sitePath + pathname;
 
     return <>
         <Head>
@@ -27,6 +35,9 @@ export default function CrimeaPage() {
             <Text textAlign={'justify'} mb={10}>
                 &#8194;{crimeaText}
             </Text>
+            <Flex className="share-buttons" justifyContent={'center'}>
+                <ShareButton type={'vk'} shareUrl={shareUrl} />
+            </Flex>
             <Galary imagesArr={crimeaImages} />
             <TourCards tourData={tourDataCrimea} />
             <Box mb={10}>

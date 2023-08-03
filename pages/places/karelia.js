@@ -6,8 +6,16 @@ import Galary from '../../components/Galary';
 import ContactInfo from '../../components/ContactInfo';
 import TourCards from '../../components/TourCards';
 import { kareliaMainImage, kareliaImages, tourDataKarelia, kareliaText } from '../../data/tourData';
+import ShareButton from '../../components/ShareButton';
+import { sitePath } from '../../data/sitePath';
+import { useRouter } from 'next/router';
 
 export default function KareliaPage() {
+
+    const
+        { pathname } = useRouter(),
+        shareUrl = sitePath + pathname;
+
     return <>
         <Head>
             <title>Карелия</title>
@@ -26,6 +34,9 @@ export default function KareliaPage() {
             <Text textAlign={'justify'} mb={10}>
                 &#8194;{kareliaText}
             </Text>
+            <Flex className="share-buttons" justifyContent={'center'}>
+                <ShareButton type={'vk'} shareUrl={shareUrl} />
+            </Flex>
             <Galary imagesArr={kareliaImages} />
             <TourCards tourData={tourDataKarelia} />
             <Box mb={10}>

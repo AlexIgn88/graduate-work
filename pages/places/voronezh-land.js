@@ -6,11 +6,19 @@ import Galary from '../../components/Galary';
 import ContactInfo from '../../components/ContactInfo';
 import TourCards from '../../components/TourCards';
 import { voronezhMainImage, voronezhImages, tourDataVoronezh, voronezhText } from '../../data/tourData';
+import ShareButton from '../../components/ShareButton';
+import { sitePath } from '../../data/sitePath';
+import { useRouter } from 'next/router';
 
 export default function VoronezhLandPage() {
+
+    const
+        { pathname } = useRouter(),
+        shareUrl = sitePath + pathname;
+
     return <>
         <Head>
-            <title>Красоты земли Воронежской</title>
+            <title>Воронежская область</title>
         </Head>
         <Box
             className='crimea-page'
@@ -26,6 +34,9 @@ export default function VoronezhLandPage() {
             <Text textAlign={'justify'} mb={10}>
                 &#8194;{voronezhText}
             </Text>
+            <Flex className="share-buttons" justifyContent={'center'}>
+                <ShareButton type={'vk'} shareUrl={shareUrl} />
+            </Flex>
             <Galary imagesArr={voronezhImages} />
             <TourCards tourData={tourDataVoronezh} />
             <Box mb={10}>
