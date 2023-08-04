@@ -1,23 +1,28 @@
 import { signIn } from 'next-auth/react';
 import columnsForUserAccount from '../data/columnsForUserAccount';
-
-import EditableMyAccount from '../components/EditableMyAccount';
-
 import {
-    Box, Flex, Spacer, Heading, Button, ButtonGroup, Input,
-    Menu, MenuButton, MenuList, MenuItem, MenuItemOption, MenuGroup, MenuOptionGroup, MenuDivider,
-    Skeleton, SkeletonCircle, SkeletonText, Stack
+    Box, Flex, Button, Input, chakra, Grid,
+    Skeleton, Stack,
 } from "@chakra-ui/react";
-import { h1HeadersFontSize, h2HeadersFontSize, h3HeadersFontSize, textFontSize } from '../displayParameters/fontParameters';
-import { marginParameters } from '../displayParameters/marginParameters';
-import { flexDirection } from '../displayParameters/flexParameters';
-import { HeadingForPage } from '../components/ElemsForPages';
+import { CloseIcon, CheckIcon, EditIcon } from '@chakra-ui/icons';
+import { Fragment, useState } from 'react';
+import { textFontSize } from '../displayParameters/fontParameters';
+
 
 export default function UserAccount({ data, mutate }) {
 
     // console.log('data', data);
 
-    if (data?.error) return <Flex justifyContent={'center'}>{data.error}</Flex>
+    const
+        [userDataInputVal, setUserDataInputVal] = useState(''),
+        [editUserData, setEditUserData] = useState(null);
+
+    if (!data) return (
+        <Stack>
+            <Skeleton height='300px' />
+        </Stack>)
+
+    if (data?.error) return <Flex justifyContent={'center'} color={'red'}>{data.error}</Flex>
 
     if (data && (!data?.error)) {
 
@@ -28,61 +33,111 @@ export default function UserAccount({ data, mutate }) {
             emailStr = accouts.map(accouns => accouns?.email).join(', '),
             userEmail = user?.email || emailStr;
 
-        const formattedUser = Object.assign({}, user, { provider: providersStr }, { email: userEmail });
+        const formattedUser = Object.assign({}, user, { provider: providersStr }, { email: userEmail }),
 
-        //Не забыть:
+            updatedUser = {};
 
-        //EditableMyAccount выкинуть. Новый REST-компонент для user-аккаунта пишется прямо здесь ниже
-        //mutate не забыть!
+        async function editData() {
+            Object.assign(updatedUser, { nickname: userDataInputVal });
+            setUserDataInputVal('');
+            setEditUserData(null);
+            // console.log('updatedUser=', updatedUser);
+            try {
+                mutate(changeDataEdit(updatedUser, user));
+            } catch (error) {
+                console.log(`FILE: ${__filename}\nERROR:`, error)
+            } finally {
+                null;
+            }
+        }
 
-        //функции запросы к API на редактирование см в AllTopicsComponent
-        //НО удаление и добавление не делать! 
-        //Пользователю можно будет пока только редактировать nickname и 
-        //ПОЗЖЕ строку userAva (добавить это поле в базу), указывая интернет-путь к своей картинке 
+        async function changeDataEdit(obj, user) {
+            try {
+                const response = await fetch(`/api/apiuser/user/${user.id}`, {
+                    method: 'PUT',
+                    body: JSON.stringify(obj)
+                });
+                // console.log('changeDataEdit response', response);
+                if (!response.ok) throw new Error('ошибка');
+                const json = await response.json();
+                // console.log('json', json);
+                return Object.assign({}, data, { nickname: userDataInputVal });
 
-        //думаю, сделать новый REST-компонент карточками Chakra - выбрать-подумать!
-        //карточки мэпим, и выдаем. Как с таблицей
-        //или просто дивы-боксы Box
-        //+см другие компоненты Чакры
+            } catch (error) {
+                console.log(`FILE: ${__filename}\nERROR:`, error);
+            }
+        }
+
         return <>
 
             <Box>
-                {/* EditableMyAccount выкинуть. Новый REST-компонент для user-аккаунта пишется прямо здесь ниже вместо этого Box
-                
-                что-то вроде {columns?.map(({ name, getVal, setVal }, columN) => (
-                    ни фильтров, ни сортировки, ни удаления и добавления. Все будет просто
-                    НО не забыть mutate!!!! Редактирование есть!!!
-                */}
-                <Box
-                >
-                    {
-                        // Array.isArray(userAccountData) && 
-                        <EditableMyAccount
-                            columns={columnsForUserAccount}
-                            data={[formattedUser]}
-                        // onAdd={onAdd}
-                        // onDelete={onDelete}
-                        // onEdit={onEdit}
-                        />}
-                </Box>
-                <Button
-                    as={'span'}
-                    colorScheme='gray'
-                    title='Добавить дополнительный аккаунт'
-                    onClick={() => signIn()}
-                >Добавить аккаунт
-                </Button>
+                <Grid mt={'40px'} p={'20px'} templateColumns="repeat(2, 1fr)" gap={5} border={'1px solid black'} borderRadius={'5px'}>
+                    {columnsForUserAccount.map(colon => (
+                        <Fragment key={colon.name}>
+                            <Box><chakra.span color={'#feb849'}>{colon.name}</chakra.span> &#160;</Box>
+                            <Flex flexDirection={'column'} gap={'20px'} alignItems={'baseline'}>
+                                {colon.name === editUserData
+                                    ? <Box>
+                                        <Input
+                                            type='text'
+                                            name='nickname'
+                                            placeholder={'Ваш ник на форуме'}
+                                            value={userDataInputVal}
+                                            onInput={evt => setUserDataInputVal(evt.target.value)}
+                                            onKeyDown={(evt) =>
+                                                (evt.keyCode === 13)
+                                                    ? editData()
+                                                    : null
+                                            }
+                                            fontSize={textFontSize}
+                                        />
+                                        <Button onClick={() => editData()}><CheckIcon /></Button>
+                                        <Button onClick={() => setEditUserData(null)}><CloseIcon /></Button>
+                                    </Box>
 
+                                    : colon.setVal
+                                        ? <Flex alignItems={'center'}>
+                                            <chakra.span>{colon.getVal(formattedUser)}</chakra.span>&#160;
+                                            <Button onClick={() => {
+                                                setUserDataInputVal(colon.getVal(formattedUser));
+                                                setEditUserData(colon.name);
+                                            }}><EditIcon />
+                                            </Button>
+                                        </Flex>
 
+                                        : colon.getVal(formattedUser)
+
+                                }
+                                {'Аккаунты' === colon.name
+                                    ? <AddNewAccount />
+                                    : null
+                                }
+                            </Flex>
+                        </Fragment>
+                    ))}
+                </Grid>
+
+                {/* <pre>{JSON.stringify(formattedUser, null, '\t')}</pre> */}
                 {/* <pre>{JSON.stringify(data, null, '\t')}</pre> */}
                 {/* <pre>{JSON.stringify(user, null, '\t')}</pre> */}
                 {/* <pre>{JSON.stringify(accouts, null, '\t')}</pre> */}
             </Box>
-
-
-
-            {/* userAccountData= {userAccountData && <pre>{JSON.stringify(userAccountData, null, '\t')}</pre>} */}
         </>
     }
     // if (data) return <pre>{JSON.stringify(data, null, '\t')}</pre>
+}
+
+
+function AddNewAccount() {
+
+    return (
+        <Button
+            as={'span'}
+            colorScheme='gray'
+            mb={'2vw'}
+            title='Добавить дополнительный аккаунт'
+            onClick={() => signIn()}
+        >Добавить аккаунт
+        </Button>
+    )
 }

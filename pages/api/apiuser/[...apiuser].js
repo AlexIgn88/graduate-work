@@ -17,12 +17,11 @@ export default async function handler(req, res) {
   const { apiuser } = req.query,
     [table, id] = apiuser;
 
-  console.debug('req.query=', req.query);
-  console.debug('>> ', req.method, ' запрос на', req.url, 'apiuser=', { table, id }, 'session =', session);
-  console.debug('____', session?.user?.id);
-  console.debug('____', session?.user?.email);
-
-  if (req.body) console.log('req.body=', JSON.stringify(req.body));
+  // console.debug('req.query=', req.query);
+  // console.debug('>> ', req.method, ' запрос на', req.url, 'apiuser=', { table, id }, 'session =', session);
+  // console.debug('____', session?.user?.id);
+  // console.debug('____', session?.user?.email);
+  // if (req.body) console.log('req.body=', JSON.stringify(req.body));
 
   if (session) {
 
@@ -44,10 +43,6 @@ export default async function handler(req, res) {
             });
 
         case 'POST':
-          // return res.status(200).json(await prisma[table].create({
-          //   data: Object.fromEntries(new URLSearchParams(req.body).entries())
-          // }));
-
           return res.status(200).json(await prisma[table].create({
             data: {
               ...JSON.parse(req.body)
@@ -57,7 +52,6 @@ export default async function handler(req, res) {
         case 'DELETE':
           return res.status(200).json(await prisma[table].delete({
             where: {
-              // id: +id
               id: id
             }
           }));
@@ -65,10 +59,8 @@ export default async function handler(req, res) {
         case 'PUT':
           return res.status(200).json(await prisma[table].update({
             where: {
-              // id: +id
               id: id
             },
-            // data: Object.fromEntries([...new URLSearchParams(req.body).entries()].filter(([n]) => 'id' !== n))
             data: {
               ...JSON.parse(req.body)
             }

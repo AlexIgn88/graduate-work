@@ -19,12 +19,10 @@ export default function MyAccount() {
             m={marginParameters}
         >
                 <SWRConfig>
-                    {/* <SWRConfig value={{ fallback }}> */}
                     <GetData url={API_URL}>
                         <UserAccount />
                     </GetData>
                 </SWRConfig>
-                {/* )} */}
         </Box>
     </>
 }

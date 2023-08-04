@@ -1,13 +1,14 @@
+import { UserAva } from '../includes/cell-wrappers';
+import { Image } from '@chakra-ui/react';
+
 const userColumns = [
-    // { name: 'Id', getVal: ({ id }) => id },
-    // { name: 'Id', getVal: ({ id }) => id, setVal: val => ({ id: val }) },
-    { name: 'image', getVal: ({ image }) => <img src={image} alt="avatar"></img> },
-    // { name: 'image', getVal: ({ image }) => <img src={image} alt="avatar"></img>, setVal: val => ({ image: val }) },
-    { name: 'Name', getVal: ({ name }) => name },
-    { name: 'Email', getVal: ({ email }) => email },
-    { name: 'Nickname', getVal: ({ nickname }) => nickname, setVal: val => ({ nickname: val }) },
-    { name: 'Role', getVal: ({ role }) => role },
-    { name: 'Providers', getVal: ({ provider }) => provider },
+    // { name: '', getVal: ({ image }) => <UserAva value={image} /> },
+    { name: 'Фото', getVal: ({ image }) => <Image src={image} alt="avatar" borderRadius={'10px'} /> },
+    { name: 'Имя', getVal: ({ name }) => name },
+    { name: 'Почта', getVal: ({ email }) => email },
+    { name: 'Псевдоним на форуме', getVal: ({ nickname }) => nickname, setVal: val => ({ nickname: val }) },
+    { name: 'Статус', getVal: ({ role }) => role },
+    { name: 'Аккаунты', getVal: ({ provider }) => provider },
 ];
 
 export default userColumns;

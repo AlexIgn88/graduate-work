@@ -1,13 +1,16 @@
-import { Heading, Text, Box, Flex, Image, List, ListItem, ListIcon, chakra } from '@chakra-ui/react';
-
-// export function Img({ value }) {
-//     return <img className="icon" src={`https://randomuser.me/api/portraits/thumb/men/${value}.jpg`} alt={'photo'} />;
-// }
-
-{/* <Image src={picture} alt={'picture'} w={picSize} h={picSize} /> */}
+import { Image, Avatar } from '@chakra-ui/react';
 
 export function Img({ value }) {
     return <Image className="" src={value} alt={value} />;
+}
+
+export function UserAva({ value }) {
+    return <Avatar
+        name={value}
+        src={value}
+        width={'150px'}
+        height={'150px'}
+    />;
 }
 
 export function Email({ value }) {
