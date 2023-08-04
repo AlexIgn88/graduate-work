@@ -11,7 +11,7 @@ export default function GetData({ url, children }) {
         toast.promise(promise, {
             loading: 'Обновляем',
             success: 'Готово',
-            error: (err) => `This just happened: ${err.toString()}`,
+            error: (err) => `Ошибка: ${err.toString()}`,
         });
         return promise;
     }
@@ -20,6 +20,8 @@ export default function GetData({ url, children }) {
         { data, error, isLoading, mutate } = useSWR((url), toastFetcher),
 
         childComponentWithProps = cloneElement(children, { data, mutate });
+
+    // console.log('data=', data);
 
     //Skeleton is used to display the loading state of some component.
     //https://chakra-ui.com/docs/components/skeleton

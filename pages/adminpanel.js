@@ -4,7 +4,7 @@ import getStores from '../store/generateStores';
 import { useSession, signIn } from 'next-auth/react';
 
 import Head from "next/head";
-import userColumns from '../data/usersColumnsForAdminPanel';
+import userColumns from '../data/columnsForAdminPanel';
 import EditableAdminpanel from '../components/EditableAdminpanel';
 import { Box, Flex, Spacer, Heading, Button, ButtonGroup, Input, Stack, Skeleton } from "@chakra-ui/react";
 import { h1HeadersFontSize, h2HeadersFontSize, h3HeadersFontSize, textFontSize } from '../displayParameters/fontParameters';

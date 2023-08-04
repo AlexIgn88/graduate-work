@@ -3,7 +3,7 @@ import { useState } from 'react';
 export default function EditableMyAccount({ data, columns, onDelete, onAdd, onEdit }) {
 
     // console.log('data?.[0]=', data?.[0]);
-    // console.log('data=', data);
+    console.log('data=', data);
 
     const
         [addInputsVal, setAddInputsVal] = useState(Array(columns.length).fill('')),
