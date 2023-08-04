@@ -14,6 +14,8 @@ export default function ForumPage() {
     const API_URL = '/api/forum/topic/',
         { data: session } = useSession();
 
+    // console.log('session?.user', session?.user);
+
     return <>
         <Head>
             <title>Форум</title>
@@ -33,7 +35,7 @@ export default function ForumPage() {
                 borderRadius={'5px'}
                 background={'#121f26'}
                 color={'white'}
-            >Добро пожаловать на наш форум, {session?.user ? session?.user?.name : 'Гость'}!
+            >Добро пожаловать на наш форум, {session?.user ? session?.user?.nickname || session?.user?.name : 'Гость'}!
 
                 {!session && <Box mb={10}
                     pt={'20px'}
@@ -41,7 +43,7 @@ export default function ForumPage() {
                     background={'#121f26'}
                     color={'white'}>Для общения на нашем форуме войдите, пожалуйста, в свой акаунт на сайте
                 </Box>}
-                
+
             </Box>
 
             <SWRConfig>

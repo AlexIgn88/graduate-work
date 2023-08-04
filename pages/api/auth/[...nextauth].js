@@ -29,13 +29,16 @@ export const authOptions = {
       return true;
     },
     async redirect({ url, baseUrl }) {
-      // console.debug('>> callback redirect', { url, baseUrl });
-      return baseUrl;
+      if (url.startsWith("/")) return `${baseUrl}${url}`
+      else if (new URL(url).origin === baseUrl) return url
+      return baseUrl
     },
     async session({ session, user, token }) {
       // console.debug('>> callback session', { session, user, token });
       session.user.id = user.id;
       session.user.role = user.role;
+      session.user.nickname = user.nickname;
+
       return session;
     },
     async jwt({ token, user, account, profile, isNewUser }) {

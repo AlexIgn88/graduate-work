@@ -11,9 +11,9 @@ export default async function handler(req, res) {
 
   const { forum } = req.query,
     [table, id] = forum;
-  console.debug('req.query=', req.query);
-  console.debug('>> ', req.method, ' запрос на', req.url, 'forum =', { table, id });
-  if (req.body) console.log('req.body=', JSON.stringify(req.body));
+  // console.debug('req.query=', req.query);
+  // console.debug('>> ', req.method, ' запрос на', req.url, 'forum =', { table, id });
+  // if (req.body) console.log('req.body=', JSON.stringify(req.body));
 
   if (!['user', 'post', 'topic'].includes(table)) {
     return res.status(404).send({ error: 'wrong table' });
@@ -25,11 +25,6 @@ export default async function handler(req, res) {
         console.debug('req.query.topicId in switch=', req.query.topicId);
 
         switch (true) {
-          // switch (+req.query.topicId) {
-
-          // case req.query.topicId:
-          // case 20:
-          // case true:
 
           case 'topic' === table:
 
@@ -72,13 +67,7 @@ export default async function handler(req, res) {
             return res.status(200).json('error value');
         }
 
-
-
       case 'POST':
-        // return res.status(200).json(await prisma[table].create({
-        //   data: Object.fromEntries(new URLSearchParams(req.body).entries())
-        // }));
-
         return res.status(200).json(await prisma[table].create({
           data: {
             ...JSON.parse(req.body)
@@ -97,7 +86,6 @@ export default async function handler(req, res) {
           where: {
             id: +id
           },
-          // data: Object.fromEntries([...new URLSearchParams(req.body).entries()].filter(([n]) => 'id' !== n))
           data: {
             ...JSON.parse(req.body)
           }
