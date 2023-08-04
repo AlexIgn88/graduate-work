@@ -57,7 +57,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                 body: JSON.stringify(obj)
             });
             // console.log('adduser response', response);
-            if (!response.ok) throw new Error('не ок');
+            if (!response.ok) throw new Error('ошибка');
             const json = await response.json();
             // console.log('json', json);
 
