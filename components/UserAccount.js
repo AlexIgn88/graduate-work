@@ -17,20 +17,16 @@ export default function UserAccount({ data, mutate }) {
 
     // console.log('data', data);
 
-    if (!data) (
-        <Stack m={marginParameters}>
-            <Skeleton height='300px' />
-            <Skeleton height='300px' />
-        </Stack>)
+    if (data?.error) return <Flex justifyContent={'center'}>{data.error}</Flex>
 
-    if (data) {
+    if (data && (!data?.error)) {
 
         const { user, accouts } = data;
 
         const
-            providersStr = accouts.map(accouns => accouns.provider).join(', '),
-            emailStr = accouts.map(accouns => accouns.email).join(', '),
-            userEmail = user.email || emailStr;
+            providersStr = accouts.map(accouns => accouns?.provider).join(', '),
+            emailStr = accouts.map(accouns => accouns?.email).join(', '),
+            userEmail = user?.email || emailStr;
 
         const formattedUser = Object.assign({}, user, { provider: providersStr }, { email: userEmail });
 
@@ -84,8 +80,9 @@ export default function UserAccount({ data, mutate }) {
             </Box>
 
 
-            {/* data= {data && <pre>{JSON.stringify(data, null, '\t')}</pre>} */}
+
             {/* userAccountData= {userAccountData && <pre>{JSON.stringify(userAccountData, null, '\t')}</pre>} */}
         </>
     }
+    // if (data) return <pre>{JSON.stringify(data, null, '\t')}</pre>
 }
