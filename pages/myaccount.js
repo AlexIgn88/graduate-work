@@ -1,6 +1,6 @@
 import { SWRConfig } from 'swr';
 import GetData from '../components/GetData';
-import UserAccount from '../components/UserAccount';
+import UserAccountComponent from '../components/UserAccountComponent';
 import Head from "next/head";
 import { Box } from "@chakra-ui/react";
 import { marginParameters } from '../displayParameters/marginParameters';
@@ -20,7 +20,7 @@ export default function MyAccount() {
         >
                 <SWRConfig>
                     <GetData url={API_URL}>
-                        <UserAccount />
+                        <UserAccountComponent />
                     </GetData>
                 </SWRConfig>
         </Box>

@@ -1,21 +1,17 @@
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../auth/[...nextauth]';
-import { PrismaClient } from '@prisma/client';
+import { getAllData, addData, deleteData, updateData } from '../../../db/db_wrap';
 
-
-const prisma = new PrismaClient({
-  // log: ['query','info'],
-  // errorFormat:'pretty'
-});
 
 export default async function handler(req, res) {
-  const session = await getServerSession(req, res, authOptions);
-  const { adminapi } = req.query,
+  const
+    session = await getServerSession(req, res, authOptions),
+    { body } = req,
+    { adminapi } = req.query,
     [table, id] = adminapi;
   console.debug('req.query=', req.query);
   console.debug('>> ', req.method, ' запрос на', req.url, 'adminapi =', { table, id });
   if (req.body) console.log('req.body=', JSON.stringify(req.body));
-
   if (session && 'admin' === session.user.role) {
     if (!['user'].includes(table)) {
       return res.status(404).send({ error: 'wrong table' });
@@ -24,30 +20,17 @@ export default async function handler(req, res) {
       if (session && 'admin' === session.user.role)
         switch (req.method) {
           case 'GET':
-            return res.status(200).json(await prisma[table].findMany({ orderBy: { id: 'asc' } }));
+            return res.status(200).json(await getAllData(table));
           case 'POST':
-            return res.status(200).json(await prisma[table].create({
-              data: Object.fromEntries(new URLSearchParams(req.body).entries())
-            }));
+            return res.status(200).json(await addData(table, body));
           case 'DELETE':
-            return res.status(200).json(await prisma[table].delete({
-              where: {
-                // id: +id
-                id: id
-              }
-            }));
+            return res.status(200).json(await deleteData(table, id));
           case 'PUT':
-            return res.status(200).json(await prisma[table].update({
-              where: {
-                // id: +id
-                id: id
-              },
-              data: Object.fromEntries([...new URLSearchParams(req.body).entries()].filter(([n]) => 'id' !== n))
-            }));
-
+            return res.status(200).json(await updateData(table, id, body));
         }
     } catch (error) {
-      console.log(__filename, error);
+      console.debug(`FILE: ${__filename}\nERROR:`, error);
+      console.log(`FILE: ${__filename}\nERROR:`, error);
       res.status(500).json({ error });
     }
   } else {

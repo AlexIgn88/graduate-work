@@ -9,7 +9,7 @@ import { Fragment, useState } from 'react';
 import { textFontSize } from '../displayParameters/fontParameters';
 
 
-export default function UserAccount({ data, mutate }) {
+export default function UserAccountComponent({ data, mutate }) {
 
     // console.log('data', data);
 

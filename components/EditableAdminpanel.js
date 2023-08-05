@@ -1,6 +1,9 @@
 import { useState } from 'react';
 
-export default function EditableAdminpanel({ data, columns, onDelete, onAdd, onEdit }) {
+import columns from '../data/columnsForAdminPanel';
+
+// export default function EditableAdminpanel({ data, columns, onDelete, onAdd, onEdit }) {
+export default function EditableAdminpanel({ data, mutate }) {
 
     // console.log('data?.[0]=', data?.[0]);
     // console.log('data=', data);
@@ -183,15 +186,15 @@ export default function EditableAdminpanel({ data, columns, onDelete, onAdd, onE
                                     {/* <option value="banned">banned</option> */}
                                 </select>
                                 : setVal
-                                // :
-                                ? 
-                                <input
-                                    name={name}
-                                    placeholder={name}
-                                    value={addInputsVal[columN]}
-                                    onInput={evt => setAddInputsVal(addInputsVal.with(columN, evt.currentTarget.value))}
-                                />
-                                : ''
+                                    // :
+                                    ?
+                                    <input
+                                        name={name}
+                                        placeholder={name}
+                                        value={addInputsVal[columN]}
+                                        onInput={evt => setAddInputsVal(addInputsVal.with(columN, evt.currentTarget.value))}
+                                    />
+                                    : ''
                             }</td>))}
                     <td><button onClick={() => {
                         // columns.forEach((col, columN) => (col?.setVal) && Object.assign(newUser, col.setVal(addInputsVal[columN])))
