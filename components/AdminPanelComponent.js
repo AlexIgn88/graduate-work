@@ -1,4 +1,3 @@
-// import { signIn } from 'next-auth/react';
 import columnsForAdminPanel from '../data/columnsForAdminPanel';
 import {
     Box, Flex, Button, Input, chakra, Grid,
@@ -7,8 +6,7 @@ import {
 import { CloseIcon, CheckIcon, EditIcon } from '@chakra-ui/icons';
 import { Fragment, useState } from 'react';
 import { textFontSize } from '../displayParameters/fontParameters';
-
-import UserDataComponent from '../components/UserDataComponent';
+import UserDataFragment from '../components/UserDataFragment';
 
 
 export default function AdminPanelComponent({ data, mutate }) {
@@ -30,15 +28,11 @@ export default function AdminPanelComponent({ data, mutate }) {
 
     if (data && (!data?.error)) {
 
-        let updatedUser = {};
-
-
-        async function editData(id) {
-
-            Object.assign(updatedUser, { [selectedForEdit?.nameInBase]: inputVal });
+        async function editData(id, newObject) {
+            const updatedUser = Object.assign({}, newObject);
             setInputVal('');
             setSelectedForEdit(null);
-            console.log('updatedUser=', updatedUser);
+            // console.log('updatedUser=', updatedUser);
             try {
                 mutate(changeDataEdit(updatedUser, id));
             } catch (error) {
@@ -54,37 +48,26 @@ export default function AdminPanelComponent({ data, mutate }) {
                     method: 'PUT',
                     body: JSON.stringify(updatedUser)
                 });
-                console.log('changeDataEdit response', response);
+                // console.log('changeDataEdit response', response);
                 if (!response.ok) throw new Error('ошибка');
                 const json = await response.json();
-                console.log('json', json);
-                // return Object.assign({}, data, { nickname: userDataInputVal });
-
+                // console.log('json', json);
                 return data?.map(item =>
-                    item.id === id ? updatedUser : item)
-
+                    item.id === id ? Object.assign({}, item, updatedUser) : item)
             } catch (error) {
                 console.log(`FILE: ${__filename}\nERROR:`, error);
             }
         }
 
-
         return <>
-
-
             <Grid
-                // mt={'40px'}
-                // p={'20px'}
-                // templateColumns="repeat(1, 1fr)"
                 templateColumns={{ base: "repeat(1, 1fr)", '2xl': "repeat(3, 1fr)", xl: "repeat(2, 1fr)", lg: "repeat(1, 1fr)", md: "repeat(1, 1fr)", sm: "repeat(1, 1fr)" }}
-                // gap={5}
-                // border={'1px solid black'}
+                gap={5}
                 borderRadius={'5px'}
             >
-
-                {data.map(user => (
+                {data?.map(user => (
                     <Fragment key={user.id}>
-                        <UserDataComponent
+                        <UserDataFragment
                             columns={columnsForAdminPanel}
                             data={user}
                             editData={editData}
@@ -97,12 +80,6 @@ export default function AdminPanelComponent({ data, mutate }) {
                     </Fragment>
                 ))}
             </Grid>
-
-
-
-
-
-
 
 
 

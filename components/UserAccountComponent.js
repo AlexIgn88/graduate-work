@@ -1,4 +1,3 @@
-import { signIn } from 'next-auth/react';
 import columnsForUserAccount from '../data/columnsForUserAccount';
 import {
     Box, Flex, Button, Input, chakra, Grid,
@@ -7,6 +6,7 @@ import {
 import { CloseIcon, CheckIcon, EditIcon } from '@chakra-ui/icons';
 import { Fragment, useState } from 'react';
 import { textFontSize } from '../displayParameters/fontParameters';
+import UserDataFragment from '../components/UserDataFragment';
 
 
 export default function UserAccountComponent({ data, mutate }) {
@@ -14,8 +14,8 @@ export default function UserAccountComponent({ data, mutate }) {
     // console.log('data', data);
 
     const
-        [userDataInputVal, setUserDataInputVal] = useState(''),
-        [editUserData, setEditUserData] = useState(null);
+        [inputVal, setInputVal] = useState(''),
+        [selectedForEdit, setSelectedForEdit] = useState({ userId: null, colomn: null, nameInBase: null });
 
     if (!data) return (
         <Stack>
@@ -29,21 +29,19 @@ export default function UserAccountComponent({ data, mutate }) {
         const { user, accouts } = data;
 
         const
-            providersStr = accouts.map(accouns => accouns?.provider).join(', '),
-            emailStr = accouts.map(accouns => accouns?.email).join(', '),
+            providersStr = accouts?.map(accouns => accouns?.provider).join(', '),
+            emailStr = accouts?.map(accouns => accouns?.email).join(', '),
             userEmail = user?.email || emailStr;
 
-        const formattedUser = Object.assign({}, user, { provider: providersStr }, { email: userEmail }),
+        const formattedUser = Object.assign({}, user, { provider: providersStr }, { email: userEmail });
 
-            updatedUser = {};
-
-        async function editData() {
-            Object.assign(updatedUser, { nickname: userDataInputVal });
-            setUserDataInputVal('');
-            setEditUserData(null);
+        async function editData(id, newObject) {
+            const updatedUser = Object.assign({}, newObject);
+            setInputVal('');
+            setSelectedForEdit(null);
             // console.log('updatedUser=', updatedUser);
             try {
-                mutate(changeDataEdit(updatedUser, user));
+                mutate(changeDataEdit(updatedUser, id));
             } catch (error) {
                 console.log(`FILE: ${__filename}\nERROR:`, error)
             } finally {
@@ -51,18 +49,17 @@ export default function UserAccountComponent({ data, mutate }) {
             }
         }
 
-        async function changeDataEdit(obj, user) {
+        async function changeDataEdit(updatedUser, id) {
             try {
-                const response = await fetch(`/api/apiuser/user/${user.id}`, {
+                const response = await fetch(`/api/apiuser/user/${id}`, {
                     method: 'PUT',
-                    body: JSON.stringify(obj)
+                    body: JSON.stringify(updatedUser)
                 });
                 // console.log('changeDataEdit response', response);
                 if (!response.ok) throw new Error('ошибка');
                 const json = await response.json();
                 // console.log('json', json);
-                return Object.assign({}, data, { nickname: userDataInputVal });
-
+                return Object.assign({}, data, updatedUser);
             } catch (error) {
                 console.log(`FILE: ${__filename}\nERROR:`, error);
             }
@@ -71,51 +68,18 @@ export default function UserAccountComponent({ data, mutate }) {
         return <>
 
             <Box>
-                <Grid mt={'40px'} p={'20px'} templateColumns="repeat(2, 1fr)" gap={5} border={'1px solid black'} borderRadius={'5px'}>
-                    {columnsForUserAccount.map(colon => (
-                        <Fragment key={colon.name}>
-                            <Box><chakra.span color={'#feb849'}>{colon.name}</chakra.span> &#160;</Box>
-                            <Flex flexDirection={'column'} gap={'20px'} alignItems={'baseline'}>
-                                {colon.name === editUserData
-                                    ? <Box>
-                                        <Input
-                                            type='text'
-                                            name='nickname'
-                                            placeholder={'Ваш ник на форуме'}
-                                            value={userDataInputVal}
-                                            onInput={evt => setUserDataInputVal(evt.target.value)}
-                                            onKeyDown={(evt) =>
-                                                (evt.keyCode === 13)
-                                                    ? editData()
-                                                    : null
-                                            }
-                                            fontSize={textFontSize}
-                                        />
-                                        <Button onClick={() => editData()}><CheckIcon /></Button>
-                                        <Button onClick={() => setEditUserData(null)}><CloseIcon /></Button>
-                                    </Box>
-
-                                    : colon.setVal
-                                        ? <Flex alignItems={'center'}>
-                                            <chakra.span>{colon.getVal(formattedUser)}</chakra.span>&#160;
-                                            <Button onClick={() => {
-                                                setUserDataInputVal(colon.getVal(formattedUser));
-                                                setEditUserData(colon.name);
-                                            }}><EditIcon />
-                                            </Button>
-                                        </Flex>
-
-                                        : colon.getVal(formattedUser)
-
-                                }
-                                {'Аккаунты' === colon.name
-                                    ? <AddNewAccount />
-                                    : null
-                                }
-                            </Flex>
-                        </Fragment>
-                    ))}
-                </Grid>
+                <Fragment key={user.id}>
+                    <UserDataFragment
+                        columns={columnsForUserAccount}
+                        data={formattedUser}
+                        editData={editData}
+                        inputPlaceholder={'Напишите тут'}
+                        inputVal={inputVal}
+                        setInputVal={setInputVal}
+                        selectedForEdit={selectedForEdit}
+                        setSelectedForEdit={setSelectedForEdit}
+                    />
+                </Fragment>
 
                 {/* <pre>{JSON.stringify(formattedUser, null, '\t')}</pre> */}
                 {/* <pre>{JSON.stringify(data, null, '\t')}</pre> */}
@@ -124,20 +88,4 @@ export default function UserAccountComponent({ data, mutate }) {
             </Box>
         </>
     }
-    // if (data) return <pre>{JSON.stringify(data, null, '\t')}</pre>
-}
-
-
-function AddNewAccount() {
-
-    return (
-        <Button
-            as={'span'}
-            colorScheme='gray'
-            mb={'2vw'}
-            title='Добавить дополнительный аккаунт'
-            onClick={() => signIn()}
-        >Добавить аккаунт
-        </Button>
-    )
 }

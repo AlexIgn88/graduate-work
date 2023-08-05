@@ -13,13 +13,16 @@ export default function AdminPanelPage() {
 
   const API_URL = '/api/admin/user/';
 
+  const newMarginParameters = Object.assign({}, marginParameters, { base: '5px' });
+
   return <>
     <Head>
       <title>Админ-панель</title>
     </Head>
     <Box
       className='admin-page'
-      m={marginParameters}
+      m={newMarginParameters}
+      mt={{ base: '35px', sm: '35px' }}
     >
       <SWRConfig>
         <GetData url={API_URL}>

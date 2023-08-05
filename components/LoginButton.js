@@ -45,14 +45,28 @@ export default function LoginButton() {
                 {session && <span>Выйти</span>}
 
                 {!session &&
-                    (!isWide 
+                    (!isWide
                         ? <FcStart />
                         : <span>Войти</span>
-                        
+
                     )
                 }
 
             </Button>
         </Flex>
     </>
+}
+
+export function AddNewAccount() {
+
+    return (
+        <Button
+            as={'span'}
+            colorScheme='gray'
+            mb={'2vw'}
+            title='Добавить дополнительный аккаунт'
+            onClick={() => signIn()}
+        >Добавить аккаунт
+        </Button>
+    )
 }

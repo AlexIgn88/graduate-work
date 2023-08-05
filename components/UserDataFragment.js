@@ -1,20 +1,16 @@
-// import { signIn } from 'next-auth/react';
-// import columnsForUserAccount from '../data/columnsForUserAccount';
 import {
     Box, Flex, Button, Input, chakra, Grid, Select,
-    // Skeleton, Stack,
 } from "@chakra-ui/react";
 import { CloseIcon, CheckIcon, EditIcon } from '@chakra-ui/icons';
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { textFontSize } from '../displayParameters/fontParameters';
+import { AddNewAccount } from './LoginButton';
 
 
-export default function UserDataComponent({ columns, data, editData, inputPlaceholder, inputVal, setInputVal, selectedForEdit, setSelectedForEdit }) {
-
+export default function UserDataFragment({ columns, data, editData, inputPlaceholder, inputVal, setInputVal, selectedForEdit, setSelectedForEdit }) {
 
     return <>
         <Grid
-            // mt={'40px'}
             p={'20px'}
             templateColumns="repeat(2, 1fr)"
             gap={5}
@@ -22,35 +18,31 @@ export default function UserDataComponent({ columns, data, editData, inputPlaceh
             borderRadius={'5px'}>
 
             {columns.map(colomn => (
-                <Fragment key={colomn.name}>
+                <Fragment key={colomn.nameInBase}>
                     <Box><chakra.span color={'#feb849'}>{colomn.name}</chakra.span> &#160;</Box>
                     <Flex flexDirection={'row'} gap={'20px'} alignItems={'baseline'}>
-                        {data?.id === selectedForEdit?.userId && colomn?.name === selectedForEdit?.colomn
+                        {data?.id === selectedForEdit?.userId && colomn?.nameInBase === selectedForEdit?.nameInBase
                             ? ('role' === colomn.nameInBase
 
-                                ? <> <Select
-                                    name={colomn.name}
+                                ? <Box> <Select
+                                    name={colomn.nameInBase}
                                     placeholder='Select option'
-                                    // value={editSelectsVal}
                                     onChange={evt => {
-                                        // setEditSelectsVal(evt.target.value);
                                         setInputVal(evt.target.value);
                                     }}
                                 >
-                                    <option value=""></option>
                                     <option value="user">user</option>
                                     <option value="admin">admin</option>
                                     <option value="moderator">moderator</option>
                                     <option value="banned">banned</option>
                                 </Select>
-                                    <Button onClick={() => editData(data.id)}><CheckIcon /></Button>
+                                    <Button onClick={() => editData(data.id, colomn.setVal(inputVal))}><CheckIcon /></Button>
                                     <Button onClick={() => setSelectedForEdit({ userId: null, colomn: null, nameInBase: null })}><CloseIcon /></Button>
-                                </>
+                                </Box>
 
                                 : <Box>
                                     <Input
                                         type='text'
-                                        // name='nickname'
                                         placeholder={inputPlaceholder}
                                         value={inputVal}
                                         onInput={evt => setInputVal(evt.target.value)}
@@ -61,7 +53,7 @@ export default function UserDataComponent({ columns, data, editData, inputPlaceh
                                         }
                                         fontSize={textFontSize}
                                     />
-                                    <Button onClick={() => editData(data.id)}><CheckIcon /></Button>
+                                    <Button onClick={() => editData(data.id, colomn.setVal(inputVal))}><CheckIcon /></Button>
                                     <Button onClick={() => setSelectedForEdit({ userId: null, colomn: null, nameInBase: null })}><CloseIcon /></Button>
                                 </Box>
                             )
@@ -79,7 +71,7 @@ export default function UserDataComponent({ columns, data, editData, inputPlaceh
                                 : colomn.getVal(data)
 
                         }
-                        {'Аккаунты' === colomn.name
+                        {'provider' === colomn.nameInBase
                             ? <AddNewAccount />
                             : null
                         }
