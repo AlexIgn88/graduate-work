@@ -1,99 +1,55 @@
-import { PrismaClient } from '@prisma/client';
+import {
+  getAllData, getAllTopicStarters,
+  getOneData, getAllDataFromColumnByID, getAllPostStartersByTopicID,
+  addData, deleteData, updateData
+} from '../../../db/db_wrap';
 
-const prisma = new PrismaClient({
-  // log: ['query','info'],
-  // errorFormat:'pretty'
-});
 
 export default async function handler(req, res) {
-
-  // console.debug('req=', req, 'res=', res);
-
-  const { forum } = req.query,
+  const
+    { body } = req,
+    { forum } = req.query,
     [table, id] = forum;
   // console.debug('req.query=', req.query);
   // console.debug('>> ', req.method, ' запрос на', req.url, 'forum =', { table, id });
   // if (req.body) console.log('req.body=', JSON.stringify(req.body));
-
   if (!['user', 'post', 'topic'].includes(table)) {
     return res.status(404).send({ error: 'wrong table' });
   }
   try {
+
     switch (req.method) {
       case 'GET':
-
-        console.debug('req.query.topicId in switch=', req.query.topicId);
-
+        // console.debug('req.query.topicId in switch=', req.query.topicId);
+        
         switch (true) {
-
           case 'topic' === table:
-
             res.status(200).json({
-
-              topics: await prisma.topic.findMany(
-                { orderBy: { id: 'asc' } }
-              ),
-              users: await prisma.user.findMany({
-                where: { topics: { some: { id: { gt: 0 } } } },
-                orderBy: { id: 'asc' }
-              })
+              topics: await getAllData(table),
+              users: await getAllTopicStarters()
             })
             return;
-
           case 'post' === table:
-
             res.status(200).json({
-
-              topic: await prisma.topic.findUnique({
-                where: {
-                  id: +req.query.topicId
-                }
-              }),
-              posts: await prisma.post.findMany({
-                where: {
-                  topicId: +req.query.topicId
-                },
-                orderBy: { id: 'asc' }
-              }),
-              users: await prisma.user.findMany({
-                where: { posts: { some: { topicId: { equals: +req.query.topicId } } } },
-                orderBy: { id: 'asc' }
-              })
-
+              topic: await getOneData('topic', +req.query.topicId),
+              posts: await getAllDataFromColumnByID(table, 'topicId', +req.query.topicId),
+              users: await getAllPostStartersByTopicID(+req.query.topicId)
             })
             return;
-
           default:
             return res.status(200).json('error value');
         }
 
       case 'POST':
-        return res.status(200).json(await prisma[table].create({
-          data: {
-            ...JSON.parse(req.body)
-          }
-        }));
-
+        return res.status(200).json(await addData(table, body));
       case 'DELETE':
-        return res.status(200).json(await prisma[table].delete({
-          where: {
-            id: +id
-          }
-        }));
-
+        return res.status(200).json(await deleteData(table, +id));
       case 'PUT':
-        return res.status(200).json(await prisma[table].update({
-          where: {
-            id: +id
-          },
-          data: {
-            ...JSON.parse(req.body)
-          }
-        }));
-
+        return res.status(200).json(await updateData(table, +id, body));
     }
   } catch (error) {
-    console.log(__filename, error);
+    console.debug(`FILE: ${__filename}\nERROR:`, error);
+    console.log(`FILE: ${__filename}\nERROR:`, error);
     res.status(500).json({ error });
   }
 }

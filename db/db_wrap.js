@@ -15,9 +15,21 @@ export async function getAllData(table) {
     return await prisma[table].findMany({ orderBy: { id: 'asc' } })
 }
 
+// export async function getAllDataByUserID(table, userId) {
+//     return await prisma[table].findMany({ where: { userId: userId }, orderBy: { id: 'asc' } })
+// }
 
-export async function getAllDataByID(table, id) {
-    return await prisma[table].findMany({ where: { userId: id }, orderBy: { id: 'asc' } })
+//getAllDataFromColumnByID - улучшенная версия getAllDataByUserID
+export async function getAllDataFromColumnByID(table, column, id) {
+    return await prisma[table].findMany({ where: { [column]: id }, orderBy: { id: 'asc' } })
+}
+
+export async function getAllTopicStarters() {
+    return await prisma.user.findMany({ where: { topics: { some: { id: { gt: 0 } } } }, orderBy: { id: 'asc' } })
+}
+
+export async function getAllPostStartersByTopicID(id) {
+    return await prisma.user.findMany({ where: { posts: { some: { topicId: { equals: id } } } }, orderBy: { id: 'asc' } })
 }
 
 export async function addData(table, body) {

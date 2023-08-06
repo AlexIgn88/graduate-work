@@ -1,6 +1,6 @@
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../auth/[...nextauth]';
-import { getAllData, getAllDataByID, addData, deleteData, updateData } from '../../../db/db_wrap';
+import { getAllData, getAllDataFromColumnByID, addData, deleteData, updateData } from '../../../db/db_wrap';
 
 
 export default async function handler(req, res) {
@@ -20,7 +20,7 @@ export default async function handler(req, res) {
       if (session && 'admin' === session.user.role)
         switch (req.method) {
           case 'GET':
-            if (id) return res.status(200).json(await getAllDataByID(table, id));
+            if (id) return res.status(200).json(await getAllDataFromColumnByID(table, 'userId', id));
             return res.status(200).json(await getAllData(table));
           case 'POST':
             return res.status(200).json(await addData(table, body));

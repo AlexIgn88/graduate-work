@@ -2,6 +2,9 @@
 ## My graduate work:
 
 ## Прогресс выполнения итоговой работы
+v 0.9.10 API fixes
+wrapper functions over the Prism are implemented in the API
+
 v 0.9.9
 Some fixes
 

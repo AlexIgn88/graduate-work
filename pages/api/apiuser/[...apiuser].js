@@ -1,16 +1,13 @@
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../auth/[...nextauth]';
-import { PrismaClient } from '@prisma/client';
+import { getOneData, getAllDataFromColumnByID, addData, deleteData, updateData } from '../../../db/db_wrap';
 
-
-const prisma = new PrismaClient({
-  // log: ['query','info'],
-  // errorFormat:'pretty'
-});
 
 export default async function handler(req, res) {
-  const session = await getServerSession(req, res, authOptions);
-  const { apiuser } = req.query,
+  const
+    session = await getServerSession(req, res, authOptions),
+    { body } = req,
+    { apiuser } = req.query,
     [table, id] = apiuser;
   // console.debug('req.query=', req.query);
   // console.debug('>> ', req.method, ' запрос на', req.url, 'apiuser=', { table, id }, 'session =', session);
@@ -21,39 +18,19 @@ export default async function handler(req, res) {
       return res.status(404).send({ error: 'wrong table' });
     }
     try {
-
       switch (req.method) {
         case 'GET':
           return res.status(200)
             .json({
-              user: await prisma.user.findUnique({
-                where: { id: session?.user?.id }
-              }),
-              accouts: await prisma.account.findMany({
-                where: { userId: session?.user?.id }
-              })
+              user: await getOneData(table, session?.user?.id),
+              accouts: await getAllDataFromColumnByID('account', 'userId', session?.user?.id)
             });
         case 'POST':
-          return res.status(200).json(await prisma[table].create({
-            data: {
-              ...JSON.parse(req.body)
-            }
-          }));
+          return res.status(200).json(await addData(table, body));
         case 'DELETE':
-          return res.status(200).json(await prisma[table].delete({
-            where: {
-              id: id
-            }
-          }));
+          return res.status(200).json(await deleteData(table, id));
         case 'PUT':
-          return res.status(200).json(await prisma[table].update({
-            where: {
-              id: id
-            },
-            data: {
-              ...JSON.parse(req.body)
-            }
-          }));
+          return res.status(200).json(await updateData(table, id, body));
       }
     } catch (error) {
       console.debug(`FILE: ${__filename}\nERROR:`, error);
