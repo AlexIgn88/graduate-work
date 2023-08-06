@@ -1,11 +1,7 @@
 import columnsForAdminPanel from '../data/columnsForAdminPanel';
-import {
-    Box, Flex, Button, Input, chakra, Grid,
-    Skeleton, Stack,
-} from "@chakra-ui/react";
+import { Flex, Grid, Skeleton, Stack, } from "@chakra-ui/react";
 import { CloseIcon, CheckIcon, EditIcon } from '@chakra-ui/icons';
 import { Fragment, useState } from 'react';
-import { textFontSize } from '../displayParameters/fontParameters';
 import UserDataFragment from '../components/UserDataFragment';
 import ModalWindowBlur from '../components/modalwindows/ModalWindowBlur';
 import AddNewUser from '../components/AddNewUser';
@@ -17,7 +13,7 @@ export default function AdminPanelComponent({ data, mutate }) {
 
     const
         [inputVal, setInputVal] = useState(''),
-        [selectedForEdit, setSelectedForEdit] = useState({ userId: null, colomn: null, nameInBase: null });
+        [selectedForEdit, setSelectedForEdit] = useState({ userId: '', colomn: '', nameInBase: '' });
 
     if (!data) return (
         <Stack>
@@ -32,7 +28,7 @@ export default function AdminPanelComponent({ data, mutate }) {
 
         async function editData(id, updatedUser) {
             setInputVal('');
-            setSelectedForEdit(null);
+            setSelectedForEdit({ userId: '', colomn: '', nameInBase: '' });
             // console.log('updatedUser=', updatedUser);
             try {
                 mutate(changeDataEdit(id, updatedUser));
@@ -85,15 +81,10 @@ export default function AdminPanelComponent({ data, mutate }) {
             }
         }
 
-
         return <>
-
-
-            {/* <ModalWindowBlur buttonText={'Создать нового пользователя'} buttonColorScheme={'gray'}>
-                <AddNewUser />
-            </ModalWindowBlur> */}
-
-
+            <ModalWindowBlur buttonText={'Создать нового пользователя'} buttonColorScheme={'gray'}>
+                <AddNewUser data={data} mutate={mutate} />
+            </ModalWindowBlur>
             <Grid
                 templateColumns={{ base: "repeat(1, 1fr)", '2xl': "repeat(3, 1fr)", xl: "repeat(2, 1fr)", lg: "repeat(1, 1fr)", md: "repeat(1, 1fr)", sm: "repeat(1, 1fr)" }}
                 gap={5}
@@ -115,10 +106,6 @@ export default function AdminPanelComponent({ data, mutate }) {
                     </Fragment>
                 ))}
             </Grid>
-
-
-
-
             {/* <pre>{JSON.stringify(data, null, '\t')}</pre> */}
         </>
     }

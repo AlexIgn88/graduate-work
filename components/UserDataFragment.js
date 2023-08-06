@@ -40,7 +40,7 @@ export default function UserDataFragment({ columns, data, editData, delData, inp
                                     )}
                                 </Select>
                                     <Button onClick={() => editData(data.id, colomn.setVal(inputVal))}><CheckIcon /></Button>
-                                    <Button onClick={() => setSelectedForEdit({ userId: null, colomn: null, nameInBase: null })}><CloseIcon /></Button>
+                                    <Button onClick={() => setSelectedForEdit({ userId: '', colomn: '', nameInBase: '' })}><CloseIcon /></Button>
                                 </Box>
 
                                 : <Box>
@@ -48,7 +48,7 @@ export default function UserDataFragment({ columns, data, editData, delData, inp
                                         type='text'
                                         placeholder={inputPlaceholder}
                                         value={inputVal}
-                                        onInput={evt => setInputVal(evt.target.value)}
+                                        onChange={evt => setInputVal(evt.target.value)}
                                         onKeyDown={(evt) =>
                                             (evt.keyCode === 13)
                                                 ? editData(data.id, colomn.setVal(inputVal))
@@ -57,7 +57,7 @@ export default function UserDataFragment({ columns, data, editData, delData, inp
                                         fontSize={textFontSize}
                                     />
                                     <Button onClick={() => editData(data.id, colomn.setVal(inputVal))}><CheckIcon /></Button>
-                                    <Button onClick={() => setSelectedForEdit({ userId: null, colomn: null, nameInBase: null })}><CloseIcon /></Button>
+                                    <Button onClick={() => setSelectedForEdit({ userId: '', colomn: '', nameInBase: '' })}><CloseIcon /></Button>
                                 </Box>
                             )
 
@@ -79,7 +79,6 @@ export default function UserDataFragment({ columns, data, editData, delData, inp
                             : null
                         }
                         {'actions' === colomn.nameInBase
-                            // ? <DelButton delData={delData} id={data.id} />
                             ? <ModalWindowBlur buttonText={'Удалить'} buttonColorScheme={'gray'}>
                                 <DelUser delData={delData} id={data.id} />
                             </ModalWindowBlur>

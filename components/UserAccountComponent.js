@@ -13,7 +13,7 @@ export default function UserAccountComponent({ data, mutate }) {
 
     const
         [inputVal, setInputVal] = useState(''),
-        [selectedForEdit, setSelectedForEdit] = useState({ userId: null, colomn: null, nameInBase: null });
+        [selectedForEdit, setSelectedForEdit] = useState({ userId: '', colomn: '', nameInBase: '' });
 
     if (!data) return (
         <Stack>
@@ -34,9 +34,8 @@ export default function UserAccountComponent({ data, mutate }) {
         const formattedUser = Object.assign({}, user, { provider: providersStr }, { email: userEmail });
 
         async function editData(id, updatedUser) {
-            // const updatedUser = Object.assign({}, newObject);
             setInputVal('');
-            setSelectedForEdit(null);
+            setSelectedForEdit({ userId: null, colomn: null, nameInBase: null });
             // console.log('updatedUser=', updatedUser);
             try {
                 mutate(changeDataEdit(id, updatedUser));

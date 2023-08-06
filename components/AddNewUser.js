@@ -1,38 +1,40 @@
 import { Button, Input, Flex } from '@chakra-ui/react';
-import { textFontSize } from '../displayParameters/fontParameters';
 import { flexDirection } from '../displayParameters/flexParameters';
-import handleOnKeyEnterDown from '../includes/handleOnKeyEnterDown';
-
 import columnsForAdminPanel from '../data/columnsForAdminPanel';
 import UserDataFragment from '../components/UserDataFragment';
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
+import arraysToObject from '../includes/arraysToObject';
 
 
-export default function AddNewUser({ onClose }) {
+export default function AddNewUser({ data, mutate, onClose }) {
+
+    const columnsForNewUser = columnsForAdminPanel.filter(item => 'actions' !== item?.nameInBase && 'image' !== item?.nameInBase);
+
+    const arrOfNameInBase = columnsForNewUser.map(column => column.nameInBase);
+
+    const defaultUser = arraysToObject(arrOfNameInBase, Array(columnsForNewUser.length).fill(''));
+
+    // console.log('newUser2', defaultUser);
 
     const
         [inputVal, setInputVal] = useState(''),
-        [selectedForEdit, setSelectedForEdit] = useState({ userId: null, colomn: null, nameInBase: null });
+        [selectedForEdit, setSelectedForEdit] = useState({ userId: '', colomn: '', nameInBase: '' });
 
-    const columns = columnsForAdminPanel.map(column => column.nameInBase);
+    const [newUser, setNewUser] = useState(defaultUser);
 
-    const columnsForNewUser = columns.slice(0, columns.length - 1);
+    // console.log('user', newUser);
 
-    // console.log(columnsForNewUser);
+    function editData(id, obj) {
+        setInputVal('');
+        setSelectedForEdit({ userId: '', colomn: '', nameInBase: '' });
+        return setNewUser(Object.assign(newUser, obj));
+    }
 
-    const newUser = arraysToObject(columnsForNewUser, Array(columnsForNewUser.length).fill(''));
 
-    console.log('newUser', newUser);
-
-    async function addTopic() {
+    async function addData(newUser) {
         try {
-            const newTopic = {
-                title: newTopicInputVal,
-                content: '', //временная затычка
-                userId: currentUserId
-            };
-            mutate(changeDataAdd(newTopic));
-            setNewTopicInputVal('');
+            mutate(changeDataAdd(newUser));
+            setNewUser({});
         } catch (error) {
             console.log(`FILE: ${__filename}\nERROR:`, error);
         } finally {
@@ -40,19 +42,17 @@ export default function AddNewUser({ onClose }) {
         }
     }
 
-    async function changeDataAdd(newTopicObject) {
+    async function changeDataAdd(newUser) {
         try {
-            const response = await fetch('/api/forum/topic/', {
+            const response = await fetch('/api/apiuser/user/', {
                 method: 'POST',
-                body: JSON.stringify(newTopicObject)
+                body: JSON.stringify(newUser)
             });
             // console.log('adduser response', response);
             if (!response.ok) throw new Error('ошибка');
             const json = await response.json();
             // console.log('json', json);
-            return {
-                ...data, topics: [...data?.topics, json]
-            }
+            return [...data, json]
         } catch (error) {
             console.log(`FILE: ${__filename}\nERROR:`, error)
         }
@@ -66,11 +66,10 @@ export default function AddNewUser({ onClose }) {
         >
 
             <UserDataFragment
-                columns={columnsForAdminPanel}
+                columns={columnsForNewUser}
                 data={newUser}
-                editData={null}
+                editData={editData}
                 inputPlaceholder={'Напишите тут'}
-
                 inputVal={inputVal}
                 setInputVal={setInputVal}
                 selectedForEdit={selectedForEdit}
@@ -85,25 +84,13 @@ export default function AddNewUser({ onClose }) {
                 <Button
                     colorScheme='gray'
                     type='submit'
-                    onClick={() => null
-                        // addTopic() 
-                    }>Добавить</Button>
+                    onClick={() => addData(newUser)}>Добавить</Button>
 
                 <Button colorScheme='gray' onClick={() => {
-                    // setNewTopicInputVal('');
+                    setNewUser({});
                     onClose();
                 }}>Отмена</Button>
             </Flex>
         </Flex>
     </>
-}
-
-function arraysToObject(keys, values) {
-    const obj = {};
-
-    for (let i = 0; i < keys.length; i++) {
-        obj[keys[i]] = values[i];
-    }
-
-    return obj;
 }
