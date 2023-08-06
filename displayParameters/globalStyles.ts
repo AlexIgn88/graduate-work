@@ -59,4 +59,10 @@ export const globalStyles = {
         alignItems: 'center',
         gap: '10px',
     },
+
+    '.tours-page li ': {
+        marginTop: '12px',
+
+    },
+
 };

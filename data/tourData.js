@@ -32,7 +32,8 @@ export const tourDataCrimea = [
             },
             { price: `Цена: 500 рублей` },
             { time: `Длительность: 1 день` }
-        ]
+        ],
+        tourImage: '/img/TourCardsIMG/TurPoYAlte.jpg',
     },
     {
         tourName: 'Экскурсия по Севастополю',
@@ -44,7 +45,8 @@ export const tourDataCrimea = [
             },
             { price: `Цена: 300 рублей` },
             { time: `Длительность: 1 день` }
-        ]
+        ],
+        tourImage: '/img/TourCardsIMG/EkskursiyaPoSevastopolyu.jpg',
     },
     {
         tourName: 'Тур в Бахчисарай',
@@ -57,7 +59,8 @@ export const tourDataCrimea = [
             { price: `Цена: 300 рублей` },
             { time: `Длительность: 1 день` }
 
-        ]
+        ],
+        tourImage: '/img/TourCardsIMG/Bahchisaraj.jpg',
     },
     {
         tourName: 'Поход на Гору Ай-Петри',
@@ -70,7 +73,8 @@ export const tourDataCrimea = [
             { price: `Цена: 300 рублей` },
             { time: `Длительность: 1 день` }
 
-        ]
+        ],
+        tourImage: '/img/TourCardsIMG/Aj-Petri.jpg',
     },
     {
         tourName: 'Экскурсия в Судак',
@@ -82,7 +86,8 @@ export const tourDataCrimea = [
             },
             { price: `Цена: 300 рублей` },
             { time: `Длительность: 1 день` }
-        ]
+        ],
+        tourImage: '/img/TourCardsIMG/Sudak.jpg',
     },
     {
         tourName: 'Тур в Балаклаву',
@@ -94,7 +99,8 @@ export const tourDataCrimea = [
             },
             { price: `Цена: 300 рублей` },
             { time: `Длительность: 1 день` }
-        ]
+        ],
+        tourImage: '/img/TourCardsIMG/Balaklava.jpg',
     },
 ];
 
@@ -135,7 +141,8 @@ export const tourDataKarelia = [
             },
             { price: `Цена за тур: от 3000 рублей.` },
             { time: `Кол-во дней: 7 дней.` }
-        ]
+        ],
+        tourImage: '/img/TourCardsIMG/Hibiny.jpg',
     },
     {
         tourName: 'Музеи Карелии',
@@ -146,7 +153,8 @@ export const tourDataKarelia = [
             },
             { price: `Цена за экскурсию: от 800 рублей. ` },
             { time: `Кол-во дней: 1 день.` }
-        ]
+        ],
+        tourImage: '/img/TourCardsIMG/MuzeiKarelii.jpg',
     },
     {
         tourName: 'Водопад Кивач',
@@ -157,7 +165,8 @@ export const tourDataKarelia = [
             },
             { price: `Цена за экскурсию: от 600 рублей.` },
             { time: `Кол-во дней: 1-2 дня.` }
-        ]
+        ],
+        tourImage: '/img/TourCardsIMG/VodopadKivach.jpg',
     },
     {
         tourName: `Парк "Рускеала"`,
@@ -168,7 +177,8 @@ export const tourDataKarelia = [
             },
             { price: `Цена за посещение парка: от 400 рублей за взрослого и от 350 рублей за ребенка.` },
             { time: `Кол-во дней: 1 день.` }
-        ]
+        ],
+        tourImage: '/img/TourCardsIMG/ParkRuskeala.jpg',
     },
     {
         tourName: 'Водная прогулка на лодках по Онежскому озеру',
@@ -179,7 +189,8 @@ export const tourDataKarelia = [
             },
             { price: `Цена на аренду лодки: от 500 рублей в час.` },
             { time: `Кол-во дней: от 2 до 7 дней в зависимости от маршрута.` }
-        ]
+        ],
+        tourImage: '/img/TourCardsIMG/VodnayaProgulkaNaLodkahPoOnezhskomuOzeru.jpg',
     },
     {
         tourName: 'Ладожское озеро',
@@ -190,7 +201,8 @@ export const tourDataKarelia = [
             },
             { price: `Цена за аренду лодки: 500-900 рублей в день.` },
             { time: `Кол-во дней: в зависимости от выбранного маршрута.` }
-        ]
+        ],
+        tourImage: '/img/TourCardsIMG/LadozhskoeOzero.jpg',
     },
     {
         tourName: 'Остров Кижи',
@@ -201,7 +213,8 @@ export const tourDataKarelia = [
             },
             { price: `Цена за вход: от 550 рублей для взрослого и 250 рублей для ребенка.` },
             { time: `Кол-во дней: 1 день.` }
-        ]
+        ],
+        tourImage: '/img/TourCardsIMG/OstrovKizhi.jpg',
     },
 ];
 
@@ -242,7 +255,8 @@ export const tourDataKamchatka = [
             },
             { price: `Цена за этот тур составляет от 3000 до 5000 рублей` },
             { time: `продолжительность - от 3 до 5 дней.` }
-        ]
+        ],
+        tourImage: '/img/TourCardsIMG/VulkanSHishel.jpg',
     },
     {
         tourName: 'Озеро Курильское',
@@ -255,7 +269,8 @@ export const tourDataKamchatka = [
             },
             { price: `Цена составляет от 2000 до 3000 рублей` },
             { time: `продолжительность - от 2 до 3 дней` }
-        ]
+        ],
+        tourImage: '/img/TourCardsIMG/OzeroKurilskoe.jpg',
     },
     {
         tourName: 'Вулкан Ключевская Сопка',
@@ -266,7 +281,8 @@ export const tourDataKamchatka = [
             },
             { price: `Цена за тур составляет от 5000 до 7000 рублей` },
             { time: `продолжительность - от 5 до 7 дней` }
-        ]
+        ],
+        tourImage: '/img/TourCardsIMG/VulkanKlyuchevskayaSopka.jpg',
     },
 ];
 
@@ -324,10 +340,11 @@ export const tourDataVoronezh = [
             },
             { price: `Цена - от 450 рублей` },
             { time: `` }
-        ]
+        ],
+        tourImage: '/img/TourCardsIMG/Muzej-zapovednikDivnogore.jpg',
     },
     {
-        tourName: 'Музей-заповедник «Костенки» ',
+        tourName: 'Музей-заповедник «Костенки»',
         tourInformation: [
             { places: `` },
             {
@@ -335,7 +352,8 @@ export const tourDataVoronezh = [
             },
             { price: `Цена - от 400 рублей` },
             { time: `` }
-        ]
+        ],
+        tourImage: '/img/TourCardsIMG/MuzejZapovednikKostenki.jpg',
     },
     {
         tourName: 'Усадьба Д. Веневитинова',
@@ -346,7 +364,8 @@ export const tourDataVoronezh = [
             },
             { price: `Цена - от 300 рублей` },
             { time: `` }
-        ]
+        ],
+        tourImage: '/img/TourCardsIMG/UsadbaVenevitinova.jpg',
     },
     {
         tourName: 'Замок принцессы Ольденбургской',
@@ -357,7 +376,8 @@ export const tourDataVoronezh = [
             },
             { price: `Цена - от 400 рублей` },
             { time: `` }
-        ]
+        ],
+        tourImage: '/img/TourCardsIMG/ZamokPrincessyOldenburgskoj.jpg',
     },
     {
         tourName: 'Биосферный заповедник им. В.М. Пескова',
@@ -368,7 +388,8 @@ export const tourDataVoronezh = [
             },
             { price: `Цена - от 200 рублей` },
             { time: `` }
-        ]
+        ],
+        tourImage: '/img/TourCardsIMG/BiosfernyjZapovednikIm.V.M.Peskova.jpg',
     },
     {
         tourName: 'Воронежский океанариум',
@@ -379,7 +400,8 @@ export const tourDataVoronezh = [
             },
             { price: `Цена - от 500 рублей.` },
             { time: `` }
-        ]
+        ],
+        tourImage: '/img/TourCardsIMG/VoronezhskijOkeanarium.jpg',
     },
     {
         tourName: 'Хоперский природный заповедник',
@@ -390,7 +412,8 @@ export const tourDataVoronezh = [
             },
             { price: `Цена - 300 рублей на человека` },
             { time: `` }
-        ]
+        ],
+        tourImage: '/img/TourCardsIMG/HoperskijPrirodnyjZapovednik.jpg',
     },
 ];
 

@@ -14,10 +14,8 @@ export default function TourCards({ tourData }) {
                     variant='outline'
                 >
                     <Image
-                        src={'/img/tourcard.jpg'}
+                        src={tour.tourImage ? tour.tourImage : '/img/tourcard.jpg'}
                         alt={'tour'}
-                        // w={'82px'}
-                        // h={'82px'}
                         objectFit='cover'
                         maxW={{ base: '100%', sm: '200px' }}
                     />
@@ -26,7 +24,7 @@ export default function TourCards({ tourData }) {
                         <CardBody>
                             <Heading size='md'>{tour.tourName}</Heading>
                             <Box py='2'>
-                                <List >
+                            <List textAlign={'justify'}>
                                     {tour.tourInformation.map((item, i) => (
                                         <ListItem key={i}>
                                             {/* <ListIcon as={FaBusAlt} color='yellow.500' /> */}
