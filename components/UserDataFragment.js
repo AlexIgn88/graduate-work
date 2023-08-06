@@ -5,9 +5,12 @@ import { CloseIcon, CheckIcon, EditIcon } from '@chakra-ui/icons';
 import { Fragment } from 'react';
 import { textFontSize } from '../displayParameters/fontParameters';
 import { AddNewAccount } from './LoginButton';
+import roles from '../data/roles';
+import ModalWindowBlur from '../components/modalwindows/ModalWindowBlur';
+import { flexDirection } from '../displayParameters/flexParameters';
 
 
-export default function UserDataFragment({ columns, data, editData, inputPlaceholder, inputVal, setInputVal, selectedForEdit, setSelectedForEdit }) {
+export default function UserDataFragment({ columns, data, editData, delData, inputPlaceholder, inputVal, setInputVal, selectedForEdit, setSelectedForEdit }) {
 
     return <>
         <Grid
@@ -31,10 +34,10 @@ export default function UserDataFragment({ columns, data, editData, inputPlaceho
                                         setInputVal(evt.target.value);
                                     }}
                                 >
-                                    <option value="user">user</option>
-                                    <option value="admin">admin</option>
-                                    <option value="moderator">moderator</option>
-                                    <option value="banned">banned</option>
+                                    {roles.map(role =>
+
+                                        <option key={role} value={role}>{role}</option>
+                                    )}
                                 </Select>
                                     <Button onClick={() => editData(data.id, colomn.setVal(inputVal))}><CheckIcon /></Button>
                                     <Button onClick={() => setSelectedForEdit({ userId: null, colomn: null, nameInBase: null })}><CloseIcon /></Button>
@@ -48,7 +51,7 @@ export default function UserDataFragment({ columns, data, editData, inputPlaceho
                                         onInput={evt => setInputVal(evt.target.value)}
                                         onKeyDown={(evt) =>
                                             (evt.keyCode === 13)
-                                                ? editData(data.id)
+                                                ? editData(data.id, colomn.setVal(inputVal))
                                                 : null
                                         }
                                         fontSize={textFontSize}
@@ -68,16 +71,40 @@ export default function UserDataFragment({ columns, data, editData, inputPlaceho
                                     </Button>
                                 </Flex>
 
-                                : colomn.getVal(data)
+                                : colomn?.getVal(data)
 
                         }
                         {'provider' === colomn.nameInBase
                             ? <AddNewAccount />
                             : null
                         }
+                        {'actions' === colomn.nameInBase
+                            // ? <DelButton delData={delData} id={data.id} />
+                            ? <ModalWindowBlur buttonText={'Удалить'} buttonColorScheme={'gray'}>
+                                <DelUser delData={delData} id={data.id} />
+                            </ModalWindowBlur>
+                            : null
+                        }
                     </Flex>
                 </Fragment>
             ))}
         </Grid>
+    </>
+}
+
+function DelUser({ delData, id, onClose }) {
+    return <>
+        <Flex
+            fontSize={textFontSize}
+            flexDirection={'column'}
+            alignItems={'center'}
+            gap={'15px'}
+        >
+            <Box>Вы действительно хотите удалить этого пользователя?</Box>
+            <Flex flexDirection={flexDirection} gap={'5vw'}>
+                <Button onClick={() => { delData(id); onClose() }}>Да</Button>
+                <Button onClick={() => onClose()}>нет</Button>
+            </Flex>
+        </Flex>
     </>
 }

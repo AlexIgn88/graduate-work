@@ -1,7 +1,5 @@
 import { SWRConfig } from 'swr';
 import GetData from '../components/GetData';
-
-// import EditableAdminpanel from '../components/EditableAdminpanel';
 import AdminPanelComponent from '../components/AdminPanelComponent';
 
 import Head from "next/head";
@@ -26,10 +24,7 @@ export default function AdminPanelPage() {
     >
       <SWRConfig>
         <GetData url={API_URL}>
-
-          {/* <EditableAdminpanel /> */}
           <AdminPanelComponent />
-
         </GetData>
       </SWRConfig>
     </Box>

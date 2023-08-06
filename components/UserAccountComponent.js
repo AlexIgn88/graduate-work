@@ -1,11 +1,9 @@
 import columnsForUserAccount from '../data/columnsForUserAccount';
 import {
-    Box, Flex, Button, Input, chakra, Grid,
-    Skeleton, Stack,
+    Box, Flex, Skeleton, Stack,
 } from "@chakra-ui/react";
-import { CloseIcon, CheckIcon, EditIcon } from '@chakra-ui/icons';
+// import { CloseIcon, CheckIcon, EditIcon } from '@chakra-ui/icons';
 import { Fragment, useState } from 'react';
-import { textFontSize } from '../displayParameters/fontParameters';
 import UserDataFragment from '../components/UserDataFragment';
 
 
@@ -35,13 +33,13 @@ export default function UserAccountComponent({ data, mutate }) {
 
         const formattedUser = Object.assign({}, user, { provider: providersStr }, { email: userEmail });
 
-        async function editData(id, newObject) {
-            const updatedUser = Object.assign({}, newObject);
+        async function editData(id, updatedUser) {
+            // const updatedUser = Object.assign({}, newObject);
             setInputVal('');
             setSelectedForEdit(null);
             // console.log('updatedUser=', updatedUser);
             try {
-                mutate(changeDataEdit(updatedUser, id));
+                mutate(changeDataEdit(id, updatedUser));
             } catch (error) {
                 console.log(`FILE: ${__filename}\nERROR:`, error)
             } finally {
@@ -49,7 +47,7 @@ export default function UserAccountComponent({ data, mutate }) {
             }
         }
 
-        async function changeDataEdit(updatedUser, id) {
+        async function changeDataEdit(id, updatedUser) {
             try {
                 const response = await fetch(`/api/apiuser/user/${id}`, {
                     method: 'PUT',

@@ -7,6 +7,8 @@ import { CloseIcon, CheckIcon, EditIcon } from '@chakra-ui/icons';
 import { Fragment, useState } from 'react';
 import { textFontSize } from '../displayParameters/fontParameters';
 import UserDataFragment from '../components/UserDataFragment';
+import ModalWindowBlur from '../components/modalwindows/ModalWindowBlur';
+import AddNewUser from '../components/AddNewUser';
 
 
 export default function AdminPanelComponent({ data, mutate }) {
@@ -28,13 +30,12 @@ export default function AdminPanelComponent({ data, mutate }) {
 
     if (data && (!data?.error)) {
 
-        async function editData(id, newObject) {
-            const updatedUser = Object.assign({}, newObject);
+        async function editData(id, updatedUser) {
             setInputVal('');
             setSelectedForEdit(null);
             // console.log('updatedUser=', updatedUser);
             try {
-                mutate(changeDataEdit(updatedUser, id));
+                mutate(changeDataEdit(id, updatedUser));
             } catch (error) {
                 console.log(`FILE: ${__filename}\nERROR:`, error)
             } finally {
@@ -42,7 +43,17 @@ export default function AdminPanelComponent({ data, mutate }) {
             }
         }
 
-        async function changeDataEdit(updatedUser, id) {
+        async function delData(id) {
+            try {
+                mutate(changeDataDel(id));
+            } catch (error) {
+                console.log(`FILE: ${__filename}\nERROR:`, error);
+            } finally {
+                null;
+            }
+        }
+
+        async function changeDataEdit(id, updatedUser) {
             try {
                 const response = await fetch(`/api/apiuser/user/${id}`, {
                     method: 'PUT',
@@ -59,7 +70,30 @@ export default function AdminPanelComponent({ data, mutate }) {
             }
         }
 
+        async function changeDataDel(id) {
+            try {
+                const response = await fetch(`/api/apiuser/user/${id}`, {
+                    method: 'DELETE',
+                });
+                // console.log('adduser response', response);
+                if (!response.ok) throw new Error('ошибка');
+                const json = await response.json();
+                // console.log('json', json);
+                return data?.filter(item => id !== item?.id)
+            } catch (error) {
+                console.log(`FILE: ${__filename}\nERROR:`, error);
+            }
+        }
+
+
         return <>
+
+
+            {/* <ModalWindowBlur buttonText={'Создать нового пользователя'} buttonColorScheme={'gray'}>
+                <AddNewUser />
+            </ModalWindowBlur> */}
+
+
             <Grid
                 templateColumns={{ base: "repeat(1, 1fr)", '2xl': "repeat(3, 1fr)", xl: "repeat(2, 1fr)", lg: "repeat(1, 1fr)", md: "repeat(1, 1fr)", sm: "repeat(1, 1fr)" }}
                 gap={5}
@@ -71,6 +105,7 @@ export default function AdminPanelComponent({ data, mutate }) {
                             columns={columnsForAdminPanel}
                             data={user}
                             editData={editData}
+                            delData={delData}
                             inputPlaceholder={'Напишите тут'}
                             inputVal={inputVal}
                             setInputVal={setInputVal}
