@@ -2,6 +2,15 @@
 ## My graduate work:
 
 ## Прогресс выполнения итоговой работы
+v 0.9.8
+remove nanostores from project
+remove from project store\generateStores.tsx
+and folder store
+pnpm rm 
+nanostores
+"@nanostores/query"
+"@nanostores/react"
+
 v 0.9.7
 added pictures in TourCards
 
