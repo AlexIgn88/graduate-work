@@ -3,7 +3,6 @@ import { flexDirection } from '../displayParameters/flexParameters';
 import columnsForAdminPanel from '../data/columnsForAdminPanel';
 import UserDataFragment from '../components/UserDataFragment';
 import { useState } from 'react';
-import arraysToObject from '../includes/arraysToObject';
 
 
 export default function AddNewUser({ data, mutate, onClose }) {
@@ -93,4 +92,14 @@ export default function AddNewUser({ data, mutate, onClose }) {
             </Flex>
         </Flex>
     </>
+}
+
+function arraysToObject(keys, values) {
+    const obj = {};
+
+    for (let i = 0; i < keys.length; i++) {
+        obj[keys[i]] = values[i];
+    }
+
+    return obj;
 }
