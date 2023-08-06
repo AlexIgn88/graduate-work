@@ -3,7 +3,7 @@
 
 ## Прогресс выполнения итоговой работы
 v 0.9.11 
-Forum Componend fixes 
+Forum Component fixes 
 
 v 0.9.10 API fixes
 wrapper functions over the Prism are implemented in the API
