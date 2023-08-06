@@ -1,17 +1,20 @@
 import { Button, Input, Flex } from '@chakra-ui/react';
 import { textFontSize } from '../../displayParameters/fontParameters';
 import { flexDirection } from '../../displayParameters/flexParameters';
-import handleOnKeyEnterDown from '../../includes/handleOnKeyEnterDown';
+
 
 export default function AddNewTopic({ newTopicInputVal, setNewTopicInputVal, data, mutate, currentUserId, onClose }) {
 
-    async function addTopic() {
+
+    const newTopic = {
+        title: newTopicInputVal,
+        content: '', //временная затычка
+        userId: currentUserId
+    };
+
+
+    async function addTopic(newTopic) {
         try {
-            const newTopic = {
-                title: newTopicInputVal,
-                content: '', //временная затычка
-                userId: currentUserId
-            };
             mutate(changeDataAdd(newTopic));
             setNewTopicInputVal('');
         } catch (error) {
@@ -21,11 +24,11 @@ export default function AddNewTopic({ newTopicInputVal, setNewTopicInputVal, dat
         }
     }
 
-    async function changeDataAdd(newTopicObject) {
+    async function changeDataAdd(newTopic) {
         try {
             const response = await fetch('/api/forum/topic/', {
                 method: 'POST',
-                body: JSON.stringify(newTopicObject)
+                body: JSON.stringify(newTopic)
             });
             // console.log('adduser response', response);
             if (!response.ok) throw new Error('ошибка');
@@ -51,7 +54,11 @@ export default function AddNewTopic({ newTopicInputVal, setNewTopicInputVal, dat
                 placeholder={'Название темы'}
                 value={newTopicInputVal}
                 onInput={evt => setNewTopicInputVal(evt?.target?.value)}
-                onKeyDown={(evt) => handleOnKeyEnterDown(evt, addTopic)}
+                onKeyDown={(evt) =>
+                    (evt.keyCode === 13)
+                        ? addTopic(newTopic)
+                        : null
+                }
                 fontSize={textFontSize}
                 m={'10px'}
             />
@@ -63,7 +70,7 @@ export default function AddNewTopic({ newTopicInputVal, setNewTopicInputVal, dat
                 <Button
                     colorScheme='blue'
                     type='submit'
-                    onClick={() => addTopic()}>Добавить</Button>
+                    onClick={() => addTopic(newTopic)}>Добавить</Button>
                 <Button colorScheme='blue' onClick={() => {
                     setNewTopicInputVal('');
                     onClose();

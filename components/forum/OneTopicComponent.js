@@ -29,8 +29,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
     const
         [newPostInputVal, setNewPostInputVal] = useState(''),
         [editPostId, setEditPostId] = useState(null),
-        [postForEditInputVal, setPostForEditInputVal] = useState(''),
-        newPost = {};
+        [postForEditInputVal, setPostForEditInputVal] = useState('');
 
     //Константы для получения сессии и данных о вошедшем пользователе
     const
@@ -44,17 +43,27 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
         adminOrModerator = currentUserRole === 'admin' || currentUserRole === 'moderator',
         notBanned = currentUserRole !== 'banned';
 
-    let currentUser;
-
     // console.log('data=', data);
-
     // console.log('topicId=', topicId);
 
-    async function changeDataEdit(obj, post) {
+    async function editPost(id) {
+        setEditPostId(null);
+        const updatedPost = Object.assign({}, { content: postForEditInputVal });
+        setPostForEditInputVal('');
         try {
-            const response = await fetch(`/api/forum/post/${post?.id}`, {
+            mutate(changeDataEdit(id, updatedPost));
+        } catch (error) {
+            console.log(`FILE: ${__filename}\nERROR:`, error);
+        } finally {
+            null;
+        }
+    }
+
+    async function changeDataEdit(id, updatedPost) {
+        try {
+            const response = await fetch(`/api/forum/post/${id}`, {
                 method: 'PUT',
-                body: JSON.stringify(obj)
+                body: JSON.stringify(updatedPost)
             });
             // console.log('adduser response', response);
             if (!response.ok) throw new Error('ошибка');
@@ -64,11 +73,23 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
             return {
                 ...data,
                 posts: data?.posts.map(item =>
-                    item?.id === post?.id ? newPost : item
+                    item?.id === id ? updatedPost : item
                 )
             }
+
         } catch (error) {
             console.log(`FILE: ${__filename}\nERROR:`, error);
+        }
+    }
+
+    async function delPost(id) {
+
+        try {
+            mutate(changeDataDel(id));
+        } catch (error) {
+            console.log(`FILE: ${__filename}\nERROR:`, error);
+        } finally {
+            null;
         }
     }
 
@@ -90,31 +111,6 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
             console.log(`FILE: ${__filename}\nERROR:`, error);
         }
 
-    }
-
-    async function editPost(post) {
-        setEditPostId(null);
-        Object.assign(newPost, { content: postForEditInputVal });
-        setPostForEditInputVal('');
-
-        try {
-            mutate(changeDataEdit(newPost, post));
-        } catch (error) {
-            console.log(`FILE: ${__filename}\nERROR:`, error);
-        } finally {
-            null;
-        }
-    }
-
-    async function delPost(post) {
-
-        try {
-            mutate(changeDataDel(post?.id));
-        } catch (error) {
-            console.log(`FILE: ${__filename}\nERROR:`, error);
-        } finally {
-            null;
-        }
     }
 
 
@@ -216,7 +212,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                         const postCreatedSring = new Moment(post?.createdAt).toString('YYYY-MM-DD hh:mm (WeekDay)');
                         const postUpdatedSring = new Moment(post?.updatedAt).toString('YYYY-MM-DD hh:mm (WeekDay)');
 
-                        console.log(post?.createdAt);
+                        // console.log(post?.createdAt);
 
                         const formattedDatePostCreated = formatDateTime(postCreatedSring);
                         const formattedDatePostUpdated = formatDateTime(postUpdatedSring);
@@ -264,7 +260,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                                             onInput={evt => setPostForEditInputVal(evt?.target?.value)}
                                             onKeyDown={(evt) =>
                                                 (evt?.keyCode === 13)
-                                                    ? editPost(post)
+                                                    ? editPost(post.id)
                                                     : null
                                             }
                                         />
@@ -316,13 +312,13 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                                                 }
 
                                                 {adminOrModerator &&
-                                                    <MenuItem as={Button} colorScheme='gray' onClick={() => delPost(post)}> Удалить </MenuItem>
+                                                    <MenuItem as={Button} colorScheme='gray' onClick={() => delPost(post.id)}> Удалить </MenuItem>
                                                 }
 
                                             </MenuList>
                                         </Menu>
                                         : (editPostId === post.id) && <>
-                                            <Button colorScheme='gray' onClick={() => editPost(post)}>Сохранить
+                                            <Button colorScheme='gray' onClick={() => editPost(post.id)}>Сохранить
                                             </Button>
                                             <Button colorScheme='gray' onClick={() => {
                                                 setEditPostId(null);

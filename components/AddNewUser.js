@@ -23,17 +23,13 @@ export default function AddNewUser({ data, mutate, onClose }) {
 
     const defaultUser = arraysToObject(arrOfNameInBase, Array(columnsForNewUser.length).fill(''));
 
-    // console.log('newUser2', defaultUser);
-
     const
         [inputVal, setInputVal] = useState(''),
         [selectedForEdit, setSelectedForEdit] = useState({ userId: '', colomn: '', nameInBase: '' });
 
     const [newUser, setNewUser] = useState(defaultUser);
 
-    // console.log('user', newUser);
-
-    function editData(id, obj) {
+    function editData(_, obj) {
         setInputVal('');
         setSelectedForEdit({ userId: '', colomn: '', nameInBase: '' });
         return setNewUser(Object.assign(newUser, obj));
@@ -43,7 +39,7 @@ export default function AddNewUser({ data, mutate, onClose }) {
     async function addData(newUser) {
         try {
             mutate(changeDataAdd(newUser));
-            setNewUser({});
+            setNewUser(defaultUser);
         } catch (error) {
             console.log(`FILE: ${__filename}\nERROR:`, error);
         } finally {

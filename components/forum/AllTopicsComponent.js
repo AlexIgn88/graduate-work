@@ -25,8 +25,7 @@ export default function AllTopicsComponent({ data, mutate }) {
     const
         [newTopicInputVal, setNewTopicInputVal] = useState(''),
         [editTopicId, setEditTopicId] = useState(null),
-        [topicForEditInputVal, setTopicForEditInputVal] = useState(''),
-        newTopic = {};
+        [topicForEditInputVal, setTopicForEditInputVal] = useState('');
 
     //Константы для получения сессии и данных о вошедшем пользователе
     const
@@ -43,11 +42,25 @@ export default function AllTopicsComponent({ data, mutate }) {
     // console.log('data=', data);
 
 
-    async function changeDataEdit(obj, topic) {
+    async function editTopic(id) {
+        setEditTopicId(null);
+        const updatedTopic = Object.assign({}, { title: topicForEditInputVal });
+        setTopicForEditInputVal('');
+
         try {
-            const response = await fetch(`/api/forum/topic/${topic.id}`, {
+            mutate(changeDataEdit(id, updatedTopic));
+        } catch (error) {
+            console.log(`FILE: ${__filename}\nERROR:`, error)
+        } finally {
+            null;
+        }
+    }
+
+    async function changeDataEdit(id, updatedTopic) {
+        try {
+            const response = await fetch(`/api/forum/topic/${id}`, {
                 method: 'PUT',
-                body: JSON.stringify(obj)
+                body: JSON.stringify(updatedTopic)
             });
             // console.log('adduser response', response);
             if (!response.ok) throw new Error('ошибка');
@@ -56,11 +69,22 @@ export default function AllTopicsComponent({ data, mutate }) {
             return {
                 ...data,
                 topics: data?.topics?.map(item =>
-                    item.id === topic.id ? newTopic : item
+                    item.id === id ? updatedTopic : item
                 )
             }
         } catch (error) {
             console.log(`FILE: ${__filename}\nERROR:`, error);
+        }
+    }
+
+    async function delTopic(id) {
+
+        try {
+            mutate(changeDataDel(id));
+        } catch (error) {
+            console.log(`FILE: ${__filename}\nERROR:`, error);
+        } finally {
+            null;
         }
     }
 
@@ -80,32 +104,6 @@ export default function AllTopicsComponent({ data, mutate }) {
 
         } catch (error) {
             console.log(`FILE: ${__filename}\nERROR:`, error);
-        }
-    }
-
-    async function editTopic(topic) {
-        setEditTopicId(null);
-        // Object.assign(newTopic, topic, { id: topic.id, title: currentTopicInputVal });
-        Object.assign(newTopic, { title: topicForEditInputVal });
-        setTopicForEditInputVal('');
-
-        try {
-            mutate(changeDataEdit(newTopic, topic));
-        } catch (error) {
-            console.log(`FILE: ${__filename}\nERROR:`, error)
-        } finally {
-            null;
-        }
-    }
-
-    async function delTopic(topic) {
-
-        try {
-            mutate(changeDataDel(topic?.id));
-        } catch (error) {
-            console.log(`FILE: ${__filename}\nERROR:`, error);
-        } finally {
-            null;
         }
     }
 
@@ -162,9 +160,9 @@ export default function AllTopicsComponent({ data, mutate }) {
 
                 // console.log(topic?.createdAt);
 
-                const topicCreatedSring = new Moment(topic?.createdAt).toString('YYYY-MM-DD hh:mm (WeekDay)');
+                const topicCreatedString = new Moment(topic?.createdAt).toString('YYYY-MM-DD hh:mm (WeekDay)');
                 // const topicUpdatedSring = new Moment(topic?.updatedAt).toString('YYYY-MM-DD hh:mm (WeekDay)');
-                const formattedDateTopicCreated = formatDateTime(topicCreatedSring);
+                const formattedDateTopicCreated = formatDateTime(topicCreatedString);
                 // const formattedDateTopicUpdated = formatDateTime(topicUpdatedSring);
 
                 return (
@@ -204,7 +202,7 @@ export default function AllTopicsComponent({ data, mutate }) {
                                             onInput={evt => setTopicForEditInputVal(evt?.target?.value)}
                                             onKeyDown={(evt) =>
                                                 (evt?.keyCode === 13)
-                                                    ? editTopic(topic)
+                                                    ? editTopic(topic.id)
                                                     : null
                                             }
                                         />
@@ -246,12 +244,12 @@ export default function AllTopicsComponent({ data, mutate }) {
                                             }}>Редактировать</MenuItem>
 
                                             <MenuItem as={Button} colorScheme='gray' onClick={() =>
-                                                delTopic(topic)
+                                                delTopic(topic?.id)
                                             }> Удалить </MenuItem>
                                         </MenuList>
                                     </Menu>
                                     : (editTopicId === topic.id) && <>
-                                        <Button colorScheme='gray' onClick={() => editTopic(topic)}>Сохранить
+                                        <Button colorScheme='gray' onClick={() => editTopic(topic.id)}>Сохранить
                                         </Button>
                                         <Button colorScheme='gray' onClick={() => {
                                             setEditTopicId(null);

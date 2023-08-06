@@ -15,7 +15,7 @@ export default function AdminPanelComponent({ data, mutate }) {
         [inputVal, setInputVal] = useState(''),
         [selectedForEdit, setSelectedForEdit] = useState({ userId: '', colomn: '', nameInBase: '' }),
         [filterValue, setFilter] = useState('');
-        // [sortCol, setSortCol] = useState(false);
+    // [sortCol, setSortCol] = useState(false);
 
     const API = '/api/admin/';
 
@@ -54,16 +54,6 @@ export default function AdminPanelComponent({ data, mutate }) {
             }
         }
 
-        async function delData(id) {
-            try {
-                mutate(changeDataDel(id));
-            } catch (error) {
-                console.log(`FILE: ${__filename}\nERROR:`, error);
-            } finally {
-                null;
-            }
-        }
-
         async function changeDataEdit(id, updatedUser) {
             try {
                 const response = await fetch(`/api/apiuser/user/${id}`, {
@@ -78,6 +68,16 @@ export default function AdminPanelComponent({ data, mutate }) {
                     item.id === id ? Object.assign({}, item, updatedUser) : item)
             } catch (error) {
                 console.log(`FILE: ${__filename}\nERROR:`, error);
+            }
+        }
+
+        async function delData(id) {
+            try {
+                mutate(changeDataDel(id));
+            } catch (error) {
+                console.log(`FILE: ${__filename}\nERROR:`, error);
+            } finally {
+                null;
             }
         }
 

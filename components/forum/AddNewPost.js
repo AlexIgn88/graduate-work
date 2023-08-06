@@ -6,15 +6,15 @@ import AutoResizableTextarea from '../../components/AutoResizableTextarea';
 
 export default function AddNewPost({ newPostInputVal, setNewPostInputVal, data, mutate, currentUserId, topicId, onClose }) {
 
-    async function addPost() {
-        try {
-            const formData = {
-                content: newPostInputVal,
-                userId: currentUserId,
-                topicId: +topicId
-            };
+    const newPost = {
+        content: newPostInputVal,
+        userId: currentUserId,
+        topicId: +topicId
+    };
 
-            mutate(changeDataAdd(formData));
+    async function addPost(newPost) {
+        try {
+            mutate(changeDataAdd(newPost));
             setNewPostInputVal('');
         } catch (error) {
             console.log(`FILE: ${__filename}\nERROR:`, error);
@@ -23,11 +23,11 @@ export default function AddNewPost({ newPostInputVal, setNewPostInputVal, data, 
         }
     }
 
-    async function changeDataAdd(newPostObject) {
+    async function changeDataAdd(newPost) {
         try {
             const response = await fetch('/api/forum/post/', {
                 method: 'POST',
-                body: JSON.stringify(newPostObject)
+                body: JSON.stringify(newPost)
             });
             // console.log('adduser response', response);
             if (!response.ok) throw new Error('ошибка');
@@ -62,7 +62,7 @@ export default function AddNewPost({ newPostInputVal, setNewPostInputVal, data, 
                 onInput={handleTextareaChange}
                 onKeyDown={(evt) =>
                     (evt.keyCode === 13)
-                        ? addPost()
+                        ? addPost(newPost)
                         : null
                 }
 
@@ -76,7 +76,7 @@ export default function AddNewPost({ newPostInputVal, setNewPostInputVal, data, 
                 <Button
                     colorScheme='blue'
                     type='submit'
-                    onClick={() => addPost()}>Добавить</Button>
+                    onClick={() => addPost(newPost)}>Добавить</Button>
                 <Button colorScheme='blue' onClick={() => {
                     setNewPostInputVal('');
                     onClose();
