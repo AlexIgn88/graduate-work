@@ -1,5 +1,5 @@
 import columnsForAdminPanel from '../data/columnsForAdminPanel';
-import { Flex, Grid, Skeleton, Stack, } from "@chakra-ui/react";
+import { Flex, Grid, Skeleton, Stack, Input, Button } from "@chakra-ui/react";
 import { CloseIcon, CheckIcon, EditIcon } from '@chakra-ui/icons';
 import { Fragment, useState } from 'react';
 import UserDataFragment from '../components/UserDataFragment';
@@ -13,7 +13,22 @@ export default function AdminPanelComponent({ data, mutate }) {
 
     const
         [inputVal, setInputVal] = useState(''),
-        [selectedForEdit, setSelectedForEdit] = useState({ userId: '', colomn: '', nameInBase: '' });
+        [selectedForEdit, setSelectedForEdit] = useState({ userId: '', colomn: '', nameInBase: '' }),
+        [filterValue, setFilter] = useState('');
+        // [sortCol, setSortCol] = useState(false);
+
+    const API = '/api/admin/';
+
+    let viewData;
+    viewData = data;
+
+    // if (sortCol) sortArrayByName(viewData);
+
+    if (filterValue) {
+        viewData = viewData.filter(obj => columnsForAdminPanel
+            .map(col => col.getVal(obj)?.toString().toLowerCase())
+            .some(str => str?.includes(filterValue.toLowerCase())));
+    }
 
     if (!data) return (
         <Stack>
@@ -82,15 +97,28 @@ export default function AdminPanelComponent({ data, mutate }) {
         }
 
         return <>
-            <ModalWindowBlur buttonText={'Создать нового пользователя'} buttonColorScheme={'gray'}>
-                <AddNewUser data={data} mutate={mutate} />
-            </ModalWindowBlur>
+            <Flex flexDirection={{ base: 'column', lg: 'row' }} alignItems={'center'} gap={'40px'} mb={'20px'} >
+                <ModalWindowBlur buttonText={'Создать нового пользователя'} buttonColorScheme={'gray'}>
+                    <AddNewUser data={data} mutate={mutate} />
+                </ModalWindowBlur>
+                <Flex className='filter' alignItems={'center'} gap={'10px'}>
+                    <span>Поиск:</span>
+                    <Input
+                        type="search"
+                        value={filterValue}
+                        placeholder='Укажите значение'
+                        onInput={evt => setFilter(evt.target.value.trim())}
+                    />
+                </Flex>
+                {/* <Button onClick={() => setSortCol(true)}>Сортировать по алфавиту</Button>
+                <Button onClick={() => setSortCol(false)}>Сбросить сортировку</Button> */}
+            </Flex>
             <Grid
                 templateColumns={{ base: "repeat(1, 1fr)", '2xl': "repeat(3, 1fr)", xl: "repeat(2, 1fr)", lg: "repeat(1, 1fr)", md: "repeat(1, 1fr)", sm: "repeat(1, 1fr)" }}
                 gap={5}
                 borderRadius={'5px'}
             >
-                {data?.map(user => (
+                {viewData?.map(user => (
                     <Fragment key={user.id}>
                         <UserDataFragment
                             columns={columnsForAdminPanel}
@@ -102,6 +130,7 @@ export default function AdminPanelComponent({ data, mutate }) {
                             setInputVal={setInputVal}
                             selectedForEdit={selectedForEdit}
                             setSelectedForEdit={setSelectedForEdit}
+                            API={API}
                         />
                     </Fragment>
                 ))}
@@ -110,3 +139,21 @@ export default function AdminPanelComponent({ data, mutate }) {
         </>
     }
 }
+
+
+// function sortArrayByName(array) {
+//     array.sort((a, b) => {
+//         const nameA = a.name.toLowerCase();
+//         const nameB = b.name.toLowerCase();
+
+//         if (nameA < nameB) {
+//             return -1;
+//         }
+//         if (nameA > nameB) {
+//             return 1;
+//         }
+//         return 0;
+//     });
+
+//     return array;
+// }

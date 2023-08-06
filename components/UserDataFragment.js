@@ -8,9 +8,11 @@ import { AddNewAccount } from './LoginButton';
 import roles from '../data/roles';
 import ModalWindowBlur from '../components/modalwindows/ModalWindowBlur';
 import { flexDirection } from '../displayParameters/flexParameters';
+import GetData from '../components/GetData';
+import UserAdditionalInformation from '../components/UserAdditionalInformation';
 
 
-export default function UserDataFragment({ columns, data, editData, delData, inputPlaceholder, inputVal, setInputVal, selectedForEdit, setSelectedForEdit }) {
+export default function UserDataFragment({ columns, data, editData, delData, inputPlaceholder, inputVal, setInputVal, selectedForEdit, setSelectedForEdit, API }) {
 
     return <>
         <Grid
@@ -76,6 +78,14 @@ export default function UserDataFragment({ columns, data, editData, delData, inp
                         }
                         {'provider' === colomn.nameInBase
                             ? <AddNewAccount />
+                            : null
+                        }
+                        {'additionalInformation' === colomn.nameInBase
+                            ? <ModalWindowBlur buttonText={'Открыть'} buttonColorScheme={'gray'}>
+                                <GetData url={API + 'account/' + data.id}>
+                                    <UserAdditionalInformation />
+                                </GetData>
+                            </ModalWindowBlur>
                             : null
                         }
                         {'actions' === colomn.nameInBase

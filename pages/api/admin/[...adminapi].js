@@ -1,6 +1,6 @@
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../auth/[...nextauth]';
-import { getAllData, addData, deleteData, updateData } from '../../../db/db_wrap';
+import { getAllData, getAllDataByID, addData, deleteData, updateData } from '../../../db/db_wrap';
 
 
 export default async function handler(req, res) {
@@ -13,13 +13,14 @@ export default async function handler(req, res) {
   console.debug('>> ', req.method, ' запрос на', req.url, 'adminapi =', { table, id });
   if (req.body) console.log('req.body=', JSON.stringify(req.body));
   if (session && 'admin' === session.user.role) {
-    if (!['user'].includes(table)) {
+    if (!['user', 'account'].includes(table)) {
       return res.status(404).send({ error: 'wrong table' });
     }
     try {
       if (session && 'admin' === session.user.role)
         switch (req.method) {
           case 'GET':
+            if (id) return res.status(200).json(await getAllDataByID(table, id));
             return res.status(200).json(await getAllData(table));
           case 'POST':
             return res.status(200).json(await addData(table, body));

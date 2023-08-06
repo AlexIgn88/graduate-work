@@ -5,10 +5,20 @@ const prisma = new PrismaClient({
     // errorFormat:'pretty'
 });
 
+export async function getOneData(table, id) {
+    return await prisma[table].findUnique({
+        where: { id: id }
+    })
+}
+
 export async function getAllData(table) {
     return await prisma[table].findMany({ orderBy: { id: 'asc' } })
 }
 
+
+export async function getAllDataByID(table, id) {
+    return await prisma[table].findMany({ where: { userId: id }, orderBy: { id: 'asc' } })
+}
 
 export async function addData(table, body) {
     return await prisma[table].create({

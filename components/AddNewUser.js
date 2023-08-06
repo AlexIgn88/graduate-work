@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 export default function AddNewUser({ data, mutate, onClose }) {
 
-    const columnsForNewUser = columnsForAdminPanel.filter(item => 'actions' !== item?.nameInBase && 'image' !== item?.nameInBase);
+    const columnsForNewUser = columnsForAdminPanel.filter(item => 'actions' !== item?.nameInBase && 'image' !== item?.nameInBase && 'additionalInformation' !== item?.nameInBase);
 
     const arrOfNameInBase = columnsForNewUser.map(column => column.nameInBase);
 

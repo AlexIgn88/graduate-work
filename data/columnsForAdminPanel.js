@@ -8,6 +8,7 @@ const userColumns = [
     { name: 'Почта', nameInBase: 'email', getVal: ({ email }) => email, setVal: val => ({ email: val }) },
     { name: 'Псевдоним на форуме', nameInBase: 'nickname', getVal: ({ nickname }) => nickname, setVal: val => ({ nickname: val }) },
     { name: 'Статус', nameInBase: 'role', getVal: ({ role }) => role, setVal: val => ({ role: val }) },
+    { name: 'Дополнительная информация', nameInBase: 'additionalInformation', getVal: ({ }) => '' },
     { name: 'Действия', nameInBase: 'actions', getVal: ({ }) => '' },
 ];
 
