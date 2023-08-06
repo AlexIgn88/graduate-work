@@ -1,13 +1,23 @@
-import { Button, Input, Flex } from '@chakra-ui/react';
+import { Button, Flex } from '@chakra-ui/react';
 import { flexDirection } from '../displayParameters/flexParameters';
 import columnsForAdminPanel from '../data/columnsForAdminPanel';
 import UserDataFragment from '../components/UserDataFragment';
 import { useState } from 'react';
+import arraysToObject from '../includes/arraysToObject';
 
 
 export default function AddNewUser({ data, mutate, onClose }) {
 
-    const columnsForNewUser = columnsForAdminPanel.filter(item => 'actions' !== item?.nameInBase && 'image' !== item?.nameInBase && 'additionalInformation' !== item?.nameInBase);
+    const columnsForNewUser = columnsForAdminPanel.filter(item => {
+        switch (item?.nameInBase) {
+            case 'actions':
+            case 'additionalInformation':
+            case 'image':
+                return false;
+            default:
+                return true;
+        }
+    });
 
     const arrOfNameInBase = columnsForNewUser.map(column => column.nameInBase);
 
@@ -92,14 +102,4 @@ export default function AddNewUser({ data, mutate, onClose }) {
             </Flex>
         </Flex>
     </>
-}
-
-function arraysToObject(keys, values) {
-    const obj = {};
-
-    for (let i = 0; i < keys.length; i++) {
-        obj[keys[i]] = values[i];
-    }
-
-    return obj;
 }

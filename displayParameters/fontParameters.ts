@@ -1,8 +1,8 @@
 import { breakpointsArrType } from '../datatypes/types';
 import { valueArrType } from '../datatypes/types';
 import { valieForBreakpoints } from '../datatypes/types';
-import arraysToObject from '../includes/arraysToObject';
-import getBreakpointsToArray from '../includes/getBreakpointsToArray';
+import { getBreakpointsParamInObject } from '../includes/arraysToObject';
+import getBreakpointsParamInArray from '../includes/getBreakpointsParamInArray';
 
 // // These are the default Chakra UI breakpoints
 // const breakpoints = {
@@ -28,19 +28,19 @@ const textFontSizeValueArr: valueArrType = [
 ];
 //пример:    export const textFontSize: valieForBreakpoints = { base: '16px', '2xl': '24px', xl: '23px', lg: '22px', md: '21px', sm: '18px' };
 //Создаем объект со ключами-брейк-пойнтами и значениями-размерами шрифтов чтобы передать в компоненты Chakra UI
-export const textFontSize: valieForBreakpoints = arraysToObject(breakpointsArr, textFontSizeValueArr);
-export const textFontSizeArray = getBreakpointsToArray(Object.values(textFontSize));
+export const textFontSize: valieForBreakpoints = getBreakpointsParamInObject(breakpointsArr, textFontSizeValueArr);
+export const textFontSizeArray = getBreakpointsParamInArray(Object.values(textFontSize));
 
 const h1HeadersFontSizeValueArr: valueArrType = textFontSizeValueArr.map(FontSize => (FontSize + 10));
-export const h1HeadersFontSize: valieForBreakpoints = arraysToObject(breakpointsArr, h1HeadersFontSizeValueArr);
-export const h1HeadersFontSizeInArray = getBreakpointsToArray(Object.values(h1HeadersFontSize));
+export const h1HeadersFontSize: valieForBreakpoints = getBreakpointsParamInObject(breakpointsArr, h1HeadersFontSizeValueArr);
+export const h1HeadersFontSizeInArray = getBreakpointsParamInArray(Object.values(h1HeadersFontSize));
 
 const h2HeadersFontSizeValueArr: valueArrType = textFontSizeValueArr.map(FontSize => (FontSize + 4));
-export const h2HeadersFontSize: valieForBreakpoints = arraysToObject(breakpointsArr, h2HeadersFontSizeValueArr);
-export const h2HeadersFontSizeInArray = getBreakpointsToArray(Object.values(h2HeadersFontSize));
+export const h2HeadersFontSize: valieForBreakpoints = getBreakpointsParamInObject(breakpointsArr, h2HeadersFontSizeValueArr);
+export const h2HeadersFontSizeInArray = getBreakpointsParamInArray(Object.values(h2HeadersFontSize));
 
 const h3HeadersFontSizeValueArr: valueArrType = textFontSizeValueArr.map(FontSize => (FontSize + 2));
-export const h3HeadersFontSize: valieForBreakpoints = arraysToObject(breakpointsArr, h3HeadersFontSizeValueArr);
-export const h3HeadersFontSizeInArray = getBreakpointsToArray(Object.values(h3HeadersFontSize));
+export const h3HeadersFontSize: valieForBreakpoints = getBreakpointsParamInObject(breakpointsArr, h3HeadersFontSizeValueArr);
+export const h3HeadersFontSizeInArray = getBreakpointsParamInArray(Object.values(h3HeadersFontSize));
 
 //h4, h5, h6 пока не задействованы в данном проекте

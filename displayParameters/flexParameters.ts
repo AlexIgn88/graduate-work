@@ -1,5 +1,5 @@
 import { valieForBreakpoints } from '../datatypes/types';
-import getBreakpointsToArray from '../includes/getBreakpointsToArray';
+import getBreakpointsParamInArray from '../includes/getBreakpointsParamInArray';
 
 // // These are the default Chakra UI breakpoints
 // const breakpoints = {
@@ -12,4 +12,4 @@ import getBreakpointsToArray from '../includes/getBreakpointsToArray';
 
 export const flexDirection: valieForBreakpoints = { base: 'column', lg: 'row' };
 
-export const flexDirectionInArray = getBreakpointsToArray(Object.values(flexDirection));
+export const flexDirectionInArray = getBreakpointsParamInArray(Object.values(flexDirection));

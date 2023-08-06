@@ -2,6 +2,9 @@
 ## My graduate work:
 
 ## Прогресс выполнения итоговой работы
+v 0.9.9
+Some fixes
+
 v 0.9.8
 remove nanostores from project
 remove from project store\generateStores.tsx
