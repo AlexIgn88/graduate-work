@@ -2,6 +2,9 @@
 ## My graduate work:
 
 ## Прогресс выполнения итоговой работы
+v 0.10.0
+Added tables to the database for the store
+
 v 0.9.11 
 Forum Component fixes 
 

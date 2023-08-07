@@ -23,7 +23,7 @@ model Account {
   id_token                 String? @db.Text
   session_state            String?
   refresh_token_expires_in Int?
-  client_id                String? 
+  client_id                String?
   email                    String? // чтобы заработал vk-провайдер
   user_id                  Int? // чтобы заработал vk-провайдер
   user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -52,7 +52,8 @@ model User {
   sessions      Session[]
   topics        Topic[]
   posts         Post[]
-  orders        Order[]
+  basket        basket[]
+  order         Order[]
 }
 
 model VerificationToken {
@@ -90,12 +91,22 @@ model Product {
   id          Int      @id @default(autoincrement())
   name        String?
   price       Float?
-  category    String?
-  quantity    Int?
+  // category    String?
   description String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  quantity    Int?
+  // createdAt   DateTime @default(now())
+  // updatedAt   DateTime @updatedAt
+  basket      basket[]
   order       Order[]
+}
+
+model basket {
+  id        Int     @id @default(autoincrement())
+  userId    String
+  productId Int
+  quantity  Int?
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model Order {
