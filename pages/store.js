@@ -1,34 +1,42 @@
 import Head from "next/head";
+import { SWRConfig } from 'swr';
+import GetData from '../components/GetData';
+import { Text, Box, Flex } from '@chakra-ui/react';
+import { marginParameters } from '../displayParameters/marginParameters';
+import { flexDirection } from '../displayParameters/flexParameters';
+import { HeadingForPage } from '../components/ElemsForPages';
+import { FactForAboutPage, ServiceForAboutPage } from '../components/ElemsForAboutPage';
+import StoreComponent from '../components/StoreComponent';
+import { useSession } from 'next-auth/react';
+
 
 export default function StorePage() {
 
-    //временно, потом возьму из базы
-    const products = [
-        { id: 1, name: 'Название товара 1', price: 100 },
-        { id: 2, name: 'Название товара 2', price: 200 },
-        { id: 3, name: 'Название товара 3', price: 300 },
-    ];
+    const API_URL = '/api/store/product';
 
+    const
+        { data: session } = useSession(),
+        currentUserId = session?.user?.id,
+        currentUserName = session?.user?.name,
+        currentUserRole = session?.user?.role;
 
     return <>
         <Head>
-            <title>Магазин сувениров</title>
+            <title>Сувенирная лавка</title>
         </Head>
-        <div className="page store-page">
-            <h1>Магазин сувениров</h1>
+        <Box className="store-page" m={marginParameters}>
+            <HeadingForPage element={'h1'} content={'Сувениры'} />
+            {session
+                ? <HeadingForPage element={'h2'} content={`Добро пожаловать в нашу сувенирную лавку, ${currentUserName}!`} />
+                : <HeadingForPage element={'h2'} content={'Добро пожаловать в нашу сувенирную лавку!'} />
+            }
 
-            <div>
-                <div className="card-container">
-                    {products.map((product) => (
-                        <div key={product.id} className="card">
-                            <h2>{product.name}</h2>
-                            <p>{product.price} рублей</p>
-                        </div>
-                    ))}
-                </div>
-            </div>
+            <SWRConfig>
+                <GetData url={API_URL}>
+                    <StoreComponent />
+                </GetData>
+            </SWRConfig>
 
-
-        </div>
+        </Box>
     </>
 }

@@ -5,6 +5,7 @@ import { Fragment, useState } from 'react';
 import UserDataFragment from '../components/UserDataFragment';
 import ModalWindowBlur from '../components/modalwindows/ModalWindowBlur';
 import AddNewUser from '../components/AddNewUser';
+import ErrorComponent from '../components/ErrorComponent';
 
 
 export default function AdminPanelComponent({ data, mutate }) {
@@ -37,7 +38,8 @@ export default function AdminPanelComponent({ data, mutate }) {
             <Skeleton height='200px' />
         </Stack>)
 
-    if (data?.error) return <Flex justifyContent={'center'} color={'red'}>{data.error}</Flex>
+    // if (data?.error) return <Flex justifyContent={'center'} color={'red'}>{data.error}</Flex>
+    if (data?.error) return <ErrorComponent error={data?.error} />
 
     if (data && (!data?.error)) {
 

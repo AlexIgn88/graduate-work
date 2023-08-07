@@ -8,7 +8,7 @@ const pages: page[] = [
   { name: 'Галерея', src: '/galary' },
   // { name: 'Блог', src: '/blog' },
   { name: 'Форум', src: '/forum' },
-  // { name: 'Магазин сувениров', src: '/store' },
+  { name: 'Сувенирная лавка', src: '/store' },
   { name: 'Контакты', src: '/contact' },
 ];
 

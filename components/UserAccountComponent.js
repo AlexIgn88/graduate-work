@@ -5,6 +5,7 @@ import {
 // import { CloseIcon, CheckIcon, EditIcon } from '@chakra-ui/icons';
 import { Fragment, useState } from 'react';
 import UserDataFragment from '../components/UserDataFragment';
+import ErrorComponent from '../components/ErrorComponent';
 
 
 export default function UserAccountComponent({ data, mutate }) {
@@ -20,7 +21,7 @@ export default function UserAccountComponent({ data, mutate }) {
             <Skeleton height='300px' />
         </Stack>)
 
-    if (data?.error) return <Flex justifyContent={'center'} color={'red'}>{data.error}</Flex>
+    if (data?.error) return <ErrorComponent error={data?.error} />
 
     if (data && (!data?.error)) {
 

@@ -36,7 +36,7 @@ export default async function handler(req, res) {
     }
   } else {
     res.status(403).send({
-      error: 'You must be ADMIN to view the protected content on this page.',
+      error: 'You must be an ADMINISTRATOR to view the protected content on this page.',
     });
   }
 }

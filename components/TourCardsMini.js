@@ -1,5 +1,4 @@
-import { Heading, Image, List, ListItem, ListIcon, Stack, Text } from '@chakra-ui/react';
-import { Flex, Card, CardBody, CardFooter, Divider, ButtonGroup } from '@chakra-ui/react';
+import { Heading, Image, List, ListItem, Stack, Text, Card, CardBody, CardFooter, Divider, ButtonGroup } from '@chakra-ui/react';
 import { ModalWindowRecordingForATour } from "../components/modalwindows/ModalWindowRecordingForATour";
 import { FaBusAlt } from 'react-icons/fa';
 
