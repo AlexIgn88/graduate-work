@@ -35,6 +35,8 @@ export default function StoreComponent({ data, mutate }) {
     if (data && (!data?.error)) {
 
         //Сделать универсальным, проработать, вынести отдельно- 
+        //Укажите количество доделать - там выбираешь - нужен элемент для выбора
+        //стейты добавить еще 
         return <>
             <Flex gap={'20px'} flexDirection={flexDirection} flexWrap={'wrap'}>
                 {data.map(({ name, price, description, quantity, image }) =>
@@ -56,9 +58,9 @@ export default function StoreComponent({ data, mutate }) {
                                 <Text color='blue.600' fontSize='2xl'>
                                     Всего в наличии: {quantity}
                                 </Text>
-                                <Text color='blue.600' fontSize='2xl'>
+                                {session && <Text color='blue.600' fontSize='2xl'>
                                     Укажите количество:
-                                </Text>
+                                </Text>}
                             </Stack>
                         </CardBody>
                         <Divider />

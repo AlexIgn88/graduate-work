@@ -1,7 +1,7 @@
 # graduate-work
 ## My graduate work:
 
-## Прогресс выполнения итоговой работы
+## Progress of the graduate work:
 v 0.10.2 
 Work with StoreComponent
 
