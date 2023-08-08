@@ -86,12 +86,11 @@ model Post {
   topicId   Int
 }
 
-//позже продумать лучше таблицы ИМа
 model Product {
   id          Int      @id @default(autoincrement())
   name        String?
   price       Float?
-  // category    String?
+  category    String?
   description String?
   quantity    Int?
   image       String?

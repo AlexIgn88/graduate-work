@@ -2,6 +2,10 @@
 ## My graduate work:
 
 ## Progress of the graduate work:
+v 0.10.5 
+Add category in Product table
+fixes
+
 v 0.10.4
 Work with StoreComponent and adding to the basket
 

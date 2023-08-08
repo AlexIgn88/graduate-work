@@ -52,7 +52,41 @@ export default async function handler(req, res) {
         }
 
       case 'POST':
-        return res.status(200).json(await addData(table, body));
+
+        switch (true) {
+          case 'product' === table: if (session && 'manager' === session.user.role) {
+            null //допишу
+          } else {
+            res.status(403).send({
+              error: 'You must be a manager to view the protected content on this page.',
+            });
+          }
+            return;
+
+          case 'basket' === table:
+            if (session) {
+              return res.status(200).json(await addData(table, body));
+            } else {
+              res.status(403).send({
+                error: 'You must be signed in to view the protected content on this page.',
+              });
+            }
+            return;
+
+          case 'order' === table:
+            if (session && 'manager' === session.user.role) {
+              null //допишу
+            } else {
+              res.status(403).send({
+                error: 'You must be a manager to view the protected content on this page.',
+              });
+            }
+            return;
+
+          default:
+            return res.status(200).json('error value');
+        }
+
       case 'DELETE':
         return res.status(200).json(await deleteData(table, +id));
       case 'PUT':

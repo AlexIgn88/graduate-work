@@ -19,7 +19,7 @@ import { HeadingForPage } from '../components/ElemsForPages';
 
 export default function StoreComponent({ data, mutate }) {
 
-    // console.log('data=', data);
+    console.log('data=', data);
 
     //Константы для получения сессии и данных о вошедшем пользователе
     const
@@ -50,7 +50,7 @@ export default function StoreComponent({ data, mutate }) {
 
         // console.log('inputVal', inputVal);
 
-        async function addProduct(currentUserId, productId, quantity) {
+        async function addProduct(currentUserId, productId, productArrIndex, quantity) {
 
             const newProduct = {
                 userId: currentUserId,
@@ -60,7 +60,12 @@ export default function StoreComponent({ data, mutate }) {
 
             try {
                 mutate(changeDataAdd(newProduct));
-                setInputVal(defaultinputVal);
+                // setInputVal(defaultinputVal);
+                // const inputValue = evt.currentTarget.closest('.chakra-card__body').querySelector('input').value;
+                // console.log('inputValue=', inputValue);
+                // setInputVal(inputVal.with(productArrIndex, inputValue));
+                setInputVal(inputVal.with(productArrIndex, 0));
+
             } catch (error) {
                 console.log(`FILE: ${__filename}\nERROR:`, error);
             }
@@ -80,6 +85,7 @@ export default function StoreComponent({ data, mutate }) {
                 const json = await response.json();
                 // console.log('json', json);
                 // return Object.assign({}, data, newProduct);
+                return data;
             } catch (error) {
                 console.log(`FILE: ${__filename}\nERROR:`, error)
             }
@@ -89,7 +95,7 @@ export default function StoreComponent({ data, mutate }) {
         //Сделать универсальным, проработать, вынести отдельно- 
         return <>
             <Flex gap={'20px'} flexDirection={flexDirection} flexWrap={'wrap'}>
-                {data.map(({ id, name, price, description, quantity, image }, productArrIndex) => {
+                {data.map(({ id, name, price, category, description, quantity, image }, productArrIndex) => {
 
                     // console.log('productArrIndex', productArrIndex);
 
@@ -102,6 +108,9 @@ export default function StoreComponent({ data, mutate }) {
                             />
                             <Stack mt='6' spacing='3'>
                                 <Heading size='md'>{name}</Heading>
+                                {/* <Text>
+                                    {category}
+                                </Text> */}
                                 <Text>
                                     {description}
                                 </Text>
@@ -121,6 +130,7 @@ export default function StoreComponent({ data, mutate }) {
                                         max={quantity}
                                     >
                                         <NumberInputField
+                                            value={+inputVal[productArrIndex]}
                                             onChange={evt => {
                                                 let inputValue = +evt.currentTarget.value;
 
@@ -173,7 +183,7 @@ export default function StoreComponent({ data, mutate }) {
                                     ? <Button
                                         variant='solid'
                                         colorScheme='blue'
-                                        onClick={() => addProduct(currentUserId, id, +inputVal[productArrIndex])}
+                                        onClick={() => addProduct(currentUserId, id, productArrIndex, +inputVal[productArrIndex])}
                                     >
                                         Добавить в корзину
                                     </Button>
