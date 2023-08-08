@@ -2,6 +2,12 @@
 ## My graduate work:
 
 ## Progress of the graduate work:
+v 0.10.4
+Work with StoreComponent and adding to the basket
+
+v 0.10.3
+fixes
+
 v 0.10.2 
 Work with StoreComponent
 

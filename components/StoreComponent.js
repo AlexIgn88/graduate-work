@@ -1,11 +1,14 @@
-// import columnsForUserAccount from '../data/columnsForUserAccount';
 import {
-    Box, Flex, Skeleton, Stack, Image, Heading, Text, Divider, ButtonGroup, Button,
+    Box, Flex, Skeleton, Stack, Image, Heading, Text, Divider, ButtonGroup, Button, Input,
+    NumberInput,
+    NumberInputField,
+    NumberInputStepper,
+    NumberIncrementStepper,
+    NumberDecrementStepper,
     Card, CardHeader, CardBody, CardFooter,
 } from "@chakra-ui/react";
 // import { CloseIcon, CheckIcon, EditIcon } from '@chakra-ui/icons';
 import { Fragment, useState } from 'react';
-// import UserDataFragment from '../components/UserDataFragment';
 import ErrorComponent from '../components/ErrorComponent';
 import { useSession } from 'next-auth/react';
 // import { HeadingForPage } from '../components/ElemsForPages';
@@ -16,17 +19,28 @@ import { HeadingForPage } from '../components/ElemsForPages';
 
 export default function StoreComponent({ data, mutate }) {
 
+    // console.log('data=', data);
+
+    //Константы для получения сессии и данных о вошедшем пользователе
     const
         { data: session } = useSession(),
         currentUserId = session?.user?.id,
         currentUserName = session?.user?.name,
         currentUserRole = session?.user?.role;
 
+    //Константа для определения количества скелетонов
     const numberOfSkeletons = 5;
+
+    //useState для управляемых инпутов
+    const
+        defaultinputVal = Array(data?.length || numberOfSkeletons)?.fill(0),
+        [inputVal, setInputVal] = useState(defaultinputVal);
+
 
     if (!data) return (
         <Stack flexDirection={flexDirection}>
             {[...Array(numberOfSkeletons)].map((_, i) => <Skeleton key={i} w={'384px'} h={'735px'} />)}
+            {/* {new Array(numberOfSkeletons).fill(<Skeleton w={'384px'} h={'735px'} />)} */}
         </Stack>
     )
 
@@ -34,13 +48,52 @@ export default function StoreComponent({ data, mutate }) {
 
     if (data && (!data?.error)) {
 
+        // console.log('inputVal', inputVal);
+
+        async function addProduct(currentUserId, productId, quantity) {
+
+            const newProduct = {
+                userId: currentUserId,
+                productId: productId,
+                quantity: quantity
+            };
+
+            try {
+                mutate(changeDataAdd(newProduct));
+                setInputVal(defaultinputVal);
+            } catch (error) {
+                console.log(`FILE: ${__filename}\nERROR:`, error);
+            }
+            // finally {
+            //     onClose();
+            // }
+        }
+
+        async function changeDataAdd(newProduct) {
+            try {
+                const response = await fetch('/api/store/basket/', {
+                    method: 'POST',
+                    body: JSON.stringify(newProduct)
+                });
+                // console.log('adduser response', response);
+                if (!response.ok) throw new Error('ошибка');
+                const json = await response.json();
+                // console.log('json', json);
+                // return Object.assign({}, data, newProduct);
+            } catch (error) {
+                console.log(`FILE: ${__filename}\nERROR:`, error)
+            }
+        }
+
+
         //Сделать универсальным, проработать, вынести отдельно- 
-        //Укажите количество доделать - там выбираешь - нужен элемент для выбора
-        //стейты добавить еще 
         return <>
             <Flex gap={'20px'} flexDirection={flexDirection} flexWrap={'wrap'}>
-                {data.map(({ name, price, description, quantity, image }) =>
-                    <Card maxW='sm' key={name} alignItems={'center'}>
+                {data.map(({ id, name, price, description, quantity, image }, productArrIndex) => {
+
+                    // console.log('productArrIndex', productArrIndex);
+
+                    return (<Card maxW='sm' key={name} alignItems={'center'}>
                         <CardBody>
                             <Image
                                 src={image}
@@ -58,16 +111,70 @@ export default function StoreComponent({ data, mutate }) {
                                 <Text color='blue.600' fontSize='2xl'>
                                     Всего в наличии: {quantity}
                                 </Text>
-                                {session && <Text color='blue.600' fontSize='2xl'>
+                                {session && <Box color='blue.600' fontSize='2xl'>
                                     Укажите количество:
-                                </Text>}
+                                    <NumberInput
+                                        step={1}
+                                        defaultValue={0}
+                                        // defaultValue={+inputVal[productArrIndex]}
+                                        min={0}
+                                        max={quantity}
+                                    >
+                                        <NumberInputField
+                                            onChange={evt => {
+                                                let inputValue = +evt.currentTarget.value;
+
+                                                // console.log('inputValue=', inputValue);
+
+                                                switch (true) {
+                                                    case inputValue > quantity: inputValue = quantity;
+                                                        break;
+                                                    case inputValue < 0: inputValue = 0;
+                                                        break;
+                                                    default: break;
+                                                }
+
+                                                setInputVal(inputVal.with(productArrIndex, inputValue));
+                                            }}
+                                        />
+                                        <NumberInputStepper>
+                                            <NumberIncrementStepper className="plus" onClick={
+                                                (evt) => {
+                                                    {
+                                                        const inputValue = evt.currentTarget.closest('.chakra-numberinput').querySelector('input').value;
+                                                        // console.log('inputValue=', inputValue);
+                                                        setInputVal(inputVal.with(productArrIndex, inputValue));
+                                                    }
+                                                }
+                                            }
+                                            />
+
+                                            <NumberDecrementStepper className="minus" onClick={
+                                                (evt) => {
+                                                    {
+                                                        const inputValue = evt.currentTarget.closest('.chakra-numberinput').querySelector('input').value;
+                                                        // console.log('inputValue=', inputValue);
+                                                        setInputVal(inputVal.with(productArrIndex, inputValue));
+                                                    }
+                                                }
+                                            }
+                                            />
+                                        </NumberInputStepper>
+                                    </NumberInput>
+
+
+                                </Box>}
                             </Stack>
                         </CardBody>
                         <Divider />
                         <CardFooter>
                             <ButtonGroup spacing='2' flexDirection={flexDirection}>
                                 {session
-                                    ? <Button variant='solid' colorScheme='blue'>
+                                    ? <Button
+                                        variant='solid'
+                                        colorScheme='blue'
+                                        onClick={() => addProduct(currentUserId, id, +inputVal[productArrIndex])}
+                                    >
                                         Добавить в корзину
                                     </Button>
                                     : <Button variant='solid' colorScheme='blue'>
@@ -75,7 +182,8 @@ export default function StoreComponent({ data, mutate }) {
                                     </Button>}
                             </ButtonGroup>
                         </CardFooter>
-                    </Card>)}
+                    </Card>)
+                })}
             </Flex>
 
 
