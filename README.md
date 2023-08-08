@@ -2,6 +2,9 @@
 ## My graduate work:
 
 ## Progress of the graduate work:
+v 0.10.6
+fixes
+
 v 0.10.5 
 Add category in Product table
 fixes
