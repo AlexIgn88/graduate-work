@@ -1,5 +1,5 @@
 import {
-    Box, Flex, Skeleton, Stack, Image, Heading, Text, Divider, ButtonGroup, Button, Input,
+    Box, Flex, Skeleton, Stack, Image, Heading, Text, Divider, ButtonGroup, Button,
     NumberInput,
     NumberInputField,
     NumberInputStepper,
@@ -8,18 +8,17 @@ import {
     Card, CardHeader, CardBody, CardFooter,
 } from "@chakra-ui/react";
 // import { CloseIcon, CheckIcon, EditIcon } from '@chakra-ui/icons';
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 import ErrorComponent from '../components/ErrorComponent';
 import { useSession } from 'next-auth/react';
 // import { HeadingForPage } from '../components/ElemsForPages';
-import { marginParameters } from '../displayParameters/marginParameters';
+// import { marginParameters } from '../displayParameters/marginParameters';
 import { flexDirection } from '../displayParameters/flexParameters';
-import { HeadingForPage } from '../components/ElemsForPages';
 
 
 export default function StoreComponent({ data, mutate }) {
 
-    console.log('data=', data);
+    // console.log('data=', data);
 
     //Константы для получения сессии и данных о вошедшем пользователе
     const
@@ -84,7 +83,6 @@ export default function StoreComponent({ data, mutate }) {
                 if (!response.ok) throw new Error('ошибка');
                 const json = await response.json();
                 // console.log('json', json);
-                // return Object.assign({}, data, newProduct);
                 return data;
             } catch (error) {
                 console.log(`FILE: ${__filename}\nERROR:`, error)
