@@ -1,5 +1,5 @@
 import {
-  getAllData, getAllTopicStarters,
+  getAllData, getAllTopicStarters, getOneDataFromColumnByArrayOfIDs,
   getOneData, getAllDataFromColumnByID, getAllPostStartersByTopicID,
   addData, deleteData, updateData
 } from '../../../db/db_wrap';
@@ -21,21 +21,23 @@ export default async function handler(req, res) {
     switch (req.method) {
       case 'GET':
         // console.debug('req.query.topicId in switch=', req.query.topicId);
-        
+
         switch (true) {
           case 'topic' === table:
-            res.status(200).json({
+            return res.status(200).json({
               topics: await getAllData(table),
-              users: await getAllTopicStarters()
-            })
-            return;
+              // users: await getAllTopicStarters(),
+              users: await getAllData('user'),
+              lastPosts: await getAllData(table)
+                .then(result => result.map(topic => topic.id))
+                .then(result => getOneDataFromColumnByArrayOfIDs('post', 'topicId', result, 'desc'))
+            });
           case 'post' === table:
-            res.status(200).json({
+            return res.status(200).json({
               topic: await getOneData('topic', +req.query.topicId),
               posts: await getAllDataFromColumnByID(table, 'topicId', +req.query.topicId),
               users: await getAllPostStartersByTopicID(+req.query.topicId)
-            })
-            return;
+            });
           default:
             return res.status(200).json('error value');
         }

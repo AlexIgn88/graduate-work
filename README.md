@@ -2,6 +2,10 @@
 ## My graduate work:
 
 ## Progress of the graduate work:
+v 0.11.7
+The topic displays information about the last post, the time of creation, its author
+Topics are sorted by the last post
+
 v 0.10.6
 fixes
 

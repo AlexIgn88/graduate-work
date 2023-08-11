@@ -15,7 +15,8 @@ import { flexDirection } from '../../displayParameters/flexParameters';
 import ModalWindowBlur from '../../components/modalwindows/ModalWindowBlur';
 import AddNewTopic from '../../components/forum/AddNewTopic';
 import { formatDateTime } from '../../includes/formatDate';
-import { FcAnswers } from "react-icons/fc";
+import { FcLandscape } from "react-icons/fc";
+import { marginParameters } from '../../displayParameters/marginParameters';
 
 const Moment = require('mol_time_all').$mol_time_moment;
 
@@ -39,7 +40,8 @@ export default function AllTopicsComponent({ data, mutate }) {
         adminOrModerator = currentUserRole === 'admin' || currentUserRole === 'moderator',
         notBanned = currentUserRole !== 'banned';
 
-    // console.log('data=', data);
+    console.log('data=', data);
+    // console.log('data.lastPosts=', data?.lastPosts);
 
 
     async function editTopic(id) {
@@ -153,114 +155,163 @@ export default function AllTopicsComponent({ data, mutate }) {
                 </Stack>
             </>}
 
-            {Array.isArray(data?.topics) && data?.topics?.map((topic) => {
+            {Array.isArray(data?.topics) &&
+                data?.topics?.map((topic) => {
+                    topic.lastPost = data?.lastPosts?.find((lastPost) => topic?.id === lastPost?.topicId);
+                    return topic
+                }).sort((a, b) => b.lastPost.id - a.lastPost.id)
+                    .filter((topic) => {
+                        switch (topic?.title) {
+                            case 'тестовая тема для проверки корректного времени':
+                                // case '':
+                                // case '':
+                                return false;
+                            default:
+                                return true;
+                        }
+                    })
+                    .map((topic) => {
 
-                const currentUser = data?.users?.find((user) => topic?.userId === user?.id);
-                // const topicAuthor = currentUserId === topic?.userId;
+                        const currentUser = data?.users?.find((user) => topic?.userId === user?.id);
 
-                // console.log(topic?.createdAt);
+                        // const lastPost = data?.lastPosts?.find((lastPost) => topic?.id === lastPost?.topicId);
+                        const lastPostAuthor = data?.users?.find((user) => user?.id === topic.lastPost?.userId)?.nickname ||
+                            data?.users?.find((user) => user?.id === topic.lastPost?.userId)?.name;
 
-                const topicCreatedString = new Moment(topic?.createdAt).toString('YYYY-MM-DD hh:mm (WeekDay)');
-                // const topicUpdatedSring = new Moment(topic?.updatedAt).toString('YYYY-MM-DD hh:mm (WeekDay)');
-                const formattedDateTopicCreated = formatDateTime(topicCreatedString);
-                // const formattedDateTopicUpdated = formatDateTime(topicUpdatedSring);
+                        // console.log('lastPostAuthor', lastPostAuthor);
+                        // console.log(topic?.createdAt);
 
-                return (
+                        const topicCreatedString = new Moment(topic?.createdAt).toString('YYYY-MM-DD hh:mm (WeekDay)');
+                        // const topicUpdatedSring = new Moment(topic?.updatedAt).toString('YYYY-MM-DD hh:mm (WeekDay)');
+                        const formattedDateTopicCreated = formatDateTime(topicCreatedString);
+                        // const formattedDateTopicUpdated = formatDateTime(topicUpdatedSring);
 
-                    <Card
-                        key={topic?.title}
-                        direction={{ base: 'column', sm: 'row' }}
-                        overflow='hidden'
-                        variant='outline'
-                        p={'20px'}
-                    >
-                        <Stack>
-                            <CardBody>
-                                <Box size='md'>
-                                    {/* <h3>ID темы для отладки: {topic.id}</h3> */}
-                                    {editTopicId !== topic?.id
-                                        ?
-                                        <Box
-                                            className="topic-title"
-                                        >
+                        const lastPostCreatedAtString = new Moment(topic.lastPost?.createdAt).toString('YYYY-MM-DD hh:mm (WeekDay)');
+                        const formattedDateLastPostCreatedAt = formatDateTime(lastPostCreatedAtString);
+
+                        return (
+                            <Flex
+                                key={topic?.title}
+                                m={'10px'}
+                            >
+
+                                <Card
+                                    direction={{ base: 'column', sm: 'row' }}
+
+                                    alignItems={'center'}
+                                    justifyContent={'space-between'}
+
+                                    flexGrow={'1'}
+
+                                    overflow='hidden'
+                                    variant='outline'
+                                    p={'20px'}
+                                >
+                                    <Stack flexGrow={'1'}>
+                                        <CardBody>
                                             <Flex
-                                                color={'blue.600'}
-                                                fontSize={h2HeadersFontSize}
-                                                alignItems={'stretch'}
-                                                gap={'30px'}
+                                                flexDirection={flexDirection}
+                                                alignItems={{ base: 'flex-start', lg: 'center' }}
+                                                justifyContent={'flex-start'}
+                                                gap={{ base: '10px', lg: '30px' }}
                                             >
-                                                <Text as={FcAnswers} />
-                                                <Link href={`/forum/topic/${topic?.id}`} className="">{topic?.title}</Link>
+                                                <Flex flexDirection={flexDirection} alignItems={'center'} gap={'40px'}>
+                                                    <Box><Text as={FcLandscape} /></Box>
+                                                    <Box size='md'>
+                                                        {/* <h3>ID темы для отладки: {topic.id}</h3> */}
+                                                        {editTopicId !== topic?.id
+                                                            ?
+                                                            <Box
+                                                                className="topic-title"
+                                                            >
+                                                                <Flex
+                                                                    color={'blue.600'}
+                                                                    fontSize={h2HeadersFontSize}
+                                                                    alignItems={'stretch'}
+                                                                    gap={'30px'}
+                                                                >
+
+                                                                    <Link href={`/forum/topic/${topic?.id}`} className="">{topic?.title}</Link>
+                                                                </Flex>
+                                                            </Box>
+                                                            :
+                                                            <Input
+                                                                type='text'
+                                                                name={'current-topic'}
+                                                                placeholder={'Новое название'}
+                                                                value={topicForEditInputVal}
+                                                                onInput={evt => setTopicForEditInputVal(evt?.target?.value)}
+                                                                onKeyDown={(evt) =>
+                                                                    (evt?.keyCode === 13)
+                                                                        ? editTopic(topic.id)
+                                                                        : null
+                                                                }
+                                                            />
+                                                        }
+                                                        <Box py='2'>
+                                                            <Box>{topic?.content}</Box>
+                                                            {/* <Text fontSize={textFontSize?.base}>{topic?.createdAt}</Text> */}
+                                                            <Text fontSize={textFontSize?.base}>
+                                                                Тема создана {formattedDateTopicCreated}
+                                                            </Text>
+                                                            {/* <Text fontSize={textFontSize?.base}>{topic?.updatedAt}</Text> */}
+                                                            {/* <Text fontSize={textFontSize?.base}>Тема обновлена {formattedDateTopicUpdated}</Text> */}
+                                                            <Box>
+                                                                Автор:&#8201;
+                                                                {currentUser?.nickname || currentUser?.name}
+                                                            </Box>
+                                                            <Box>
+                                                                Статус автора:&#8201;
+                                                                {currentUser?.role || 'user'}
+                                                            </Box>
+                                                        </Box>
+                                                    </Box>
+                                                </Flex>
+
+                                                <Flex flexGrow={'1'} justifyContent={'flex-end'}>
+                                                    <Flex flexDirection={'column'} mr={marginParameters}>
+                                                        <Text>Последнее сообщение от пользователя {lastPostAuthor}</Text>
+                                                        <Text>Написано в {formattedDateLastPostCreatedAt}</Text>
+                                                    </Flex>
+                                                </Flex>
+
                                             </Flex>
-                                        </Box>
-                                        :
-                                        <Input
-                                            type='text'
-                                            name={'current-topic'}
-                                            placeholder={'Новое название'}
-                                            value={topicForEditInputVal}
-                                            onInput={evt => setTopicForEditInputVal(evt?.target?.value)}
-                                            onKeyDown={(evt) =>
-                                                (evt?.keyCode === 13)
-                                                    ? editTopic(topic.id)
-                                                    : null
+
+                                        </CardBody>
+
+                                        <CardFooter>
+                                            {(editTopicId !== topic?.id) && adminOrModerator
+                                                ? <Menu>
+                                                    <MenuButton
+                                                        as={Button}
+                                                        colorScheme='gray'
+                                                    >Действия
+                                                    </MenuButton>
+                                                    <MenuList>
+                                                        <MenuItem as={Button} colorScheme='gray' onClick={() => {
+                                                            setEditTopicId(topic?.id);
+                                                            setTopicForEditInputVal(topic?.title);
+                                                        }}>Редактировать</MenuItem>
+
+                                                        <MenuItem as={Button} colorScheme='gray' onClick={() =>
+                                                            delTopic(topic?.id)
+                                                        }> Удалить </MenuItem>
+                                                    </MenuList>
+                                                </Menu>
+                                                : (editTopicId === topic.id) && <>
+                                                    <Button colorScheme='gray' onClick={() => editTopic(topic.id)}>Сохранить
+                                                    </Button>
+                                                    <Button colorScheme='gray' onClick={() => {
+                                                        setEditTopicId(null);
+                                                    }}>Отмена
+                                                    </Button>
+                                                </>
                                             }
-                                        />
-                                    }
-                                </Box>
-
-                                <Box py='2'>
-                                    <Box>{topic?.content}</Box>
-                                    {/* <Text fontSize={textFontSize?.base}>{topic?.createdAt}</Text> */}
-                                    <Text fontSize={textFontSize?.base}>
-                                        Тема создана {formattedDateTopicCreated}
-                                    </Text>
-                                    {/* <Text fontSize={textFontSize?.base}>{topic?.updatedAt}</Text> */}
-                                    {/* <Text fontSize={textFontSize?.base}>Тема обновлена {formattedDateTopicUpdated}</Text> */}
-                                    <Box>
-                                        Автор:&#8201;
-                                        {currentUser?.nickname || currentUser?.name}
-                                    </Box>
-                                    <Box>
-                                        Статус автора:&#8201;
-                                        {currentUser?.role || 'user'}
-                                    </Box>
-                                </Box>
-                            </CardBody>
-
-                            <CardFooter>
-
-                                {(editTopicId !== topic?.id) && adminOrModerator
-                                    ? <Menu>
-                                        <MenuButton
-                                            as={Button}
-                                            colorScheme='gray'
-                                        >Действия
-                                        </MenuButton>
-                                        <MenuList>
-                                            <MenuItem as={Button} colorScheme='gray' onClick={() => {
-                                                setEditTopicId(topic?.id);
-                                                setTopicForEditInputVal(topic?.title);
-                                            }}>Редактировать</MenuItem>
-
-                                            <MenuItem as={Button} colorScheme='gray' onClick={() =>
-                                                delTopic(topic?.id)
-                                            }> Удалить </MenuItem>
-                                        </MenuList>
-                                    </Menu>
-                                    : (editTopicId === topic.id) && <>
-                                        <Button colorScheme='gray' onClick={() => editTopic(topic.id)}>Сохранить
-                                        </Button>
-                                        <Button colorScheme='gray' onClick={() => {
-                                            setEditTopicId(null);
-                                        }}>Отмена
-                                        </Button>
-                                    </>
-                                }
-                            </CardFooter>
-                        </Stack>
-                    </Card>)
-            })}
-        </Box>
+                                        </CardFooter>
+                                    </Stack>
+                                </Card>
+                            </Flex>)
+                    })}
+        </Box >
     </>
 }

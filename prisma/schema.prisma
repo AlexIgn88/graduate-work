@@ -94,8 +94,6 @@ model Product {
   description String?
   quantity    Int?
   image       String?
-  // createdAt   DateTime @default(now())
-  // updatedAt   DateTime @updatedAt
   basket      Basket[]
   order       Order[]
 }
