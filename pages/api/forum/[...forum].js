@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   // console.debug('req.query=', req.query);
   // console.debug('>> ', req.method, ' запрос на', req.url, 'forum =', { table, id });
   // if (req.body) console.log('req.body=', JSON.stringify(req.body));
-  if (!['user', 'post', 'topic'].includes(table)) {
+  if (!['user', 'post', 'topic', 'session'].includes(table)) {
     return res.status(404).send({ error: 'wrong table' });
   }
   try {
@@ -28,6 +28,8 @@ export default async function handler(req, res) {
               topics: await getAllData(table),
               // users: await getAllTopicStarters(),
               users: await getAllData('user'),
+              onlineUsers: await getAllData('session').then(result => result.map(user => user.userId)),
+              posts: await getAllData('post'),
               lastPosts: await getAllData(table)
                 .then(result => result.map(topic => topic.id))
                 .then(result => getOneDataFromColumnByArrayOfIDs('post', 'topicId', result, 'desc'))

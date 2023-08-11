@@ -43,4 +43,8 @@ const h3HeadersFontSizeValueArr: valueArrType = textFontSizeValueArr.map(FontSiz
 export const h3HeadersFontSize: valieForBreakpoints = getBreakpointsParamInObject(breakpointsArr, h3HeadersFontSizeValueArr);
 export const h3HeadersFontSizeInArray = getBreakpointsParamInArray(Object.values(h3HeadersFontSize));
 
-//h4, h5, h6 пока не задействованы в данном проекте
+const h4HeadersFontSizeValueArr: valueArrType = textFontSizeValueArr.map(FontSize => (FontSize + 1));
+export const h4HeadersFontSize: valieForBreakpoints = getBreakpointsParamInObject(breakpointsArr, h4HeadersFontSizeValueArr);
+export const h4HeadersFontSizeInArray = getBreakpointsParamInArray(Object.values(h4HeadersFontSize));
+
+//h5, h6 пока не задействованы в данном проекте

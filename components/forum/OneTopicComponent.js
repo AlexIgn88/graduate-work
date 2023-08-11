@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import {
-    Box, Flex, Heading, Button, Stack, Text,
+    Box, Flex, Heading, Button, Stack, Text, chakra,
     // Input, Textarea, Image,
     Card, CardHeader, CardBody, CardFooter, Avatar,
     Skeleton,
@@ -10,13 +10,14 @@ import {
     Menu, MenuButton, MenuList, MenuItem,
     // MenuItemOption, MenuGroup, MenuOptionGroup, MenuDivider,
 } from "@chakra-ui/react";
-import { h2HeadersFontSize, textFontSize } from '../../displayParameters/fontParameters';
+import { h4HeadersFontSize, h2HeadersFontSize, textFontSize } from '../../displayParameters/fontParameters';
 import { marginParameters } from '../../displayParameters/marginParameters';
 import { flexDirection } from '../../displayParameters/flexParameters';
 import ModalWindowBlur from '../../components/modalwindows/ModalWindowBlur';
 import AddNewPost from '../../components/forum/AddNewPost';
 import AutoResizableTextarea from '../../components/AutoResizableTextarea';
 import { formatDateTime } from '../../includes/formatDate';
+import { FcFaq, FcVoicePresentation } from "react-icons/fc";
 
 const Moment = require('mol_time_all').$mol_time_moment;
 
@@ -42,6 +43,8 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
     const
         adminOrModerator = currentUserRole === 'admin' || currentUserRole === 'moderator',
         notBanned = currentUserRole !== 'banned';
+
+    const forumPaddingSeting = { base: '10px', sm: '20px', md: '30px' };
 
     // console.log('data=', data);
     // console.log('topicId=', topicId);
@@ -175,7 +178,8 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                         flexDirection={flexDirection}
                         alignItems={'center'}
                         mb={10}
-                        p={'20px'}
+                        p={forumPaddingSeting}
+                        gap={'10px'}
                         borderRadius={'5px'}
                         background={'#121f26'}
                         color={'white'}
@@ -202,7 +206,21 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                         </>}
                     </Flex>
 
-                    {data?.posts?.map((post) => {
+                    {0 === data?.posts.length && (
+                        <Flex
+                            p={forumPaddingSeting}
+                            background={'white'}
+                            alignItems={'center'}
+                            gap={'10px'}
+                            borderRadius={'5px'}
+                        >
+                            <chakra.span as={FcFaq} />
+                            <chakra.span>Никто еще ничего не написал в этой теме. Станьте первым</chakra.span>
+                            <chakra.span as={FcVoicePresentation} />
+                        </Flex>
+                    )}
+
+                    {0 < data?.posts.length && data?.posts?.map((post) => {
 
                         const currentUser = data?.users?.find((user) => post?.userId === user?.id);
                         const postAuthor = currentUserId === post?.userId;
@@ -230,10 +248,19 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                                 <CardHeader>
                                     <Flex spacing='4'>
                                         <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
-                                            <Avatar name={currentUser?.name} src={currentUser?.image} />
+                                            <Avatar name={currentUser?.nickname || currentUser?.name} src={currentUser?.forumAvatar || currentUser?.image} />
                                             <Box>
-                                                <Heading size='sm'>{currentUser?.nickname || currentUser?.name}</Heading>
-                                                <Text>{currentUser?.role || 'user'}</Text>
+                                                {/* <Heading size='sm'>{currentUser?.nickname || currentUser?.name}</Heading> */}
+                                                <Heading size={h4HeadersFontSize} textDecor={('banned' === currentUser?.role) ? 'line-through' : 'none'}>
+                                                    {currentUser?.nickname || currentUser?.name}
+                                                </Heading>
+                                                <Text color={('admin' === currentUser?.role)
+                                                    ? 'red'
+                                                    : ('moderator' === currentUser?.role)
+                                                        ? 'blue'
+                                                        : 'black'}>
+                                                    {currentUser?.role || 'user'}
+                                                </Text>
                                                 {/* <Text fontSize={textFontSize?.base}>{post?.createdAt}</Text> */}
                                                 <Text fontSize={textFontSize?.base}>Опубликовано {formattedDatePostCreated}</Text>
                                                 {/* <Text fontSize={textFontSize?.base}>{post?.updatedAt}</Text> */}
