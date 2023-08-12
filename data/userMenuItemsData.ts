@@ -7,11 +7,11 @@ const userMenuItems: page[] = [
         src: '/myaccount', restricted(session) { return !!session; },
         icon: FcSettings
     },
-    {
-        name: 'Cообщения',
-        src: '/', restricted(session) { return !!session; },
-        icon: FcInvite
-    },
+    // {
+    //     name: 'Cообщения',
+    //     src: '/', restricted(session) { return !!session; },
+    //     icon: FcInvite
+    // },
     {
         name: 'Корзина',
         src: '/', restricted(session) { return !!session; },
@@ -24,7 +24,7 @@ const userMenuItems: page[] = [
     },
     {
         name: 'Заказы Клиентов',
-        src: '/', restricted(session) { return ('admin' || 'manager') === session?.user?.role; },
+        src: '/', restricted(session) { return 'admin' === session?.user?.role || 'manager' === session?.user?.role; },
         icon: FcManager
     },
 ];

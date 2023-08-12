@@ -17,7 +17,10 @@ export default function Header({ color }) {
             style={{ zIndex: '3', display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '15px', paddingBottom: '15px' }}
         >
 
-            <Flex alignItems={'center'}>
+            <Flex
+                alignItems={'center'}
+                flexGrow={'1'}
+            >
                 <Navbar />
                 {!isWide &&
 

@@ -92,6 +92,7 @@ export default function Navbar() {
                     className="navbar"
                     listStyleType={'none'}
                     alignItems='flex-start'
+                    justifyContent={'space-around'}
                     ml={'0px'}
                 >
                     {pages.filter((page) => page?.restricted

@@ -2,6 +2,10 @@
 ## My graduate work:
 
 ## Progress of the graduate work:
+v 0.12.1
+header Flex flexGrow={'1'}
+nav UnorderedList justifyContent={'space-around'}
+
 v 0.12.0
 additional information at the bottom of the forum page
 
