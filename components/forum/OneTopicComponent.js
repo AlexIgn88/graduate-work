@@ -256,7 +256,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                                                 </Heading>
                                                 <Text color={('admin' === currentUser?.role)
                                                     ? 'red'
-                                                    : ('moderator' === currentUser?.role)
+                                                    : ('moderator' === currentUser?.role || 'manager' === currentUser?.role)
                                                         ? 'blue'
                                                         : 'black'}>
                                                     {currentUser?.role || 'user'}
