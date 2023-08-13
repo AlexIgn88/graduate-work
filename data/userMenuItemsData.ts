@@ -14,7 +14,7 @@ const userMenuItems: page[] = [
     // },
     {
         name: 'Корзина',
-        src: '/', restricted(session) { return !!session; },
+        src: '/basket', restricted(session) { return !!session; },
         icon: FcEmptyTrash
     },
     {
@@ -22,11 +22,11 @@ const userMenuItems: page[] = [
         src: '/adminpanel', restricted(session) { return 'admin' === session?.user?.role; },
         icon: FcBusinessman
     },
-    {
-        name: 'Заказы Клиентов',
-        src: '/', restricted(session) { return 'admin' === session?.user?.role || 'manager' === session?.user?.role; },
-        icon: FcManager
-    },
+    // {
+    //     name: 'Заказы Клиентов',
+    //     src: '/', restricted(session) { return 'admin' === session?.user?.role || 'manager' === session?.user?.role; },
+    //     icon: FcManager
+    // },
 ];
 
 export default userMenuItems;

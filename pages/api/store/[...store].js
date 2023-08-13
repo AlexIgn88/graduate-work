@@ -14,6 +14,7 @@ export default async function handler(req, res) {
     { store } = req.query,
     [table, id] = store;
   console.debug('req.query=', req.query);
+  // console.debug('session=', session);
   console.debug('>> ', req.method, ' запрос на', req.url, 'forum =', { table, id });
   if (req.body) console.log('req.body=', JSON.stringify(req.body));
   if (!['product', 'basket', 'order'].includes(table)) {
@@ -29,7 +30,7 @@ export default async function handler(req, res) {
 
           case 'basket' === table:
             if (session) {
-              null //допишу
+              return res.status(200).json(await getAllDataFromColumnByID(table, 'userId', session?.user?.id))
             } else {
               res.status(403).send({
                 error: 'You must be signed in to view the protected content on this page.',

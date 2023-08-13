@@ -14,6 +14,7 @@ import { useSession } from 'next-auth/react';
 // import { HeadingForPage } from '../components/ElemsForPages';
 // import { marginParameters } from '../displayParameters/marginParameters';
 import { flexDirection } from '../displayParameters/flexParameters';
+import ProductCard from '../components/ProductCard';
 
 
 export default function StoreComponent({ data, mutate }) {
@@ -89,94 +90,29 @@ export default function StoreComponent({ data, mutate }) {
             }
         }
 
-
-        //Сделать универсальным, проработать, вынести отдельно- 
         return <>
             <Flex gap={'20px'} flexDirection={flexDirection} flexWrap={'wrap'}>
-                {data.map(({ id, name, price, category, description, quantity, image }, productArrIndex) => {
+                {data.map(({ id, name, price, category, description, quantity, image }, productArrIndex) =>
 
-                    // console.log('productArrIndex', productArrIndex);
+                    <Flex key={name} flexDirection={'column'} alignItems={'center'}>
+                        <ProductCard
+                            id={id}
+                            name={name}
+                            price={price}
+                            category={category}
+                            description={description}
+                            quantity={quantity}
+                            image={image}
 
-                    return (<Card maxW='sm' key={name} alignItems={'center'}>
-                        <CardBody>
-                            <Image
-                                src={image}
-                                alt={name}
-                                borderRadius='lg'
-                            />
-                            <Stack mt='6' spacing='3'>
-                                <Heading size='md'>{name}</Heading>
-                                {/* <Text>
-                                    {category}
-                                </Text> */}
-                                <Text>
-                                    {description}
-                                </Text>
-                                <Text color='blue.600' fontSize='2xl'>
-                                    {price} &#8381;
-                                </Text>
-                                <Text color='blue.600' fontSize='2xl'>
-                                    Всего в наличии: {quantity}
-                                </Text>
-                                {session && <Box color='blue.600' fontSize='2xl'>
-                                    Укажите количество:
-                                    <NumberInput
-                                        step={1}
-                                        defaultValue={0}
-                                        // defaultValue={+inputVal[productArrIndex]}
-                                        min={0}
-                                        max={quantity}
-                                    >
-                                        <NumberInputField
-                                            value={+inputVal[productArrIndex]}
-                                            onChange={evt => {
-                                                let inputValue = +evt.currentTarget.value;
+                            inputVal={inputVal}
+                            setInputVal={setInputVal}
+                            // addProduct={}
+                            // currentUserId={}
+                            productArrIndex={productArrIndex}
+                        />
 
-                                                // console.log('inputValue=', inputValue);
-
-                                                switch (true) {
-                                                    case inputValue > quantity: inputValue = quantity;
-                                                        break;
-                                                    case inputValue < 0: inputValue = 0;
-                                                        break;
-                                                    default: break;
-                                                }
-
-                                                setInputVal(inputVal.with(productArrIndex, inputValue));
-                                            }}
-                                        />
-                                        <NumberInputStepper>
-                                            <NumberIncrementStepper className="plus" onClick={
-                                                (evt) => {
-                                                    {
-                                                        const inputValue = evt.currentTarget.closest('.chakra-numberinput').querySelector('input').value;
-                                                        // console.log('inputValue=', inputValue);
-                                                        setInputVal(inputVal.with(productArrIndex, inputValue));
-                                                    }
-                                                }
-                                            }
-                                            />
-
-                                            <NumberDecrementStepper className="minus" onClick={
-                                                (evt) => {
-                                                    {
-                                                        const inputValue = evt.currentTarget.closest('.chakra-numberinput').querySelector('input').value;
-                                                        // console.log('inputValue=', inputValue);
-                                                        setInputVal(inputVal.with(productArrIndex, inputValue));
-                                                    }
-                                                }
-                                            }
-                                            />
-                                        </NumberInputStepper>
-                                    </NumberInput>
-
-
-                                </Box>}
-                            </Stack>
-                        </CardBody>
-                        <Divider />
-                        <CardFooter>
-                            <ButtonGroup spacing='2' flexDirection={flexDirection}>
+                        <Box>
+                            <Box spacing='2' flexDirection={flexDirection}>
                                 {session
                                     ? <Button
                                         variant='solid'
@@ -188,13 +124,13 @@ export default function StoreComponent({ data, mutate }) {
                                     : <Button variant='solid' colorScheme='blue'>
                                         Купить сейчас
                                     </Button>}
-                            </ButtonGroup>
-                        </CardFooter>
-                    </Card>)
-                })}
+                            </Box>
+                        </Box>
+
+                    </Flex>
+
+                )}
             </Flex>
-
-
             {/* <pre>{JSON.stringify(data, null, '\t')}</pre> */}
         </>
     }

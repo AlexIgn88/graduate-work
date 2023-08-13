@@ -2,6 +2,9 @@
 ## My graduate work:
 
 ## Progress of the graduate work:
+v 0.12.2
+ProductCard component
+
 v 0.12.1
 header Flex flexGrow={'1'}
 nav UnorderedList justifyContent={'space-around'}

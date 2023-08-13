@@ -1,11 +1,10 @@
 import Head from "next/head";
 import { SWRConfig } from 'swr';
 import GetData from '../components/GetData';
-import { Text, Box, Flex } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { marginParameters } from '../displayParameters/marginParameters';
-import { flexDirection } from '../displayParameters/flexParameters';
+// import { flexDirection } from '../displayParameters/flexParameters';
 import { HeadingForPage } from '../components/ElemsForPages';
-import { FactForAboutPage, ServiceForAboutPage } from '../components/ElemsForAboutPage';
 import StoreComponent from '../components/StoreComponent';
 import { useSession } from 'next-auth/react';
 
