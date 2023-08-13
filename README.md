@@ -2,7 +2,7 @@
 ## My graduate work:
 
 ## Progress of the graduate work:
-0.12.3
+v 0.12.3
 Forum fixed
 menu item home - picture
 removed CSS
