@@ -298,7 +298,7 @@ export default function ForumComponent({ data, mutate }) {
                                                     </Flex>
 
                                                     <Flex flexGrow={'1'} justifyContent={'flex-end'}>
-                                                        <Flex flexDirection={'column'} mr={marginParameters}>
+                                                        <Flex flexDirection={'column'} flexGrow={'1'} alignItems={'flex-end'} mr={marginParameters}>
                                                             <Text>Последнее сообщение от пользователя {lastPostAuthor}</Text>
                                                             <Text>Написано в {formattedDateLastPostCreatedAt}</Text>
                                                         </Flex>

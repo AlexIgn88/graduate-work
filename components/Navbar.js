@@ -1,20 +1,18 @@
-import pages from '../data/pagesData';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useSession } from 'next-auth/react';
-import { places } from '../data/placesData';
 import {
-    UnorderedList, ListItem, Box, Text, Menu, MenuButton, MenuList, MenuItem, chakra, Button, useBreakpointValue
+    Button, useBreakpointValue, useDisclosure,
+    Drawer, DrawerBody, DrawerFooter, DrawerOverlay, DrawerContent, DrawerCloseButton,
 } from '@chakra-ui/react';
 import { FcMenu } from "react-icons/fc";
+import { useRef } from 'react';
+import NavbarListComponent from '../components/NavbarListComponent';
 
 
 export default function Navbar() {
 
     const
         router = useRouter(),
-        { data: session } = useSession(),
-        isWide = useBreakpointValue({ base: false, xl: true });
+        isWide = useBreakpointValue({ base: false, lg: true });
 
     let backgroundColor = '';
     switch (true) {
@@ -29,14 +27,16 @@ export default function Navbar() {
             break;
     }
 
-    // console.log('router.pathname', router.pathname);
-    // console.log('router.pathname.split('/')[1]=', router.pathname.split('/')[1]);
 
-    return <>
-        <nav>
+    function DrawerMenu() {
+        const { isOpen, onOpen, onClose } = useDisclosure()
+        const btnRef = useRef()
 
-            <Menu>
-                <MenuButton
+        return (
+            <>
+                <Button
+                    ref={btnRef}
+                    onClick={onOpen}
                     title='Навигация сайта'
                     backgroundColor={'#feb849'}
                     color={'white'}
@@ -52,117 +52,59 @@ export default function Navbar() {
                         color: '#feb849',
                     }}
                     ml={'15px'}
-                    display={isWide ? "none" : "block"}
-                    as={Button}
-                ><FcMenu />
-                </MenuButton>
-
-                <MenuList
-                    backgroundColor={backgroundColor}
-                    display={'flex'}
-                    flexDirection={'column'}
                 >
-                    {pages.concat(places).filter((page) => page?.restricted
-                        ? page.restricted(session)
-                        : true)
-                        .map((page) =>
+                    <FcMenu />
+                </Button>
 
-                            <MenuItem
-                                key={page.name}
-                                as={Link}
-                                backgroundColor={backgroundColor}
+                <Drawer
+                    isOpen={isOpen}
+                    placement='left'
+                    onClose={onClose}
+                    finalFocusRef={btnRef}
+                >
+                    <DrawerOverlay />
+                    <DrawerContent>
+                        <DrawerCloseButton />
+
+                        <DrawerBody
+                            background={backgroundColor}
+                        >
+                            <NavbarListComponent flexDirection={'column'} />
+                        </DrawerBody>
+
+                        <DrawerFooter
+                            background={backgroundColor}
+                            justifyContent={'center'}
+                        >
+                            <Button
+                                mr={3}
+                                backgroundColor={'#feb849'}
                                 color={'white'}
-                                textDecoration={'none'}
-                                _focus={{
-                                    backgroundColor: 'black'
+                                onClick={onClose}
+                                _hover={{
+                                    backgroundColor: 'white',
+                                    color: 'black',
                                 }}
-                                href={page.src ? page.src : '/places' + page.path}
+                                _active={{
+                                    backgroundColor: 'white',
+                                    color: '#feb849',
+                                }}
                             >
-                                {page.name}
-                            </MenuItem>
-                        )}
+                                Закрыть
+                            </Button>
+                        </DrawerFooter>
+                    </DrawerContent>
+                </Drawer>
+            </>
+        )
+    }
 
-                </MenuList>
-            </Menu>
 
-            <Box
-                display={isWide ? "block" : "none"}
-            >
-                <UnorderedList
-                    className="navbar"
-                    listStyleType={'none'}
-                    alignItems='flex-start'
-                    justifyContent={'space-around'}
-                    ml={'0px'}
-                >
-                    {pages.filter((page) => page?.restricted
-                        ? page.restricted(session)
-                        : true)
-                        .map((page) =>
-                            <ListItem key={page.name} className={router.pathname.split('/')[1] === page.src.split('/')[1]
-                                ? 'active'
-                                : ''}>
-                                {page.name === 'Места'
-                                    ? <>
-                                        <Menu>
-                                            <MenuButton as={Text} fontSize="lg" marginRight="1rem" cursor="pointer">
-                                                <chakra.span
-                                                    pl={'15px'}
-                                                    className="link"
-                                                    color={'white'}
-                                                >
-                                                    {page.name}
-                                                </chakra.span>
-                                            </MenuButton>
+    return <>
+        <nav>
+            {!isWide && <DrawerMenu />}
 
-                                            <MenuList
-                                                backgroundColor={'#8d634b'}
-                                            >
-                                                <MenuItem
-                                                    _focus={{
-                                                        backgroundColor: 'rgb(40, 28, 21)'
-                                                    }}
-                                                    backgroundColor={'#8d634b'}
-                                                    color={'white'}
-                                                    textDecoration={'none'}
-                                                    as={Link}
-                                                    href={page.src}  >
-                                                    Все места
-                                                </MenuItem>
-
-                                                {places.map((place, i) => (
-
-                                                    <MenuItem
-                                                        _focus={{
-                                                            backgroundColor: 'rgb(40, 28, 21)'
-                                                        }}
-                                                        backgroundColor={'#8d634b'}
-                                                        color={'white'}
-                                                        textDecoration={'none'}
-                                                        key={i}
-                                                        as={Link}
-                                                        href={page.src + place.path}
-                                                    >
-                                                        {place.name}
-                                                    </MenuItem>
-                                                ))}
-                                            </MenuList>
-                                        </Menu>
-                                    </>
-
-                                    : <Link
-                                        href={page.src}
-                                        className="link"
-                                        color={'white'}
-                                        textDecoration={'none'}
-                                    >
-                                        {page.name}
-                                    </Link>
-                                }
-                            </ListItem>
-                        )}
-                </UnorderedList>
-            </Box>
+            {isWide && <NavbarListComponent flexDirection={'row'} />}
         </nav>
     </>;
 }

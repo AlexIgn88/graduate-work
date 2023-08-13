@@ -1,4 +1,3 @@
-import "../styles/global.css";
 import { Global } from '@emotion/react';
 import { globalStyles } from '../displayParameters/globalStyles';
 import Head from 'next/head';
@@ -9,7 +8,6 @@ import { ChakraProvider, CSSReset } from '@chakra-ui/react';
 import { Toaster } from 'react-hot-toast';
 
 // import { extendTheme } from '@chakra-ui/react'
-
 
 
 export default function MyApp({ Component,

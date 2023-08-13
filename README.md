@@ -2,6 +2,13 @@
 ## My graduate work:
 
 ## Progress of the graduate work:
+0.12.3
+Forum fixed
+menu item home - picture
+removed CSS
+shopping cart icon change
+menu on narrow resolution - left driver
+
 v 0.12.2
 ProductCard component
 

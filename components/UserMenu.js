@@ -27,7 +27,7 @@ export default function UserMenu() {
                     backgroundColor: 'white',
                     color: '#feb849',
                 }}
-                m={'15px'}
+                mr={'10px'}
                 as={Button}
             > <AccountIcon />
             </MenuButton>

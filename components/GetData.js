@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import toast from 'react-hot-toast';
+// import toast from 'react-hot-toast';
 import { cloneElement } from 'react'
 
 export default function GetData({ url, children }) {
@@ -8,11 +8,11 @@ export default function GetData({ url, children }) {
         const
             promise = fetch(url)
                 .then(res => res.json());
-        toast.promise(promise, {
-            loading: 'Обновляем',
-            success: 'Готово',
-            error: (err) => `Ошибка: ${err.toString()}`,
-        });
+        // toast.promise(promise, {
+        //     loading: 'Обновляем',
+        //     success: 'Готово',
+        //     error: (err) => `Ошибка: ${err.toString()}`,
+        // });
         return promise;
     }
 

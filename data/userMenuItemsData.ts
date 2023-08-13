@@ -1,5 +1,5 @@
 import { page } from '../datatypes/types'
-import { FcSettings, FcBusinessman, FcEmptyTrash, FcFullTrash, FcManager, FcInvite } from "react-icons/fc";
+import { FcSettings, FcBusinessman, FcEmptyTrash, FcFullTrash, FcManager, FcInvite, FcPaid } from "react-icons/fc";
 
 const userMenuItems: page[] = [
     {
@@ -15,7 +15,7 @@ const userMenuItems: page[] = [
     {
         name: 'Корзина',
         src: '/basket', restricted(session) { return !!session; },
-        icon: FcEmptyTrash
+        icon: FcPaid
     },
     {
         name: 'Админ-панель',

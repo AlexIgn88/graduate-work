@@ -19,7 +19,7 @@ export default function Header({ color }) {
 
             <Flex
                 alignItems={'center'}
-                flexGrow={'1'}
+                // flexGrow={'1'}
             >
                 <Navbar />
                 {!isWide &&

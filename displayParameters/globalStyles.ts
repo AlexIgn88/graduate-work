@@ -23,6 +23,22 @@ export const globalStyles = {
     '.main-header nav': {
         flexGrow: '1',
     },
+    '.navbar': {
+        display: 'flex',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        marginBottom: '0px',
+        paddingLeft: '10px',
+        listStyleType: 'none',
+    },
+    '.navbar li': {
+        padding: '5px',
+    },
+    '.link': {
+        color: 'white',
+        textDecoration: 'none',
+        fontSize: '20px',
+    },
     '.active': {
         'backgroundColor': '#feb849',
         'borderRadius': '50px',
@@ -59,10 +75,14 @@ export const globalStyles = {
         alignItems: 'center',
         gap: '10px',
     },
-
     '.tours-page li ': {
         marginTop: '12px',
 
     },
-
+    '.page': {
+        marginTop: '100px',
+        marginBottom: '30px',
+        marginLeft: '30px',
+        marginRight: '20px',
+    },
 };
