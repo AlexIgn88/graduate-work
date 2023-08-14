@@ -1,23 +1,20 @@
 import Head from "next/head";
-import { SWRConfig } from 'swr';
 import GetData from '../components/GetData';
 import { Box } from '@chakra-ui/react';
 import { marginParameters } from '../displayParameters/marginParameters';
 // import { flexDirection } from '../displayParameters/flexParameters';
 // import { HeadingForPage } from '../components/ElemsForPages';
-
-import StoreComponent from '../components/StoreComponent';
-
-import { useSession } from 'next-auth/react';
+import BasketComponent from '../components/BasketComponent';
+// import { useSession } from 'next-auth/react';
 
 
 export default function BasketPage() {
 
     const API_URL = '/api/store/basket';
 
-    const
-        { data: session } = useSession(),
-        currentUserId = session?.user?.id;
+    // const
+    //     { data: session } = useSession(),
+    //     currentUserId = session?.user?.id;
     // currentUserName = session?.user?.name,
     // currentUserRole = session?.user?.role;
 
@@ -27,13 +24,9 @@ export default function BasketPage() {
         </Head>
         <Box className="basket-page" m={marginParameters}>
 
-            {/* <SWRConfig>
-                <GetData url={API_URL}>
-
-                    <StoreComponent />
-
-                </GetData>
-            </SWRConfig> */}
+            <GetData url={API_URL}>
+                <BasketComponent />
+            </GetData>
 
         </Box>
     </>

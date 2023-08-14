@@ -1,22 +1,12 @@
 import {
-    Box, Flex, Skeleton, Stack, Image, Heading, Text, Divider, ButtonGroup, Button,
-    NumberInput,
-    NumberInputField,
-    NumberInputStepper,
-    NumberIncrementStepper,
-    NumberDecrementStepper,
-    Card, CardHeader, CardBody, CardFooter,
+    Box, Stack, Image, Heading, Text, Divider, ButtonGroup,
+    NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper,
+    Card, CardBody, CardFooter,
 } from "@chakra-ui/react";
-// import { CloseIcon, CheckIcon, EditIcon } from '@chakra-ui/icons';
-import { useState } from 'react';
-import ErrorComponent from '../components/ErrorComponent';
-import { useSession } from 'next-auth/react';
-// import { HeadingForPage } from '../components/ElemsForPages';
-// import { marginParameters } from '../displayParameters/marginParameters';
 import { flexDirection } from '../displayParameters/flexParameters';
 
 
-export default function ProductCard({ id, name, price, category, description, quantity, image, inputVal, setInputVal, addProduct, currentUserId, productArrIndex }) {
+export default function ProductCard({ children, id, name, price, category, description, quantity, image, inputVal, setInputVal, productArrIndex }) {
 
 
     return <Card maxW='sm' alignItems={'center'} flexGrow={'1'}>
@@ -64,43 +54,31 @@ export default function ProductCard({ id, name, price, category, description, qu
                             <NumberIncrementStepper className="plus" onClick={
                                 (evt) => {
                                     {
-                                        const inputValue = evt.currentTarget.closest('.chakra-numberinput').querySelector('input').value;
+                                        const inputValue = +evt.currentTarget.closest('.chakra-numberinput').querySelector('input').value;
                                         // console.log('inputValue=', inputValue);
                                         setInputVal(inputVal.with(productArrIndex, inputValue));
                                     }
-                                }
-                            }
+                                }}
                             />
                             <NumberDecrementStepper className="minus" onClick={
                                 (evt) => {
                                     {
-                                        const inputValue = evt.currentTarget.closest('.chakra-numberinput').querySelector('input').value;
+                                        const inputValue = +evt.currentTarget.closest('.chakra-numberinput').querySelector('input').value;
                                         // console.log('inputValue=', inputValue);
                                         setInputVal(inputVal.with(productArrIndex, inputValue));
                                     }
-                                }
-                            }
+                                }}
                             />
                         </NumberInputStepper>
                     </NumberInput>
                 </Box>
             </Stack>
         </CardBody>
-        {/* <Divider />
+        <Divider />
         <CardFooter>
             <ButtonGroup spacing='2' flexDirection={flexDirection}>
-                {session
-                    ? <Button
-                        variant='solid'
-                        colorScheme='blue'
-                        onClick={() => addProduct(currentUserId, id, productArrIndex, +inputVal[productArrIndex])}
-                    >
-                        Добавить в корзину
-                    </Button>
-                    : <Button variant='solid' colorScheme='blue'>
-                        Купить сейчас
-                    </Button>}
+                {children}
             </ButtonGroup>
-        </CardFooter> */}
+        </CardFooter>
     </Card>
 }

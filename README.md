@@ -2,6 +2,9 @@
 ## My graduate work:
 
 ## Progress of the graduate work:
+v 0.12.4
+Fix for adding an item to the basket
+
 v 0.12.3
 Forum fixed
 menu item home - picture

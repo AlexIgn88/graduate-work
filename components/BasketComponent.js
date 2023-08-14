@@ -1,5 +1,5 @@
-import { Flex, Skeleton, Stack, Button } from "@chakra-ui/react";
-import { useEffect, useState } from 'react';
+import { Box, Flex, Skeleton, Stack, Button } from "@chakra-ui/react";
+import { useState } from 'react';
 import ErrorComponent from '../components/ErrorComponent';
 import { useSession } from 'next-auth/react';
 import { flexDirection } from '../displayParameters/flexParameters';
@@ -8,7 +8,7 @@ import ProductCard from '../components/ProductCard';
 
 export default function StoreComponent({ data, mutate }) {
 
-    // console.log('data=', data);
+    console.log('data=', data);
 
     //Константы для получения сессии и данных о вошедшем пользователе
     const
@@ -25,11 +25,6 @@ export default function StoreComponent({ data, mutate }) {
         defaultinputVal = Array(data?.length || numberOfSkeletons)?.fill(0),
         [inputVal, setInputVal] = useState(defaultinputVal);
 
-    // console.log('inputVal', inputVal);
-
-    useEffect(() => {
-        setInputVal(Array(data?.length)?.fill(0));
-    }, [data]);
 
     if (!data) return (
         <Stack flexDirection={flexDirection}>
@@ -41,7 +36,7 @@ export default function StoreComponent({ data, mutate }) {
 
     if (data && (!data?.error)) {
 
-        // console.log('data?.length', data?.length);
+        // console.log('inputVal', inputVal);
 
         async function addToBasket(currentUserId, productId, productArrIndex, quantity) {
 
@@ -57,7 +52,6 @@ export default function StoreComponent({ data, mutate }) {
                 // const inputValue = evt.currentTarget.closest('.chakra-card__body').querySelector('input').value;
                 // console.log('inputValue=', inputValue);
                 // setInputVal(inputVal.with(productArrIndex, inputValue));
-                
                 setInputVal(inputVal.with(productArrIndex, 0));
 
             } catch (error) {
@@ -70,7 +64,7 @@ export default function StoreComponent({ data, mutate }) {
 
         async function changeDataAdd(newProduct) {
             try {
-                const response = await fetch(`/api/store/basket/${newProduct.productId}`, {
+                const response = await fetch('/api/store/basket/', {
                     method: 'POST',
                     body: JSON.stringify(newProduct)
                 });
@@ -84,9 +78,9 @@ export default function StoreComponent({ data, mutate }) {
             }
         }
 
-        return <>
+        return (
             <Flex gap={'20px'} flexDirection={flexDirection} flexWrap={'wrap'}>
-                {data.map(({ id, name, price, category, description, quantity, image }, productArrIndex) =>
+                {data.map(({ id, name, price, category, description, quantity, image, number }, productArrIndex) =>
 
                     <Flex key={productArrIndex} flexDirection={'column'} alignItems={'center'}>
                         <ProductCard
@@ -102,7 +96,7 @@ export default function StoreComponent({ data, mutate }) {
                             productArrIndex={productArrIndex}
                         >
 
-                            {session
+                            {/* {session
                                 ? <Button
                                     variant='solid'
                                     colorScheme='blue'
@@ -112,12 +106,16 @@ export default function StoreComponent({ data, mutate }) {
                                 </Button>
                                 : <Button variant='solid' colorScheme='blue'>
                                     Купить сейчас
-                                </Button>}
+                                </Button>} */}
+
+                            <Flex flexDirection={'column'}>
+                                <Box>Выбрано (затычка): {number}</Box>
+                                <Button>"Купить слона!" - кнопка-затычка</Button>
+                            </Flex>
 
                         </ProductCard>
                     </Flex>
                 )}
-            </Flex>
-        </>
+            </Flex>)
     }
 }
