@@ -2,6 +2,12 @@
 ## My graduate work:
 
 ## Progress of the graduate work:
+v 0.12.5
+modal window Products added
+onClick props for ModalWindowBlur
+zero product warning
+modal window with an offer to log in
+
 v 0.12.4
 Fix for adding an item to the basket
 
