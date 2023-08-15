@@ -1,5 +1,5 @@
 import { Box, Flex, Skeleton, Stack, Button } from "@chakra-ui/react";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ErrorComponent from '../components/ErrorComponent';
 import { useSession } from 'next-auth/react';
 import { flexDirection } from '../displayParameters/flexParameters';
@@ -24,6 +24,12 @@ export default function StoreComponent({ data, mutate }) {
     const
         defaultinputVal = Array(data?.length || numberOfSkeletons)?.fill(0),
         [inputVal, setInputVal] = useState(defaultinputVal);
+
+    // console.log('inputVal', inputVal);
+
+    useEffect(() => {
+        setInputVal(Array(data?.length)?.fill(0));
+    }, [data]);
 
 
     if (!data) return (
@@ -52,7 +58,8 @@ export default function StoreComponent({ data, mutate }) {
                 // const inputValue = evt.currentTarget.closest('.chakra-card__body').querySelector('input').value;
                 // console.log('inputValue=', inputValue);
                 // setInputVal(inputVal.with(productArrIndex, inputValue));
-                setInputVal(inputVal.with(productArrIndex, 0));
+
+                // setInputVal(inputVal.with(productArrIndex, 0));
 
             } catch (error) {
                 console.log(`FILE: ${__filename}\nERROR:`, error);
@@ -78,7 +85,9 @@ export default function StoreComponent({ data, mutate }) {
             }
         }
 
-        return (
+        return (<>
+            <Button>Подтвердить заказ</Button>
+            <Button>Удалить все товары</Button>
             <Flex gap={'20px'} flexDirection={flexDirection} flexWrap={'wrap'}>
                 {data.map(({ id, name, price, category, description, quantity, image, number }, productArrIndex) =>
 
@@ -110,12 +119,13 @@ export default function StoreComponent({ data, mutate }) {
 
                             <Flex flexDirection={'column'}>
                                 <Box>Выбрано (затычка): {number}</Box>
-                                <Button>"Купить слона!" - кнопка-затычка</Button>
+                                <Button>Удалить товар</Button>
                             </Flex>
 
                         </ProductCard>
                     </Flex>
                 )}
-            </Flex>)
+            </Flex>
+        </>)
     }
 }
