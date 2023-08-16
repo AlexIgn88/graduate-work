@@ -31,7 +31,7 @@ export default function StoreComponent({ data, mutate }) {
     useEffect(() => {
         setInputVal(
             // Array(data?.length)?.fill(0)
-            data?.map(({ number }) => number) || Array(numberOfSkeletons)?.fill(0)
+            data && (!data?.error) && data?.map(({ number }) => number) || Array(numberOfSkeletons)?.fill(0)
         );
     }, [data]);
 

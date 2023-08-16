@@ -2,6 +2,9 @@
 ## My graduate work:
 
 ## Progress of the graduate work:
+v 0.12.7
+fix in basket
+
 v 0.12.6
 Working out the basket, buttons
 You can't buy more goods than you have in stock - API
