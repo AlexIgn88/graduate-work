@@ -8,15 +8,14 @@ import { flexDirection } from '../displayParameters/flexParameters';
 
 export default function ProductCard({ children, id, name, price, category, description, quantity, image, inputVal, setInputVal, productArrIndex }) {
 
-
     return <Card maxW='sm' alignItems={'center'} flexGrow={'1'}>
-        <CardBody>
+        <CardBody display={'flex'} flexDirection={'column'}>
             <Image
                 src={image}
                 alt={name}
                 borderRadius='lg'
             />
-            <Stack mt='6' spacing='3'>
+            <Stack mt='6' spacing='3' flexGrow={'1'} justifyContent={'flex-end'}>
                 <Heading size='md'>{name}</Heading>
                 <Text>
                     {description}
@@ -31,12 +30,14 @@ export default function ProductCard({ children, id, name, price, category, descr
                     Укажите количество:
                     <NumberInput
                         step={1}
-                        defaultValue={0}
+                        // defaultValue={0}
+                        // defaultValue={+inputVal[productArrIndex]}
+                        defaultValue={+inputVal[productArrIndex] ? +inputVal[productArrIndex] : 0}
                         min={0}
                         max={quantity}
                     >
                         <NumberInputField
-                            value={+inputVal[productArrIndex]}
+                            // value={+inputVal[productArrIndex]}
                             onChange={evt => {
                                 let inputValue = +evt.currentTarget.value;
                                 // console.log('inputValue=', inputValue);

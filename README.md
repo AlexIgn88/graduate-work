@@ -2,6 +2,10 @@
 ## My graduate work:
 
 ## Progress of the graduate work:
+v 0.12.6
+Working out the basket, buttons
+You can't buy more goods than you have in stock - API
+
 v 0.12.5
 modal window Products added
 onClick props for ModalWindowBlur

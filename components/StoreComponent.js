@@ -1,4 +1,4 @@
-import { Box, Flex, Skeleton, Stack, Button, Link } from "@chakra-ui/react";
+import { Box, Flex, Skeleton, Stack, Button } from "@chakra-ui/react";
 import { useEffect, useState } from 'react';
 import ErrorComponent from '../components/ErrorComponent';
 import { useSession } from 'next-auth/react';
@@ -6,7 +6,7 @@ import { textFontSize } from '../displayParameters/fontParameters';
 import { flexDirection } from '../displayParameters/flexParameters';
 import ProductCard from '../components/ProductCard';
 import ModalWindowBlur from '../components/modalwindows/ModalWindowBlur';
-import NextLink from 'next/link';
+import Link from 'next/link';
 import ContactInfo from '../components/ContactInfo';
 import LoginButton from '../components/LoginButton';
 
@@ -30,9 +30,17 @@ export default function StoreComponent({ data, mutate }) {
         defaultinputVal = Array(data?.length || numberOfSkeletons)?.fill(0),
         [inputVal, setInputVal] = useState(defaultinputVal);
 
+    const [noProduct, setNoProduct] = useState(false);
+
+    // console.log('noProduct=', noProduct);
+
     useEffect(() => {
         setInputVal(Array(data?.length)?.fill(0));
     }, [data]);
+
+    const handleOutsideClick = () => {
+        setNoProduct(false);
+    };
 
     // console.log('inputVal', inputVal);
 
@@ -80,66 +88,75 @@ export default function StoreComponent({ data, mutate }) {
                 if (!response.ok) throw new Error('ошибка');
                 const json = await response.json();
                 // console.log('json', json);
-                return data;
+
+                if (json.noProduct) {
+                    setNoProduct(true);
+                    return data;
+                } else {
+                    return data;
+                }
+
+
             } catch (error) {
                 console.log(`FILE: ${__filename}\nERROR:`, error)
             }
         }
 
 
-        return <>
-            <Flex gap={'20px'} flexDirection={flexDirection} flexWrap={'wrap'}>
-                {data.map(({ id, name, price, category, description, quantity, image }, productArrIndex) => {
+        return (
+            <Flex flexDirection={'column'} alignItems={'center'} gap={'10px'} onClick={handleOutsideClick}>
+                <Flex gap={'20px'} flexDirection={flexDirection} flexWrap={'wrap'} width={'100%'}>
+                    {data.map(({ id, name, price, category, description, quantity, image }, productArrIndex) => {
 
-                    function handleClick() {
-                        return addToBasket(currentUserId, id, productArrIndex, +inputVal[productArrIndex]);
+                        function handleClick() {
+                            return addToBasket(currentUserId, id, productArrIndex, +inputVal[productArrIndex]);
+                        }
+
+                        return (<Flex key={productArrIndex} flexDirection={'column'} alignItems={'center'} flexGrow={'1'}>
+                            <ProductCard
+                                id={id}
+                                name={name}
+                                price={price}
+                                category={category}
+                                description={description}
+                                quantity={quantity}
+                                image={image}
+                                inputVal={inputVal}
+                                setInputVal={setInputVal}
+                                productArrIndex={productArrIndex}
+                            >
+
+                                {session
+                                    ? <ModalWindowBlur
+                                        buttonText={'Добавить в корзину'}
+                                        buttonColorScheme={'blue'}
+                                        onClick={+inputVal[productArrIndex] !== 0 ? handleClick : false}
+                                    >
+                                        {+inputVal[productArrIndex] !== 0
+                                            ? <NotificationProductAddedToTheBasket noProduct={noProduct} setNoProduct={setNoProduct} />
+                                            : <NotificationProductQuantityIsNull />
+                                        }
+
+                                    </ModalWindowBlur>
+
+                                    : <ModalWindowBlur
+                                        buttonText={'Купить сейчас'}
+                                        buttonColorScheme={'blue'}
+                                    >
+                                        <BuyNotLoggedIn />
+                                    </ModalWindowBlur>
+                                }
+
+                            </ProductCard>
+                        </Flex>)
                     }
-
-                    return (<Flex key={productArrIndex} flexDirection={'column'} alignItems={'center'}>
-                        <ProductCard
-                            id={id}
-                            name={name}
-                            price={price}
-                            category={category}
-                            description={description}
-                            quantity={quantity}
-                            image={image}
-                            inputVal={inputVal}
-                            setInputVal={setInputVal}
-                            productArrIndex={productArrIndex}
-                        >
-
-                            {session
-                                ? <ModalWindowBlur
-                                    buttonText={'Добавить в корзину'}
-                                    buttonColorScheme={'blue'}
-                                    onClick={+inputVal[productArrIndex] !== 0 ? handleClick : false}
-                                >
-                                    {+inputVal[productArrIndex] !== 0
-                                        ? <NotificationProductAddedToTheBasket />
-                                        : <NotificationProductQuantityIsNull />
-                                    }
-
-                                </ModalWindowBlur>
-
-                                : <ModalWindowBlur
-                                    buttonText={'Купить сейчас'}
-                                    buttonColorScheme={'blue'}
-                                >
-                                    <BuyNotLoggedIn />
-                                </ModalWindowBlur>
-                            }
-
-                        </ProductCard>
-                    </Flex>)
-                }
-                )}
-            </Flex>
-        </>
+                    )}
+                </Flex>
+            </Flex>)
     }
 }
 
-function NotificationProductAddedToTheBasket({ onClose }) {
+function NotificationProductAddedToTheBasket({ onClose, noProduct, setNoProduct }) {
 
     return (
         <Flex
@@ -148,7 +165,10 @@ function NotificationProductAddedToTheBasket({ onClose }) {
             gap={'15px'}
             fontSize={textFontSize}
         >
-            <Box>Товар добавлен в корзину</Box>
+            {!noProduct
+                ? <Box textAlign={'center'}>Товар добавлен в корзину</Box>
+                : <Box textAlign={'center'}>Выбранное Вами количество товара больше, чем есть на складе</Box>
+            }
 
             <Flex
                 flexDirection={flexDirection}
@@ -156,15 +176,17 @@ function NotificationProductAddedToTheBasket({ onClose }) {
 
             >
                 <Button
-                    as={NextLink}
+                    as={Link}
                     href={'/basket'}
                     colorScheme='blue'
+                    onClick={() => setNoProduct(false)}
                 >Перейти к корзине
                 </Button>
                 <Button
                     colorScheme='blue'
                     onClick={() => {
                         onClose();
+                        setNoProduct(false);
                     }}>Продолжить покупки</Button>
             </Flex>
         </Flex>)

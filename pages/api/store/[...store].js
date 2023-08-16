@@ -77,14 +77,23 @@ export default async function handler(req, res) {
           case 'basket' === table:
             if (session) {
 
-              const result = await getOneDataFromColumnsByValues(table, ['userId', 'productId'], [session?.user?.id, +id]);
-              // console.debug('result=', result);
-              if (result !== null) {
+              const product = await getOneDataFromColumnByID('product', 'id', +id);
+              const productInBasket = await getOneDataFromColumnsByValues(table, ['userId', 'productId'], [session?.user?.id, +id]);
 
-                const idInBasket = result.id;
+              // console.debug('result=', result);
+              // console.debug('product=', product);
+              if (productInBasket !== null) {
+
+                console.debug('product.quantity=', product.quantity);
+
+                const idInBasket = productInBasket.id;
                 // console.debug('idInBasket=', idInBasket);
                 const bodyParsed = JSON.parse(body);
-                const quantity = bodyParsed.quantity + result.quantity;
+                const quantity = bodyParsed.quantity + productInBasket.quantity;
+
+                if (quantity > product.quantity) {
+                  return res.status(200).send({ noProduct: 'The quantity of goods you have chosen is more than there is in stock' });
+                }
 
                 const updatedQuantity = Object.assign({}, { quantity });
                 const updatedJson = JSON.stringify(updatedQuantity);
