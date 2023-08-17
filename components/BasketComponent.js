@@ -142,10 +142,10 @@ export default function StoreComponent({ data, mutate }) {
                 const response = await fetch(`/api/store/order`, {
                     method: 'POST',
                 });
-                console.log('adduser response', response);
+                // console.log('adduser response', response);
                 if (!response.ok) throw new Error('ошибка');
                 const json = await response.json();
-                console.log('json', json);
+                // console.log('json', json);
 
                 return [];
 
