@@ -9,7 +9,7 @@ import Link from 'next/link';
 
 export default function StoreComponent({ data, mutate }) {
 
-    // console.log('data=', data);
+    console.log('data=', data);
 
     //Константы для получения сессии и данных о вошедшем пользователе
     const
@@ -49,58 +49,54 @@ export default function StoreComponent({ data, mutate }) {
         // console.log('inputVal', inputVal);
 
 
+        async function del(id) {
 
+            try {
+                mutate(changeDataDel(id));
+            } catch (error) {
+                console.log(`FILE: ${__filename}\nERROR:`, error);
+            } finally {
+                null;
+            }
+        }
 
-        // async function addToBasket(currentUserId, productId, productArrIndex, quantity) {
+        async function changeDataDel(id) {
+            try {
 
-        //     const newProduct = {
-        //         userId: currentUserId,
-        //         productId: productId,
-        //         quantity: quantity
-        //     };
+                let response;
 
-        //     try {
-        //         mutate(changeDataAdd(newProduct));
-        //         // setInputVal(defaultinputVal);
-        //         // const inputValue = evt.currentTarget.closest('.chakra-card__body').querySelector('input').value;
-        //         // console.log('inputValue=', inputValue);
-        //         // setInputVal(inputVal.with(productArrIndex, inputValue));
+                id
+                    ? response = await fetch(`/api/store/basket/${id}`, {
+                        method: 'DELETE',
+                    })
 
-        //         // setInputVal(inputVal.with(productArrIndex, 0));
+                    : response = await fetch(`/api/store/basket`, {
+                        method: 'DELETE',
+                    })
 
-        //     } catch (error) {
-        //         console.log(`FILE: ${__filename}\nERROR:`, error);
-        //     }
-        //     // finally {
-        //     //     onClose();
-        //     // }
-        // }
+                // console.log('adduser response', response);
+                if (!response.ok) throw new Error('ошибка');
+                const json = await response.json();
+                // console.log('json', json);
 
-        // async function changeDataAdd(newProduct) {
-        //     try {
-        //         const response = await fetch('/api/store/basket/', {
-        //             method: 'POST',
-        //             body: JSON.stringify(newProduct)
-        //         });
-        //         // console.log('adduser response', response);
-        //         if (!response.ok) throw new Error('ошибка');
-        //         const json = await response.json();
-        //         // console.log('json', json);
-        //         return data;
-        //     } catch (error) {
-        //         console.log(`FILE: ${__filename}\nERROR:`, error)
-        //     }
-        // }
+                if (id) {
+                    return data?.filter(item => id !== +item?.id)
+                } else {
+                    return [];
+                }
 
-
+            } catch (error) {
+                console.log(`FILE: ${__filename}\nERROR:`, error);
+            }
+        }
 
 
         return (
             (data.length > 0)
                 ? (inputVal[0] > 0) && <Flex flexDirection={'column'} alignItems={'center'} gap={'20px'}>
                     <ButtonGroup display={'flex'} alignItems={'baseline'} gap={'1vw'} flexDirection={flexDirection}>
-                        <Button colorScheme='blue' width={'167px'}>Подтвердить заказ</Button>
-                        <Button colorScheme='blue' width={'167px'}>Очистить корзину</Button>
+                        <Button colorScheme='blue' width={'167px'} onClick={() => alert('ПОДТВЕРЖДАЕМ')}>Подтвердить заказ</Button>
+                        <Button colorScheme='blue' width={'167px'} onClick={() => del()}>Очистить корзину</Button>
                     </ButtonGroup>
                     <Box>Общая сумма заказа:&#160;
                         {data.map(({ price, number }) => (price * number)).reduce((sum, current) => sum + current, 0)}
@@ -122,23 +118,9 @@ export default function StoreComponent({ data, mutate }) {
                                     setInputVal={setInputVal}
                                     productArrIndex={productArrIndex}
                                 >
-
-                                    {/* {session
-                                ? <Button
-                                    variant='solid'
-                                    colorScheme='blue'
-                                    onClick={() => addToBasket(currentUserId, id, productArrIndex, +inputVal[productArrIndex])}
-                                >
-                                    Добавить в корзину
-                                </Button>
-                                : <Button variant='solid' colorScheme='blue'>
-                                    Купить сейчас
-                                </Button>} */}
-
                                     <Flex flexDirection={'column'}>
-                                        <Button colorScheme='blue'>Удалить товар</Button>
+                                        <Button colorScheme='blue' onClick={() => del(id)}>Удалить товар</Button>
                                     </Flex>
-
                                 </ProductCard>
                             </Flex>
                         )}

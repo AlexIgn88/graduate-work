@@ -3,7 +3,7 @@ import { authOptions } from '../auth/[...nextauth]';
 import {
   getAllData, getOneDataFromColumnByID,
   getAllDataFromColumnByID, getOneDataFromColumnsByValues,
-  addData, deleteData, updateData
+  addData, getAllDataFromColumnsByValues, deleteData, updateData
 } from '../../../db/db_wrap';
 
 
@@ -125,7 +125,59 @@ export default async function handler(req, res) {
         }
 
       case 'DELETE':
-        return res.status(200).json(await deleteData(table, +id));
+
+        switch (true) {
+          case 'product' === table: if (session && 'manager' === session.user.role) {
+            return res.status(200).json(await deleteData(table, +id)); //удалять товары из product может только manager
+          } else {
+            res.status(403).send({
+              error: 'You must be a manager to view the protected content on this page.',
+            });
+          }
+            return;
+
+          case 'basket' === table:
+            if (session) {
+
+              id
+                ? await getOneDataFromColumnsByValues(table, ['userId', 'productId'], [session?.user?.id, +id])
+                  .then(async (result) => {
+                    const deleted = await deleteData(table, result.id);
+                    res.status(200).json({ deleted });
+                  })
+
+                : await getAllDataFromColumnsByValues(table, ['userId'], [session?.user?.id])
+                  .then(async (result) => {
+                    const deleted = await Promise.all(result.map(async (item) => {
+                      await deleteData(table, item.id);
+                      return item;
+                    }));
+                    res.status(200).json({ deleted });
+                  });
+
+            } else {
+              res.status(403).send({
+                error: 'You must be signed in to view the protected content on this page.',
+              });
+            }
+            return;
+
+          case 'order' === table:
+            if (session && 'manager' === session.user.role) {
+              null //удалять товары из order может только manager
+            } else {
+              res.status(403).send({
+                error: 'You must be a manager to view the protected content on this page.',
+              });
+            }
+            return;
+
+          default:
+            return res.status(200).json('error value');
+
+        }
+
+
       case 'PUT':
         return res.status(200).json(await updateData(table, +id, body));
     }
