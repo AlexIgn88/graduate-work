@@ -30,14 +30,11 @@ export default function ProductCard({ children, id, name, price, category, descr
                     Укажите количество:
                     <NumberInput
                         step={1}
-                        // defaultValue={0}
-                        // defaultValue={+inputVal[productArrIndex]}
                         defaultValue={+inputVal[productArrIndex] ? +inputVal[productArrIndex] : 0}
                         min={0}
                         max={quantity}
                     >
                         <NumberInputField
-                            // value={+inputVal[productArrIndex]}
                             onChange={evt => {
                                 let inputValue = +evt.currentTarget.value;
                                 // console.log('inputValue=', inputValue);

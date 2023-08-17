@@ -2,6 +2,9 @@
 ## My graduate work:
 
 ## Progress of the graduate work:
+v 0.12.10
+In the Basket user can increase or decrease the quantity of goods
+
 v 0.12.9
 rounding for prices 
 windows when deleted

@@ -32,7 +32,6 @@ export default function StoreComponent({ data, mutate }) {
 
     useEffect(() => {
         setInputVal(
-            // Array(data?.length)?.fill(0)
             data && (!data?.error) && data?.map(({ number }) => number) || Array(numberOfSkeletons)?.fill(0)
         );
     }, [data]);
@@ -92,10 +91,43 @@ export default function StoreComponent({ data, mutate }) {
             }
         }
 
+        async function edit(product, value) {
+            const updated = Object.assign({}, product, { number: value });
+
+            try {
+                mutate(changeDataEdit(product.id, updated));
+            } catch (error) {
+                console.log(`FILE: ${__filename}\nERROR:`, error)
+            } finally {
+                null;
+            }
+        }
+
+        async function changeDataEdit(id, updated) {
+            try {
+                const response = await fetch(`/api/store/basket/${id}`, {
+                    method: 'PUT',
+                    body: JSON.stringify(updated)
+                });
+                // console.log('adduser response', response);
+                if (!response.ok) throw new Error('ошибка');
+                const json = await response.json();
+                // console.log('json', json);
+
+                return data?.map(item =>
+                    item.id === id ? updated : item
+                )
+
+
+            } catch (error) {
+                console.log(`FILE: ${__filename}\nERROR:`, error);
+            }
+        }
+
 
         return (
             (data.length > 0)
-                ? (inputVal[0] > 0) && <Flex flexDirection={'column'} alignItems={'center'} gap={'20px'}>
+                ? (inputVal.reduce((sum, current) => sum + current, 0) > 0) && <Flex flexDirection={'column'} alignItems={'center'} gap={'20px'}>
                     <ButtonGroup display={'flex'} alignItems={'baseline'} gap={'1vw'} flexDirection={flexDirection}>
 
                         <Button colorScheme='blue' width={'167px'} onClick={() => alert('ПОДТВЕРЖДАЕМ')}>Подтвердить заказ</Button>
@@ -103,10 +135,8 @@ export default function StoreComponent({ data, mutate }) {
                         <ModalWindowBlur
                             buttonText={'Очистить корзину'}
                             buttonColorScheme={'blue'}
-                            width={'167px'}
-                        >
+                            width={'167px'}>
                             <NotificationProductRemoved del={del} />
-
                         </ModalWindowBlur>
 
                     </ButtonGroup>
@@ -115,14 +145,16 @@ export default function StoreComponent({ data, mutate }) {
                         &#160;&#8381;
                     </Box>
                     <Flex gap={'20px'} flexDirection={flexDirection} flexWrap={'wrap'}>
-                        {data.map(({ id, name, price, category, description, quantity, image, number }, productArrIndex) => {
+                        {data.map((product, productArrIndex) => {
+
+                            const { id, name, price, category, description, quantity, image, number } = product;
 
                             function handleDelProduct() {
                                 return del(id);
                             }
 
                             return (<Flex key={productArrIndex} flexDirection={'column'} alignItems={'center'} flexGrow={'1'}>
-                                <Box>Количество для заказа: {number}</Box>
+                                <Box>Выбрано для заказа: {number}</Box>
                                 <ProductCard
                                     id={id}
                                     name={name}
@@ -135,10 +167,14 @@ export default function StoreComponent({ data, mutate }) {
                                     setInputVal={setInputVal}
                                     productArrIndex={productArrIndex}
                                 >
-                                    <Flex flexDirection={'column'}>
+                                    <Flex alignItems={'baseline'} gap={'1vw'} flexDirection={flexDirection}>
+
+                                        <Button colorScheme='blue' width={'180px'} onClick={() => edit(product, +inputVal[productArrIndex])}>Изменить количество</Button>
+
                                         <ModalWindowBlur
                                             buttonText={'Удалить товар'}
                                             buttonColorScheme={'blue'}
+                                            width={'180px'}
                                         >
                                             <NotificationProductRemoved del={handleDelProduct} />
                                         </ModalWindowBlur>

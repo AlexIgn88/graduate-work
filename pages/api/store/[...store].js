@@ -111,8 +111,11 @@ export default async function handler(req, res) {
             return;
 
           case 'order' === table:
-            if (session && 'manager' === session.user.role) {
+            // if (session && 'manager' === session.user.role) {
+            if (session) {
+              
               null //допишу
+
             } else {
               res.status(403).send({
                 error: 'You must be a manager to view the protected content on this page.',
@@ -131,7 +134,7 @@ export default async function handler(req, res) {
             return res.status(200).json(await deleteData(table, +id)); //удалять товары из product может только manager
           } else {
             res.status(403).send({
-              error: 'You must be a manager to view the protected content on this page.',
+              error: 'You must be a manager',
             });
           }
             return;
@@ -157,7 +160,7 @@ export default async function handler(req, res) {
 
             } else {
               res.status(403).send({
-                error: 'You must be signed in to view the protected content on this page.',
+                error: 'You must be signed',
               });
             }
             return;
@@ -167,7 +170,7 @@ export default async function handler(req, res) {
               null //удалять товары из order может только manager
             } else {
               res.status(403).send({
-                error: 'You must be a manager to view the protected content on this page.',
+                error: 'You must be a manager',
               });
             }
             return;
@@ -179,7 +182,53 @@ export default async function handler(req, res) {
 
 
       case 'PUT':
-        return res.status(200).json(await updateData(table, +id, body));
+
+        switch (true) {
+          case 'product' === table: if (session && 'manager' === session.user.role) {
+            return res.status(200).json(await updateData(table, +id, body)); //редактировать товары из product может только manager
+          } else {
+            res.status(403).send({
+              error: 'You must be a manager',
+            });
+          }
+            return;
+
+          case 'basket' === table:
+            if (session) {
+
+              await getOneDataFromColumnsByValues(table, ['userId', 'productId'], [session?.user?.id, +id])
+                .then(async (result) => {
+                  const bodyParsed = JSON.parse(body);
+                  const updatedQuantity = Object.assign({}, { quantity: bodyParsed.number });
+
+                  const updatedJson = JSON.stringify(updatedQuantity);
+                  const edited = await updateData(table, result.id, updatedJson)
+                  res.status(200).json({ edited });
+                })
+
+            } else {
+              res.status(403).send({
+                error: 'You must be signed',
+              });
+            }
+            return;
+
+          case 'order' === table:
+            if (session && 'manager' === session.user.role) {
+              null //редактировать товары из order может только manager
+            } else {
+              res.status(403).send({
+                error: 'You must be a manager',
+              });
+            }
+            return;
+
+          default:
+            return res.status(200).json('error value');
+
+        }
+
+      // return res.status(200).json(await updateData(table, +id, body));
     }
   } catch (error) {
     console.debug(`FILE: ${__filename}\nERROR:`, error);
