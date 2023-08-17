@@ -2,6 +2,11 @@
 ## My graduate work:
 
 ## Progress of the graduate work:
+v 0.12.11
+orders are sent to the manager, 
+the goods are removed from the basket, 
+the selected quantity is reserved for the user
+
 v 0.12.10
 In the Basket user can increase or decrease the quantity of goods
 

@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../auth/[...nextauth]';
 import {
-  getAllData, getOneDataFromColumnByID,
+  getAllData, getOneData, getOneDataFromColumnByID,
   getAllDataFromColumnByID, getOneDataFromColumnsByValues,
   addData, getAllDataFromColumnsByValues, deleteData, updateData
 } from '../../../db/db_wrap';
@@ -43,17 +43,17 @@ export default async function handler(req, res) {
                 ))
             } else {
               res.status(403).send({
-                error: 'You must be signed in to view the protected content on this page.',
+                error: 'You must be signed',
               });
             }
             return;
 
           case 'order' === table:
             if (session && 'manager' === session.user.role) {
-              null //допишу
+              null //таблицу просмотреть может только менеджер
             } else {
               res.status(403).send({
-                error: 'You must be a manager to view the protected content on this page.',
+                error: 'You must be a manager',
               });
             }
             return;
@@ -66,10 +66,10 @@ export default async function handler(req, res) {
 
         switch (true) {
           case 'product' === table: if (session && 'manager' === session.user.role) {
-            null //допишу
+            null //данные в этой таблице может поменять только менеджер 
           } else {
             res.status(403).send({
-              error: 'You must be a manager to view the protected content on this page.',
+              error: 'You must be a manager',
             });
           }
             return;
@@ -105,20 +105,39 @@ export default async function handler(req, res) {
 
             } else {
               res.status(403).send({
-                error: 'You must be signed in to view the protected content on this page.',
+                error: 'You must be signed',
               });
             }
             return;
 
           case 'order' === table:
-            // if (session && 'manager' === session.user.role) {
             if (session) {
-              
-              null //допишу
+
+              await getAllDataFromColumnsByValues('basket', ['userId'], [session?.user?.id])
+                .then(async (result) => {
+
+                  const addedInOrder = await Promise.all(result.map(async (item) => {
+                    const { id, userId, productId, quantity } = item;
+                    const orderItem = { userId, productId, quantity };
+                    const orderItemJson = JSON.stringify(orderItem);
+                    await addData('order', orderItemJson);
+
+                    const product = await getOneData('product', +productId);
+                    const updatedQuantity = Object.assign({}, { quantity: product.quantity - quantity });
+                    // console.debug('updatedQuantity=', updatedQuantity);
+                    const updatedJson = JSON.stringify(updatedQuantity);
+                    await updateData('product', +productId, updatedJson)
+
+                    await deleteData('basket', +id);
+                    return orderItem;
+                  }));
+
+                  return res.status(200).json({ addedInOrder });
+                });
 
             } else {
               res.status(403).send({
-                error: 'You must be a manager to view the protected content on this page.',
+                error: 'You must be signed',
               });
             }
             return;
@@ -185,7 +204,7 @@ export default async function handler(req, res) {
 
         switch (true) {
           case 'product' === table: if (session && 'manager' === session.user.role) {
-            return res.status(200).json(await updateData(table, +id, body)); //редактировать товары из product может только manager
+            return res.status(200).json(await updateData(table, +id, body)); //редактировать товары из product может только manager или как результат заказа
           } else {
             res.status(403).send({
               error: 'You must be a manager',

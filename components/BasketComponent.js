@@ -11,7 +11,7 @@ import ModalWindowBlur from '../components/modalwindows/ModalWindowBlur';
 
 export default function StoreComponent({ data, mutate }) {
 
-    console.log('data=', data);
+    // console.log('data=', data);
 
     //Константы для получения сессии и данных о вошедшем пользователе
     const
@@ -124,13 +124,50 @@ export default function StoreComponent({ data, mutate }) {
             }
         }
 
+        function handleAddToOrder() {
+            return addToOrder();
+        }
+
+        async function addToOrder() {
+
+            try {
+                mutate(changeDataAdd());
+            } catch (error) {
+                console.log(`FILE: ${__filename}\nERROR:`, error);
+            }
+        }
+
+        async function changeDataAdd() {
+            try {
+                const response = await fetch(`/api/store/order`, {
+                    method: 'POST',
+                });
+                console.log('adduser response', response);
+                if (!response.ok) throw new Error('ошибка');
+                const json = await response.json();
+                console.log('json', json);
+
+                return [];
+
+            } catch (error) {
+                console.log(`FILE: ${__filename}\nERROR:`, error)
+            }
+        }
+
+
 
         return (
             (data.length > 0)
                 ? (inputVal.reduce((sum, current) => sum + current, 0) > 0) && <Flex flexDirection={'column'} alignItems={'center'} gap={'20px'}>
                     <ButtonGroup display={'flex'} alignItems={'baseline'} gap={'1vw'} flexDirection={flexDirection}>
 
-                        <Button colorScheme='blue' width={'167px'} onClick={() => alert('ПОДТВЕРЖДАЕМ')}>Подтвердить заказ</Button>
+                        <ModalWindowBlur
+                            buttonText={'Подтвердить заказ'}
+                            buttonColorScheme={'blue'}
+                            width={'167px'}
+                        >
+                            <NotificationConfirmTheOrder handleAddToOrder={handleAddToOrder} />
+                        </ModalWindowBlur>
 
                         <ModalWindowBlur
                             buttonText={'Очистить корзину'}
@@ -199,8 +236,40 @@ export default function StoreComponent({ data, mutate }) {
     }
 }
 
-function NotificationProductRemoved({ onClose, del }) {
+function NotificationConfirmTheOrder({ onClose, handleAddToOrder }) {
 
+    return (
+        <Flex
+            flexDirection={'column'}
+            alignItems={'center'}
+            gap={'15px'}
+            fontSize={textFontSize}
+        >
+            <Box textAlign={'center'}>Подтверждаете заказ?</Box>
+
+            <Flex
+                flexDirection={flexDirection}
+                gap={'1vw'}
+
+            >
+                <Button
+                    colorScheme='blue'
+                    onClick={() => {
+                        onClose();
+                        handleAddToOrder();
+                    }}>Да
+                </Button>
+                <Button
+                    colorScheme='blue'
+                    onClick={() => {
+                        onClose();
+                    }}>Отмена
+                </Button>
+            </Flex>
+        </Flex>)
+}
+
+function NotificationProductRemoved({ onClose, del }) {
 
     return (
         <Flex

@@ -81,6 +81,16 @@ export async function deleteData(table, id) {
     })
 }
 
+export async function deleteManyData(table, idsToDelete) {
+    return await prisma[table].deleteMany({
+        where: {
+            id: {
+                in: idsToDelete
+            }
+        }
+    })
+}
+
 export async function updateData(table, id, body) {
     return await prisma[table].update({
         where: {
