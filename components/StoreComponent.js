@@ -187,7 +187,8 @@ function NotificationProductAddedToTheBasket({ onClose, noProduct, setNoProduct 
                     onClick={() => {
                         onClose();
                         setNoProduct(false);
-                    }}>Продолжить покупки</Button>
+                    }}>Продолжить покупки
+                </Button>
             </Flex>
         </Flex>)
 }

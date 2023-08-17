@@ -2,9 +2,11 @@ import { Box, Flex, Skeleton, Stack, Button, ButtonGroup, Text } from "@chakra-u
 import { useEffect, useState } from 'react';
 import ErrorComponent from '../components/ErrorComponent';
 import { useSession } from 'next-auth/react';
+import { textFontSize } from '../displayParameters/fontParameters';
 import { flexDirection } from '../displayParameters/flexParameters';
 import ProductCard from '../components/ProductCard';
 import Link from 'next/link';
+import ModalWindowBlur from '../components/modalwindows/ModalWindowBlur';
 
 
 export default function StoreComponent({ data, mutate }) {
@@ -95,16 +97,31 @@ export default function StoreComponent({ data, mutate }) {
             (data.length > 0)
                 ? (inputVal[0] > 0) && <Flex flexDirection={'column'} alignItems={'center'} gap={'20px'}>
                     <ButtonGroup display={'flex'} alignItems={'baseline'} gap={'1vw'} flexDirection={flexDirection}>
+
                         <Button colorScheme='blue' width={'167px'} onClick={() => alert('ПОДТВЕРЖДАЕМ')}>Подтвердить заказ</Button>
-                        <Button colorScheme='blue' width={'167px'} onClick={() => del()}>Очистить корзину</Button>
+
+                        <ModalWindowBlur
+                            buttonText={'Очистить корзину'}
+                            buttonColorScheme={'blue'}
+                            width={'167px'}
+                        >
+                            <NotificationProductRemoved del={del} />
+
+                        </ModalWindowBlur>
+
                     </ButtonGroup>
                     <Box>Общая сумма заказа:&#160;
-                        {data.map(({ price, number }) => (price * number)).reduce((sum, current) => sum + current, 0)}
+                        {data.map(({ price, number }) => (price * number)).reduce((sum, current) => sum + current, 0).toFixed(2)}
                         &#160;&#8381;
                     </Box>
                     <Flex gap={'20px'} flexDirection={flexDirection} flexWrap={'wrap'}>
-                        {data.map(({ id, name, price, category, description, quantity, image, number }, productArrIndex) =>
-                            <Flex key={productArrIndex} flexDirection={'column'} alignItems={'center'} flexGrow={'1'}>
+                        {data.map(({ id, name, price, category, description, quantity, image, number }, productArrIndex) => {
+
+                            function handleDelProduct() {
+                                return del(id);
+                            }
+
+                            return (<Flex key={productArrIndex} flexDirection={'column'} alignItems={'center'} flexGrow={'1'}>
                                 <Box>Количество для заказа: {number}</Box>
                                 <ProductCard
                                     id={id}
@@ -119,10 +136,16 @@ export default function StoreComponent({ data, mutate }) {
                                     productArrIndex={productArrIndex}
                                 >
                                     <Flex flexDirection={'column'}>
-                                        <Button colorScheme='blue' onClick={() => del(id)}>Удалить товар</Button>
+                                        <ModalWindowBlur
+                                            buttonText={'Удалить товар'}
+                                            buttonColorScheme={'blue'}
+                                        >
+                                            <NotificationProductRemoved del={handleDelProduct} />
+                                        </ModalWindowBlur>
                                     </Flex>
                                 </ProductCard>
-                            </Flex>
+                            </Flex>)
+                        }
                         )}
                     </Flex>
                 </Flex>
@@ -138,4 +161,37 @@ export default function StoreComponent({ data, mutate }) {
                 </Flex>
         )
     }
+}
+
+function NotificationProductRemoved({ onClose, del }) {
+
+
+    return (
+        <Flex
+            flexDirection={'column'}
+            alignItems={'center'}
+            gap={'15px'}
+            fontSize={textFontSize}
+        >
+
+            <Box textAlign={'center'}>Подтверждаете удаление?</Box>
+
+            <Flex
+                flexDirection={flexDirection}
+                gap={'1vw'}
+
+            >
+                <Button
+                    colorScheme='blue'
+                    onClick={() => { del(); onClose() }}
+                >Удалить
+                </Button>
+                <Button
+                    colorScheme='blue'
+                    onClick={() => {
+                        onClose();
+                    }}>Отмена
+                </Button>
+            </Flex>
+        </Flex>)
 }

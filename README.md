@@ -2,6 +2,10 @@
 ## My graduate work:
 
 ## Progress of the graduate work:
+v 0.12.9
+rounding for prices 
+windows when deleted
+
 v 0.12.8 
 The ability to delete products from the basket has been implemented
 

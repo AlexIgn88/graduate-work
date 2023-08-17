@@ -21,7 +21,7 @@ export default function ProductCard({ children, id, name, price, category, descr
                     {description}
                 </Text>
                 <Text color='blue.600' fontSize='2xl'>
-                    {price} &#8381;
+                    {price.toFixed(2)} &#8381;
                 </Text>
                 <Text color='blue.600' fontSize='2xl'>
                     Всего в наличии: {quantity}
