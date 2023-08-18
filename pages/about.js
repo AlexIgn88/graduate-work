@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { Text, Box, Flex } from '@chakra-ui/react';
-import { marginParameters } from '../displayParameters/marginParameters';
+import { marginParameters, halfMarginParameters } from '../displayParameters/marginParameters';
 import { flexDirection } from '../displayParameters/flexParameters';
 import { HeadingForPage } from '../components/ElemsForPages';
 import { FactForAboutPage, ServiceForAboutPage } from '../components/ElemsForAboutPage';
@@ -22,6 +22,8 @@ export default function AboutPage() {
 
             <Box
                 m={marginParameters}
+                mt={halfMarginParameters}
+                mb={halfMarginParameters}
             >
                 <HeadingForPage element={'h1'} content={'О компании'} />
                 <Text

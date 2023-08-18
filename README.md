@@ -2,6 +2,9 @@
 ## My graduate work:
 
 ## Progress of the graduate work:
+v 0.12.14
+fixed margins and some pictures
+
 v 0.12.12
 Fix [inputVal, setInputVal] = useState(false) 
 

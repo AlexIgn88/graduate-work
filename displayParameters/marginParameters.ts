@@ -30,3 +30,7 @@ export const marginParameters: valieForBreakpoints = getBreakpointsParamInObject
 
 //например  ['0em', '30em', '48em', '62em', '80em', '96em'] элементы массива идут по возрастанию
 export const marginParametersInArray = getBreakpointsParamInArray(Object.values(marginParameters));
+
+const halfMarginValueArr: valueArrType = marginValueArr.map(margin => (margin / 2));
+export const halfMarginParameters: valieForBreakpoints = getBreakpointsParamInObject(breakpointsArr, halfMarginValueArr);
+export const halfMarginParametersInArray = getBreakpointsParamInArray(Object.values(halfMarginParameters));

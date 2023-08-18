@@ -4,14 +4,14 @@ import AdminPanelComponent from '../components/AdminPanelComponent';
 
 import Head from "next/head";
 import { Box } from "@chakra-ui/react";
-import { marginParameters } from '../displayParameters/marginParameters';
+import { marginParameters, halfMarginParameters } from '../displayParameters/marginParameters';
 
 
 export default function AdminPanelPage() {
 
   const API_URL = '/api/admin/user/';
 
-  const newMarginParameters = Object.assign({}, marginParameters, { base: '5px' });
+  const newMarginParameters = Object.assign({}, marginParameters, { base: '5px' }, { sm: '5px' }, { '2xl': '10px' });
 
   return <>
     <Head>
@@ -20,7 +20,8 @@ export default function AdminPanelPage() {
     <Box
       className='admin-page'
       m={newMarginParameters}
-      mt={{ base: '35px', sm: '35px' }}
+      mt={halfMarginParameters}
+      mb={halfMarginParameters}
     >
       <SWRConfig>
         <GetData url={API_URL}>

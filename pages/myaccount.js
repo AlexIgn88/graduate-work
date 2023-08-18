@@ -3,7 +3,7 @@ import GetData from '../components/GetData';
 import UserAccountComponent from '../components/UserAccountComponent';
 import Head from "next/head";
 import { Box } from "@chakra-ui/react";
-import { marginParameters } from '../displayParameters/marginParameters';
+import { marginParameters, halfMarginParameters } from '../displayParameters/marginParameters';
 
 
 export default function MyAccount() {
@@ -19,7 +19,8 @@ export default function MyAccount() {
         <Box
             className='account-page'
             m={newMarginParameters}
-            mt={{ base: '35px', sm: '35px' }}
+            mt={halfMarginParameters}
+            mb={halfMarginParameters}
         >
             <SWRConfig>
                 <GetData url={API_URL}>

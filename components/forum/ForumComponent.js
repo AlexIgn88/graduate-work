@@ -16,7 +16,7 @@ import ModalWindowBlur from '../modalwindows/ModalWindowBlur';
 import AddNewTopic from './AddNewTopic';
 import { formatDateTime } from '../../includes/formatDate';
 import { FcLandscape } from "react-icons/fc";
-import { marginParameters } from '../../displayParameters/marginParameters';
+import { marginParameters, halfMarginParameters } from '../../displayParameters/marginParameters';
 
 const Moment = require('mol_time_all').$mol_time_moment;
 
@@ -119,6 +119,8 @@ export default function ForumComponent({ data, mutate }) {
     return (
         <Flex
             m={marginParameters}
+            mt={halfMarginParameters}
+            mb={halfMarginParameters}
             className="forum-page"
             flexDirection={'column'}
             gap={'20px'}
@@ -132,9 +134,7 @@ export default function ForumComponent({ data, mutate }) {
 
                 {!session && (
                     <Box
-                        mb={10}
                         pt={forumPaddingSeting}
-                        pb={forumPaddingSeting}
                         borderRadius={'5px'}
                         background={'#121f26'}
                         color={'white'}>Для общения на нашем форуме войдите, пожалуйста, в свой акаунт на сайте
@@ -149,7 +149,7 @@ export default function ForumComponent({ data, mutate }) {
                     justifyContent={'space-between'}
                     flexDirection={flexDirection}
                     alignItems={'center'}
-                    mb={10}
+                    mb={halfMarginParameters}
                     p={forumPaddingSeting}
                     gap={'10px'}
                     borderRadius={'5px'}
@@ -345,7 +345,6 @@ export default function ForumComponent({ data, mutate }) {
 
             <Box
                 className="additional-information"
-                mb={10}
                 p={forumPaddingSeting}
                 borderRadius={'5px'}
                 background={'#121f26'}

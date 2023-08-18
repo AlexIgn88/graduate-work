@@ -1,7 +1,5 @@
 import columnsForUserAccount from '../data/columnsForUserAccount';
-import {
-    Box, Flex, Skeleton, Stack,
-} from "@chakra-ui/react";
+import { Box, Skeleton, Stack } from "@chakra-ui/react";
 // import { CloseIcon, CheckIcon, EditIcon } from '@chakra-ui/icons';
 import { Fragment, useState } from 'react';
 import UserDataFragment from '../components/UserDataFragment';
@@ -78,11 +76,6 @@ export default function UserAccountComponent({ data, mutate }) {
                         setSelectedForEdit={setSelectedForEdit}
                     />
                 </Fragment>
-
-                {/* <pre>{JSON.stringify(formattedUser, null, '\t')}</pre> */}
-                {/* <pre>{JSON.stringify(data, null, '\t')}</pre> */}
-                {/* <pre>{JSON.stringify(user, null, '\t')}</pre> */}
-                {/* <pre>{JSON.stringify(accouts, null, '\t')}</pre> */}
             </Box>
         </>
     }

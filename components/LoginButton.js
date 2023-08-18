@@ -61,10 +61,11 @@ export function AddNewAccount() {
 
     return (
         <Button
-            as={'span'}
             colorScheme='gray'
             mb={'2vw'}
             title='Добавить дополнительный аккаунт'
+            textAlign={'center'}
+            whiteSpace={'normal'}
             onClick={() => signIn()}
         >Добавить аккаунт
         </Button>

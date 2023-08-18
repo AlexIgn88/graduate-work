@@ -1,8 +1,9 @@
 import {
-    Box, Stack, Image, Heading, Text, Divider, ButtonGroup,
+    Box, Stack, Heading, Text, Divider, ButtonGroup,
     NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper,
     Card, CardBody, CardFooter,
 } from "@chakra-ui/react";
+import Image from 'next/image';
 import { flexDirection } from '../displayParameters/flexParameters';
 
 
@@ -13,7 +14,10 @@ export default function ProductCard({ children, id, name, price, category, descr
             <Image
                 src={image}
                 alt={name}
-                borderRadius='lg'
+                width={500}
+                height={500}
+                priority={true}
+                style={{ borderRadius: '10px' }}
             />
             <Stack mt='6' spacing='3' flexGrow={'1'} justifyContent={'flex-end'}>
                 <Heading size='md'>{name}</Heading>

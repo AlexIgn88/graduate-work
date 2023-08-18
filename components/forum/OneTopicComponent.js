@@ -11,7 +11,7 @@ import {
     // MenuItemOption, MenuGroup, MenuOptionGroup, MenuDivider,
 } from "@chakra-ui/react";
 import { h4HeadersFontSize, h2HeadersFontSize, textFontSize } from '../../displayParameters/fontParameters';
-import { marginParameters } from '../../displayParameters/marginParameters';
+import { marginParameters, halfMarginParameters } from '../../displayParameters/marginParameters';
 import { flexDirection } from '../../displayParameters/flexParameters';
 import ModalWindowBlur from '../../components/modalwindows/ModalWindowBlur';
 import AddNewPost from '../../components/forum/AddNewPost';
@@ -119,7 +119,12 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
 
     return <>
 
-        <Box m={marginParameters} className="topic-page">
+        <Box
+            className="topic-page"
+            m={marginParameters}
+            mt={halfMarginParameters}
+            mb={halfMarginParameters}
+        >
             <Head>
                 <title>{data?.topic?.title || 'Тема'}</title>
             </Head>

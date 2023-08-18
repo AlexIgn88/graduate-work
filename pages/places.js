@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 import { places, loremIpsum } from '../data/placesData';
 import { Box, Flex, Heading, Text, useBreakpointValue, Image, Link } from "@chakra-ui/react";
 import { textFontSize, h1HeadersFontSize } from '../displayParameters/fontParameters';
-import { marginParameters, marginParametersInArray } from '../displayParameters/marginParameters';
+import { marginParametersInArray, halfMarginParameters } from '../displayParameters/marginParameters';
 
 
 export default function PlacesPage() {
@@ -29,8 +29,8 @@ export default function PlacesPage() {
 
         <Box
             className="places-page"
-            mt={marginParameters}
-            mb={marginParameters}
+            mt={halfMarginParameters}
+            mb={halfMarginParameters}
             ml={newBreakpointsInArray}
             mr={newBreakpointsInArray}
         >

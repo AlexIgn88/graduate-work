@@ -1,6 +1,6 @@
 import { Heading, Image, List, ListItem, Stack, Text, Card, CardBody, CardFooter, Divider, ButtonGroup } from '@chakra-ui/react';
 import { ModalWindowRecordingForATour } from "../components/modalwindows/ModalWindowRecordingForATour";
-import { FaBusAlt } from 'react-icons/fa';
+
 
 export default function TourCardsMini({ tourData }) {
 
@@ -17,20 +17,17 @@ export default function TourCardsMini({ tourData }) {
             >
                 <Card maxW='sm' h={'100%'}>
                     <CardBody h={'100%'} display={'Flex'} flexDirection={'column'} alignItems={'center'}>
-                        {/* <Flex> */}
                         <Image
                             src={tour.tourImage ? tour.tourImage : '/img/tourcard.jpg'}
                             alt={'tour'}
                             h={'200px'}
                             borderRadius='lg'
                         />
-                        {/* </Flex> */}
                         <Stack mt='6' spacing='3'>
                             <Heading size='md'>{tour.tourName}</Heading>
                             <List textAlign={'justify'}>
                                 {tour.tourInformation.map((item, i) => (
                                     <ListItem key={i}>
-                                        {/* <ListIcon as={FaBusAlt} color='yellow.500' /> */}
                                         {Object.values(item)[0]}
                                     </ListItem>
                                 ))}

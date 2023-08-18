@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { Text, Box, Flex, Image } from '@chakra-ui/react';
-import { marginParameters } from '../../displayParameters/marginParameters';
+import { marginParameters, halfMarginParameters } from '../../displayParameters/marginParameters';
 import { HeadingForPage } from '../../components/ElemsForPages';
 import Galary from '../../components/Galary';
 import ContactInfo from '../../components/ContactInfo';
@@ -23,6 +23,8 @@ export default function KareliaPage() {
         <Box
             className='crimea-page'
             m={marginParameters}
+            mt={halfMarginParameters}
+            mb={halfMarginParameters}
         >
             <HeadingForPage element={'h1'} content={'Карелия'} />
             <Flex
