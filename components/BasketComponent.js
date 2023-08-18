@@ -25,14 +25,13 @@ export default function StoreComponent({ data, mutate }) {
 
     //useState для управляемых инпутов
     const
-        defaultinputVal = Array(data?.length || numberOfSkeletons)?.fill(0),
-        [inputVal, setInputVal] = useState(defaultinputVal);
+        [inputVal, setInputVal] = useState(false);
 
     // console.log('inputVal', inputVal);
 
     useEffect(() => {
         setInputVal(
-            data && (!data?.error) && data?.map(({ number }) => number) || Array(numberOfSkeletons)?.fill(0)
+            Array.isArray(data) && data.length > 0 && data?.map(({ number }) => number)
         );
     }, [data]);
 
@@ -158,7 +157,7 @@ export default function StoreComponent({ data, mutate }) {
 
         return (
             (data.length > 0)
-                ? (inputVal.reduce((sum, current) => sum + current, 0) > 0) && <Flex flexDirection={'column'} alignItems={'center'} gap={'20px'}>
+                ? inputVal && <Flex flexDirection={'column'} alignItems={'center'} gap={'20px'}>
                     <ButtonGroup display={'flex'} alignItems={'baseline'} gap={'1vw'} flexDirection={flexDirection}>
 
                         <ModalWindowBlur

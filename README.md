@@ -2,6 +2,9 @@
 ## My graduate work:
 
 ## Progress of the graduate work:
+v 0.12.12
+Fix [inputVal, setInputVal] = useState(false) 
+
 v 0.12.11
 orders are sent to the manager, 
 the goods are removed from the basket, 

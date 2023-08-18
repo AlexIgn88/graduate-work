@@ -27,22 +27,21 @@ export default function StoreComponent({ data, mutate }) {
 
     //useState для управляемых инпутов
     const
-        defaultinputVal = Array(data?.length || numberOfSkeletons)?.fill(0),
-        [inputVal, setInputVal] = useState(defaultinputVal);
+        [inputVal, setInputVal] = useState(false);
+
+    // console.log('inputVal', inputVal);
 
     const [noProduct, setNoProduct] = useState(false);
 
     // console.log('noProduct=', noProduct);
 
     useEffect(() => {
-        setInputVal(Array(data?.length)?.fill(0));
+        setInputVal(Array.isArray(data) && data.length > 0 && Array(data?.length)?.fill(0));
     }, [data]);
 
     const handleOutsideClick = () => {
         setNoProduct(false);
     };
-
-    // console.log('inputVal', inputVal);
 
     if (!data) return (
         <Stack flexDirection={flexDirection}>
@@ -104,7 +103,7 @@ export default function StoreComponent({ data, mutate }) {
 
 
         return (
-            <Flex flexDirection={'column'} alignItems={'center'} gap={'10px'} onClick={handleOutsideClick}>
+            inputVal && <Flex flexDirection={'column'} alignItems={'center'} gap={'10px'} onClick={handleOutsideClick}>
                 <Flex gap={'20px'} flexDirection={flexDirection} flexWrap={'wrap'} width={'100%'}>
                     {data.map(({ id, name, price, category, description, quantity, image }, productArrIndex) => {
 
