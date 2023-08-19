@@ -31,6 +31,7 @@
     "react-hot-toast": "^2.4.1",
     "react-icons": "^4.10.1",
     "react-share": "^4.4.1",
+    "react-social-icons": "^5.15.0",
     "swr": "^2.2.0",
     "ts-node": "^10.9.1"
   },

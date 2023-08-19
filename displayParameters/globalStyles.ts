@@ -45,14 +45,20 @@ export const globalStyles = {
     },
     '.main-footer': {
         background: 'rgb(40, 28, 21)',
+        color: 'white',
         opacity: '100%',
         padding: '20px',
         textAlign: 'center',
         'z-index': '3',
     },
-    '.main-footer p': {
-        fontSize: '14px',
+    '.main-footer ul': {
+        listStyleType: 'none',
+    },
+    '.footer-useful-Links': {
         color: 'white',
+    },
+    '.footer-useful-Links:hover': {
+        color: 'yellow',
     },
     '.places': {
         backgroundColor: 'rgb(6, 13, 32)',

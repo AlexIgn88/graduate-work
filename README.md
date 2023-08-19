@@ -2,6 +2,9 @@
 ## My graduate work:
 
 ## Progress of the graduate work:
+v 0.14.0
+The footer is ready
+
 v 0.12.14
 fixed margins and some pictures
 

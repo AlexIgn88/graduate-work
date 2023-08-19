@@ -49,6 +49,9 @@ dependencies:
   react-share:
     specifier: ^4.4.1
     version: 4.4.1(react@18.2.0)
+  react-social-icons:
+    specifier: ^5.15.0
+    version: 5.15.0(react@18.2.0)
   swr:
     specifier: ^2.2.0
     version: 2.2.0(react@18.2.0)
@@ -3730,6 +3733,15 @@ packages:
       react: 18.2.0
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /react-social-icons@5.15.0(react@18.2.0):
+    resolution: {integrity: sha512-khfDgUiUwEBe34T6br2+mkXQg3hLVDdviVjexxZoVCsogMgxTy/m8+KlX/j6Wa7P2BPxgZ7yZ2jXw3X06pUUFQ==}
+    peerDependencies:
+      react: 15.x.x || 16.x.x || 17.x.x || 18.x.x
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
     dev: false
 
   /react-style-singleton@2.2.1(@types/react@18.2.14)(react@18.2.0):
