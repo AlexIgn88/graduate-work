@@ -10,7 +10,7 @@ import { flexDirection } from '../displayParameters/flexParameters';
 export default function ProductCard({ children, id, name, price, category, description, quantity, image, inputVal, setInputVal, productArrIndex }) {
 
     return <Card maxW='sm' alignItems={'center'} flexGrow={'1'}>
-        <CardBody display={'flex'} flexDirection={'column'}>
+        <CardBody display={'flex'} flexDirection={'column'} alignItems={'center'}>
             <Image
                 src={image}
                 alt={name}
