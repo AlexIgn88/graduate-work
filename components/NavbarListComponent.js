@@ -8,7 +8,7 @@ import { FcHome } from "react-icons/fc";
 import { ChevronDownIcon } from '@chakra-ui/icons';
 
 
-export default function NavbarListComponent({ flexDirection }) {
+export default function NavbarListComponent({ flexDirection, backgroundColor, backgroundColorFocus }) {
 
     const
         router = useRouter(),
@@ -58,17 +58,18 @@ export default function NavbarListComponent({ flexDirection }) {
                                         </MenuButton>
 
                                         <MenuList
-                                            backgroundColor={'#8d634b'}
+                                            backgroundColor={backgroundColor}
                                         >
                                             <MenuItem
                                                 _focus={{
-                                                    backgroundColor: 'rgb(40, 28, 21)'
+                                                    backgroundColor: backgroundColorFocus
                                                 }}
-                                                backgroundColor={'#8d634b'}
+                                                backgroundColor={backgroundColor}
                                                 color={'white'}
                                                 textDecoration={'none'}
                                                 as={Link}
-                                                href={page.src}  >
+                                                href={page.src}
+                                            >
                                                 Все места
                                             </MenuItem>
 
@@ -76,9 +77,9 @@ export default function NavbarListComponent({ flexDirection }) {
 
                                                 <MenuItem
                                                     _focus={{
-                                                        backgroundColor: 'rgb(40, 28, 21)'
+                                                        backgroundColor: backgroundColorFocus
                                                     }}
-                                                    backgroundColor={'#8d634b'}
+                                                    backgroundColor={backgroundColor}
                                                     color={'white'}
                                                     textDecoration={'none'}
                                                     key={i}

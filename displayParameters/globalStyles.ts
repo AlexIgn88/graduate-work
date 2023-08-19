@@ -64,9 +64,6 @@ export const globalStyles = {
         backgroundColor: 'rgb(6, 13, 32)',
         color: 'white',
     },
-    '.places .active': {
-        'backgroundColor': 'black',
-    },
     '.cards div': {
         display: 'flex',
         flexDirection: 'column',

@@ -15,15 +15,19 @@ export default function Navbar() {
         isWide = useBreakpointValue({ base: false, lg: true });
 
     let backgroundColor = '';
+    let backgroundColorFocus = '';
     switch (true) {
         case '/places' === router.pathname:
             backgroundColor = 'rgb(6, 13, 32)';
+            backgroundColorFocus = '#feb849';
             break;
         case 'forum' === router.pathname.split('/')[1]:
             backgroundColor = 'rgb(6, 13, 32)';
+            backgroundColorFocus = '#feb849';
             break;
         default:
             backgroundColor = '#8d634b';
+            backgroundColorFocus = '#feb849';
             break;
     }
 
@@ -69,7 +73,11 @@ export default function Navbar() {
                         <DrawerBody
                             background={backgroundColor}
                         >
-                            <NavbarListComponent flexDirection={'column'} />
+                            <NavbarListComponent
+                                flexDirection={'column'}
+                                backgroundColor={backgroundColor}
+                                backgroundColorFocus={backgroundColorFocus}
+                            />
                         </DrawerBody>
 
                         <DrawerFooter
@@ -104,7 +112,11 @@ export default function Navbar() {
         <nav>
             {!isWide && <DrawerMenu />}
 
-            {isWide && <NavbarListComponent flexDirection={'row'} />}
+            {isWide && <NavbarListComponent
+                flexDirection={'row'}
+                backgroundColor={backgroundColor}
+                backgroundColorFocus={backgroundColorFocus}
+            />}
         </nav>
     </>;
 }

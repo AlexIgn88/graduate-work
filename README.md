@@ -2,6 +2,9 @@
 ## My graduate work:
 
 ## Progress of the graduate work:
+v 0.15.1
+color fixes
+
 v 0.15.0
 The contacts page is ready
 
