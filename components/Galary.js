@@ -1,4 +1,5 @@
-import { Box, Image, Grid } from '@chakra-ui/react';
+import { Box, Grid } from '@chakra-ui/react';
+import Image from 'next/image';
 
 export default function Galary({ imagesArr }) {
     return <>
@@ -12,9 +13,14 @@ export default function Galary({ imagesArr }) {
                         key={index}
                         src={image}
                         alt={`Картинка ${index + 1}`}
-                        height={'20vw'}
-                        width={'40vw'}
-                        borderRadius={'5px'}
+                        height={500}
+                        width={500}
+                        priority={true}
+                        style={{
+                            borderRadius: '5px',
+                            width: '40vw',
+                            height: '20vw',
+                        }}
                     />
                 ))}
             </Grid>

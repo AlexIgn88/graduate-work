@@ -2,6 +2,9 @@
 ## My graduate work:
 
 ## Progress of the graduate work:
+v 0.15.3
+img fixes and other fixes
+
 v 0.15.2
 fixes and new products
 

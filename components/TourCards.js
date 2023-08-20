@@ -1,7 +1,7 @@
-import { Heading, Box, Image, List, ListItem, ListIcon, Stack } from '@chakra-ui/react';
+import { Heading, Box, Image, List, ListItem, Stack } from '@chakra-ui/react';
 import { Card, CardBody, CardFooter } from '@chakra-ui/react';
 import { ModalWindowRecordingForATour } from "../components/modalwindows/ModalWindowRecordingForATour";
-import { FaBusAlt } from 'react-icons/fa';
+
 
 export default function TourCards({ tourData }) {
 
@@ -19,15 +19,13 @@ export default function TourCards({ tourData }) {
                         objectFit='cover'
                         maxW={{ base: '100%', sm: '200px' }}
                     />
-
                     <Stack>
                         <CardBody>
                             <Heading size='md'>{tour.tourName}</Heading>
                             <Box py='2'>
-                            <List textAlign={'justify'}>
+                                <List textAlign={'justify'}>
                                     {tour.tourInformation.map((item, i) => (
                                         <ListItem key={i}>
-                                            {/* <ListIcon as={FaBusAlt} color='yellow.500' /> */}
                                             {Object.values(item)[0]}
                                         </ListItem>
                                     ))}
@@ -35,9 +33,6 @@ export default function TourCards({ tourData }) {
                             </Box>
                         </CardBody>
                         <CardFooter>
-                            {/* <Button variant='solid' colorScheme='blue'>
-                            Записаться
-                        </Button> */}
                             <ModalWindowRecordingForATour />
                         </CardFooter>
                     </Stack>

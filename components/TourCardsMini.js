@@ -1,5 +1,6 @@
-import { Heading, Image, List, ListItem, Stack, Text, Card, CardBody, CardFooter, Divider, ButtonGroup } from '@chakra-ui/react';
+import { Heading, List, ListItem, Stack, Text, Card, CardBody, CardFooter, Divider, ButtonGroup } from '@chakra-ui/react';
 import { ModalWindowRecordingForATour } from "../components/modalwindows/ModalWindowRecordingForATour";
+import Image from 'next/image';
 
 
 export default function TourCardsMini({ tourData }) {
@@ -18,11 +19,19 @@ export default function TourCardsMini({ tourData }) {
                 <Card maxW='sm' h={'100%'}>
                     <CardBody h={'100%'} display={'Flex'} flexDirection={'column'} alignItems={'center'}>
                         <Image
-                            src={tour.tourImage ? tour.tourImage : '/img/tourcard.jpg'}
+                            src={tour.tourImage ?? '/img/tourcard.jpg'}
                             alt={'tour'}
-                            h={'200px'}
-                            borderRadius='lg'
+                            height={200}
+                            width={300}
+                            priority={true}
+                            style={{
+                                borderRadius: '10px',
+                                height: '200px',
+                                objectFit: 'cover',
+                                objectPosition: 'center',
+                            }}
                         />
+
                         <Stack mt='6' spacing='3'>
                             <Heading size='md'>{tour.tourName}</Heading>
                             <List textAlign={'justify'}>

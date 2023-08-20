@@ -40,7 +40,12 @@ export default function Footer({ color }) {
                                 width={100}
                                 height={100}
                                 priority={true}
-                                style={{ borderRadius: '10%', aspectRatio: '4/3' }}
+                                style={{
+                                    borderRadius: '10%',
+                                    aspectRatio: '4/3',
+                                    width: '70px',
+                                    height: 'auto',
+                                }}
                             />
                         </Link>
                         <Box className="footer-about">
