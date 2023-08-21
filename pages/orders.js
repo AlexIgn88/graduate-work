@@ -1,7 +1,7 @@
 import Head from "next/head";
 import GetData from '../components/GetData';
 import { Box } from '@chakra-ui/react';
-import { marginParameters, halfMarginParameters } from '../displayParameters/marginParameters';
+import { halfMarginParameters } from '../displayParameters/marginParameters';
 import OrdersComponent from '../components/OrdersComponent';
 
 
@@ -15,9 +15,7 @@ export default function OrdersPage() {
         </Head>
         <Box
             className="orders-page"
-            m={marginParameters}
-            mt={halfMarginParameters}
-            mb={halfMarginParameters}
+            m={halfMarginParameters}
         >
             <GetData url={API_URL}>
                 <OrdersComponent />

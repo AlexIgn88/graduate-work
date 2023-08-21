@@ -69,10 +69,10 @@ export default async function handler(req, res) {
                     res.status(200).json(productsInOrder)
                   });
               default:
-                return res.status(200).json('You must be signed');
+                return res.status(200).json({ error: 'You must be signed' });
             }
 
-          default: return res.status(200).json('error value');
+          default: return res.status(200).json({ error: 'error value' });
         }
 
       case 'POST':
@@ -156,7 +156,7 @@ export default async function handler(req, res) {
             return;
 
           default:
-            return res.status(200).json('error value');
+            return res.status(200).json({ error: 'error value' });
         }
 
       case 'DELETE':
@@ -208,7 +208,7 @@ export default async function handler(req, res) {
             return;
 
           default:
-            return res.status(200).json('error value');
+            return res.status(200).json({ error: 'error value' });
 
         }
 
@@ -256,7 +256,7 @@ export default async function handler(req, res) {
             return;
 
           default:
-            return res.status(200).json('error value');
+            return res.status(200).json({ error: 'error value' });
 
         }
 

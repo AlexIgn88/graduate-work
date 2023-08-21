@@ -224,12 +224,22 @@ export default function StoreComponent({ data, mutate }) {
 
                 : <Flex flexDirection={'column'} justifyContent={'center'} alignItems={'center'} gap={'20px'}>
                     <Text textAlign={'center'}>Ваша корзина пуста. Для осуществления покупок перейдите, пожалуйста, на страницу Сувенирной лавки</Text>
-                    <Button
-                        as={Link}
-                        href={'/store'}
-                        colorScheme='blue'
-                    >Сувенирная лавка
-                    </Button>
+                    <ButtonGroup flexDirection={flexDirection} gap={'1vw'} alignItems={'baseline'}>
+                        <Button
+                            as={Link}
+                            href={'/store'}
+                            colorScheme='blue'
+                            w={'163px'}
+                        >Сувенирная лавка
+                        </Button>
+                        <Button
+                            as={Link}
+                            href={'/orders'}
+                            colorScheme='blue'
+                            w={'163px'}
+                        >Мои заказы
+                        </Button>
+                    </ButtonGroup>
                 </Flex>
         )
     }
@@ -253,6 +263,7 @@ function NotificationConfirmTheOrder({ onClose, handleAddToOrder }) {
             >
                 <Button
                     colorScheme='blue'
+                    w={'80px'}
                     onClick={() => {
                         onClose();
                         handleAddToOrder();
@@ -260,6 +271,7 @@ function NotificationConfirmTheOrder({ onClose, handleAddToOrder }) {
                 </Button>
                 <Button
                     colorScheme='blue'
+                    w={'80px'}
                     onClick={() => {
                         onClose();
                     }}>Отмена

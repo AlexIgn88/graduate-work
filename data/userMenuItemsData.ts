@@ -1,5 +1,5 @@
 import { page } from '../datatypes/types'
-import { FcSettings, FcBusinessman, FcEmptyTrash, FcFullTrash, FcManager, FcInvite, FcPaid } from "react-icons/fc";
+import { FcSettings, FcBusinessman, FcEmptyTrash, FcFullTrash, FcViewDetails, FcInvite, FcPaid } from "react-icons/fc";
 
 const userMenuItems: page[] = [
     {
@@ -22,11 +22,11 @@ const userMenuItems: page[] = [
         src: '/adminpanel', restricted(session) { return 'admin' === session?.user?.role; },
         icon: FcBusinessman
     },
-    // {
-    //     name: 'Заказы Клиентов',
-    //     src: '/', restricted(session) { return 'admin' === session?.user?.role || 'manager' === session?.user?.role; },
-    //     icon: FcManager
-    // },
+    {
+        name: 'Активные заказы',
+        src: '/orders', restricted(session) { return !!session; },
+        icon: FcViewDetails
+    },
 ];
 
 export default userMenuItems;

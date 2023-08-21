@@ -116,7 +116,14 @@ export default function AdminPanelComponent({ data, mutate }) {
                 <Button onClick={() => setSortCol(false)}>Сбросить сортировку</Button> */}
             </Flex>
             <Grid
-                templateColumns={{ base: "repeat(1, 1fr)", '2xl': "repeat(3, 1fr)", xl: "repeat(2, 1fr)", lg: "repeat(1, 1fr)", md: "repeat(1, 1fr)", sm: "repeat(1, 1fr)" }}
+                templateColumns={{
+                    base: "repeat(1, 1fr)",
+                    '2xl': "repeat(3, 1fr)",
+                    xl: "repeat(2, 1fr)",
+                    lg: "repeat(1, 1fr)",
+                    md: "repeat(1, 1fr)",
+                    sm: "repeat(1, 1fr)"
+                }}
                 gap={5}
                 borderRadius={'5px'}
             >

@@ -112,7 +112,7 @@ model Order {
   userId      String
   productId   Int
   quantity    Int?
-  orderStatus String? @default("Заказ создан")
+  orderStatus String? @default("заказ создан")
   user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   product     Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
