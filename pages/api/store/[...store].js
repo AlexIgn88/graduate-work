@@ -13,6 +13,9 @@ export default async function handler(req, res) {
     { body } = req,
     { store } = req.query,
     [table, id] = store;
+
+  const roleManager = 'manager' === session?.user?.role || 'admin' === session?.user?.role;
+  // console.debug('roleManager=', roleManager);
   console.debug('req.query=', req.query);
   // console.debug('session=', session);
   console.debug('>> ', req.method, ' запрос на', req.url, 'store =', { table, id });
@@ -49,23 +52,33 @@ export default async function handler(req, res) {
             return;
 
           case 'order' === table:
-            if (session && 'manager' === session.user.role) {
-              null //таблицу просмотреть может только менеджер
-            } else {
-              res.status(403).send({
-                error: 'You must be a manager',
-              });
-            }
-            return;
 
-          default:
-            return res.status(200).json('error value');
+            switch (true) {
+              case session && roleManager:
+                return await getAllData(table)
+                  .then(async (result) => {
+                    const productsInOrder = await Promise.all(result.map(async (item) => getOrderItem(item)));
+                    // console.debug('productsInOrder=', productsInOrder)
+                    res.status(200).json(productsInOrder)
+                  });
+              case session && !roleManager:
+                return await getAllDataFromColumnsByValues(table, ['userId'], [session?.user?.id])
+                  .then(async (result) => {
+                    const productsInOrder = await Promise.all(result.map(async (item) => getOrderItem(item)));
+                    // console.debug('productsInOrder=', productsInOrder)
+                    res.status(200).json(productsInOrder)
+                  });
+              default:
+                return res.status(200).json('You must be signed');
+            }
+
+          default: return res.status(200).json('error value');
         }
 
       case 'POST':
 
         switch (true) {
-          case 'product' === table: if (session && 'manager' === session.user.role) {
+          case 'product' === table: if (session && roleManager) {
             null //данные в этой таблице может поменять только менеджер 
           } else {
             res.status(403).send({
@@ -149,7 +162,7 @@ export default async function handler(req, res) {
       case 'DELETE':
 
         switch (true) {
-          case 'product' === table: if (session && 'manager' === session.user.role) {
+          case 'product' === table: if (session && roleManager) {
             return res.status(200).json(await deleteData(table, +id)); //удалять товары из product может только manager
           } else {
             res.status(403).send({
@@ -185,7 +198,7 @@ export default async function handler(req, res) {
             return;
 
           case 'order' === table:
-            if (session && 'manager' === session.user.role) {
+            if (session && roleManager) {
               null //удалять товары из order может только manager
             } else {
               res.status(403).send({
@@ -203,7 +216,7 @@ export default async function handler(req, res) {
       case 'PUT':
 
         switch (true) {
-          case 'product' === table: if (session && 'manager' === session.user.role) {
+          case 'product' === table: if (session && roleManager) {
             return res.status(200).json(await updateData(table, +id, body)); //редактировать товары из product может только manager или как результат заказа
           } else {
             res.status(403).send({
@@ -233,7 +246,7 @@ export default async function handler(req, res) {
             return;
 
           case 'order' === table:
-            if (session && 'manager' === session.user.role) {
+            if (session && roleManager) {
               null //редактировать товары из order может только manager
             } else {
               res.status(403).send({
@@ -254,4 +267,20 @@ export default async function handler(req, res) {
     console.log(`FILE: ${__filename}\nERROR:`, error);
     res.status(500).json({ error });
   }
+}
+
+async function getOrderItem(item) {
+  const { id: orderId, userId, productId, quantity: number, orderStatus } = item;
+
+  const product = await getOneDataFromColumnsByValues('product', ['id'], [productId]);
+  const user = await getOneDataFromColumnsByValues('user', ['id'], [userId]);
+  const { name: productName, price, category, description, quantity: totalNumber, image } = product;
+  const { name: userName, email } = user;
+  const orderItem = {
+    orderId, orderStatus,
+    userId, userName, email,
+    productId, productName, totalNumber, number,
+    price, category, description, image
+  };
+  return orderItem;
 }

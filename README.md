@@ -2,6 +2,9 @@
 ## My graduate work:
 
 ## Progress of the graduate work:
+v 0.16.0
+store API is configured to track orders
+
 v 0.15.3
 img fixes and other fixes
 
