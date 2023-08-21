@@ -16,10 +16,10 @@ export default async function handler(req, res) {
 
   const roleManager = 'manager' === session?.user?.role || 'admin' === session?.user?.role;
   // console.debug('roleManager=', roleManager);
-  console.debug('req.query=', req.query);
+  // console.debug('req.query=', req.query);
   // console.debug('session=', session);
-  console.debug('>> ', req.method, ' запрос на', req.url, 'store =', { table, id });
-  if (req.body) console.log('req.body=', JSON.stringify(req.body));
+  // console.debug('>> ', req.method, ' запрос на', req.url, 'store =', { table, id });
+  // if (req.body) console.log('req.body=', JSON.stringify(req.body));
   if (!['product', 'basket', 'order'].includes(table)) {
     return res.status(404).send({ error: 'wrong table' });
   }
@@ -58,14 +58,12 @@ export default async function handler(req, res) {
                 return await getAllData(table)
                   .then(async (result) => {
                     const productsInOrder = await Promise.all(result.map(async (item) => getOrderItem(item)));
-                    // console.debug('productsInOrder=', productsInOrder)
                     res.status(200).json(productsInOrder)
                   });
               case session && !roleManager:
                 return await getAllDataFromColumnsByValues(table, ['userId'], [session?.user?.id])
                   .then(async (result) => {
                     const productsInOrder = await Promise.all(result.map(async (item) => getOrderItem(item)));
-                    // console.debug('productsInOrder=', productsInOrder)
                     res.status(200).json(productsInOrder)
                   });
               default:
@@ -79,7 +77,7 @@ export default async function handler(req, res) {
 
         switch (true) {
           case 'product' === table: if (session && roleManager) {
-            null //данные в этой таблице может поменять только менеджер 
+            return res.status(200).json(await addData(table, body)) //данные в этой таблице может поменять только менеджер 
           } else {
             res.status(403).send({
               error: 'You must be a manager',
@@ -93,14 +91,9 @@ export default async function handler(req, res) {
               const product = await getOneDataFromColumnByID('product', 'id', +id);
               const productInBasket = await getOneDataFromColumnsByValues(table, ['userId', 'productId'], [session?.user?.id, +id]);
 
-              // console.debug('result=', result);
-              // console.debug('product=', product);
               if (productInBasket !== null) {
 
-                // console.debug('product.quantity=', product.quantity);
-
                 const idInBasket = productInBasket.id;
-                // console.debug('idInBasket=', idInBasket);
                 const bodyParsed = JSON.parse(body);
                 const quantity = bodyParsed.quantity + productInBasket.quantity;
 
@@ -139,7 +132,6 @@ export default async function handler(req, res) {
                     };
 
                     const updatedQuantity = Object.assign({}, { quantity: product.quantity - itemQuantity });
-                    // console.debug('updatedQuantity=', updatedQuantity);
                     const updatedJson = JSON.stringify(updatedQuantity);
                     await updateData('product', +productId, updatedJson)
 
@@ -251,7 +243,7 @@ export default async function handler(req, res) {
 
           case 'order' === table:
             if (session && roleManager) {
-              null //редактировать товары из order может только manager
+              return res.status(200).json(await updateData(table, +id, body));
             } else {
               res.status(403).send({
                 error: 'You must be a manager',
@@ -263,8 +255,6 @@ export default async function handler(req, res) {
             return res.status(200).json({ error: 'error value' });
 
         }
-
-      // return res.status(200).json(await updateData(table, +id, body));
     }
   } catch (error) {
     console.debug(`FILE: ${__filename}\nERROR:`, error);
@@ -275,7 +265,6 @@ export default async function handler(req, res) {
 
 async function getOrderItem(item) {
   const { id: orderId, userId, productId, quantity: number, orderStatus } = item;
-
   const product = await getOneDataFromColumnsByValues('product', ['id'], [productId]);
   const user = await getOneDataFromColumnsByValues('user', ['id'], [userId]);
   const { name: productName, price, category, description, quantity: totalNumber, image } = product;

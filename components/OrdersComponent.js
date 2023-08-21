@@ -1,4 +1,4 @@
-import { Box, Flex, Skeleton, Stack, Button, ButtonGroup, Text, Grid } from "@chakra-ui/react";
+import { Box, Flex, Skeleton, Stack, Button, ButtonGroup, Text, Grid, Select } from "@chakra-ui/react";
 import { useEffect, useState } from 'react';
 import ErrorComponent from '../components/ErrorComponent';
 import { useSession } from 'next-auth/react';
@@ -6,11 +6,12 @@ import { textFontSize } from '../displayParameters/fontParameters';
 import { flexDirection } from '../displayParameters/flexParameters';
 import Link from 'next/link';
 import ModalWindowBlur from '../components/modalwindows/ModalWindowBlur';
+import { CloseIcon, CheckIcon, EditIcon } from '@chakra-ui/icons';
 
 
 export default function OrdersComponent({ data, mutate }) {
 
-    console.log('data=', data);
+    // console.log('data=', data);
 
     //Константы для получения сессии и данных о вошедшем пользователе
     const
@@ -35,7 +36,19 @@ export default function OrdersComponent({ data, mutate }) {
     //     );
     // }, [data]);
 
+    const
+        [inputVal, setInputVal] = useState(''),
+        [selectedForEdit, setSelectedForEdit] = useState(false);
+
     const ordersGapsSeting = { base: '10px', sm: '20px' };
+
+    const orderStatuses = [
+        'заказ создан',
+        'заказ на сборке',
+        'заказ готовится к отправке',
+        'заказ передан в транспортную компанию',
+        'заказ доставлен',
+    ];
 
 
     if (!data) return (
@@ -126,7 +139,24 @@ export default function OrdersComponent({ data, mutate }) {
             }
         }
 
+        async function editData(id, item, inputVal) {
+            // const updated = Object.assign({}, item, { orderStatus: inputVal });
+            const updated = Object.assign({}, { orderStatus: inputVal });
+            setInputVal('');
+            setSelectedForEdit(false);
+            try {
+                mutate(changeDataEdit(id, updated, 'order'));
+            } catch (error) {
+                console.log(`FILE: ${__filename}\nERROR:`, error)
+            } finally {
+                null;
+            }
+        }
+
         async function changeDataEdit(id, updated, table) {
+
+            // const newValue = Object.assign({}, { orderStatus: updated.orderStatus });
+
             try {
                 const response = await fetch(`/api/store/${table}/${id}`, {
                     method: 'PUT',
@@ -138,9 +168,8 @@ export default function OrdersComponent({ data, mutate }) {
                 // console.log('json', json);
 
                 return data?.map(item =>
-                    +item.orderId === +id ? updated : item
+                    +item.orderId === +id ? Object.assign({}, item, { orderStatus: inputVal }) : item
                 )
-                // return data;
 
             } catch (error) {
                 console.log(`FILE: ${__filename}\nERROR:`, error);
@@ -191,7 +220,43 @@ export default function OrdersComponent({ data, mutate }) {
                                     gap={ordersGapsSeting}
                                 >
                                     {roleManager && <Box>Заказ № {item.orderId}</Box>}
-                                    <Box>Статус заказа: {item.orderStatus}</Box>
+
+                                    <Flex alignItems={'center'} gap={'10px'}>
+
+                                        {selectedForEdit
+                                            ? <Box>
+                                                <Select
+                                                    placeholder='Select option'
+                                                    onChange={evt => {
+                                                        setInputVal(evt.target.value);
+                                                    }}
+                                                >
+
+                                                    {orderStatuses.map(status =>
+
+                                                        <option key={status} value={status}>{status}</option>
+                                                    )}
+
+                                                </Select>
+                                                <Button onClick={() => editData(item.orderId, item, inputVal)}><CheckIcon /></Button>
+                                                <Button onClick={() => setSelectedForEdit(false)}><CloseIcon /></Button>
+                                            </Box>
+                                            : (
+                                                <>
+                                                    <Text>Статус заказа: {item.orderStatus}</Text>
+                                                    {roleManager && (
+                                                        <Button onClick={() => {
+                                                            setSelectedForEdit(true);
+                                                        }}>
+                                                            <EditIcon />
+                                                        </Button>
+                                                    )}
+                                                </>
+                                            )
+                                        }
+
+                                    </Flex>
+
                                     <Box>Общая сумма заказа: {(item.price * item.number).toFixed(2)} &#8381;</Box>
                                     {roleManager && <Box>Покупатель: {item.userName}</Box>}
                                     {roleManager && <Box>Email: {item.email}</Box>}
