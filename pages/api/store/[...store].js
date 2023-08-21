@@ -97,7 +97,7 @@ export default async function handler(req, res) {
               // console.debug('product=', product);
               if (productInBasket !== null) {
 
-                console.debug('product.quantity=', product.quantity);
+                // console.debug('product.quantity=', product.quantity);
 
                 const idInBasket = productInBasket.id;
                 // console.debug('idInBasket=', idInBasket);
@@ -130,17 +130,22 @@ export default async function handler(req, res) {
                 .then(async (result) => {
 
                   const addedInOrder = await Promise.all(result.map(async (item) => {
-                    const { id, userId, productId, quantity } = item;
-                    const orderItem = { userId, productId, quantity };
-                    const orderItemJson = JSON.stringify(orderItem);
-                    await addData('order', orderItemJson);
+                    const { id, userId, productId, quantity: itemQuantity } = item;
 
                     const product = await getOneData('product', +productId);
-                    const updatedQuantity = Object.assign({}, { quantity: product.quantity - quantity });
+
+                    if (product.quantity < itemQuantity) return {
+                      noProduct: 'The quantity of goods you have chosen is more than there is in stock'
+                    };
+
+                    const updatedQuantity = Object.assign({}, { quantity: product.quantity - itemQuantity });
                     // console.debug('updatedQuantity=', updatedQuantity);
                     const updatedJson = JSON.stringify(updatedQuantity);
                     await updateData('product', +productId, updatedJson)
 
+                    const orderItem = { userId, productId, quantity: itemQuantity };
+                    const orderItemJson = JSON.stringify(orderItem);
+                    await addData('order', orderItemJson);
                     await deleteData('basket', +id);
                     return orderItem;
                   }));
@@ -198,14 +203,13 @@ export default async function handler(req, res) {
             return;
 
           case 'order' === table:
-            if (session && roleManager) {
-              null //удалять товары из order может только manager
+            if (session) {
+              return res.status(200).json(await deleteData(table, +id));
             } else {
-              res.status(403).send({
-                error: 'You must be a manager',
+              return res.status(403).send({
+                error: 'You must be signed',
               });
             }
-            return;
 
           default:
             return res.status(200).json({ error: 'error value' });
@@ -216,11 +220,11 @@ export default async function handler(req, res) {
       case 'PUT':
 
         switch (true) {
-          case 'product' === table: if (session && roleManager) {
-            return res.status(200).json(await updateData(table, +id, body)); //редактировать товары из product может только manager или как результат заказа
+          case 'product' === table: if (session) {
+            return res.status(200).json(await updateData(table, +id, body));
           } else {
             res.status(403).send({
-              error: 'You must be a manager',
+              error: 'You must be signed',
             });
           }
             return;

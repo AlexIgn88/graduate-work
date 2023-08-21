@@ -237,7 +237,7 @@ export default function StoreComponent({ data, mutate }) {
                             href={'/orders'}
                             colorScheme='blue'
                             w={'163px'}
-                        >Мои заказы
+                        >Активные заказы
                         </Button>
                     </ButtonGroup>
                 </Flex>

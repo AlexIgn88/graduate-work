@@ -83,6 +83,70 @@ export default function OrdersComponent({ data, mutate }) {
 
         // console.log('inputVal', inputVal);
 
+        async function del(orderId, productId, newTotalNumber) {
+            const updatedProductQuantity = Object.assign({}, { quantity: newTotalNumber });
+
+            try {
+                mutate(changeDataDel(orderId));
+                changeDataEdit(productId, updatedProductQuantity, 'product');
+            } catch (error) {
+                console.log(`FILE: ${__filename}\nERROR:`, error);
+            } finally {
+                null;
+            }
+        }
+
+        async function changeDataDel(orderId) {
+            try {
+
+                let response;
+
+                orderId
+                    ? response = await fetch(`/api/store/order/${orderId}`, {
+                        method: 'DELETE',
+                    })
+
+                    : response = await fetch(`/api/store/order`, {
+                        method: 'DELETE',
+                    })
+
+                // console.log('adduser response', response);
+                if (!response.ok) throw new Error('ошибка');
+                const json = await response.json();
+                // console.log('json', json);
+
+                if (orderId) {
+                    return data?.filter(item => orderId !== +item?.orderId)
+                } else {
+                    return [];
+                }
+
+            } catch (error) {
+                console.log(`FILE: ${__filename}\nERROR:`, error);
+            }
+        }
+
+        async function changeDataEdit(id, updated, table) {
+            try {
+                const response = await fetch(`/api/store/${table}/${id}`, {
+                    method: 'PUT',
+                    body: JSON.stringify(updated)
+                });
+                // console.log('adduser response', response);
+                if (!response.ok) throw new Error('ошибка');
+                const json = await response.json();
+                // console.log('json', json);
+
+                return data?.map(item =>
+                    +item.orderId === +id ? updated : item
+                )
+                // return data;
+
+            } catch (error) {
+                console.log(`FILE: ${__filename}\nERROR:`, error);
+            }
+        }
+
 
         return (
             (data.length > 0)
@@ -109,30 +173,48 @@ export default function OrdersComponent({ data, mutate }) {
                     gap={5}
                 >
 
-                    {data.map(item => (
-                        <Box
-                            key={item.orderId}
-                            border={'1px solid black'}
-                            borderRadius={'5px'}
-                            p={'20px'}
-                        >
-                            <Flex
-                                flexDirection={'column'}
-                                gap={ordersGapsSeting}
+                    {data.map(item => {
+
+                        function handleDelOrder() {
+                            return del(item.orderId, item.productId, item.totalNumber + item.number);
+                        }
+
+                        return (
+                            <Box
+                                key={item.orderId}
+                                border={'1px solid black'}
+                                borderRadius={'5px'}
+                                p={'20px'}
                             >
-                                {roleManager && <Box>Заказ № {item.orderId}</Box>}
-                                <Box>Статус заказа: {item.orderStatus}</Box>
-                                <Box>Общая сумма заказа: {(item.price * item.number).toFixed(2)} &#8381;</Box>
-                                {roleManager && <Box>Покупатель: {item.userName}</Box>}
-                                {roleManager && <Box>Email: {item.email}</Box>}
-                                {roleManager && <Box>Категория товара: {item.category}</Box>}
-                                <Box>Наименование товара: {item.productName}</Box>
-                                {roleManager && <Box>Всего на складе: {item.totalNumber}</Box>}
-                                <Box>Заказано в количестве: {item.number}</Box>
-                                <Box>Цена товара: {(item.price).toFixed(2)} &#8381;</Box>
-                            </Flex>
-                        </Box>
-                    ))}
+                                <Flex
+                                    flexDirection={'column'}
+                                    gap={ordersGapsSeting}
+                                >
+                                    {roleManager && <Box>Заказ № {item.orderId}</Box>}
+                                    <Box>Статус заказа: {item.orderStatus}</Box>
+                                    <Box>Общая сумма заказа: {(item.price * item.number).toFixed(2)} &#8381;</Box>
+                                    {roleManager && <Box>Покупатель: {item.userName}</Box>}
+                                    {roleManager && <Box>Email: {item.email}</Box>}
+                                    {roleManager && <Box>Категория товара: {item.category}</Box>}
+                                    <Box>Наименование товара: {item.productName}</Box>
+                                    {roleManager && <Box>Код товара: {item.productId}</Box>}
+                                    {roleManager && <Box>Всего на складе: {item.totalNumber}</Box>}
+                                    <Box>Заказано в количестве: {item.number}</Box>
+                                    <Box>Цена товара: {(item.price).toFixed(2)} &#8381;</Box>
+                                    <Box>
+                                        <ModalWindowBlur
+                                            buttonText={'Отменить заказ'}
+                                            buttonColorScheme={'blue'}
+                                            width={'180px'}
+                                        >
+                                            <NotificationOrderRemoved del={handleDelOrder} />
+                                        </ModalWindowBlur>
+                                    </Box>
+                                </Flex>
+                            </Box>
+                        )
+                    }
+                    )}
                 </Grid>
                 : <Flex flexDirection={'column'} justifyContent={'center'} alignItems={'center'} gap={'20px'}>
                     {!roleManager
@@ -152,4 +234,35 @@ export default function OrdersComponent({ data, mutate }) {
                 </Flex>
         )
     }
+}
+
+function NotificationOrderRemoved({ onClose, del }) {
+
+    return (
+        <Flex
+            flexDirection={'column'}
+            alignItems={'center'}
+            gap={'15px'}
+            fontSize={textFontSize}
+        >
+            <Box textAlign={'center'}>Подтверждаете отмену заказа?</Box>
+
+            <Flex
+                flexDirection={flexDirection}
+                gap={'1vw'}
+
+            >
+                <Button
+                    colorScheme='blue'
+                    onClick={() => { del(); onClose() }}
+                >Удалить
+                </Button>
+                <Button
+                    colorScheme='blue'
+                    onClick={() => {
+                        onClose();
+                    }}>Отмена
+                </Button>
+            </Flex>
+        </Flex>)
 }
