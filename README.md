@@ -2,6 +2,9 @@
 ## My graduate work:
 
 ## Progress of the graduate work:
+v 0.17.4
+fixes
+
 v 0.17.3
 added a ban button for admins and moderators, admins cannot be banned with this button
 

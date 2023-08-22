@@ -9,9 +9,9 @@ export default async function handler(req, res) {
     { body } = req,
     { adminapi } = req.query,
     [table, id] = adminapi;
-  console.debug('req.query=', req.query);
-  console.debug('>> ', req.method, ' запрос на', req.url, 'adminapi =', { table, id });
-  if (req.body) console.log('req.body=', JSON.stringify(req.body));
+  // console.debug('req.query=', req.query);
+  // console.debug('>> ', req.method, ' запрос на', req.url, 'adminapi =', { table, id });
+  // if (req.body) console.log('req.body=', JSON.stringify(req.body));
   if (session && 'admin' === session.user.role) {
     if (!['user', 'account'].includes(table)) {
       return res.status(404).send({ error: 'wrong table' });

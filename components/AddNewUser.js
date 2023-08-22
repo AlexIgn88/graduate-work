@@ -49,7 +49,7 @@ export default function AddNewUser({ data, mutate, onClose }) {
 
     async function changeDataAdd(newUser) {
         try {
-            const response = await fetch('/api/apiuser/user/', {
+            const response = await fetch('/api/admin/user/', {
                 method: 'POST',
                 body: JSON.stringify(newUser)
             });

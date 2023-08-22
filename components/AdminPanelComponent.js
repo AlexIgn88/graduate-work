@@ -1,6 +1,6 @@
 import columnsForAdminPanel from '../data/columnsForAdminPanel';
 import { Flex, Grid, Skeleton, Stack, Input, Button } from "@chakra-ui/react";
-import { CloseIcon, CheckIcon, EditIcon } from '@chakra-ui/icons';
+// import { CloseIcon, CheckIcon, EditIcon } from '@chakra-ui/icons';
 import { Fragment, useState } from 'react';
 import UserDataFragment from '../components/UserDataFragment';
 import ModalWindowBlur from '../components/modalwindows/ModalWindowBlur';
@@ -58,7 +58,7 @@ export default function AdminPanelComponent({ data, mutate }) {
 
         async function changeDataEdit(id, updatedUser) {
             try {
-                const response = await fetch(`/api/apiuser/user/${id}`, {
+                const response = await fetch(`/api/admin/user/${id}`, {
                     method: 'PUT',
                     body: JSON.stringify(updatedUser)
                 });
@@ -85,7 +85,7 @@ export default function AdminPanelComponent({ data, mutate }) {
 
         async function changeDataDel(id) {
             try {
-                const response = await fetch(`/api/apiuser/user/${id}`, {
+                const response = await fetch(`/api/admin/user/${id}`, {
                     method: 'DELETE',
                 });
                 // console.log('adduser response', response);

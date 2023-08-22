@@ -2,13 +2,11 @@ import Head from "next/head";
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import {
-    Box, Flex, Heading, Button, Stack, Text, chakra,
-    // Input, Textarea, Image,
+    Box, Flex, Heading, Button, Text, chakra,
     Card, CardHeader, CardBody, CardFooter, Avatar,
     Skeleton,
     SkeletonCircle, SkeletonText,
     Menu, MenuButton, MenuList, MenuItem,
-    // MenuItemOption, MenuGroup, MenuOptionGroup, MenuDivider,
 } from "@chakra-ui/react";
 import { h4HeadersFontSize, h2HeadersFontSize, textFontSize } from '../../displayParameters/fontParameters';
 import { marginParameters, halfMarginParameters } from '../../displayParameters/marginParameters';
@@ -32,7 +30,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
         [editPostId, setEditPostId] = useState(null),
         [postForEditInputVal, setPostForEditInputVal] = useState('');
 
-    console.log('editPostId=', editPostId, 'postForEditInputVal=', postForEditInputVal);
+    // console.log('editPostId=', editPostId, 'postForEditInputVal=', postForEditInputVal);
 
     //Константы для получения сессии и данных о вошедшем пользователе
     const
@@ -48,7 +46,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
 
     const forumPaddingSeting = { base: '10px', sm: '20px', md: '30px' };
 
-    console.log('data=', data);
+    // console.log('data=', data);
     // console.log('topicId=', topicId);
 
     async function editData(id, key, value) {
