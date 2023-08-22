@@ -20,6 +20,7 @@ export default function NavbarListComponent({ flexDirection, backgroundColor, ba
             className="navbar"
             listStyleType={'none'}
             ml={'0px'}
+            pl={'0px'}
             display={'flex'}
             flexDirection={flexDirection}
             alignItems={'center'}
@@ -47,6 +48,8 @@ export default function NavbarListComponent({ flexDirection, backgroundColor, ba
                                             as={Text}
                                             fontSize="lg"
                                             cursor="pointer"
+                                            position={'relative'}
+                                            left={'10px'}
                                         >
                                             <chakra.span
                                                 className="link"
