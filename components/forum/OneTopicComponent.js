@@ -32,6 +32,8 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
         [editPostId, setEditPostId] = useState(null),
         [postForEditInputVal, setPostForEditInputVal] = useState('');
 
+    console.log('editPostId=', editPostId, 'postForEditInputVal=', postForEditInputVal);
+
     //Константы для получения сессии и данных о вошедшем пользователе
     const
         { data: session } = useSession(),
@@ -46,27 +48,32 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
 
     const forumPaddingSeting = { base: '10px', sm: '20px', md: '30px' };
 
-    // console.log('data=', data);
+    console.log('data=', data);
     // console.log('topicId=', topicId);
 
-    async function editPost(id) {
-        setEditPostId(null);
-        const updatedPost = Object.assign({}, { content: postForEditInputVal });
-        setPostForEditInputVal('');
+    async function editData(id, key, value) {
+        const updated = Object.assign({}, { [key]: value });
+        let ApiAndTableArray;
+
+        if (editPostId) ApiAndTableArray = ['forum', 'post']; else ApiAndTableArray = ['apiuser', 'user'];
+
         try {
-            mutate(changeDataEdit(id, updatedPost));
+            mutate(changeDataEdit(id, updated, ApiAndTableArray));
         } catch (error) {
             console.log(`FILE: ${__filename}\nERROR:`, error);
         } finally {
-            null;
+            if (editPostId) {
+                setEditPostId(null);
+                setPostForEditInputVal('');
+            }
         }
     }
 
-    async function changeDataEdit(id, updatedPost) {
+    async function changeDataEdit(id, updated, ApiAndTableArray) {
         try {
-            const response = await fetch(`/api/forum/post/${id}`, {
+            const response = await fetch(`/api/${ApiAndTableArray[0]}/${ApiAndTableArray[1]}/${id}`, {
                 method: 'PUT',
-                body: JSON.stringify(updatedPost)
+                body: JSON.stringify(updated)
             });
             // console.log('adduser response', response);
             if (!response.ok) throw new Error('ошибка');
@@ -76,7 +83,10 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
             return {
                 ...data,
                 posts: data?.posts.map(item =>
-                    item?.id === id ? updatedPost : item
+                    item?.id === id ? updated : item
+                ),
+                users: data?.users.map(item =>
+                    item?.id === id ? updated : item
                 )
             }
 
@@ -84,6 +94,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
             console.log(`FILE: ${__filename}\nERROR:`, error);
         }
     }
+
 
     async function delPost(id) {
 
@@ -227,8 +238,10 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
 
                     {0 < data?.posts.length && data?.posts?.map((post) => {
 
-                        const currentUser = data?.users?.find((user) => post?.userId === user?.id);
-                        const postAuthor = currentUserId === post?.userId;
+                        const postAuthor = data?.users?.find((user) => post?.userId === user?.id);
+                        const isBanned = postAuthor?.role === 'banned';
+                        const youAreThePostAuthor = currentUserId === postAuthor?.id;
+
 
                         // console.log(post?.createdAt);
 
@@ -253,18 +266,18 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                                 <CardHeader>
                                     <Flex spacing='4'>
                                         <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
-                                            <Avatar name={currentUser?.nickname || currentUser?.name} src={currentUser?.forumAvatar || currentUser?.image} />
+                                            <Avatar name={postAuthor?.nickname || postAuthor?.name} src={postAuthor?.forumAvatar || postAuthor?.image} />
                                             <Box>
                                                 {/* <Heading size='sm'>{currentUser?.nickname || currentUser?.name}</Heading> */}
-                                                <Heading size={h4HeadersFontSize} textDecor={('banned' === currentUser?.role) ? 'line-through' : 'none'}>
-                                                    {currentUser?.nickname || currentUser?.name}
+                                                <Heading size={h4HeadersFontSize} textDecor={('banned' === postAuthor?.role) ? 'line-through' : 'none'}>
+                                                    {postAuthor?.nickname || postAuthor?.name}
                                                 </Heading>
-                                                <Text color={('admin' === currentUser?.role)
+                                                <Text color={('admin' === postAuthor?.role)
                                                     ? 'red'
-                                                    : ('moderator' === currentUser?.role || 'manager' === currentUser?.role)
+                                                    : ('moderator' === postAuthor?.role || 'manager' === postAuthor?.role)
                                                         ? 'blue'
                                                         : 'black'}>
-                                                    {currentUser?.role || 'user'}
+                                                    {postAuthor?.role || 'user'}
                                                 </Text>
                                                 {/* <Text fontSize={textFontSize?.base}>{post?.createdAt}</Text> */}
                                                 <Text fontSize={textFontSize?.base}>Опубликовано {formattedDatePostCreated}</Text>
@@ -292,7 +305,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                                             onInput={evt => setPostForEditInputVal(evt?.target?.value)}
                                             onKeyDown={(evt) =>
                                                 (evt?.keyCode === 13)
-                                                    ? editPost(post.id)
+                                                    ? editData(post.id, 'content', postForEditInputVal)
                                                     : null
                                             }
                                         />
@@ -317,6 +330,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                                             >Действия
                                             </MenuButton>
                                             <MenuList
+                                                zIndex={'4'}
                                             >
                                                 {notBanned &&
                                                     <ModalWindowBlur
@@ -336,21 +350,43 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                                                     </ModalWindowBlur>
                                                 }
 
-                                                {(postAuthor || adminOrModerator) && notBanned &&
-                                                    <MenuItem as={Button} colorScheme='gray' onClick={() => {
-                                                        setEditPostId(post?.id);
-                                                        setPostForEditInputVal(post?.content);
-                                                    }}>Редактировать</MenuItem>
+                                                {(youAreThePostAuthor || adminOrModerator) && notBanned &&
+                                                    <MenuItem
+                                                        as={Button}
+                                                        colorScheme='gray'
+                                                        onClick={() => {
+                                                            setEditPostId(post?.id);
+                                                            setPostForEditInputVal(post?.content);
+                                                        }}
+                                                    >Редактировать
+                                                    </MenuItem>
                                                 }
 
                                                 {adminOrModerator &&
-                                                    <MenuItem as={Button} colorScheme='gray' onClick={() => delPost(post.id)}> Удалить </MenuItem>
+                                                    <MenuItem
+                                                        as={Button}
+                                                        colorScheme='gray'
+                                                        onClick={() => delPost(post.id)}
+                                                    >
+                                                        Удалить
+                                                    </MenuItem>
+                                                }
+
+                                                {adminOrModerator && (postAuthor?.role !== 'admin') &&
+                                                    <MenuItem
+                                                        as={Button}
+                                                        colorScheme='gray'
+                                                        onClick={() =>
+                                                            editData(post.userId, 'role', !isBanned ? 'banned' : 'user')}
+                                                    >
+                                                        {!isBanned ? 'Забанить' : 'Разбанить'}
+                                                    </MenuItem>
                                                 }
 
                                             </MenuList>
                                         </Menu>
                                         : (editPostId === post.id) && <>
-                                            <Button colorScheme='gray' onClick={() => editPost(post.id)}>Сохранить
+                                            <Button colorScheme='gray' onClick={() => editData(post.id, 'content', postForEditInputVal)}>Сохранить
                                             </Button>
                                             <Button colorScheme='gray' onClick={() => {
                                                 setEditPostId(null);
@@ -358,7 +394,6 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                                             </Button>
                                         </>
                                     }
-
                                 </CardFooter>
                             </Card>
                         )
