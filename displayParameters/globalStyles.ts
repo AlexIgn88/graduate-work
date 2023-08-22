@@ -43,6 +43,12 @@ export const globalStyles = {
         'backgroundColor': '#feb849',
         'borderRadius': '50px',
     },
+    // '#chakra-modal-:r7e: .css-1o3pyl4': {
+    //     width: '170px',
+    // },
+    // '#chakra-modal-:r7e:': {
+    //     width: '170px',
+    // },
     '.main-footer': {
         background: 'rgb(40, 28, 21)',
         color: 'white',

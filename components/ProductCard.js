@@ -76,7 +76,7 @@ export default function ProductCard({ children, id, name, price, category, descr
                 </Box>
             </Stack>
         </CardBody>
-        <Divider />
+        {/* <Divider /> */}
         <CardFooter>
             <ButtonGroup spacing='2' flexDirection={flexDirection}>
                 {children}
