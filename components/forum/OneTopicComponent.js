@@ -14,12 +14,8 @@ import { flexDirection } from '../../displayParameters/flexParameters';
 import ModalWindowBlur from '../../components/modalwindows/ModalWindowBlur';
 import AddNewPost from '../../components/forum/AddNewPost';
 import AutoResizableTextarea from '../../components/AutoResizableTextarea';
-import { formatDateTime } from '../../includes/formatDate';
+import { formatRelativeTime } from '../../includes/formatDate';
 import { FcFaq, FcVoicePresentation } from "react-icons/fc";
-
-const Moment = require('mol_time_all').$mol_time_moment;
-
-// console.log(new Moment());
 
 
 export default function OneTopicComponent({ data, mutate, topicId }) {
@@ -127,7 +123,6 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
 
 
     return <>
-
         <Box
             className="topic-page"
             m={marginParameters}
@@ -240,20 +235,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                         const isBanned = postAuthor?.role === 'banned';
                         const youAreThePostAuthor = currentUserId === postAuthor?.id;
 
-
-                        // console.log(post?.createdAt);
-
-                        const postCreatedSring = new Moment(post?.createdAt).toString('YYYY-MM-DD hh:mm (WeekDay)');
-                        const postUpdatedSring = new Moment(post?.updatedAt).toString('YYYY-MM-DD hh:mm (WeekDay)');
-
-                        // console.log(post?.createdAt);
-
-                        const formattedDatePostCreated = formatDateTime(postCreatedSring);
-                        const formattedDatePostUpdated = formatDateTime(postUpdatedSring);
-
                         return (
-
-
                             <Card
                                 key={post?.id + post?.userId + post?.topicId}
                                 className="post"
@@ -266,7 +248,6 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                                         <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
                                             <Avatar name={postAuthor?.nickname || postAuthor?.name} src={postAuthor?.forumAvatar || postAuthor?.image} />
                                             <Box>
-                                                {/* <Heading size='sm'>{currentUser?.nickname || currentUser?.name}</Heading> */}
                                                 <Heading size={h4HeadersFontSize} textDecor={('banned' === postAuthor?.role) ? 'line-through' : 'none'}>
                                                     {postAuthor?.nickname || postAuthor?.name}
                                                 </Heading>
@@ -277,12 +258,10 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                                                         : 'black'}>
                                                     {postAuthor?.role || 'user'}
                                                 </Text>
-                                                {/* <Text fontSize={textFontSize?.base}>{post?.createdAt}</Text> */}
-                                                <Text fontSize={textFontSize?.base}>Опубликовано {formattedDatePostCreated}</Text>
-                                                {/* <Text fontSize={textFontSize?.base}>{post?.updatedAt}</Text> */}
-                                                {formattedDatePostCreated !== formattedDatePostUpdated &&
-                                                    <Text fontSize={textFontSize?.base}>Отредактировано {formattedDatePostUpdated}</Text>}
 
+                                                <Text fontSize={textFontSize?.base}>Опубликовано {formatRelativeTime(post?.createdAt)}</Text>
+                                                {formatRelativeTime(post?.createdAt) !== formatRelativeTime(post?.updatedAt) &&
+                                                    <Text fontSize={textFontSize?.base}>Отредактировано {formatRelativeTime(post?.updatedAt)}</Text>}
                                             </Box>
                                         </Flex>
                                     </Flex>
@@ -309,8 +288,7 @@ export default function OneTopicComponent({ data, mutate, topicId }) {
                                         />
                                     }
                                 </CardBody>
-                                {/* <Text fontSize={textFontSize.base}>ID автора для отладки: {post.userId}</Text>
-                                <Text fontSize={textFontSize.base}>ID поста для отладки: {post.id}</Text> */}
+                                
                                 <CardFooter
                                     justify='space-between'
                                     flexWrap='wrap'

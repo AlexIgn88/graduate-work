@@ -14,11 +14,10 @@ import { h2HeadersFontSize, textFontSize } from '../../displayParameters/fontPar
 import { flexDirection } from '../../displayParameters/flexParameters';
 import ModalWindowBlur from '../modalwindows/ModalWindowBlur';
 import AddNewTopic from './AddNewTopic';
-import { formatDateTime } from '../../includes/formatDate';
+import { formatRelativeTime } from '../../includes/formatDate';
 import { FcLandscape } from "react-icons/fc";
 import { marginParameters, halfMarginParameters } from '../../displayParameters/marginParameters';
 
-const Moment = require('mol_time_all').$mol_time_moment;
 
 export default function ForumComponent({ data, mutate }) {
 
@@ -213,14 +212,6 @@ export default function ForumComponent({ data, mutate }) {
                             // console.log('lastPostAuthor', lastPostAuthor);
                             // console.log(topic?.createdAt);
 
-                            const topicCreatedString = new Moment(topic?.createdAt).toString('YYYY-MM-DD hh:mm (WeekDay)');
-                            // const topicUpdatedSring = new Moment(topic?.updatedAt).toString('YYYY-MM-DD hh:mm (WeekDay)');
-                            const formattedDateTopicCreated = formatDateTime(topicCreatedString);
-                            // const formattedDateTopicUpdated = formatDateTime(topicUpdatedSring);
-
-                            const lastPostCreatedAtString = new Moment(topic.lastPost?.createdAt).toString('YYYY-MM-DD hh:mm (WeekDay)');
-                            const formattedDateLastPostCreatedAt = formatDateTime(lastPostCreatedAtString);
-
                             return (
                                 <Flex
                                     key={topic?.title}
@@ -247,7 +238,6 @@ export default function ForumComponent({ data, mutate }) {
                                                     <Flex flexDirection={flexDirection} alignItems={'center'} gap={'40px'}>
                                                         <Box><Text as={FcLandscape} /></Box>
                                                         <Box size='md'>
-                                                            {/* <h3>ID темы для отладки: {topic.id}</h3> */}
                                                             {editTopicId !== topic?.id
                                                                 ?
                                                                 <Box
@@ -278,34 +268,24 @@ export default function ForumComponent({ data, mutate }) {
                                                                 />
                                                             }
                                                             <Box py='2'>
-                                                                <Box>{topic?.content}</Box>
-                                                                {/* <Text fontSize={textFontSize?.base}>{topic?.createdAt}</Text> */}
-                                                                <Text fontSize={textFontSize?.base}>
-                                                                    Тема создана {formattedDateTopicCreated}
-                                                                </Text>
-                                                                {/* <Text fontSize={textFontSize?.base}>{topic?.updatedAt}</Text> */}
-                                                                {/* <Text fontSize={textFontSize?.base}>Тема обновлена {formattedDateTopicUpdated}</Text> */}
+                                                                {/* <Box>{topic?.content}</Box> */}
+                                                                <Text fontSize={textFontSize?.base}>Тема создана {formatRelativeTime(topic?.createdAt)}</Text>
                                                                 <Box>
                                                                     Автор темы:&#8201;
                                                                     {currentUser?.nickname || currentUser?.name}
                                                                 </Box>
-                                                                {/* <Box>
-                                                                    Статус автора:&#8201;
-                                                                    {currentUser?.role || 'user'}
-                                                                </Box> */}
                                                             </Box>
                                                         </Box>
                                                     </Flex>
 
                                                     <Flex flexGrow={'1'} justifyContent={'flex-end'}>
                                                         <Flex flexDirection={'column'} flexGrow={'1'} alignItems={'flex-end'} mr={marginParameters}>
-                                                            <Text>Последнее сообщение от пользователя {lastPostAuthor}</Text>
-                                                            <Text>Написано в {formattedDateLastPostCreatedAt}</Text>
+                                                            <Text textAlign={'right'}>Последнее сообщение от пользователя</Text>
+                                                            <Text>{lastPostAuthor}</Text>
+                                                            <Text>Опубликовано {formatRelativeTime(topic.lastPost?.createdAt)}</Text>
                                                         </Flex>
                                                     </Flex>
-
                                                 </Flex>
-
                                             </CardBody>
 
                                             <CardFooter>

@@ -2,6 +2,12 @@
 ## My graduate work:
 
 ## Progress of the graduate work:
+v 0.17.5
+Removed the mol_time_all library
+The forum shows the relative time.
+To do this, the formatRelativeTime function is written.
+Fixed a bug with the time display in Firefox.
+
 v 0.17.4 
 fixes
 
