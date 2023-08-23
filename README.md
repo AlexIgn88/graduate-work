@@ -2,7 +2,7 @@
 ## My graduate work:
 
 ## Progress of the graduate work:
-v 0.17.4
+v 0.17.4 
 fixes
 
 v 0.17.3

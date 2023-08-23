@@ -21,7 +21,7 @@ export default function Header({ color }) {
                 alignItems: 'center',
                 paddingTop: '15px',
                 paddingBottom: '15px',
-                paddingLeft: '15px',
+                paddingLeft: '15px'
             }}
         >
 
