@@ -8,13 +8,17 @@ import StoreComponent from '../components/StoreComponent';
 import { useSession } from 'next-auth/react';
 
 
-export default function StorePage() {
+export default function StorePage({ fallback }) {
 
     const API_URL = '/api/store/product';
 
     const
         { data: session } = useSession(),
         currentUserName = session?.user?.name;
+
+    const { data } = fallback;
+
+    // console.log('fallback=', fallback);
 
     return <>
         <Head>
@@ -34,13 +38,13 @@ export default function StorePage() {
 
             <HeadingForPage element={'h1'} content={'Сувенирная лавка'} />
 
-            <SWRConfig>
-                {/* <SWRConfig value={{ fallback }}> */}
+            {/* <SWRConfig> */}
+            <SWRConfig value={data}>
                 <GetData url={API_URL}>
                     <StoreComponent />
                 </GetData>
             </SWRConfig>
-        </Box>
+        </Box >
     </>
 }
 
@@ -48,8 +52,13 @@ export async function getStaticProps() {
     return {
         props: {
             fallback: {
-                '/api/store/product': fictionalDataForForum
+                data: await getStaticData()
             }
         }
     };
 }
+
+const getStaticData = async () =>
+    (await fetcher());
+
+const fetcher = async () => await (await fetch('https://graduate-work-nu.vercel.app/api/store/product')).json();
