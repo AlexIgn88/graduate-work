@@ -1,5 +1,6 @@
 import Head from "next/head";
-import { Text, Box, Flex, Image } from '@chakra-ui/react';
+import { Text, Box, Flex } from '@chakra-ui/react';
+import Image from 'next/image';
 import { marginParameters, halfMarginParameters } from '../../displayParameters/marginParameters';
 import { HeadingForPage } from '../../components/ElemsForPages';
 import Galary from '../../components/Galary';
@@ -31,7 +32,19 @@ export default function KareliaPage() {
                 justifyContent='center'
                 mb={10}
             >
-                <Image src={kareliaMainImage} alt={'picture'} width={'50vw'} borderRadius={'5px'} />
+                <Image
+                    src={kareliaMainImage}
+                    alt={'picture'}
+                    height={500}
+                    width={500}
+                    priority={true}
+                    style={{
+                        borderRadius: '5px',
+                        width: '50vw',
+                        objectFit: 'cover',
+                        objectPosition: 'center',
+                    }}
+                />
             </Flex>
             <Text textAlign={'justify'} mb={10}>
                 &#8194;{kareliaText}

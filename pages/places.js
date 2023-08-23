@@ -2,7 +2,8 @@ import Head from 'next/head';
 import NextLink from 'next/link';
 import { Fragment } from 'react';
 import { places, loremIpsum } from '../data/placesData';
-import { Box, Flex, Heading, Text, useBreakpointValue, Image, Link } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, useBreakpointValue, Link } from "@chakra-ui/react";
+import Image from 'next/image';
 import { textFontSize, h1HeadersFontSize } from '../displayParameters/fontParameters';
 import { marginParametersInArray, halfMarginParameters } from '../displayParameters/marginParameters';
 
@@ -87,12 +88,19 @@ function ImageForCardsFragment({ place, href }) {
                 fontSize={'25px'}
             >
                 <Image
-                    src={place.img ? place.img : '/img/favicon.png'}
+                    src={place.img ?? '/img/favicon.png'}
                     alt={place.name}
-                    borderRadius={'10px'}
-                    width={'30vmax'}
-                >
-                </Image>
+                    height={500}
+                    width={500}
+                    priority={true}
+                    style={{
+                        borderRadius: '10px',
+                        width: '30vmax',
+                        height: '246px',
+                        objectFit: 'cover',
+                        objectPosition: 'center',
+                    }}
+                />
             </Link>
         </Box>)
 }
@@ -112,7 +120,6 @@ function ContentForCardsFragment({ place, href }) {
             >
                 {place.name}
             </Heading>
-
 
             <Box
                 fontSize={textFontSize}
@@ -152,16 +159,9 @@ function ContentForCardsFragment({ place, href }) {
 function FlexWrap({ children }) {
     return (
         <Fragment>
-            <Flex
-            // width={'100%'}
-            // width={{ base: '80vw', '2xl': '40vw', xl: '40vw', lg: '40vw', md: '40vw', sm: '80vw' }}
-            // width={'100%'}
-
-            // alignItems={'center'}
-            >
+            <Flex>
                 {children}
             </Flex>
         </Fragment>
     )
 }
-
