@@ -55,7 +55,6 @@ export default function Navbar() {
                         backgroundColor: 'white',
                         color: '#feb849',
                     }}
-                    ml={'15px'}
                 >
                     <FcMenu />
                 </Button>

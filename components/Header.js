@@ -14,7 +14,15 @@ export default function Header({ color }) {
     return <>
         <header
             className={color ? color + ' main-header' : 'main-header'}
-            style={{ zIndex: '3', display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '15px', paddingBottom: '15px' }}
+            style={{
+                zIndex: '3',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                paddingTop: '15px',
+                paddingBottom: '15px',
+                paddingLeft: '15px',
+            }}
         >
 
             <Flex
@@ -22,7 +30,6 @@ export default function Header({ color }) {
             >
                 <Navbar />
                 {!isWide &&
-
 
                     <Flex
                         display={"flex"}
