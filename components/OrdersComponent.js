@@ -24,18 +24,6 @@ export default function OrdersComponent({ data, mutate }) {
     //Константа для определения количества скелетонов
     const numberOfSkeletons = 6;
 
-    //useState для управляемых инпутов
-    // const
-    //     [inputVal, setInputVal] = useState(false);
-
-    // console.log('inputVal', inputVal);
-
-    // useEffect(() => {
-    //     setInputVal(
-    //         Array.isArray(data) && data.length > 0 && data?.map(({ number }) => number)
-    //     );
-    // }, [data]);
-
     const
         [inputVal, setInputVal] = useState(''),
         [selectedForEdit, setSelectedForEdit] = useState(false);
@@ -44,12 +32,11 @@ export default function OrdersComponent({ data, mutate }) {
 
     const orderStatuses = [
         'заказ создан',
-        'заказ на сборке',
+        'заказ собирают',
         'заказ готовится к отправке',
         'заказ передан в транспортную компанию',
         'заказ доставлен',
     ];
-
 
     if (!data) return (
         <Grid
@@ -139,23 +126,19 @@ export default function OrdersComponent({ data, mutate }) {
             }
         }
 
-        async function editData(id, item, inputVal) {
-            // const updated = Object.assign({}, item, { orderStatus: inputVal });
+        async function editData(id, inputVal) {
             const updated = Object.assign({}, { orderStatus: inputVal });
-            setInputVal('');
-            setSelectedForEdit(false);
             try {
                 mutate(changeDataEdit(id, updated, 'order'));
             } catch (error) {
                 console.log(`FILE: ${__filename}\nERROR:`, error)
             } finally {
-                null;
+                setInputVal('');
+                setSelectedForEdit(false);
             }
         }
 
         async function changeDataEdit(id, updated, table) {
-
-            // const newValue = Object.assign({}, { orderStatus: updated.orderStatus });
 
             try {
                 const response = await fetch(`/api/store/${table}/${id}`, {
@@ -168,7 +151,7 @@ export default function OrdersComponent({ data, mutate }) {
                 // console.log('json', json);
 
                 return data?.map(item =>
-                    +item.orderId === +id ? Object.assign({}, item, { orderStatus: inputVal }) : item
+                    +item.orderId === +id ? Object.assign({}, item, updated) : item
                 )
 
             } catch (error) {
@@ -201,7 +184,6 @@ export default function OrdersComponent({ data, mutate }) {
                     }
                     gap={5}
                 >
-
                     {data.map(item => {
 
                         function handleDelOrder() {
@@ -222,7 +204,6 @@ export default function OrdersComponent({ data, mutate }) {
                                     {roleManager && <Box>Заказ № {item.orderId}</Box>}
 
                                     <Flex alignItems={'center'} gap={'10px'}>
-
                                         {selectedForEdit
                                             ? <Box>
                                                 <Select
@@ -238,7 +219,7 @@ export default function OrdersComponent({ data, mutate }) {
                                                     )}
 
                                                 </Select>
-                                                <Button onClick={() => editData(item.orderId, item, inputVal)}><CheckIcon /></Button>
+                                                <Button onClick={() => editData(item.orderId, inputVal)}><CheckIcon /></Button>
                                                 <Button onClick={() => setSelectedForEdit(false)}><CloseIcon /></Button>
                                             </Box>
                                             : (
@@ -256,7 +237,6 @@ export default function OrdersComponent({ data, mutate }) {
                                         }
 
                                     </Flex>
-
                                     <Box>Общая сумма заказа: {(item.price * item.number).toFixed(2)} &#8381;</Box>
                                     {roleManager && <Box>Покупатель: {item.userName}</Box>}
                                     {roleManager && <Box>Email: {item.email}</Box>}
@@ -315,7 +295,6 @@ function NotificationOrderRemoved({ onClose, del }) {
             <Flex
                 flexDirection={flexDirection}
                 gap={'1vw'}
-
             >
                 <Button
                     colorScheme='blue'

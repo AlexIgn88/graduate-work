@@ -1,19 +1,34 @@
-import { Heading, List, ListItem, Stack, Text, Card, CardBody, CardFooter, Divider, ButtonGroup } from '@chakra-ui/react';
+import { Grid, Box, Heading, List, ListItem, Stack, Text, Card, CardBody, CardFooter, ButtonGroup } from '@chakra-ui/react';
 import { ModalWindowRecordingForATour } from "../components/modalwindows/ModalWindowRecordingForATour";
 import Image from 'next/image';
 
 
 export default function TourCardsMini({ tourData }) {
 
-    return <List
-        spacing={3}
-        mb={10}
-        display={'flex'}
-        flexWrap={'wrap'}
-        justifyContent={'center'}
+    return <Grid
+        // spacing={3}
+        // mb={10}
+        // display={'flex'}
+        // flexWrap={'wrap'}
+        // justifyContent={'center'}
+
+        // templateColumns="repeat(3, 1fr)"
+
+        templateColumns={{
+            base: "repeat(1, 1fr)",
+            '2xl': "repeat(3, 1fr)", // 1536px
+            xl: "repeat(3, 1fr)",    // 1280px
+            lg: "repeat(3, 1fr)",    // 992px
+            md: "repeat(2, 1fr)",    // 768px
+            m: "repeat(2, 1fr)",     // на 560px начинаются проблемы, на 525px появляется прокрутка
+            sm: "repeat(1, 1fr)"     // 480px
+        }}
+
+        gap={5}
+        justifyItems={'center'}
     >
         {tourData.map(tour => (
-            <ListItem
+            <Box
                 key={tour.tourName}
             >
                 <Card maxW='sm' h={'100%'}>
@@ -46,15 +61,14 @@ export default function TourCardsMini({ tourData }) {
                             </List>
                         </Stack>
                     </CardBody>
-                    <Divider />
                     <CardFooter justifyContent={'center'}>
                         <ButtonGroup spacing='2'>
                             <ModalWindowRecordingForATour />
                         </ButtonGroup>
                     </CardFooter>
                 </Card>
-            </ListItem>
+            </Box>
         ))}
-    </List>
+    </Grid>
 }
 
