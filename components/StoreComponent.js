@@ -36,7 +36,7 @@ export default function StoreComponent({ data, mutate }) {
     // console.log('noProduct=', noProduct);
 
     useEffect(() => {
-        setInputVal(Array.isArray(data) && data.length > 0 && Array(data?.length)?.fill(0));
+        setInputVal(Array.isArray(data) && data.length > 0 && Array(data?.length)?.fill(1));
     }, [data]);
 
     const handleOutsideClick = () => {

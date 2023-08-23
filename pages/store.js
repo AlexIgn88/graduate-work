@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { SWRConfig } from 'swr';
 import GetData from '../components/GetData';
 import { Box } from '@chakra-ui/react';
 import { marginParameters, halfMarginParameters } from '../displayParameters/marginParameters';
@@ -33,9 +34,22 @@ export default function StorePage() {
 
             <HeadingForPage element={'h1'} content={'Сувенирная лавка'} />
 
-            <GetData url={API_URL}>
-                <StoreComponent />
-            </GetData>
+            <SWRConfig>
+                {/* <SWRConfig value={{ fallback }}> */}
+                <GetData url={API_URL}>
+                    <StoreComponent />
+                </GetData>
+            </SWRConfig>
         </Box>
     </>
+}
+
+export async function getStaticProps() {
+    return {
+        props: {
+            fallback: {
+                '/api/store/product': fictionalDataForForum
+            }
+        }
+    };
 }

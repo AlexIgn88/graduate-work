@@ -6,21 +6,13 @@ import Image from 'next/image';
 export default function TourCardsMini({ tourData }) {
 
     return <Grid
-        // spacing={3}
-        // mb={10}
-        // display={'flex'}
-        // flexWrap={'wrap'}
-        // justifyContent={'center'}
-
-        // templateColumns="repeat(3, 1fr)"
-
         templateColumns={{
             base: "repeat(1, 1fr)",
             '2xl': "repeat(3, 1fr)", // 1536px
             xl: "repeat(3, 1fr)",    // 1280px
             lg: "repeat(3, 1fr)",    // 992px
             md: "repeat(2, 1fr)",    // 768px
-            m: "repeat(2, 1fr)",     // на 560px начинаются проблемы, на 525px появляется прокрутка
+            m: "repeat(2, 1fr)",     // 560px дополнительный брейк-поинт, без него на 560px начинаются проблемы, на 525px появляется прокрутка
             sm: "repeat(1, 1fr)"     // 480px
         }}
 

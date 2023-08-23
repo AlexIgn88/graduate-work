@@ -1,5 +1,5 @@
 import {
-    Box, Stack, Heading, Text, Divider, ButtonGroup,
+    Box, Stack, Heading, Text, ButtonGroup,
     NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper,
     Card, CardBody, CardFooter,
 } from "@chakra-ui/react";
@@ -9,7 +9,7 @@ import { flexDirection } from '../displayParameters/flexParameters';
 
 export default function ProductCard({ children, id, name, price, category, description, quantity, image, inputVal, setInputVal, productArrIndex }) {
 
-    return <Card maxW='sm' alignItems={'center'} flexGrow={'1'}>
+    return <Card maxW='sm' alignItems={'center'} flexGrow={'1'} border={'1px solid black'}>
         <CardBody display={'flex'} flexDirection={'column'} alignItems={'center'}>
             <Image
                 src={image}
@@ -34,7 +34,7 @@ export default function ProductCard({ children, id, name, price, category, descr
                     Укажите количество:
                     <NumberInput
                         step={1}
-                        defaultValue={+inputVal[productArrIndex] ? +inputVal[productArrIndex] : 0}
+                        defaultValue={+inputVal[productArrIndex]}
                         min={0}
                         max={quantity}
                     >
@@ -77,7 +77,10 @@ export default function ProductCard({ children, id, name, price, category, descr
             </Stack>
         </CardBody>
         <CardFooter>
-            <ButtonGroup spacing='2' flexDirection={flexDirection}>
+            <ButtonGroup
+                spacing='2'
+                flexDirection={flexDirection}
+            >
                 {children}
             </ButtonGroup>
         </CardFooter>

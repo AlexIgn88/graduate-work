@@ -6,12 +6,11 @@ import Layout from '../components/Layout.js';
 import { SessionProvider } from 'next-auth/react';
 import { ChakraProvider, CSSReset } from '@chakra-ui/react';
 import { Toaster } from 'react-hot-toast';
-
 import { extendTheme } from '@chakra-ui/react'
 
 const breakpoints = {
   sm: '30em', // 480px
-  m: '35em',  //560px
+  m: '35em',  //560px дополнительный брейк-поинт
   md: '48em', // 768px
   lg: '62em', // 992px
   xl: '80em', // 1280px
@@ -27,7 +26,6 @@ export default function MyApp({ Component,
 
   return <>
     <Head>
-      {/* <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta> */}
       <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
       <meta keywords="travel agency"></meta>
       <meta name="yandex-verification" content="cf876422267292e9" />
@@ -35,7 +33,6 @@ export default function MyApp({ Component,
     </Head>
     <SessionProvider session={session}>
       <ChakraProvider theme={theme}>
-        {/* <ChakraProvider> */}
         <Global styles={globalStyles} />
         <Layout>
           <Component {...pageProps} />
