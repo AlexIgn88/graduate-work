@@ -1,6 +1,4 @@
-import {
-    Box, Flex, Button, Input, chakra, Grid, Select,
-} from "@chakra-ui/react";
+import { Box, Flex, Button, Input, chakra, Grid, Select } from "@chakra-ui/react";
 import { CloseIcon, CheckIcon, EditIcon } from '@chakra-ui/icons';
 import { Fragment } from 'react';
 import { textFontSize } from '../displayParameters/fontParameters';

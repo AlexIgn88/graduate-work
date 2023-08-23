@@ -144,7 +144,6 @@ export default function AdminPanelComponent({ data, mutate }) {
                     </Fragment>
                 ))}
             </Grid>
-            {/* <pre>{JSON.stringify(data, null, '\t')}</pre> */}
         </>
     }
 }

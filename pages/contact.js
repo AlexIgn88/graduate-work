@@ -1,7 +1,7 @@
 import Head from "next/head";
 import ContactInfo from '../components/ContactInfo';
 import { Text, Button, Box, Flex, Divider } from '@chakra-ui/react';
-import { marginParameters, halfMarginParameters } from '../displayParameters/marginParameters';
+import { halfMarginParameters } from '../displayParameters/marginParameters';
 import { flexDirection } from '../displayParameters/flexParameters';
 import { HeadingForPage } from '../components/ElemsForPages';
 import Link from 'next/link';

@@ -72,7 +72,6 @@ export default function AboutPage() {
                 <Flex
                     mt={10}
                     flexDirection={flexDirection}
-                    // alignItems={'center'}
                     alignItems={'flex-start'}
                     justifyContent={'center'}
                     gap={'10px'}
