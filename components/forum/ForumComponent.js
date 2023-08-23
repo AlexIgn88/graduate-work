@@ -279,8 +279,17 @@ export default function ForumComponent({ data, mutate }) {
                                                     </Flex>
 
                                                     <Flex flexGrow={'1'} justifyContent={'flex-end'}>
-                                                        <Flex flexDirection={'column'} flexGrow={'1'} alignItems={'flex-end'} mr={marginParameters}>
-                                                            <Text textAlign={'right'}>Последнее сообщение от пользователя</Text>
+                                                        <Flex
+                                                            flexDirection={'column'}
+                                                            flexGrow={'1'}
+                                                            alignItems={{ base: 'flex-start', lg: 'flex-end' }}
+                                                            mr={marginParameters}
+                                                        >
+                                                            <Text
+                                                                textAlign={{ base: 'left', lg: 'right' }}
+                                                            >
+                                                                Последнее сообщение от пользователя
+                                                            </Text>
                                                             <Text>{lastPostAuthor}</Text>
                                                             <Text>Опубликовано {formatRelativeTime(topic.lastPost?.createdAt)}</Text>
                                                         </Flex>
