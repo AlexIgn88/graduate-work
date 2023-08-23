@@ -75,7 +75,7 @@ export default function Footer({ color }) {
                                 >
                                     <ListItem className='footer-useful-Links'><Link href="/"><chakra.span color={'grey'}>&#187;</chakra.span> Главная</Link></ListItem>
                                     <ListItem className='footer-useful-Links'><Link href="/about"><chakra.span color={'grey'}>&#187;</chakra.span> О наc</Link></ListItem>
-                                    <ListItem className='footer-useful-Links'><Link href="/galary"><chakra.span color={'grey'}>&#187;</chakra.span> Галерея</Link></ListItem>
+                                    {/* <ListItem className='footer-useful-Links'><Link href="/galary"><chakra.span color={'grey'}>&#187;</chakra.span> Галерея</Link></ListItem> */}
                                     <ListItem className='footer-useful-Links'><Link href="/contact"><chakra.span color={'grey'}>&#187;</chakra.span> Контакты</Link></ListItem>
                                 </UnorderedList>
 

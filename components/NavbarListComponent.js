@@ -49,7 +49,7 @@ export default function NavbarListComponent({ flexDirection, backgroundColor, ba
                                             fontSize="lg"
                                             cursor="pointer"
                                             position={'relative'}
-                                            left={'10px'}
+                                            left={flexDirection === 'column' ? '10px' : '0px'}
                                         >
                                             <chakra.span
                                                 className="link"
