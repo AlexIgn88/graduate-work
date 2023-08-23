@@ -4,7 +4,7 @@ const darkGlobalStyles = {
         backgroundSize: 'cover',
         backgroundRepeat: 'repeat-y',
     },
-    '.main-header, .main-footer': {
+    '.main-header': {
         background: '#060d20',
     },
     '.login-account-info': {

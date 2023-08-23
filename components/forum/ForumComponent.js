@@ -359,8 +359,8 @@ export default function ForumComponent({ data, mutate }) {
                     Дополнительная информация
                 </Heading>
                 <Box className="additional-information-div">
-                    <Box>Сейчас в онлайне: {onlineUsers?.map((user, i) => <chakra.span key={i}>{user},&#160;</chakra.span>)}
-                    </Box>
+                    {/* <Box>Сейчас в онлайне: {onlineUsers?.map((user, i) => <chakra.span key={i}>{user},&#160;</chakra.span>)}
+                    </Box> */}
                     <Box>
                         <chakra.span>Статистика форума:</chakra.span>
                         <Box>

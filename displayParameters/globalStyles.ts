@@ -47,7 +47,7 @@ export const globalStyles = {
     //     width: '170px !important',
     // },
     '.main-footer': {
-        background: 'rgb(40, 28, 21)',
+        background: 'black',
         color: 'white',
         opacity: '100%',
         padding: '20px',

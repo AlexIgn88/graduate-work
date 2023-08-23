@@ -35,6 +35,6 @@ export default function Layout({ children }) {
                 {children}
             </Box>
         </main>
-        <Footer color={theme} />
+        <Footer />
     </>
 };
