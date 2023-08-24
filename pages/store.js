@@ -36,7 +36,6 @@ export default function StorePage({ fallback }) {
             mb={halfMarginParameters}
         >
 
-            {/* <HeadingForPage element={'h1'} content={'Сувенирная лавка'} /> */}
             <Flex justifyContent={'center'} mb={halfMarginParameters}>
                 <Image
                     src={'/img/storelogo.jpg'}
