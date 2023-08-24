@@ -6,6 +6,8 @@ v 0.17.7
 getStaticProps on StorePage 
 updating skeletons of product cards
 stylization of product cards
+gradient on StorePage & BasketPage
+storelogo on StorePage
 
 v 0.17.6
 fix on the forum
