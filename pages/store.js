@@ -1,11 +1,13 @@
 import Head from "next/head";
 import { SWRConfig } from 'swr';
 import GetData from '../components/GetData';
-import { Box } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import { marginParameters, halfMarginParameters } from '../displayParameters/marginParameters';
 import { HeadingForPage } from '../components/ElemsForPages';
 import StoreComponent from '../components/StoreComponent';
 import { useSession } from 'next-auth/react';
+import { Global } from '@emotion/react';
+import Image from 'next/image';
 
 
 export default function StorePage({ fallback }) {
@@ -16,14 +18,17 @@ export default function StorePage({ fallback }) {
         { data: session } = useSession(),
         currentUserName = session?.user?.name;
 
-    const { data } = fallback;
-
     // console.log('fallback=', fallback);
 
     return <>
         <Head>
             <title>Сувенирная лавка</title>
         </Head>
+        <Global styles={{
+            'main': {
+                background: 'linear-gradient(white, #fbfbac)',
+            },
+        }} />
         <Box
             className="store-page"
             m={marginParameters}
@@ -31,15 +36,31 @@ export default function StorePage({ fallback }) {
             mb={halfMarginParameters}
         >
 
+            {/* <HeadingForPage element={'h1'} content={'Сувенирная лавка'} /> */}
+            <Flex justifyContent={'center'} mb={halfMarginParameters}>
+                <Image
+                    src={'/img/storelogo.jpg'}
+                    alt={'store'}
+                    height={200}
+                    width={400}
+                    priority={true}
+                    style={{
+                        borderRadius: '10px',
+                        height: '200px',
+                        width: '400px',
+                        objectFit: 'cover',
+                        objectPosition: 'center',
+                    }}
+                />
+            </Flex>
+
             {session
                 ? <HeadingForPage element={'h2'} content={`Добро пожаловать в нашу сувенирную лавку, ${currentUserName}!`} />
                 : <HeadingForPage element={'h2'} content={'Добро пожаловать в нашу сувенирную лавку!'} />
             }
 
-            <HeadingForPage element={'h1'} content={'Сувенирная лавка'} />
-
-            {/* <SWRConfig> */}
-            <SWRConfig value={data}>
+            {/* <SWRConfig > */}
+            <SWRConfig value={{ fallback }}>
                 <GetData url={API_URL}>
                     <StoreComponent />
                 </GetData>
@@ -48,11 +69,13 @@ export default function StorePage({ fallback }) {
     </>
 }
 
+const API_URL = 'https://graduate-work-nu.vercel.app/api/store/product';
+
 export async function getStaticProps() {
     return {
         props: {
             fallback: {
-                data: await getStaticData()
+                [API_URL]: await getStaticData()
             }
         }
     };
@@ -61,4 +84,4 @@ export async function getStaticProps() {
 const getStaticData = async () =>
     (await fetcher());
 
-const fetcher = async () => await (await fetch('https://graduate-work-nu.vercel.app/api/store/product')).json();
+const fetcher = async () => await (await fetch(API_URL)).json();

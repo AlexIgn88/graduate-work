@@ -21,7 +21,7 @@ export default function StoreComponent({ data, mutate }) {
         currentUserRole = session?.user?.role;
 
     //Константа для определения количества скелетонов
-    const numberOfSkeletons = 5;
+    const numberOfSkeletons = 6;
 
     //useState для управляемых инпутов
     const
@@ -35,11 +35,19 @@ export default function StoreComponent({ data, mutate }) {
         );
     }, [data]);
 
-
     if (!data) return (
-        <Stack flexDirection={flexDirection}>
-            {[...Array(numberOfSkeletons)].map((_, i) => <Skeleton key={i} w={'384px'} h={'735px'} />)}
-        </Stack>
+        <Flex flexDirection={'column'} alignItems={'center'} gap={'20px'}>
+            <Box display={'flex'} alignItems={'baseline'} gap={'1vw'} flexDirection={flexDirection}>
+                <Skeleton w={'167px'} h={'40px'} borderRadius={'0.375rem'} />
+                <Skeleton w={'167px'} h={'40px'} borderRadius={'0.375rem'} />
+            </Box>
+            <Skeleton w={'40vw'} h={'30px'} borderRadius={'0.375rem'} />
+            <Flex gap={'20px'} flexDirection={flexDirection} flexWrap={'wrap'} width={'100%'}>
+                {[...Array(numberOfSkeletons)].map((_, i) => <Flex key={i} flexDirection={'column'} alignItems={'center'} flexGrow={'1'}>
+                    <Skeleton w={'384px'} h={'735px'} borderRadius={'0.375rem'} />
+                </Flex>)}
+            </Flex>
+        </Flex>
     )
 
     if (data?.error) return <ErrorComponent error={data?.error} />
@@ -47,7 +55,6 @@ export default function StoreComponent({ data, mutate }) {
     if (data && (!data?.error)) {
 
         // console.log('inputVal', inputVal);
-
 
         async function del(id) {
 
@@ -116,7 +123,6 @@ export default function StoreComponent({ data, mutate }) {
                 return data?.map(item =>
                     item.id === id ? updated : item
                 )
-
 
             } catch (error) {
                 console.log(`FILE: ${__filename}\nERROR:`, error);

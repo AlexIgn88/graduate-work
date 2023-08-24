@@ -2,6 +2,11 @@
 ## My graduate work:
 
 ## Progress of the graduate work:
+v 0.17.7
+getStaticProps on StorePage 
+updating skeletons of product cards
+stylization of product cards
+
 v 0.17.6
 fix on the forum
 

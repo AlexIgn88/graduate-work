@@ -9,7 +9,7 @@ import { flexDirection } from '../displayParameters/flexParameters';
 
 export default function ProductCard({ children, id, name, price, category, description, quantity, image, inputVal, setInputVal, productArrIndex }) {
 
-    return <Card maxW='sm' alignItems={'center'} flexGrow={'1'} border={'1px solid black'}>
+    return <Card maxW='sm' alignItems={'center'} flexGrow={'1'} border={'1px solid #E8E8E8'} background={'#E8E8E8'}>
         <CardBody display={'flex'} flexDirection={'column'} alignItems={'center'}>
             <Image
                 src={image}
@@ -37,6 +37,8 @@ export default function ProductCard({ children, id, name, price, category, descr
                         defaultValue={+inputVal[productArrIndex]}
                         min={0}
                         max={quantity}
+                        borderRadius={'0.375rem'}
+                        border={'1px solid gray'}
                     >
                         <NumberInputField
                             onChange={evt => {

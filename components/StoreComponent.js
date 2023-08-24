@@ -23,7 +23,7 @@ export default function StoreComponent({ data, mutate }) {
         currentUserRole = session?.user?.role;
 
     //Константа для определения количества скелетонов
-    const numberOfSkeletons = 5;
+    const numberOfSkeletons = 6;
 
     //useState для управляемых инпутов
     const
@@ -44,9 +44,13 @@ export default function StoreComponent({ data, mutate }) {
     };
 
     if (!data) return (
-        <Stack flexDirection={flexDirection}>
-            {[...Array(numberOfSkeletons)].map((_, i) => <Skeleton key={i} w={'384px'} h={'735px'} />)}
-        </Stack>
+        <Flex flexDirection={'column'} alignItems={'center'} gap={'10px'}>
+            <Flex gap={'20px'} flexDirection={flexDirection} flexWrap={'wrap'} width={'100%'}>
+                {[...Array(numberOfSkeletons)].map((_, i) => <Flex key={i} flexDirection={'column'} alignItems={'center'} flexGrow={'1'}>
+                    <Skeleton w={'384px'} h={'735px'} borderRadius={'0.375rem'} />
+                </Flex>)}
+            </Flex>
+        </Flex>
     )
 
     if (data?.error) return <ErrorComponent error={data?.error} />
@@ -103,7 +107,13 @@ export default function StoreComponent({ data, mutate }) {
 
 
         return (
-            inputVal && <Flex flexDirection={'column'} alignItems={'center'} gap={'10px'} onClick={handleOutsideClick}>
+            inputVal &&
+            <Flex
+                flexDirection={'column'}
+                alignItems={'center'}
+                gap={'10px'}
+                onClick={handleOutsideClick}
+            >
                 <Flex gap={'20px'} flexDirection={flexDirection} flexWrap={'wrap'} width={'100%'}>
                     {data.map(({ id, name, price, category, description, quantity, image }, productArrIndex) => {
 

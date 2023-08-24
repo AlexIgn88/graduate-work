@@ -3,6 +3,7 @@ import GetData from '../components/GetData';
 import { Box } from '@chakra-ui/react';
 import { marginParameters, halfMarginParameters } from '../displayParameters/marginParameters';
 import BasketComponent from '../components/BasketComponent';
+import { Global } from '@emotion/react';
 
 
 export default function BasketPage() {
@@ -13,6 +14,11 @@ export default function BasketPage() {
         <Head>
             <title>Корзина</title>
         </Head>
+        <Global styles={{
+            'main': {
+                background: 'linear-gradient(white, #fbfbac)',
+            },
+        }} />
         <Box
             className="basket-page"
             m={marginParameters}

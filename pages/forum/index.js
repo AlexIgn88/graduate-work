@@ -1,4 +1,3 @@
-import { SWRConfig } from 'swr';
 import GetData from '../../components/GetData';
 import ForumComponent from '../../components/forum/ForumComponent';
 import Head from "next/head";
@@ -17,11 +16,8 @@ export default function ForumPage() {
 
         <Global styles={darkGlobalStyles} />
 
-        <SWRConfig>
-            {/* <SWRConfig value={{ fallback }}> */}
-            <GetData url={API_URL}>
-                <ForumComponent />
-            </GetData>
-        </SWRConfig>
+        <GetData url={API_URL}>
+            <ForumComponent />
+        </GetData>
     </>;
 }
