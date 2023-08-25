@@ -19,7 +19,7 @@ export default function PlacesPage() {
     const
         lastItemOfMarginArray = marginParametersInArray.length - 1,
 
-        newBreakpointsInArray = [...marginParametersInArray.slice(0, lastItemOfMarginArray), 60], //60 в Chakra - это 240px
+        newBreakpointsInArray = [...marginParametersInArray.slice(0, lastItemOfMarginArray), 70], //60 в Chakra - это 240px
 
         notWide = useBreakpointValue({ base: true, '2xl': false, xl: false });
 
@@ -96,7 +96,7 @@ function ImageForCardsFragment({ place, href }) {
                     style={{
                         borderRadius: '10px',
                         width: '30vmax',
-                        height: '246px',
+                        height: '350px',
                         objectFit: 'cover',
                         objectPosition: 'center',
                     }}
