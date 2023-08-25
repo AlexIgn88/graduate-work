@@ -1,5 +1,5 @@
 import { Box, Flex, Skeleton, Input, Button, Text, Grid, Select } from "@chakra-ui/react";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ErrorComponent from '../components/ErrorComponent';
 import { useSession } from 'next-auth/react';
 import { textFontSize } from '../displayParameters/fontParameters';
@@ -168,7 +168,7 @@ export default function OrdersComponent({ data, mutate }) {
             }
         }
 
-        
+
         return <>
             {roleManager && <Flex className='filter' flexDirection={'column'} alignItems={'center'} gap={'10px'} mb={'20px'}>
                 <Box>Поиск заказов клиента:</Box>

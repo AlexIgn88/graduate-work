@@ -1,6 +1,5 @@
 import columnsForAdminPanel from '../data/columnsForAdminPanel';
-import { Flex, Grid, Skeleton, Stack, Input, Button } from "@chakra-ui/react";
-// import { CloseIcon, CheckIcon, EditIcon } from '@chakra-ui/icons';
+import { Flex, Grid, Skeleton, Stack, Input } from "@chakra-ui/react";
 import { Fragment, useState } from 'react';
 import UserDataFragment from '../components/UserDataFragment';
 import ModalWindowBlur from '../components/modalwindows/ModalWindowBlur';
@@ -38,7 +37,6 @@ export default function AdminPanelComponent({ data, mutate }) {
             <Skeleton height='200px' />
         </Stack>)
 
-    // if (data?.error) return <Flex justifyContent={'center'} color={'red'}>{data.error}</Flex>
     if (data?.error) return <ErrorComponent error={data?.error} />
 
     if (data && (!data?.error)) {

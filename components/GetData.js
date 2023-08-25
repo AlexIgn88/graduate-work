@@ -23,8 +23,6 @@ export default function GetData({ url, children }) {
 
     // console.log('data=', data);
 
-    //Skeleton is used to display the loading state of some component.
-    //https://chakra-ui.com/docs/components/skeleton
     return <>
         {/* {isLoading && <div className='spinner'>loading....</div>} */}
         {error && <div>Error {error.toString()}</div>}

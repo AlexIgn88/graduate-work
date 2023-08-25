@@ -14,7 +14,6 @@ export function ModalWindowRecordingForATour() {
                     <ModalHeader fontSize={textFontSize}>Для заказа тура или экскурсии свяжитесь, пожалуйста с нашим менеджером</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        {/* <Lorem count={2} /> */}
                         <ContactInfo />
                     </ModalBody>
 
@@ -22,7 +21,6 @@ export function ModalWindowRecordingForATour() {
                         <Button colorScheme='blue' mr={3} onClick={onClose}>
                             Закрыть
                         </Button>
-                        {/* <Button variant='ghost'>Secondary Action</Button> */}
                     </ModalFooter>
                 </ModalContent>
             </Modal>

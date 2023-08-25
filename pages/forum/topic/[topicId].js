@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router'
-import { SWRConfig } from 'swr';
 import GetData from '../../../components/GetData';
 import OneTopicComponent from '../../../components/forum/OneTopicComponent';
 import { Global } from '@emotion/react';
@@ -14,10 +13,10 @@ export default function TopicPage() {
 
     return <>
         <Global styles={darkGlobalStyles} />
-        {topicId && <SWRConfig >
+        {topicId && (
             <GetData url={API_URL}>
                 <OneTopicComponent topicId={topicId} />
-            </GetData>
-        </SWRConfig>}
+            </GetData>)
+        }
     </>
 }

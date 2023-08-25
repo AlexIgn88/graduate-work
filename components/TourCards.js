@@ -14,7 +14,7 @@ export default function TourCards({ tourData }) {
                     variant='outline'
                 >
                     <Image
-                        src={tour.tourImage ? tour.tourImage : '/img/tourcard.jpg'}
+                        src={tour.tourImage ?? '/img/tourcard.jpg'}
                         alt={'tour'}
                         objectFit='cover'
                         maxW={{ base: '100%', sm: '200px' }}

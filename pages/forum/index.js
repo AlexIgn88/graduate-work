@@ -13,9 +13,7 @@ export default function ForumPage() {
         <Head>
             <title>Форум</title>
         </Head>
-
         <Global styles={darkGlobalStyles} />
-
         <GetData url={API_URL}>
             <ForumComponent />
         </GetData>

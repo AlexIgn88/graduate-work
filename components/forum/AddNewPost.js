@@ -1,7 +1,7 @@
-import { Button, Flex, Textarea } from '@chakra-ui/react';
+import { Button, Flex } from '@chakra-ui/react';
 import { textFontSize } from '../../displayParameters/fontParameters';
 import { flexDirection } from '../../displayParameters/flexParameters';
-import { useCallback, memo } from 'react';
+import { useCallback } from 'react';
 import AutoResizableTextarea from '../../components/AutoResizableTextarea';
 
 export default function AddNewPost({ newPostInputVal, setNewPostInputVal, data, mutate, currentUserId, topicId, onClose }) {
@@ -65,7 +65,6 @@ export default function AddNewPost({ newPostInputVal, setNewPostInputVal, data, 
                         ? addPost(newPost)
                         : null
                 }
-
             />
 
             <Flex

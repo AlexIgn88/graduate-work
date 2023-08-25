@@ -1,6 +1,5 @@
 import columnsForUserAccount from '../data/columnsForUserAccount';
 import { Box, Skeleton, Stack } from "@chakra-ui/react";
-// import { CloseIcon, CheckIcon, EditIcon } from '@chakra-ui/icons';
 import { Fragment, useState } from 'react';
 import UserDataFragment from '../components/UserDataFragment';
 import ErrorComponent from '../components/ErrorComponent';

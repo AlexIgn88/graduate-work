@@ -5,13 +5,11 @@ import { flexDirection } from '../../displayParameters/flexParameters';
 
 export default function AddNewTopic({ newTopicInputVal, setNewTopicInputVal, data, mutate, currentUserId, onClose }) {
 
-
     const newTopic = {
         title: newTopicInputVal,
-        content: '', //временная затычка
+        content: '', //задел на будущее
         userId: currentUserId
     };
-
 
     async function addTopic(newTopic) {
         try {

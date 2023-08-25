@@ -1,7 +1,11 @@
 # graduate-work
-## My graduate work:
+## My graduate work: 
+The project is a website of a travel agency with a forum and an online store
 
 ## Progress of the graduate work:
+v 1.0.0
+I cleaned the code from excess. Release version
+
 v 0.17.7
 getStaticProps on StorePage 
 updating skeletons of product cards

@@ -20,7 +20,6 @@ export default function UserAdditionalInformation({ data, mutate }) {
 
     if (data?.error) return <Flex justifyContent={'center'} color={'red'}>{data.error}</Flex>
 
-
     if (data && (!data?.error) && data.length === 0) return (
         <Flex
             fontSize={textFontSize} alignItems={'center'} flexDirection={'column'} gap={'10px'}
@@ -37,20 +36,8 @@ export default function UserAdditionalInformation({ data, mutate }) {
                 <UserDataFragment
                     columns={columns}
                     data={user}
-                // editData={editData}
-                // delData={delData}
-                // inputPlaceholder={'Напишите тут'}
-                // inputVal={inputVal}
-                // setInputVal={setInputVal}
-                // selectedForEdit={selectedForEdit}
-                // setSelectedForEdit={setSelectedForEdit}
-                // API={API}
                 />
             </Box>
         )}
-
-
-        {/* <pre>{JSON.stringify(data, null, '\t')}</pre> */}
     </>
-
 }

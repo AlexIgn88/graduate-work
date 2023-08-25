@@ -1,5 +1,5 @@
 import { page } from '../datatypes/types'
-import { FcSettings, FcBusinessman, FcEmptyTrash, FcFullTrash, FcViewDetails, FcInvite, FcPaid } from "react-icons/fc";
+import { FcSettings, FcInvite, FcPaid, FcBusinessman, FcViewDetails } from "react-icons/fc";
 
 const userMenuItems: page[] = [
     {

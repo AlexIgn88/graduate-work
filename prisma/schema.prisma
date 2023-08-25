@@ -24,8 +24,8 @@ model Account {
   session_state            String?
   refresh_token_expires_in Int?
   client_id                String?
-  email                    String? // чтобы заработал vk-провайдер
-  user_id                  Int? // чтобы заработал vk-провайдер
+  email                    String? // для vk-провайдера
+  user_id                  Int?    // для vk-провайдера
   user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])

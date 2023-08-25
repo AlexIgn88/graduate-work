@@ -12,7 +12,7 @@ export default function TourCardsMini({ tourData }) {
             xl: "repeat(3, 1fr)",    // 1280px
             lg: "repeat(3, 1fr)",    // 992px
             md: "repeat(2, 1fr)",    // 768px
-            m: "repeat(2, 1fr)",     // 560px дополнительный брейк-поинт, без него на 560px начинаются проблемы, на 525px появляется прокрутка
+            m: "repeat(2, 1fr)",     // 560px дополнительный брейк-поинт
             sm: "repeat(1, 1fr)"     // 480px
         }}
 
