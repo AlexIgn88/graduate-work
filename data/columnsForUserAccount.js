@@ -1,9 +1,8 @@
 import { UserAva } from '../includes/cell-wrappers';
-import { Image } from '@chakra-ui/react';
+
 
 const userColumns = [
-    // { name: '', getVal: ({ image }) => <UserAva value={image} /> },
-    { name: 'Фото', nameInBase: 'image', getVal: ({ image }) => <Image src={image} alt="avatar" borderRadius={'10px'} /> },
+    { name: 'Фото', nameInBase: 'image', getVal: ({ name, image }) => <UserAva name={name} value={image} /> },
     { name: 'Имя', nameInBase: 'name', getVal: ({ name }) => name },
     { name: 'Почта', nameInBase: 'email', getVal: ({ email }) => email },
     { name: 'Псевдоним на форуме', nameInBase: 'nickname', getVal: ({ nickname }) => nickname, setVal: val => ({ nickname: val }) },

@@ -11,7 +11,7 @@ import { CloseIcon, CheckIcon, EditIcon } from '@chakra-ui/icons';
 
 export default function OrdersComponent({ data, mutate }) {
 
-    console.log('data=', data);
+    // console.log('data=', data);
 
     //Константы для получения сессии и данных о вошедшем пользователе
     const

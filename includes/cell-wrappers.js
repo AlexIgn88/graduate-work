@@ -4,12 +4,12 @@ export function Img({ value }) {
     return <Image className="" src={value} alt={value} />;
 }
 
-export function UserAva({ value }) {
+export function UserAva({ name, value }) {
     return <Avatar
-        name={value}
+        name={name}
         src={value}
-        width={'150px'}
-        height={'150px'}
+        width={'100px'}
+        height={'100px'}
     />;
 }
 
