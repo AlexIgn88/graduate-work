@@ -138,7 +138,7 @@ export default function StoreComponent({ data, mutate }) {
                                 {session
                                     ? <ModalWindowBlur
                                         buttonText={'Добавить в корзину'}
-                                        buttonColorScheme={'blue'}
+                                        buttonColorScheme={'yellow'}
                                         onClick={+inputVal[productArrIndex] !== 0 ? handleClick : false}
                                     >
                                         {+inputVal[productArrIndex] !== 0
@@ -150,7 +150,7 @@ export default function StoreComponent({ data, mutate }) {
 
                                     : <ModalWindowBlur
                                         buttonText={'Купить сейчас'}
-                                        buttonColorScheme={'blue'}
+                                        buttonColorScheme={'yellow'}
                                     >
                                         <BuyNotLoggedIn />
                                     </ModalWindowBlur>
@@ -187,12 +187,12 @@ function NotificationProductAddedToTheBasket({ onClose, noProduct, setNoProduct 
                 <Button
                     as={Link}
                     href={'/basket'}
-                    colorScheme='blue'
+                    colorScheme='yellow'
                     onClick={() => setNoProduct(false)}
                 >Перейти к корзине
                 </Button>
                 <Button
-                    colorScheme='blue'
+                    colorScheme='yellow'
                     onClick={() => {
                         onClose();
                         setNoProduct(false);
@@ -219,7 +219,7 @@ function NotificationProductQuantityIsNull({ onClose }) {
 
             >
                 <Button
-                    colorScheme='blue'
+                    colorScheme='yellow'
                     onClick={() => {
                         onClose();
                     }}>Закрыть
@@ -243,7 +243,7 @@ function BuyNotLoggedIn({ onClose }) {
             <Box textAlign={'center'}>Также Вы можете купить товар, обратившись к менеджеру</Box>
             <ContactInfo />
             <Button
-                colorScheme='blue'
+                colorScheme='yellow'
                 onClick={() => {
                     onClose();
                 }}>Закрыть

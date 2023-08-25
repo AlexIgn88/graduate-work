@@ -249,7 +249,7 @@ export default function OrdersComponent({ data, mutate }) {
                                     <Box>
                                         <ModalWindowBlur
                                             buttonText={'Отменить заказ'}
-                                            buttonColorScheme={'blue'}
+                                            buttonColorScheme={'yellow'}
                                             width={'180px'}
                                         >
                                             <NotificationOrderRemoved del={handleDelOrder} />
@@ -273,7 +273,7 @@ export default function OrdersComponent({ data, mutate }) {
                     <Button
                         as={Link}
                         href={'/store'}
-                        colorScheme='blue'
+                        colorScheme='yellow'
                     >Сувенирная лавка
                     </Button>
                 </Flex>
@@ -297,12 +297,12 @@ function NotificationOrderRemoved({ onClose, del }) {
                 gap={'1vw'}
             >
                 <Button
-                    colorScheme='blue'
+                    colorScheme='yellow'
                     onClick={() => { del(); onClose() }}
                 >Удалить
                 </Button>
                 <Button
-                    colorScheme='blue'
+                    colorScheme='yellow'
                     onClick={() => {
                         onClose();
                     }}>Отмена

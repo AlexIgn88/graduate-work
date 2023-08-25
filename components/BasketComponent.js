@@ -168,7 +168,7 @@ export default function StoreComponent({ data, mutate }) {
 
                         <ModalWindowBlur
                             buttonText={'Подтвердить заказ'}
-                            buttonColorScheme={'blue'}
+                            buttonColorScheme={'yellow'}
                             width={'167px'}
                         >
                             <NotificationConfirmTheOrder handleAddToOrder={handleAddToOrder} />
@@ -176,7 +176,7 @@ export default function StoreComponent({ data, mutate }) {
 
                         <ModalWindowBlur
                             buttonText={'Очистить корзину'}
-                            buttonColorScheme={'blue'}
+                            buttonColorScheme={'yellow'}
                             width={'167px'}>
                             <NotificationProductRemoved del={del} />
                         </ModalWindowBlur>
@@ -211,11 +211,11 @@ export default function StoreComponent({ data, mutate }) {
                                 >
                                     <Flex alignItems={'baseline'} gap={'1vw'} flexDirection={flexDirection}>
 
-                                        <Button colorScheme='blue' width={'180px'} onClick={() => edit(product, +inputVal[productArrIndex])}>Изменить количество</Button>
+                                        <Button colorScheme='yellow' width={'180px'} onClick={() => edit(product, +inputVal[productArrIndex])}>Изменить количество</Button>
 
                                         <ModalWindowBlur
                                             buttonText={'Удалить товар'}
-                                            buttonColorScheme={'blue'}
+                                            buttonColorScheme={'yellow'}
                                             width={'180px'}
                                         >
                                             <NotificationProductRemoved del={handleDelProduct} />
@@ -234,14 +234,14 @@ export default function StoreComponent({ data, mutate }) {
                         <Button
                             as={Link}
                             href={'/store'}
-                            colorScheme='blue'
+                            colorScheme='yellow'
                             w={'163px'}
                         >Сувенирная лавка
                         </Button>
                         <Button
                             as={Link}
                             href={'/orders'}
-                            colorScheme='blue'
+                            colorScheme='yellow'
                             w={'163px'}
                         >Активные заказы
                         </Button>
@@ -268,7 +268,7 @@ function NotificationConfirmTheOrder({ onClose, handleAddToOrder }) {
 
             >
                 <Button
-                    colorScheme='blue'
+                    colorScheme='yellow'
                     w={'80px'}
                     onClick={() => {
                         onClose();
@@ -276,7 +276,7 @@ function NotificationConfirmTheOrder({ onClose, handleAddToOrder }) {
                     }}>Да
                 </Button>
                 <Button
-                    colorScheme='blue'
+                    colorScheme='yellow'
                     w={'80px'}
                     onClick={() => {
                         onClose();
@@ -304,12 +304,12 @@ function NotificationProductRemoved({ onClose, del }) {
 
             >
                 <Button
-                    colorScheme='blue'
+                    colorScheme='yellow'
                     onClick={() => { del(); onClose() }}
                 >Удалить
                 </Button>
                 <Button
-                    colorScheme='blue'
+                    colorScheme='yellow'
                     onClick={() => {
                         onClose();
                     }}>Отмена

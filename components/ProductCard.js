@@ -24,13 +24,13 @@ export default function ProductCard({ children, id, name, price, category, descr
                 <Text>
                     {description}
                 </Text>
-                <Text color='blue.600' fontSize='2xl'>
+                <Text color='Black.600' fontSize='2xl'>
                     {price.toFixed(2)} &#8381;
                 </Text>
-                <Text color='blue.600' fontSize='2xl'>
+                <Text color='Black.600' fontSize='2xl'>
                     Всего в наличии: {quantity}
                 </Text>
-                <Box color='blue.600' fontSize='2xl'>
+                <Box color='Black.600' fontSize='2xl'>
                     Укажите количество:
                     <NumberInput
                         step={1}
