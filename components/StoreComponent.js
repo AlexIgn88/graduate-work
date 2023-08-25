@@ -1,4 +1,4 @@
-import { Box, Flex, Skeleton, Stack, Button } from "@chakra-ui/react";
+import { Box, Flex, Skeleton, Input, Button } from "@chakra-ui/react";
 import { useEffect, useState } from 'react';
 import ErrorComponent from '../components/ErrorComponent';
 import { useSession } from 'next-auth/react';
@@ -26,10 +26,16 @@ export default function StoreComponent({ data, mutate }) {
     const numberOfSkeletons = 6;
 
     //useState для управляемых инпутов
-    const
-        [inputVal, setInputVal] = useState(false);
+    const [inputVal, setInputVal] = useState(false);
+
+    let viewData;
+    viewData = data;
+
+    const [filterValue, setFilter] = useState('');
 
     // console.log('inputVal', inputVal);
+    // console.log('filterValue', filterValue);
+
 
     const [noProduct, setNoProduct] = useState(false);
 
@@ -56,6 +62,10 @@ export default function StoreComponent({ data, mutate }) {
     if (data?.error) return <ErrorComponent error={data?.error} />
 
     if (data && (!data?.error)) {
+
+        if (filterValue) {
+            viewData = viewData.filter(obj => obj.name.toString().toLowerCase().includes(filterValue.toLowerCase()))
+        }
 
         // console.log('data?.length', data?.length);
 
@@ -114,8 +124,17 @@ export default function StoreComponent({ data, mutate }) {
                 gap={'10px'}
                 onClick={handleOutsideClick}
             >
+                <Flex className='filter' flexDirection={flexDirection} alignItems={'center'} gap={'10px'}>
+                    <span>Поиск:</span>
+                    <Input
+                        type="search"
+                        value={filterValue}
+                        placeholder='Название товара'
+                        onInput={evt => setFilter(evt.target.value.trim())}
+                    />
+                </Flex>
                 <Flex gap={'20px'} flexDirection={flexDirection} flexWrap={'wrap'} width={'100%'}>
-                    {data.map(({ id, name, price, category, description, quantity, image }, productArrIndex) => {
+                    {viewData.map(({ id, name, price, category, description, quantity, image }, productArrIndex) => {
 
                         function handleClick() {
                             return addToBasket(currentUserId, id, productArrIndex, +inputVal[productArrIndex]);

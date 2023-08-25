@@ -1,4 +1,4 @@
-import { Box, Flex, Skeleton, Stack, Button, ButtonGroup, Text, Grid, Select } from "@chakra-ui/react";
+import { Box, Flex, Skeleton, Input, Button, Text, Grid, Select } from "@chakra-ui/react";
 import { useEffect, useState } from 'react';
 import ErrorComponent from '../components/ErrorComponent';
 import { useSession } from 'next-auth/react';
@@ -11,7 +11,7 @@ import { CloseIcon, CheckIcon, EditIcon } from '@chakra-ui/icons';
 
 export default function OrdersComponent({ data, mutate }) {
 
-    // console.log('data=', data);
+    console.log('data=', data);
 
     //Константы для получения сессии и данных о вошедшем пользователе
     const
@@ -27,6 +27,11 @@ export default function OrdersComponent({ data, mutate }) {
     const
         [inputVal, setInputVal] = useState(''),
         [selectedForEdit, setSelectedForEdit] = useState(false);
+
+    let viewData;
+    viewData = data;
+
+    const [filterValue, setFilter] = useState('');
 
     const ordersGapsSeting = { base: '10px', sm: '20px' };
 
@@ -80,6 +85,10 @@ export default function OrdersComponent({ data, mutate }) {
     if (data?.error) return <ErrorComponent error={data?.error} />
 
     if (data && (!data?.error)) {
+
+        if (filterValue) {
+            viewData = viewData.filter(obj => obj.userName.toString().toLowerCase().includes(filterValue.toLowerCase()))
+        }
 
         // console.log('inputVal', inputVal);
 
@@ -159,12 +168,22 @@ export default function OrdersComponent({ data, mutate }) {
             }
         }
 
+        
+        return <>
+            {roleManager && <Flex className='filter' flexDirection={'column'} alignItems={'center'} gap={'10px'} mb={'20px'}>
+                <Box>Поиск заказов клиента:</Box>
+                <Input
+                    type="search"
+                    value={filterValue}
+                    placeholder='Имя клиента'
+                    onInput={evt => setFilter(evt.target.value.trim())}
+                />
+            </Flex>}
 
-        return (
-            (data.length > 0)
+            {(viewData.length > 0)
                 ? <Grid
                     templateColumns={
-                        (data.length > 1)
+                        (viewData.length > 1)
                             ? {
                                 base: "repeat(1, 1fr)",
                                 '2xl': "repeat(2, 1fr)",
@@ -184,7 +203,7 @@ export default function OrdersComponent({ data, mutate }) {
                     }
                     gap={5}
                 >
-                    {data.map(item => {
+                    {viewData.map(item => {
 
                         function handleDelOrder() {
                             return del(item.orderId, item.productId, item.totalNumber + item.number);
@@ -276,8 +295,9 @@ export default function OrdersComponent({ data, mutate }) {
                         colorScheme='yellow'
                     >Сувенирная лавка
                     </Button>
-                </Flex>
-        )
+                </Flex>}
+        </>
+
     }
 }
 
