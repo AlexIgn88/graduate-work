@@ -285,13 +285,25 @@ export default function ForumComponent({ data, mutate }) {
                                                             alignItems={{ base: 'flex-start', lg: 'flex-end' }}
                                                             mr={marginParameters}
                                                         >
-                                                            <Text
-                                                                textAlign={{ base: 'left', lg: 'right' }}
-                                                            >
-                                                                Последнее сообщение от пользователя
-                                                            </Text>
-                                                            <Text>{lastPostAuthor}</Text>
-                                                            <Text>Опубликовано {formatRelativeTime(topic.lastPost?.createdAt)}</Text>
+
+                                                            {topic?.lastPost
+                                                                ? <>
+                                                                    <Text
+                                                                        textAlign={{ base: 'left', lg: 'right' }}
+                                                                    >
+                                                                        Последнее сообщение от пользователя
+                                                                    </Text>
+                                                                    <Text>{lastPostAuthor}</Text>
+                                                                    <Text>
+                                                                        Опубликовано {formatRelativeTime(topic?.lastPost?.createdAt)}
+                                                                    </Text>
+                                                                </>
+                                                                : <Text
+                                                                    textAlign={{ base: 'left', lg: 'right' }}>
+                                                                    Никто еще ничего не написал в этой теме. Станьте первым
+                                                                </Text>
+                                                            }
+
                                                         </Flex>
                                                     </Flex>
                                                 </Flex>

@@ -3,6 +3,9 @@
 The project is a website of a travel agency with a forum and an online store
 
 ## Progress of the graduate work:
+v 1.0.1
+Fixed the display of the time of the first post in topics without posts
+
 v 1.0.0
 I cleaned the code from excess. Release version
 
