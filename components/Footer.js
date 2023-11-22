@@ -160,7 +160,20 @@ export default function Footer({ color }) {
                             </UnorderedList>
                         </Flex>
                     </Flex>
-
+                    <a
+                        href="https://metrika.yandex.ru/stat/?id=95641750&amp;from=informer"
+                        target="_blank"
+                        rel="nofollow">
+                        <img
+                            src="https://informer.yandex.ru/informer/95641750/3_1_FFFFFFFF_EFEFEFFF_0_visits"
+                            style={{ width: '88px', height: '31px', border: '0' }}
+                            alt="Яндекс.Метрика"
+                            title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)"
+                            className="ym-advanced-informer"
+                            data-cid="95641750"
+                            data-lang="ru"
+                        />
+                    </a>
                 </Flex>
             </Box>
             <Divider />
