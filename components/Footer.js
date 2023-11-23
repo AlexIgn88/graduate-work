@@ -160,7 +160,7 @@ export default function Footer({ color }) {
                             </UnorderedList>
                         </Flex>
                     </Flex>
-                    <a
+                    {/* <a
                         href="https://metrika.yandex.ru/stat/?id=95641750&amp;from=informer"
                         target="_blank"
                         rel="nofollow">
@@ -173,7 +173,7 @@ export default function Footer({ color }) {
                             data-cid="95641750"
                             data-lang="ru"
                         />
-                    </a>
+                    </a> */}
                 </Flex>
             </Box>
             <Divider />
