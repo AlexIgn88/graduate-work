@@ -3,6 +3,9 @@
 The project is a website of a travel agency with a forum and an online store
 
 ## Progress of the graduate work:
+v 1.0.2
+aligned the headings on the tours page in the center
+
 v 1.0.1
 Fixed the display of the time of the first post in topics without posts
 
