@@ -40,7 +40,12 @@ export default function TourCardsMini({ tourData }) {
                         />
 
                         <Stack mt='6' spacing='3'>
-                            <Heading size='md'>{tour.tourName}</Heading>
+                            <Heading
+                                size='md'
+                                textAlign={'center'}
+                            >
+                                {tour.tourName}
+                            </Heading>
                             <List textAlign={'justify'}>
                                 {tour.tourInformation.map((item, i) => (
                                     <ListItem key={i}>
